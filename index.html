@@ -161,7 +161,8 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== HERO ===== */
 .hero {
-  padding-top: 140px; padding-bottom: var(--pad-v);
+  min-height: 100vh; padding-top: 140px; padding-bottom: var(--pad-v);
+  display: flex; align-items: center;
   background: linear-gradient(180deg, var(--sage) 0%, var(--sage-gradient) 50%, var(--sage-gradient-light) 75%, var(--white) 100%);
 }
 .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
