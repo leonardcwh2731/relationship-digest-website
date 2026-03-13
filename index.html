@@ -192,6 +192,9 @@ a { color: inherit; text-decoration: none; }
 }
 .card-dark:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.2); transform: translateY(-2px); }
 
+/* Utility */
+.mobile-break { display: none; }
+
 /* Animations */
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 300ms ease, transform 300ms ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -667,7 +670,7 @@ a { color: inherit; text-decoration: none; }
 .final-cta .cta-headline { margin-bottom: 20px; max-width: 680px; margin-left: auto; margin-right: auto; }
 .final-cta .subtitle { margin-bottom: 32px; }
 
-/* Sticky Bottom CTA */
+/* Sticky Bottom CTA — hidden on mobile */
 .sticky-bottom-cta {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
   background: var(--olive-deep); border-top: none;
@@ -750,12 +753,17 @@ a { color: inherit; text-decoration: none; }
   .compare-divider { display: none; }
   .tracking-compare { grid-template-columns: 1fr; }
   .bonus-box { padding: 32px 24px; }
-  .sticky-bottom-cta .container { flex-direction: column; gap: 12px; }
+  .sticky-bottom-cta { display: none !important; }
   .testimonial-grid { gap: 40px; }
   .testimonial-headshot { width: 160px; height: 160px; }
   .step { gap: 20px; margin-bottom: 36px; }
   .step-number { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
   .steps::before { left: 19px; }
+  .hero { min-height: auto; padding-bottom: 60px; }
+  .mobile-break { display: block; }
+  .tracking-compare { grid-template-columns: 1fr !important; }
+  .hero-bonuses-note { text-align: center; }
+  section { padding-bottom: calc(var(--pad-v) + 20px); }
 }
 
 @media (max-width: 480px) {
@@ -834,7 +842,7 @@ a { color: inherit; text-decoration: none; }
           <a href="https://cal.com/leonard-veraops/connection-call" class="btn btn-sage-lg">Book a Discovery Call &rarr;</a>
           <a href="#digest" class="hero-see-sample">See sample digest <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
         </div>
-        <p style="margin-top:12px; font-size:13px; color:var(--muted); font-style:italic;">Up to $9,000 in bonuses.</p>
+        <p class="hero-bonuses-note" style="margin-top:12px; font-size:13px; color:var(--muted); font-style:italic;">Up to $9,000 in bonuses.</p>
       </div>
       <div class="hero-visual">
         <div class="digest-mockup">
@@ -1465,7 +1473,7 @@ a { color: inherit; text-decoration: none; }
     <div class="fade-in">
       <div class="guarantee-card">
         <div class="section-label" style="text-align:center;">Our Promise</div>
-        <h2 class="section-headline" style="text-align:center;">Our 30-Day &ldquo;My Spouse Asked&rdquo; Guarantee</h2>
+        <h2 class="section-headline" style="text-align:center;">Our 30-Day <br class="mobile-break">&ldquo;My Spouse Asked&rdquo; Guarantee</h2>
         <div class="guarantee-body">
           <p>After 30 days, you should have a Relationship Audit, Relationship Referral, monthly snapshot, and 20+ daily digests.</p>
           <br>
