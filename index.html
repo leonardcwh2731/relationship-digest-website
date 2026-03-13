@@ -644,6 +644,20 @@ a { color: inherit; text-decoration: none; }
 .faq-item.open .faq-answer { max-height: 400px; padding-top: 16px; }
 .faq-answer p { font-size: 15px; color: var(--text-mid); line-height: 1.7; }
 
+/* Testimonials */
+.testimonial-grid {
+  display: flex; justify-content: center; gap: 64px; margin-top: 48px;
+}
+.testimonial-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.testimonial-headshot {
+  width: 200px; height: 200px; border-radius: 16px; object-fit: cover;
+  border: 2px solid var(--card-border); background: var(--sage); margin-bottom: 24px;
+}
+.testimonial-name { font-size: 15px; font-weight: 700; color: var(--black); }
+.testimonial-role { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
 /* Final CTA */
 .final-cta {
   text-align: center; padding: var(--pad-v) 0;
@@ -1285,8 +1299,30 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section-white blend-white-to-sage" id="testimonials">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <div class="section-label">Who's Using It</div>
+      <h2 class="section-headline">Trusted by video production agency owners.</h2>
+    </div>
+    <div class="testimonial-grid fade-in">
+      <div class="testimonial-card">
+        <img class="testimonial-headshot" src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&height=800" alt="Frank Siringo">
+        <div class="testimonial-name">Frank Siringo</div>
+        <div class="testimonial-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
+      </div>
+      <div class="testimonial-card">
+        <img class="testimonial-headshot" src="https://framerusercontent.com/images/mYkr5SA78uuk3GOTGOKNAWeMugg.jpeg?width=800&height=800" alt="Patrick Rafferty">
+        <div class="testimonial-name">Patrick Rafferty</div>
+        <div class="testimonial-role">Executive Producer &middot; RaffertyWeiss Media, DC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== BONUSES ===== -->
-<section class="section-white blend-white-to-sage" id="features">
+<section class="section-sage blend-sage-to-white" id="features">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Included Free</div>
@@ -1907,6 +1943,25 @@ if (heroSub) {
   }, { threshold: 0.5 });
   markObserver.observe(heroSub);
 }
+
+// Testimonial slider
+const testimonialTrack = document.getElementById('testimonialTrack');
+const testimonialDots = document.querySelectorAll('.testimonial-dot');
+let currentSlide = 0;
+testimonialDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    currentSlide = parseInt(dot.dataset.slide);
+    testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+    testimonialDots.forEach(d => d.classList.remove('active'));
+    dot.classList.add('active');
+  });
+});
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % testimonialDots.length;
+  testimonialTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+  testimonialDots.forEach(d => d.classList.remove('active'));
+  testimonialDots[currentSlide].classList.add('active');
+}, 5000);
 
 // FAQ
 function toggleFaq(el) {
