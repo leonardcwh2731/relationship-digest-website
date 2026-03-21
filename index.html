@@ -1376,11 +1376,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 480px) {
-  /* How It Works tabs - stack for very small screens */
-  .hiw-tab { flex: 1 1 100%; padding: 12px 16px; text-align: left; display: flex; align-items: center; gap: 8px; }
-  .hiw-tab-num { display: inline; margin-bottom: 0; margin-right: 4px; }
-  .hiw-tab-name { display: inline; font-size: 14px; }
-  .hiw-tab-sub { display: none; }
+  /* How It Works tabs - hide, replaced by dropdown on mobile */
   .hiw-panel-heading { font-size: 20px; }
   .hiw-panel-body p { font-size: 14px; }
 
@@ -1406,6 +1402,72 @@ a { color: inherit; text-decoration: none; }
   /* Signal & scan slides smaller */
   .signal-slide { min-width: 220px; max-width: 220px; }
   .scan-slide { min-width: 240px; max-width: 240px; }
+}
+
+/* ===== MOBILE-ONLY: Digest info tooltips ===== */
+.digest-info-btn {
+  display: none; width: 20px; height: 20px; min-width: 20px; border-radius: 50%;
+  background: var(--sage); border: 1px solid var(--card-border);
+  color: var(--olive-deep); font-size: 11px; font-weight: 700;
+  align-items: center; justify-content: center; cursor: pointer;
+  margin-left: 8px; vertical-align: middle; position: relative;
+}
+.digest-info-popup {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--olive-deep); color: var(--white); padding: 12px 16px;
+  border-radius: var(--radius); font-size: 12px; font-weight: 500; line-height: 1.5;
+  width: max-content; max-width: 220px; text-align: left; z-index: 20;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.digest-info-popup::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--olive-deep);
+}
+.digest-info-btn.show-popup .digest-info-popup { display: block; }
+
+/* Mobile: How It Works dropdown */
+.hiw-mobile-select {
+  display: none; width: 100%; padding: 14px 16px; font-size: 15px; font-weight: 600;
+  font-family: inherit; border: 1.5px solid var(--card-border); border-radius: var(--radius);
+  background: var(--white); color: var(--text-dark); appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%233D4F1E' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+  cursor: pointer; margin-top: 48px;
+}
+
+/* Mobile: Privacy carousel nav */
+.privacy-mobile-nav {
+  display: none; justify-content: space-between; align-items: center;
+  margin-top: 16px; padding: 0 4px;
+}
+.privacy-mobile-nav button {
+  background: var(--sage); border: 1px solid var(--card-border); border-radius: 50%;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--olive-deep); font-size: 16px; font-weight: 700;
+}
+.privacy-mobile-nav button:hover { background: var(--sage-mid); }
+.privacy-mobile-counter {
+  font-size: 13px; font-weight: 600; color: var(--muted);
+}
+
+/* Mobile: Testimonial slideshow */
+.testimonial-grid { position: relative; }
+
+@media (max-width: 768px) {
+  /* Digest info buttons visible */
+  .digest-info-btn { display: inline-flex; }
+
+  /* HIW dropdown replaces tabs */
+  .hiw-mobile-select { display: block; }
+  .hiw-tabs { display: none !important; }
+
+  /* Privacy: hide tabs, show carousel nav */
+  .privacy-tabs { display: none !important; }
+  .privacy-mobile-nav { display: flex; }
+
+  /* Testimonial slideshow */
+  .testimonial-card { display: none; }
+  .testimonial-card.mobile-active { display: flex; }
 }
 </style>
 </head>
@@ -1553,6 +1615,15 @@ a { color: inherit; text-decoration: none; }
       <h2 class="section-headline">From dormant inbox to active pipeline.</h2>
       <p class="subtitle" style="margin-top:12px;">No dashboard. No logins. Just five simple steps.</p>
     </div>
+
+    <!-- Mobile Dropdown (hidden on desktop) -->
+    <select class="hiw-mobile-select" id="hiwMobileSelect">
+      <option value="onboard">01 &mdash; Onboard</option>
+      <option value="scan">02 &mdash; Scan</option>
+      <option value="signal">03 &mdash; Signal</option>
+      <option value="surface">04 &mdash; Surface</option>
+      <option value="track">05 &mdash; Track</option>
+    </select>
 
     <!-- Tab Navigation -->
     <div class="hiw-tabs fade-in">
@@ -2139,7 +2210,7 @@ a { color: inherit; text-decoration: none; }
           <div class="digest-full-meta">Monday, March 9, 2026 &nbsp;|&nbsp; Daily quota: 3 contacts</div>
 
           <div class="digest-full-section" id="digest-sec-contact">
-            <div class="digest-full-section-title">Connection Details</div>
+            <div class="digest-full-section-title">Connection Details <button class="digest-info-btn" data-info="1"><span>1</span><div class="digest-info-popup"><strong>Contact Intelligence</strong><br>Tier level, confidence score, and last contact date so you know exactly where you stand.</div></button></div>
             <div class="digest-full-contact">1. Rachel Moreno &mdash; Account Manager, Bolt Communications</div>
             <div class="digest-full-tier">
               <span>Tier A</span> &middot; <span>Confidence: High</span> &middot; <span>Last contacted: About 14 months ago</span>
@@ -2147,12 +2218,12 @@ a { color: inherit; text-decoration: none; }
           </div>
 
           <div class="digest-full-section" id="digest-sec-refresher">
-            <div class="digest-full-section-title">Quick Refresher</div>
+            <div class="digest-full-section-title">Quick Refresher <button class="digest-info-btn" data-info="2"><span>2</span><div class="digest-info-popup"><strong>Relationship Narrative</strong><br>A full summary of how you know this person, your shared history, and the nature of the relationship.</div></button></div>
             <div class="digest-full-refresher">Rachel managed the Bolt Communications account when you produced their 2024 product launch campaign. She loved the final cut and mentioned future projects for Q1. You never followed up after wrapping post-production. She&rsquo;s since been promoted and now oversees a larger content budget across multiple clients.</div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-history">
-            <div class="digest-full-section-title">Shared History</div>
+            <div class="digest-full-section-title">Shared History <button class="digest-info-btn" data-info="3"><span>3</span><div class="digest-info-popup"><strong>Shared History &amp; Referrals</strong><br>Past projects, referrals given and received, and conversation topics at a glance.</div></button></div>
             <div class="digest-full-pills">
               <span class="digest-full-pill">Product launch video</span>
               <span class="digest-full-pill">Brand campaign</span>
@@ -2167,7 +2238,7 @@ a { color: inherit; text-decoration: none; }
           </div>
 
           <div class="digest-full-section" id="digest-sec-activity">
-            <div class="digest-full-section-title">What They&rsquo;re Up To</div>
+            <div class="digest-full-section-title">What They&rsquo;re Up To <button class="digest-info-btn" data-info="4"><span>4</span><div class="digest-info-popup"><strong>Live Activity Feed</strong><br>Recent LinkedIn posts and news signals so you know what they&rsquo;re working on right now.</div></button></div>
             <div class="digest-full-post">
               <span class="post-date">2026-03-05</span>
               <a href="#">Just wrapped a rebrand for a fintech client &mdash; the video content drove 3x engagement vs. static</a>
@@ -2179,12 +2250,12 @@ a { color: inherit; text-decoration: none; }
           </div>
 
           <div class="digest-full-section" id="digest-sec-angle">
-            <div class="digest-full-section-title">Why Reach Out Today</div>
+            <div class="digest-full-section-title">Why Reach Out Today <button class="digest-info-btn" data-info="5"><span>5</span><div class="digest-info-popup"><strong>Contextual Angle</strong><br>The specific reason to reach out today, tying their latest signals to your shared history.</div></button></div>
             <div class="digest-full-why">Rachel&rsquo;s agency just onboarded new clients with video-heavy campaigns launching in Q2. She&rsquo;s already seen your work firsthand and loved it... this is the perfect moment to reconnect before they lock in production partners.</div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-draft">
-            <div class="digest-full-section-title">Suggested Email</div>
+            <div class="digest-full-section-title">Suggested Email <button class="digest-info-btn" data-info="6"><span>6</span><div class="digest-info-popup"><strong>Voice-Matched Draft</strong><br>A complete email draft written in your voice, with subject line, ready to edit and send.</div></button></div>
             <div class="digest-full-email-box">
               <div class="digest-full-email-subject"><strong>Subject:</strong> Congrats on the new clients + a thought</div>
               <div class="digest-full-email-body">
@@ -2197,7 +2268,7 @@ a { color: inherit; text-decoration: none; }
           </div>
 
           <div class="digest-full-actions" id="digest-sec-actions">
-            <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
+            <button class="digest-full-btn digest-full-btn-dark" style="position:relative;">Send Email <span class="digest-info-btn" data-info="7" style="position:absolute; right:10px; top:50%; transform:translateY(-50%);"><span>7</span><div class="digest-info-popup"><strong>One-Click Actions</strong><br>Send the email or open their LinkedIn profile directly from your digest.</div></span></button>
             <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
           </div>
         </div>
@@ -2388,6 +2459,13 @@ a { color: inherit; text-decoration: none; }
         <button class="privacy-tab" data-privtab="exposed">Works like other tools.</button>
         <button class="privacy-tab" data-privtab="control">Always in control.</button>
         <button class="privacy-tab" data-privtab="talk">Speak to an active user.</button>
+      </div>
+
+      <!-- Privacy Mobile Carousel Nav (hidden on desktop) -->
+      <div class="privacy-mobile-nav" id="privacyMobileNav">
+        <button id="privPrev">&larr;</button>
+        <span class="privacy-mobile-counter"><span id="privCurrent">1</span> / 4</span>
+        <button id="privNext">&rarr;</button>
       </div>
 
       <!-- Privacy Tab Panels -->
@@ -3091,7 +3169,7 @@ document.querySelectorAll('.hiw-tab').forEach(tab => {
   });
 });
 
-// Privacy tabs
+// Privacy tabs (desktop)
 document.querySelectorAll('.privacy-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
@@ -3099,7 +3177,87 @@ document.querySelectorAll('.privacy-tab').forEach(tab => {
     tab.classList.add('active');
     const panel = document.getElementById('privpanel-' + tab.dataset.privtab);
     if (panel) panel.classList.add('active');
+    // Sync mobile counter
+    const panels = ['expensive','exposed','control','talk'];
+    const idx = panels.indexOf(tab.dataset.privtab);
+    if (idx >= 0) { privacyMobileIndex = idx; updatePrivacyCounter(); }
   });
+});
+
+// Privacy mobile carousel
+let privacyMobileIndex = 0;
+const privPanelIds = ['expensive','exposed','control','talk'];
+function showPrivacyPanel(idx) {
+  privacyMobileIndex = idx;
+  document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.privacy-panel').forEach(p => p.classList.remove('active'));
+  const tab = document.querySelector('.privacy-tab[data-privtab="' + privPanelIds[idx] + '"]');
+  if (tab) tab.classList.add('active');
+  const panel = document.getElementById('privpanel-' + privPanelIds[idx]);
+  if (panel) panel.classList.add('active');
+  updatePrivacyCounter();
+}
+function updatePrivacyCounter() {
+  const counter = document.getElementById('privCurrent');
+  if (counter) counter.textContent = privacyMobileIndex + 1;
+}
+const privPrev = document.getElementById('privPrev');
+const privNext = document.getElementById('privNext');
+if (privPrev) privPrev.addEventListener('click', () => {
+  showPrivacyPanel(privacyMobileIndex <= 0 ? privPanelIds.length - 1 : privacyMobileIndex - 1);
+});
+if (privNext) privNext.addEventListener('click', () => {
+  showPrivacyPanel(privacyMobileIndex >= privPanelIds.length - 1 ? 0 : privacyMobileIndex + 1);
+});
+
+// How It Works mobile dropdown
+const hiwSelect = document.getElementById('hiwMobileSelect');
+if (hiwSelect) {
+  hiwSelect.addEventListener('change', () => {
+    document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.hiw-panel').forEach(p => p.classList.remove('active'));
+    const tab = document.querySelector('.hiw-tab[data-tab="' + hiwSelect.value + '"]');
+    if (tab) tab.classList.add('active');
+    const panel = document.getElementById('panel-' + hiwSelect.value);
+    if (panel) panel.classList.add('active');
+  });
+}
+
+// Testimonial mobile slideshow
+(function() {
+  const cards = document.querySelectorAll('.testimonial-card');
+  if (cards.length < 2) return;
+  let currentTestimonial = 0;
+  function isMobile() { return window.innerWidth <= 768; }
+  function updateTestimonials() {
+    if (!isMobile()) {
+      cards.forEach(c => { c.style.display = ''; c.classList.remove('mobile-active'); });
+      return;
+    }
+    cards.forEach((c, i) => {
+      c.classList.toggle('mobile-active', i === currentTestimonial);
+    });
+  }
+  setInterval(() => {
+    if (!isMobile()) return;
+    currentTestimonial = (currentTestimonial + 1) % cards.length;
+    updateTestimonials();
+  }, 3000);
+  updateTestimonials();
+  window.addEventListener('resize', updateTestimonials);
+})();
+
+// Digest info buttons (mobile popups)
+document.querySelectorAll('.digest-info-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wasOpen = btn.classList.contains('show-popup');
+    document.querySelectorAll('.digest-info-btn').forEach(b => b.classList.remove('show-popup'));
+    if (!wasOpen) btn.classList.add('show-popup');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.digest-info-btn').forEach(b => b.classList.remove('show-popup'));
 });
 </script>
 </body>
