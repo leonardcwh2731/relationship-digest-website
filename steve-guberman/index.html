@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Relationship Digest — VeraOps</title>
-<meta name="description" content="AI-powered relationship intelligence for agency owners. Scans your inbox to surface the clients, partners, and decision-makers you should reconnect with today.">
+<meta name="description" content="AI-powered relationship intelligence for video production agency owners. Scans your inbox to surface the creative directors, agency contacts, and brand decision-makers you should reconnect with today.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
@@ -371,6 +371,18 @@ a { color: inherit; text-decoration: none; }
   .digest-annotations-left { text-align: left; }
   .digest-annotations-left .digest-annotation { flex-direction: row; }
   .digest-annotation { flex: 1 1 45%; }
+  .digest-annotations-left .digest-annotation:nth-child(1),
+  .digest-annotations-left .digest-annotation:nth-child(2),
+  .digest-annotations-left .digest-annotation:nth-child(3),
+  .digest-annotations-left .digest-annotation:nth-child(4),
+  .digest-annotations-right .digest-annotation:nth-child(1),
+  .digest-annotations-right .digest-annotation:nth-child(2),
+  .digest-annotations-right .digest-annotation:nth-child(3) { margin-top: 0; }
+  .digest-annotations-left .digest-annotation::after,
+  .digest-annotations-right .digest-annotation::before { display: none; }
+  #digest-sec-contact, #digest-sec-refresher, #digest-sec-history,
+  #digest-sec-activity, #digest-sec-angle, #digest-sec-draft,
+  #digest-sec-actions { border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
 }
 
 /* Digest Deep-Dive (legacy) */
@@ -877,12 +889,12 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 10px; color: var(--olive-deep); cursor: help;
   margin-left: 4px; vertical-align: middle;
-  width: 14px; height: 14px;
-  background: transparent; border: none;
+  width: auto; height: auto;
+  background: none; border: none;
   opacity: 0.7; transition: opacity 150ms ease, background 150ms ease;
   position: relative;
 }
-.hiw-tab-info:hover { opacity: 1; background: rgba(61,79,30,0.15); }
+.hiw-tab-info:hover { opacity: 1; }
 .hiw-tab-info::after {
   content: attr(data-tooltip);
   position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
@@ -1299,70 +1311,183 @@ a { color: inherit; text-decoration: none; }
 
 /* Responsive for new sections */
 @media (max-width: 768px) {
-  .hiw-tabs { flex-wrap: wrap; }
-  .hiw-tab { flex: 1 1 48%; }
-  .hiw-panel-grid { grid-template-columns: 1fr; }
+  /* How It Works tabs */
+  .hiw-tabs { flex-wrap: wrap; gap: 0; }
+  .hiw-tab { flex: 1 1 33%; padding: 14px 8px; }
+  .hiw-tab-name { font-size: 13px; }
+  .hiw-tab-sub { font-size: 10px; }
+  .hiw-tab-num { font-size: 10px; }
+  .hiw-panel-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hiw-panel { padding: 32px 0 0; }
+  .hiw-panel-heading { font-size: 22px; }
   .hiw-mock-metrics { grid-template-columns: repeat(2, 1fr); }
-  .qualification-grid { grid-template-columns: 1fr; }
+  .hiw-onboard { padding: 24px 20px; }
+  .hiw-onboard-flow { flex-direction: column; gap: 12px; }
+  .hiw-onboard-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .hiw-onboard-card { text-align: left; padding: 16px; }
+  .hiw-onboard-card .hiw-onboard-num { margin: 0 0 8px 0; }
+  .hiw-onboard-card span { font-size: 13px; }
+  .hiw-substep { gap: 12px; }
+  .hiw-substep-icon { width: 32px; height: 32px; min-width: 32px; }
+
+  /* Signal & Scan carousels */
+  .signal-slide { min-width: 240px; max-width: 240px; padding: 16px; }
+  .scan-slide { min-width: 260px; max-width: 260px; padding: 18px; }
+
+  /* Digest preview in Surface tab */
+  .hiw-digest-preview-content { max-height: 280px; }
+
+  /* Track tab snapshot */
+  .hiw-snapshot-frame { max-height: 320px; }
+
+  /* Who This Is For */
+  .qualification-grid { grid-template-columns: 1fr; gap: 20px; }
+  .qualification-col { padding: 28px 24px; }
+  .qualification-body p { font-size: 15px; }
+
+  /* Trust & Security grid */
   .trust-grid { grid-template-columns: 1fr; }
-  .privacy-tabs { flex-wrap: wrap; }
-  .privacy-tab { flex: 1 1 48%; }
-  .privacy-panel-inner { padding: 32px 24px; }
+
+  /* Privacy tabs */
+  .privacy-box { max-width: 100%; }
+  .privacy-tabs { flex-wrap: wrap; gap: 0; }
+  .privacy-tab { flex: 1 1 48%; padding: 14px 10px; font-size: 12px; }
+  .privacy-tab + .privacy-tab::before { display: none; }
+  .privacy-panel-inner { padding: 28px 20px; }
+  .privacy-panel-inner p { font-size: 13px; }
+  .privacy-panel-inner p strong { font-size: 14px; }
+
+  /* Digest spotlight annotations */
+  .digest-spotlight { gap: 20px; }
+  .digest-annotation { flex: 1 1 100%; }
+  .digest-annotation h4 { font-size: 13px; }
+  .digest-annotation p { font-size: 12px; }
+  .digest-full-mockup { padding: 24px 18px; }
+  .digest-full-contact { font-size: 14px; }
+  .digest-full-mockup h2 { font-size: 18px; }
+
+  /* Pricing */
+  .pricing-card { padding: 32px 24px; }
+  .pricing-amount { font-size: 34px; }
+
+  /* Testimonials slideshow */
+  .testimonial-grid { gap: 32px; }
+  .testimonial-headshot { width: 140px; height: 140px; }
 }
 
-/* Testimonial Slideshow */
-.testimonial-slideshow {
-  position: relative;
-  max-width: 400px;
-  margin: 48px auto 0;
+@media (max-width: 480px) {
+  /* How It Works tabs - hide, replaced by dropdown on mobile */
+  .hiw-panel-heading { font-size: 20px; }
+  .hiw-panel-body p { font-size: 14px; }
+
+  /* Privacy tabs stack */
+  .privacy-tab { flex: 1 1 100%; text-align: left; padding: 12px 16px; }
+  .privacy-panel-inner { padding: 24px 16px; }
+
+  /* Digest spotlight */
+  .digest-annotation { flex: 1 1 100%; }
+  .digest-full-mockup { padding: 20px 14px; }
+  .digest-full-pills { gap: 4px; }
+  .digest-full-pill { font-size: 10px; padding: 3px 8px; }
+  .digest-full-email-box { padding: 14px; }
+  .digest-full-actions { flex-direction: column; }
+
+  /* Qualification */
+  .qualification-col { padding: 24px 18px; }
+  .qualification-col ul li { font-size: 14px; }
+
+  /* Pricing */
+  .pricing-card { padding: 24px 18px; }
+
+  /* Signal & scan slides smaller */
+  .signal-slide { min-width: 220px; max-width: 220px; }
+  .scan-slide { min-width: 240px; max-width: 240px; }
 }
-.testimonial-slideshow-track-wrap {
-  overflow: hidden;
+
+/* ===== MOBILE-ONLY: Digest info tooltips ===== */
+.digest-info-btn {
+  display: none; width: 18px; height: 18px; min-width: 18px; border-radius: 50%;
+  background: var(--sage); border: 1px solid var(--card-border);
+  color: var(--olive-deep); font-size: 11px; font-weight: 700; font-style: italic;
+  align-items: center; justify-content: center; cursor: pointer;
+  margin-left: 8px; vertical-align: middle; position: relative;
 }
-.testimonial-track {
-  display: flex;
-  transition: transform 600ms ease;
+.digest-info-popup {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: var(--olive-deep); color: var(--white); padding: 12px 16px;
+  border-radius: var(--radius); font-size: 12px; font-weight: 500; line-height: 1.5;
+  width: max-content; max-width: 220px; text-align: left; z-index: 20;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
-.testimonial-slide {
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 0 20px;
+.digest-info-popup::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--olive-deep);
 }
+.digest-info-btn.show-popup .digest-info-popup { display: block; }
+
+/* Mobile: How It Works dropdown (hidden, replaced by next-step) */
+.hiw-mobile-select { display: none; }
+
+/* Mobile: How It Works step nav */
+.hiw-mobile-step-nav {
+  display: none; align-items: center; justify-content: space-between;
+  margin-top: 16px; padding: 12px 4px;
+}
+.hiw-mobile-step-counter {
+  font-size: 13px; font-weight: 600; color: var(--muted);
+}
+.hiw-mobile-next-btn {
+  background: var(--sage); border: 1px solid var(--card-border); border-radius: 50%;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--olive-deep); font-size: 16px; font-weight: 700;
+}
+.hiw-mobile-next-btn:hover { background: var(--sage-mid); }
+
+/* Mobile: Privacy carousel nav */
+.privacy-mobile-nav {
+  display: none; justify-content: space-between; align-items: center;
+  margin-top: 16px; padding: 0 4px;
+}
+.privacy-mobile-nav button {
+  background: var(--sage); border: 1px solid var(--card-border); border-radius: 50%;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--olive-deep); font-size: 16px; font-weight: 700;
+}
+.privacy-mobile-nav button:hover { background: var(--sage-mid); }
+.privacy-mobile-counter {
+  font-size: 13px; font-weight: 600; color: var(--muted);
+}
+
+/* Mobile: Testimonial slideshow */
+.testimonial-grid { position: relative; }
 .testimonial-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
+  display: none; justify-content: center; gap: 8px; margin-top: 20px;
 }
 .testimonial-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.15);
-  border: none;
-  padding: 0;
-  cursor: pointer;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--card-border);
+  border: none; cursor: pointer; padding: 0;
   transition: background 200ms ease, transform 200ms ease;
 }
-.testimonial-dot.active {
-  background: var(--olive-deep);
-  transform: scale(1.4);
-}
-.testimonial-placeholder {
-  width: 200px;
-  height: 200px;
-  border-radius: 16px;
-  background: #e0e0e0;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: var(--muted);
-  font-weight: 600;
+.testimonial-dot.active { background: var(--olive-deep); transform: scale(1.3); }
+
+@media (max-width: 768px) {
+  /* Digest info buttons visible, hide side annotations */
+  .digest-info-btn { display: inline-flex; }
+  .digest-annotations { display: none !important; }
+  .digest-spotlight { grid-template-columns: 1fr !important; }
+
+  /* HIW step nav replaces tabs */
+  .hiw-mobile-step-nav { display: flex; }
+  .hiw-tabs { display: none !important; }
+
+  /* Privacy: hide tabs, show carousel nav */
+  .privacy-tabs { display: none !important; }
+  .privacy-mobile-nav { display: flex; }
+
+  /* Testimonial slideshow */
+  .testimonial-card { display: none; opacity: 0; transition: opacity 400ms ease; }
+  .testimonial-card.mobile-active { display: flex; opacity: 1; }
+  .testimonial-dots { display: flex; }
 }
 </style>
 </head>
@@ -1411,13 +1536,9 @@ a { color: inherit; text-decoration: none; }
   <div class="container">
     <div class="hero-grid">
       <div class="hero-content">
-        <div class="section-label">For creative, digital, and marketing agency owners</div>
-        <div style="margin-bottom:20px; padding:14px 18px; background:rgba(61,79,30,0.06); border-left:3px solid var(--olive-deep); border-radius:0 6px 6px 0;">
-          <p style="font-size:14px; color:var(--text-mid); line-height:1.6; margin:0; font-style:italic;">&ldquo;Your network is your net worth. But most agency owners let their best relationships go dormant. This tool fixes that.&rdquo;</p>
-          <p style="font-size:12px; color:var(--muted); margin:6px 0 0; font-weight:600;">&mdash; Steve Guberman, Agency Coach &amp; Consultant</p>
-        </div>
+        <div class="section-label">For video production agency owners</div>
         <h1 class="hero-headline">Your next $30&ndash;$150K contract is already in your Gmail.</h1>
-        <p class="hero-sub"><span class="highlight-mark">20&ndash;40% of potential revenue lost</span> because relationships go cold between projects, and no tool scans the entire inbox and calendar at scale to <span class="highlight-mark">resurface who matters most today.</span></p>
+        <p class="hero-sub"><span class="highlight-mark">20&ndash;40% of potential revenue lost</span> because relationships go cold between shoots, and no tool scans the entire inbox and calendar at scale to <span class="highlight-mark">resurface who matters most today.</span></p>
         <p class="hero-bonuses-note" style="margin-top:24px; margin-bottom:12px; font-size:13px; color:var(--muted); font-style:italic;">Up to $9,000 in bonuses.</p>
         <div class="hero-ctas">
           <a href="https://cal.com/leonard-veraops/relationship-digest-onboarding" class="btn btn-sage-lg">Book an Onboarding Call &rarr;</a>
@@ -1431,7 +1552,7 @@ a { color: inherit; text-decoration: none; }
             <div class="digest-meta">Monday, March 9, 2026 &nbsp;|&nbsp; Daily quota: 3 contacts</div>
           </div>
           <div class="digest-contact-card">
-            <div class="digest-contact-name">1. Rachel Moreno &mdash; Marketing Director, Bolt Communications</div>
+            <div class="digest-contact-name">1. Rachel Moreno &mdash; Account Manager, Bolt Communications</div>
             <div class="digest-contact-meta">
               <span>Tier A</span>
               <span>Confidence: High</span>
@@ -1439,13 +1560,13 @@ a { color: inherit; text-decoration: none; }
             </div>
           </div>
           <div class="digest-section-title">Quick Refresher</div>
-          <div class="digest-refresher">Rachel was your main point of contact at Bolt Communications during the 2024 rebrand campaign. She loved the results and mentioned future projects for Q1. You never followed up after the project wrapped.</div>
+          <div class="digest-refresher">Rachel managed the Bolt Communications account when you produced their 2024 product launch campaign. She loved the final cut and mentioned future projects for Q1. You never followed up after wrapping post-production.</div>
           <div class="digest-section-title">Shared History</div>
           <div class="digest-pills">
-            <span class="digest-pill">Brand strategy</span>
-            <span class="digest-pill">Digital campaign</span>
+            <span class="digest-pill">Product launch video</span>
+            <span class="digest-pill">Brand campaign</span>
             <span class="digest-pill">PR &amp; comms</span>
-            <span class="digest-pill">Content marketing</span>
+            <span class="digest-pill">Event coverage</span>
           </div>
           <div class="digest-actions">
             <div class="digest-btn digest-btn-primary">Send Email</div>
@@ -1462,11 +1583,11 @@ a { color: inherit; text-decoration: none; }
   <div class="container">
     <div class="problem-body fade-in">
       <div class="section-label">The Problem</div>
-      <h2 class="section-headline">Your relationships go cold between projects... so does your pipeline.</h2>
+      <h2 class="section-headline">Your relationships go cold between shoots... so does your pipeline.</h2>
       <blockquote>
-        Almost every agency owner has a version of this story: You deliver an incredible campaign. The client raves about it. You say you&rsquo;ll stay in touch. Then the next project kicks off, and 8 months later, that client has moved to a new company with a bigger budget... and you didn&rsquo;t even know.
+        Almost every video production agency owner has a version of this story: You produce an incredible brand film. The creative director raves about it. You say you&rsquo;ll stay in touch. Then the next shoot starts, and 8 months later, that creative director has moved to a new agency with a bigger content budget... and you didn&rsquo;t even know.
         <br><br>
-        It&rsquo;s not that they don&rsquo;t want to work with you again. It&rsquo;s that you disappeared. You were buried in deliverables. You were managing your team. You were busy putting out fires. And the relationships you&rsquo;ve built quietly went cold.
+        It&rsquo;s not that he doesn&rsquo;t want to work with you again. It&rsquo;s that you disappeared. You were on set. You were in post. You were busy putting out fires. And the relationships you&rsquo;ve built quietly went cold.
       </blockquote>
     </div>
   </div>
@@ -1477,7 +1598,8 @@ a { color: inherit; text-decoration: none; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">The Solution</div>
-      <h2 class="section-headline">Reach out to <em>who</em> matters most today.</h2>
+      <h2 class="section-headline">Introducing <br class="mobile-break">Relationship Digest.</h2>
+      <p class="subtitle">Reach out to <em>who</em> matters most today.</p>
     </div>
     <div class="solution-grid">
       <div class="card stagger-in" style="text-align:center;">
@@ -1513,6 +1635,13 @@ a { color: inherit; text-decoration: none; }
       <div class="section-label">How It Works</div>
       <h2 class="section-headline">From dormant inbox to active pipeline.</h2>
       <p class="subtitle" style="margin-top:12px;">No dashboard. No logins. Just five simple steps.</p>
+    </div>
+
+    <!-- Mobile Step Nav (hidden on desktop) -->
+    <div class="hiw-mobile-step-nav" id="hiwMobileNav">
+      <button class="hiw-mobile-next-btn" id="hiwMobilePrev">&larr;</button>
+      <span class="hiw-mobile-step-counter">Step <span id="hiwMobileCounter">01 / 05</span></span>
+      <button class="hiw-mobile-next-btn" id="hiwMobileNext">&rarr;</button>
     </div>
 
     <!-- Tab Navigation -->
@@ -1621,15 +1750,15 @@ a { color: inherit; text-decoration: none; }
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-a">Tier A</span><span class="scan-confidence high">High confidence</span></div>
                     <strong>Rachel Moreno</strong>
-                    <span class="scan-slide-role">Marketing Director &middot; Bolt Communications</span>
-                    <p class="scan-slide-refresher">Led the Bolt Communications rebrand in 2023. Referred you to two other companies after. Last email was a thank-you note 4 months ago. She cc&rsquo;d you on three briefs that year.</p>
+                    <span class="scan-slide-role">Account Manager &middot; Bolt Communications</span>
+                    <p class="scan-slide-refresher">Co-produced the Bolt DTC campaign in 2023. Referred you to two other brands after. Last email was a thank-you note 4 months ago. She cc&rsquo;d you on three briefs that year.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:91%;"></div></div><strong>91</strong></div>
                   </div>
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-b">Tier B</span><span class="scan-confidence high">High confidence</span></div>
                     <strong>Marcus Leung</strong>
                     <span class="scan-slide-role">Creative Director &middot; Yard NYC</span>
-                    <p class="scan-slide-refresher">Worked together on the Allbirds brand launch. Last email exchange 8 months ago. He asked about your availability for a Q4 project but the thread went cold. 14 shared email threads total.</p>
+                    <p class="scan-slide-refresher">Worked together on the Allbirds launch shoot. Last email exchange 8 months ago. He asked about your availability for a Q4 project but the thread went cold. 14 shared email threads total.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:84%;"></div></div><strong>84</strong></div>
                   </div>
                   <div class="scan-slide">
@@ -1642,30 +1771,30 @@ a { color: inherit; text-decoration: none; }
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-d">Tier D</span><span class="scan-confidence low">Low confidence</span></div>
                     <strong>David Kim</strong>
-                    <span class="scan-slide-role">Head of Marketing &middot; Wieden+Kennedy</span>
-                    <p class="scan-slide-refresher">Single email thread from 2021. Introduced by a mutual contact but never worked together. He&rsquo;s been at W+K for 3 years now. No shared projects, but overlapping professional network.</p>
+                    <span class="scan-slide-role">Head of Production &middot; Wieden+Kennedy</span>
+                    <p class="scan-slide-refresher">Single email thread from 2021. Introduced by a mutual contact but never worked together. He&rsquo;s been at W+K for 3 years now. No shared projects, but overlapping agency network.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:38%;"></div></div><strong>38</strong></div>
                   </div>
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-e">Tier E</span><span class="scan-confidence low">Low confidence</span></div>
                     <strong>Tom Bradley</strong>
-                    <span class="scan-slide-role">Freelance Consultant</span>
-                    <p class="scan-slide-refresher">CC&rsquo;d on a group thread 2 years ago. No direct communication since. Freelance consultant based in LA. Appears in 1 email thread with 4 other contacts in your network.</p>
+                    <span class="scan-slide-role">Freelance Producer</span>
+                    <p class="scan-slide-refresher">CC&rsquo;d on a group thread 2 years ago. No direct communication since. Freelance producer based in LA. Appears in 1 email thread with 4 other contacts in your network.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:15%;"></div></div><strong>15</strong></div>
                   </div>
                   <!-- Duplicate for seamless loop -->
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-a">Tier A</span><span class="scan-confidence high">High confidence</span></div>
                     <strong>Rachel Moreno</strong>
-                    <span class="scan-slide-role">Marketing Director &middot; Bolt Communications</span>
-                    <p class="scan-slide-refresher">Led the Bolt Communications rebrand in 2023. Referred you to two other companies after. Last email was a thank-you note 4 months ago. She cc&rsquo;d you on three briefs that year.</p>
+                    <span class="scan-slide-role">Account Manager &middot; Bolt Communications</span>
+                    <p class="scan-slide-refresher">Co-produced the Bolt DTC campaign in 2023. Referred you to two other brands after. Last email was a thank-you note 4 months ago. She cc&rsquo;d you on three briefs that year.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:91%;"></div></div><strong>91</strong></div>
                   </div>
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-b">Tier B</span><span class="scan-confidence high">High confidence</span></div>
                     <strong>Marcus Leung</strong>
                     <span class="scan-slide-role">Creative Director &middot; Yard NYC</span>
-                    <p class="scan-slide-refresher">Worked together on the Allbirds brand launch. Last email exchange 8 months ago. He asked about your availability for a Q4 project but the thread went cold. 14 shared email threads total.</p>
+                    <p class="scan-slide-refresher">Worked together on the Allbirds launch shoot. Last email exchange 8 months ago. He asked about your availability for a Q4 project but the thread went cold. 14 shared email threads total.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:84%;"></div></div><strong>84</strong></div>
                   </div>
                   <div class="scan-slide">
@@ -1678,15 +1807,15 @@ a { color: inherit; text-decoration: none; }
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-d">Tier D</span><span class="scan-confidence low">Low confidence</span></div>
                     <strong>David Kim</strong>
-                    <span class="scan-slide-role">Head of Marketing &middot; Wieden+Kennedy</span>
-                    <p class="scan-slide-refresher">Single email thread from 2021. Introduced by a mutual contact but never worked together. He&rsquo;s been at W+K for 3 years now. No shared projects, but overlapping professional network.</p>
+                    <span class="scan-slide-role">Head of Production &middot; Wieden+Kennedy</span>
+                    <p class="scan-slide-refresher">Single email thread from 2021. Introduced by a mutual contact but never worked together. He&rsquo;s been at W+K for 3 years now. No shared projects, but overlapping agency network.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:38%;"></div></div><strong>38</strong></div>
                   </div>
                   <div class="scan-slide">
                     <div class="scan-slide-top"><span class="hiw-tier-badge tier-e">Tier E</span><span class="scan-confidence low">Low confidence</span></div>
                     <strong>Tom Bradley</strong>
-                    <span class="scan-slide-role">Freelance Consultant</span>
-                    <p class="scan-slide-refresher">CC&rsquo;d on a group thread 2 years ago. No direct communication since. Freelance consultant based in LA. Appears in 1 email thread with 4 other contacts in your network.</p>
+                    <span class="scan-slide-role">Freelance Producer</span>
+                    <p class="scan-slide-refresher">CC&rsquo;d on a group thread 2 years ago. No direct communication since. Freelance producer based in LA. Appears in 1 email thread with 4 other contacts in your network.</p>
                     <div class="hiw-score-row"><span>Reactivation</span><div class="hiw-score-bar"><div class="hiw-score-fill" style="width:15%;"></div></div><strong>15</strong></div>
                   </div>
                 </div>
@@ -1716,7 +1845,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>Yard NYC just announced winning the Allbirds account</strong>
                   <div class="signal-slide-contact">Marcus Leung &middot; Creative Director</div>
-                  <p class="signal-slide-context">New brand = new agency needs. Reach out before they lock in partners.</p>
+                  <p class="signal-slide-context">New brand = new production needs. Reach out before they lock in partners.</p>
                   <span>11 days ago &middot; via LinkedIn</span>
                   <span class="signal-slide-tag">Account win</span>
                 </div>
@@ -1734,7 +1863,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>BrightPath just closed their Series B at $24M</strong>
                   <div class="signal-slide-contact">Maria Santos &middot; Founder</div>
-                  <p class="signal-slide-context">Funding means bigger budgets for campaigns, content, and creative projects.</p>
+                  <p class="signal-slide-context">Funding means content budgets for brand films, product videos, and campaign shoots.</p>
                   <span>3 days ago &middot; via Google News</span>
                   <span class="signal-slide-tag">Funding round</span>
                 </div>
@@ -1742,8 +1871,8 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-header">Live signal detected</div>
                   <div class="signal-slide-dot"></div>
                   <strong>Bolt Communications launching new DTC product line</strong>
-                  <div class="signal-slide-contact">Rachel Moreno &middot; Marketing Director</div>
-                  <p class="signal-slide-context">Product launches need campaigns, creative assets, and go-to-market content.</p>
+                  <div class="signal-slide-contact">Rachel Moreno &middot; Account Manager</div>
+                  <p class="signal-slide-context">Product launches need launch videos, sizzle reels, and social content.</p>
                   <span>6 days ago &middot; via LinkedIn</span>
                   <span class="signal-slide-tag">Product launch</span>
                 </div>
@@ -1761,7 +1890,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>TechFlow expanding into APAC markets this quarter</strong>
                   <div class="signal-slide-contact">Sarah Chen &middot; CTO</div>
-                  <p class="signal-slide-context">Market expansion means localized content and regional campaigns.</p>
+                  <p class="signal-slide-context">Market expansion means localized video content and regional campaigns.</p>
                   <span>9 days ago &middot; via Google News</span>
                   <span class="signal-slide-tag">Market expansion</span>
                 </div>
@@ -1770,7 +1899,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>Nike x Adidas collab campaign announced for Q3</strong>
                   <div class="signal-slide-contact">James Rodriguez &middot; VP Sales, TechFlow</div>
-                  <p class="signal-slide-context">Two brands teaming up means new creative briefs and agency work.</p>
+                  <p class="signal-slide-context">Two brands teaming up means new creative briefs and production work.</p>
                   <span>2 days ago &middot; via Google News</span>
                   <span class="signal-slide-tag">Brand collaboration</span>
                 </div>
@@ -1780,7 +1909,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>Yard NYC just announced winning the Allbirds account</strong>
                   <div class="signal-slide-contact">Marcus Leung &middot; Creative Director</div>
-                  <p class="signal-slide-context">New brand = new agency needs. Reach out before they lock in partners.</p>
+                  <p class="signal-slide-context">New brand = new production needs. Reach out before they lock in partners.</p>
                   <span>11 days ago &middot; via LinkedIn</span>
                   <span class="signal-slide-tag">Account win</span>
                 </div>
@@ -1798,7 +1927,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>BrightPath just closed their Series B at $24M</strong>
                   <div class="signal-slide-contact">Maria Santos &middot; Founder</div>
-                  <p class="signal-slide-context">Funding means bigger budgets for campaigns, content, and creative projects.</p>
+                  <p class="signal-slide-context">Funding means content budgets for brand films, product videos, and campaign shoots.</p>
                   <span>3 days ago &middot; via Google News</span>
                   <span class="signal-slide-tag">Funding round</span>
                 </div>
@@ -1806,8 +1935,8 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-header">Live signal detected</div>
                   <div class="signal-slide-dot"></div>
                   <strong>Bolt Communications launching new DTC product line</strong>
-                  <div class="signal-slide-contact">Rachel Moreno &middot; Marketing Director</div>
-                  <p class="signal-slide-context">Product launches need campaigns, creative assets, and go-to-market content.</p>
+                  <div class="signal-slide-contact">Rachel Moreno &middot; Account Manager</div>
+                  <p class="signal-slide-context">Product launches need launch videos, sizzle reels, and social content.</p>
                   <span>6 days ago &middot; via LinkedIn</span>
                   <span class="signal-slide-tag">Product launch</span>
                 </div>
@@ -1825,7 +1954,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>TechFlow expanding into APAC markets this quarter</strong>
                   <div class="signal-slide-contact">Sarah Chen &middot; CTO</div>
-                  <p class="signal-slide-context">Market expansion means localized content and regional campaigns.</p>
+                  <p class="signal-slide-context">Market expansion means localized video content and regional campaigns.</p>
                   <span>9 days ago &middot; via Google News</span>
                   <span class="signal-slide-tag">Market expansion</span>
                 </div>
@@ -1834,7 +1963,7 @@ a { color: inherit; text-decoration: none; }
                   <div class="signal-slide-dot"></div>
                   <strong>Nike x Adidas collab campaign announced for Q3</strong>
                   <div class="signal-slide-contact">James Rodriguez &middot; VP Sales, TechFlow</div>
-                  <p class="signal-slide-context">Two brands teaming up means new creative briefs and agency work.</p>
+                  <p class="signal-slide-context">Two brands teaming up means new creative briefs and production work.</p>
                   <span>2 days ago &middot; via Google News</span>
                   <span class="signal-slide-tag">Brand collaboration</span>
                 </div>
@@ -1892,30 +2021,30 @@ a { color: inherit; text-decoration: none; }
                   <div class="digest-full-meta">Monday, March 9, 2026 &nbsp;|&nbsp; Daily quota: 3 contacts</div>
                   <div class="digest-full-section">
                     <div class="digest-full-section-title">Connection Details</div>
-                    <div class="digest-full-contact">1. Rachel Moreno &mdash; Marketing Director, Bolt Communications</div>
+                    <div class="digest-full-contact">1. Rachel Moreno &mdash; Account Manager, Bolt Communications</div>
                     <div class="digest-full-tier">
                       <span>Tier A</span> &middot; <span>Confidence: High</span> &middot; <span>Last contacted: About 14 months ago</span>
                     </div>
                   </div>
                   <div class="digest-full-section">
                     <div class="digest-full-section-title">Quick Refresher</div>
-                    <div class="digest-full-refresher">Rachel was your main point of contact at Bolt Communications during the 2024 rebrand campaign. She loved the results and mentioned future projects for Q1. You never followed up after the project wrapped. She&rsquo;s since been promoted and now oversees a larger content budget across multiple clients.</div>
+                    <div class="digest-full-refresher">Rachel managed the Bolt Communications account when you produced their 2024 product launch campaign. She loved the final cut and mentioned future projects for Q1. You never followed up after wrapping post-production. She&rsquo;s since been promoted and now oversees a larger content budget across multiple clients.</div>
                   </div>
                   <div class="digest-full-section">
                     <div class="digest-full-section-title">Shared History</div>
                     <div class="digest-full-pills">
-                      <span class="digest-full-pill">Brand strategy</span>
-                      <span class="digest-full-pill">Digital campaign</span>
+                      <span class="digest-full-pill">Product launch video</span>
+                      <span class="digest-full-pill">Brand campaign</span>
                       <span class="digest-full-pill">PR &amp; communications</span>
-                      <span class="digest-full-pill">Content marketing</span>
-                      <span class="digest-full-pill">Social media</span>
+                      <span class="digest-full-pill">Event coverage</span>
+                      <span class="digest-full-pill">Client testimonials</span>
                     </div>
                     <div style="margin-top:12px; font-size:13px; color:var(--text-mid); line-height:1.6;">
                       <div style="padding-left:14px; border-left:2px solid var(--sage-mid); margin-bottom:8px;">
-                        <strong style="color:var(--black);">Referral given:</strong> You referred Rachel to Greenline Studios for a strategy project in 2023.
+                        <strong style="color:var(--black);">Referral given:</strong> You referred Rachel to Greenline Studios for a documentary project in 2023.
                       </div>
                       <div style="padding-left:14px; border-left:2px solid var(--olive-deep);">
-                        <strong style="color:var(--black);">Referral received:</strong> Rachel introduced you to the VP of Marketing at Halo Brands, which led to a $45K campaign.
+                        <strong style="color:var(--black);">Referral received:</strong> Rachel introduced you to the VP of Marketing at Halo Brands, which led to a $45K brand film.
                       </div>
                     </div>
                   </div>
@@ -1932,7 +2061,7 @@ a { color: inherit; text-decoration: none; }
                   </div>
                   <div class="digest-full-section">
                     <div class="digest-full-section-title">Why Reach Out Today</div>
-                    <div class="digest-full-why">Rachel&rsquo;s agency just onboarded new clients with major campaigns launching in Q2. She&rsquo;s already seen your work firsthand and loved it... this is the perfect moment to reconnect before they lock in agency partners.</div>
+                    <div class="digest-full-why">Rachel&rsquo;s agency just onboarded new clients with video-heavy campaigns launching in Q2. She&rsquo;s already seen your work firsthand and loved it... this is the perfect moment to reconnect before they lock in production partners.</div>
                   </div>
                   <div class="digest-full-section">
                     <div class="digest-full-section-title">Suggested Email</div>
@@ -1941,7 +2070,7 @@ a { color: inherit; text-decoration: none; }
                       <div class="digest-full-email-body">
                         <p>Hey Rachel,</p>
                         <p>Saw Bolt just landed a couple of new consumer brands for Q2... congrats, that&rsquo;s huge. The fintech rebrand looked great too.</p>
-                        <p>It got me thinking about the rebrand project we did together. If any of these new accounts need creative support, I&rsquo;d love to chat about how we could help again.</p>
+                        <p>It got me thinking about the product launch we did together. If any of these new accounts need video production, I&rsquo;d love to chat about how we could help again.</p>
                         <p>Either way, would be great to catch up. Coffee or a quick call sometime this month?</p>
                       </div>
                     </div>
@@ -2100,35 +2229,35 @@ a { color: inherit; text-decoration: none; }
           <div class="digest-full-meta">Monday, March 9, 2026 &nbsp;|&nbsp; Daily quota: 3 contacts</div>
 
           <div class="digest-full-section" id="digest-sec-contact">
-            <div class="digest-full-section-title">Connection Details</div>
-            <div class="digest-full-contact">1. Rachel Moreno &mdash; Marketing Director, Bolt Communications</div>
+            <div class="digest-full-section-title">Connection Details <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Contact Intelligence</strong><br>Tier level, confidence score, and last contact date so you know exactly where you stand.</div></button></div>
+            <div class="digest-full-contact">1. Rachel Moreno &mdash; Account Manager, Bolt Communications</div>
             <div class="digest-full-tier">
               <span>Tier A</span> &middot; <span>Confidence: High</span> &middot; <span>Last contacted: About 14 months ago</span>
             </div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-refresher">
-            <div class="digest-full-section-title">Quick Refresher</div>
-            <div class="digest-full-refresher">Rachel was your main point of contact at Bolt Communications during the 2024 rebrand campaign. She loved the results and mentioned future projects for Q1. You never followed up after the project wrapped. She&rsquo;s since been promoted and now oversees a larger content budget across multiple clients.</div>
+            <div class="digest-full-section-title">Quick Refresher <button class="digest-info-btn" data-info="2"><span>i</span><div class="digest-info-popup"><strong>Relationship Narrative</strong><br>A full summary of how you know this person, your shared history, and the nature of the relationship.</div></button></div>
+            <div class="digest-full-refresher">Rachel managed the Bolt Communications account when you produced their 2024 product launch campaign. She loved the final cut and mentioned future projects for Q1. You never followed up after wrapping post-production. She&rsquo;s since been promoted and now oversees a larger content budget across multiple clients.</div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-history">
-            <div class="digest-full-section-title">Shared History</div>
+            <div class="digest-full-section-title">Shared History <button class="digest-info-btn" data-info="3"><span>i</span><div class="digest-info-popup"><strong>Shared History &amp; Referrals</strong><br>Past projects, referrals given and received, and conversation topics at a glance.</div></button></div>
             <div class="digest-full-pills">
-              <span class="digest-full-pill">Brand strategy</span>
-              <span class="digest-full-pill">Digital campaign</span>
+              <span class="digest-full-pill">Product launch video</span>
+              <span class="digest-full-pill">Brand campaign</span>
               <span class="digest-full-pill">PR &amp; communications</span>
-              <span class="digest-full-pill">Content marketing</span>
-              <span class="digest-full-pill">Social media</span>
+              <span class="digest-full-pill">Event coverage</span>
+              <span class="digest-full-pill">Client testimonials</span>
             </div>
             <div style="margin-top:12px; font-size:13px; color:var(--text-mid); line-height:1.6;">
-              <div style="margin-bottom:6px;">&rarr; You referred Rachel to Greenline Studios for a strategy project in 2023.</div>
-              <div>&rarr; Rachel introduced you to the VP of Marketing at Halo Brands, which led to a $45K campaign.</div>
+              <div style="margin-bottom:6px;">&rarr; You referred Rachel to Greenline Studios for a documentary project in 2023.</div>
+              <div>&rarr; Rachel introduced you to the VP of Marketing at Halo Brands, which led to a $45K brand film.</div>
             </div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-activity">
-            <div class="digest-full-section-title">What They&rsquo;re Up To</div>
+            <div class="digest-full-section-title">What They&rsquo;re Up To <button class="digest-info-btn" data-info="4"><span>i</span><div class="digest-info-popup"><strong>Live Activity Feed</strong><br>Recent LinkedIn posts and news signals so you know what they&rsquo;re working on right now.</div></button></div>
             <div class="digest-full-post">
               <span class="post-date">2026-03-05</span>
               <a href="#">Just wrapped a rebrand for a fintech client &mdash; the video content drove 3x engagement vs. static</a>
@@ -2140,25 +2269,25 @@ a { color: inherit; text-decoration: none; }
           </div>
 
           <div class="digest-full-section" id="digest-sec-angle">
-            <div class="digest-full-section-title">Why Reach Out Today</div>
-            <div class="digest-full-why">Rachel&rsquo;s agency just onboarded new clients with major campaigns launching in Q2. She&rsquo;s already seen your work firsthand and loved it... this is the perfect moment to reconnect before they lock in agency partners.</div>
+            <div class="digest-full-section-title">Why Reach Out Today <button class="digest-info-btn" data-info="5"><span>i</span><div class="digest-info-popup"><strong>Contextual Angle</strong><br>The specific reason to reach out today, tying their latest signals to your shared history.</div></button></div>
+            <div class="digest-full-why">Rachel&rsquo;s agency just onboarded new clients with video-heavy campaigns launching in Q2. She&rsquo;s already seen your work firsthand and loved it... this is the perfect moment to reconnect before they lock in production partners.</div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-draft">
-            <div class="digest-full-section-title">Suggested Email</div>
+            <div class="digest-full-section-title">Suggested Email <button class="digest-info-btn" data-info="6"><span>i</span><div class="digest-info-popup"><strong>Voice-Matched Draft</strong><br>A complete email draft written in your voice, with subject line, ready to edit and send.</div></button></div>
             <div class="digest-full-email-box">
               <div class="digest-full-email-subject"><strong>Subject:</strong> Congrats on the new clients + a thought</div>
               <div class="digest-full-email-body">
                 <p>Hey Rachel,</p>
                 <p>Saw Bolt just landed a couple of new consumer brands for Q2... congrats, that&rsquo;s huge. The fintech rebrand looked great too.</p>
-                <p>It got me thinking about the rebrand project we did together. If any of these new accounts need creative support, I&rsquo;d love to chat about how we could help again.</p>
+                <p>It got me thinking about the product launch we did together. If any of these new accounts need video production, I&rsquo;d love to chat about how we could help again.</p>
                 <p>Either way, would be great to catch up. Coffee or a quick call sometime this month?</p>
               </div>
             </div>
           </div>
 
           <div class="digest-full-actions" id="digest-sec-actions">
-            <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
+            <button class="digest-full-btn digest-full-btn-dark" style="position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px;">Send Email <span class="digest-info-btn" data-info="7" style="position:static; transform:none;"><span>i</span><div class="digest-info-popup"><strong>One-Click Actions</strong><br>Send the email or open their LinkedIn profile directly from your digest.</div></span></button>
             <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
           </div>
         </div>
@@ -2207,7 +2336,7 @@ a { color: inherit; text-decoration: none; }
       <div class="qualification-col for-you">
         <h3>This is for you if&hellip;</h3>
         <ul>
-          <li>You&rsquo;ve been running your agency long enough to have thousands of dormant relationships with real revenue potential.</li>
+          <li>You&rsquo;ve been running your video production agency long enough to have thousands of dormant relationships with real revenue potential.</li>
           <li>Your inbox and calendar are your primary communication layer&hellip; not a CRM, not social DMs, not scattered across platforms.</li>
           <li>You want more&hellip; not because you&rsquo;re struggling, but because you know your network is underutilized.</li>
           <li>You believe the best client relationships are built through genuine care, not transaction-first outreach.</li>
@@ -2231,49 +2360,27 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- ===== TESTIMONIALS ===== -->
-<section class="section-white blend-white-to-sage" id="testimonials">
+<section class="section-white blend-white-to-sage" id="testimonials" style="padding-bottom:calc(var(--pad-v) + 50px);">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Who's Using It</div>
-      <h2 class="section-headline">Trusted by seasoned agency owners.</h2>
+      <h2 class="section-headline">Trusted by actual operators.</h2>
     </div>
-    <div class="testimonial-slideshow fade-in">
-      <div class="testimonial-slideshow-track-wrap">
-      <div class="testimonial-track" id="testimonialTrack">
-        <div class="testimonial-slide">
-          <img class="testimonial-headshot" src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&height=800" alt="Frank Siringo">
-          <div class="testimonial-name">Frank Siringo</div>
-          <div class="testimonial-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
-        </div>
-        <div class="testimonial-slide">
-          <img class="testimonial-headshot" src="https://framerusercontent.com/images/mYkr5SA78uuk3GOTGOKNAWeMugg.jpeg?width=800&height=800" alt="Patrick Rafferty">
-          <div class="testimonial-name">Patrick Rafferty</div>
-          <div class="testimonial-role">Executive Producer &middot; RaffertyWeiss Media, DC</div>
-        </div>
-        <div class="testimonial-slide">
-          <img class="testimonial-headshot" src="https://framerusercontent.com/images/rjwMLoLqqhImZMWsb80f6rx7ws.jpg?scale-down-to=512&width=1200&height=927" alt="Steve Guberman">
-          <div class="testimonial-name">Steve Guberman</div>
-          <div class="testimonial-role">Agency Growth Coach &amp; M&amp;A Advisor &middot; Agency Outsight, NJ</div>
-        </div>
-        <div class="testimonial-slide">
-          <img class="testimonial-headshot" src="https://framerusercontent.com/images/cdDGKZ8panNOzO6ogK79M4BcGs.jpeg?width=400&height=400" alt="Peter Kang">
-          <div class="testimonial-name">Peter Kang</div>
-          <div class="testimonial-role">Co-founder &amp; Chairman &middot; Barrel Holdings, NY</div>
-        </div>
-        <div class="testimonial-slide">
-          <img class="testimonial-headshot" src="https://framerusercontent.com/images/iNPVYBjfIGHJimTjju2mqH7H3BU.jpeg?width=372&height=372" alt="David Yassky">
-          <div class="testimonial-name">David Yassky</div>
-          <div class="testimonial-role">Principal &amp; Co-Founder &middot; Driver Digital, NY</div>
-        </div>
+    <div class="testimonial-grid fade-in">
+      <div class="testimonial-card">
+        <img class="testimonial-headshot" src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&height=800" alt="Frank Siringo">
+        <div class="testimonial-name">Frank Siringo</div>
+        <div class="testimonial-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
       </div>
+      <div class="testimonial-card">
+        <img class="testimonial-headshot" src="https://framerusercontent.com/images/mYkr5SA78uuk3GOTGOKNAWeMugg.jpeg?width=800&height=800" alt="Patrick Rafferty">
+        <div class="testimonial-name">Patrick Rafferty</div>
+        <div class="testimonial-role">Executive Producer &middot; RaffertyWeiss Media, DC</div>
       </div>
-      <div class="testimonial-dots">
-        <button class="testimonial-dot active" data-slide="0"></button>
-        <button class="testimonial-dot" data-slide="1"></button>
-        <button class="testimonial-dot" data-slide="2"></button>
-        <button class="testimonial-dot" data-slide="3"></button>
-        <button class="testimonial-dot" data-slide="4"></button>
-      </div>
+    </div>
+    <div class="testimonial-dots" id="testimonialDots">
+      <button class="testimonial-dot active" data-index="0"></button>
+      <button class="testimonial-dot" data-index="1"></button>
     </div>
   </div>
 </section>
@@ -2320,7 +2427,7 @@ a { color: inherit; text-decoration: none; }
         <div class="audit-card stagger-in" data-audit-preview="partnerships">
           <div class="audit-card-num">05</div>
           <h3>Agency Partnerships</h3>
-          <p>Contacts suited for ongoing partnerships that generate recurring work without continuous sales effort.</p>
+          <p>Contacts suited for ongoing partnerships that generate recurring production work without continuous sales effort.</p>
           <span class="audit-card-peek">View sample <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9,4 13,8 9,12"/></svg></span>
         </div>
         <div class="audit-card stagger-in" data-audit-preview="blindspots">
@@ -2340,7 +2447,7 @@ a { color: inherit; text-decoration: none; }
       <div class="referral-features">
         <div class="referral-feature stagger-in">
           <h4>Complete referral source list</h4>
-          <p>Every contact who has referred you client work, made introductions, or sent briefs, extracted from your full email history.</p>
+          <p>Every contact who has referred you production work, made introductions, or sent briefs, extracted from your full email history.</p>
         </div>
         <div class="referral-feature stagger-in">
           <h4>Dormancy status</h4>
@@ -2364,7 +2471,7 @@ a { color: inherit; text-decoration: none; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Your Privacy</div>
-      <h2 class="section-headline">Connecting your inbox isn&rsquo;t a small thing. Here&rsquo;s how we manage your risk... <br>and some hard truths.</h2>
+      <h2 class="section-headline">Connecting your inbox isn&rsquo;t a small thing. Here&rsquo;s how we manage your risk...<br>and some hard truths.</h2>
     </div>
 
     <!-- Privacy Box -->
@@ -2375,6 +2482,13 @@ a { color: inherit; text-decoration: none; }
         <button class="privacy-tab" data-privtab="exposed">Works like other tools.</button>
         <button class="privacy-tab" data-privtab="control">Always in control.</button>
         <button class="privacy-tab" data-privtab="talk">Speak to an active user.</button>
+      </div>
+
+      <!-- Privacy Mobile Carousel Nav (hidden on desktop) -->
+      <div class="privacy-mobile-nav" id="privacyMobileNav">
+        <button id="privPrev">&larr;</button>
+        <span class="privacy-mobile-counter"><span id="privCurrent">1</span> / 4</span>
+        <button id="privNext">&rarr;</button>
       </div>
 
       <!-- Privacy Tab Panels -->
@@ -2461,11 +2575,11 @@ a { color: inherit; text-decoration: none; }
     <div class="fade-in">
       <div class="guarantee-card">
         <div class="section-label" style="text-align:center;">Our Promise</div>
-        <h2 class="section-headline" style="text-align:center;">Our 30-Day <br class="mobile-break">&ldquo;Steve Asked&rdquo; Guarantee</h2>
+        <h2 class="section-headline" style="text-align:center;">Our 30-Day <br class="mobile-break">&ldquo;My Spouse Asked&rdquo; Guarantee</h2>
         <div class="guarantee-body">
           <p>After 30 days, you should have received a Relationship Audit, Relationship Referral, monthly snapshot, and 20+ daily digests.</p>
           <br>
-          <p>And if Steve asks, <em>&ldquo;Hey, how&rsquo;s Relationship Digest working out for you?&rdquo;</em> and you hesitate for even a moment... just reply to any of our newsletters. We&rsquo;ll return every single cent you paid for. No questions asked.</p>
+          <p>And if your spouse asks, <em>&ldquo;Hey, how&rsquo;s that Relationship Digest thing working out?&rdquo;</em> and you hesitate for even a moment... just reply to any of our newsletters. We&rsquo;ll return every single cent you paid for. No questions asked.</p>
           <br>
           <p>Yes, we are <em>that confident</em>.</p>
         </div>
@@ -2529,14 +2643,14 @@ a { color: inherit; text-decoration: none; }
           How is this different from a CRM?
           <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
         </div>
-        <div class="faq-answer"><p>CRMs track deals. We track relationships. A CRM tells you a project closed 18 months ago. We tell you that the creative director who brought you that project just moved to a bigger agency, has been posting about needing agency partners, and here&rsquo;s a draft email to congratulate them on the move. It&rsquo;s a living system... constantly refreshing signals and surfacing new opportunities.</p></div>
+        <div class="faq-answer"><p>CRMs track deals. We track relationships. A CRM tells you a project closed 18 months ago. We tell you that the creative director who brought you that project just moved to a bigger agency, has been posting about needing production partners, and here&rsquo;s a draft email to congratulate them on the move. It&rsquo;s a living system... constantly refreshing signals and surfacing new opportunities.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
           How is this different from outbound agencies like Surge?
           <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
         </div>
-        <div class="faq-answer"><p>They find new people. We resurface people who already know your work. Surge generates cold meetings with creative directors who&rsquo;ve never seen your work. We generate warm conversations with creative directors who&rsquo;ve already worked with you directly. They&rsquo;re actually complementary... Surge for new, us for existing.</p></div>
+        <div class="faq-answer"><p>They find new people. We resurface people who already know your work. Surge generates cold meetings with creative directors who&rsquo;ve never seen your reel. We generate warm conversations with creative directors who&rsquo;ve already sat in your edit suite. They&rsquo;re actually complementary... Surge for new, us for existing.</p></div>
       </div>
     </div>
   </div>
@@ -2570,7 +2684,7 @@ a { color: inherit; text-decoration: none; }
       <span class="ap-count">6</span><span class="ap-count-label">contacts</span>
       <h4>Former Crew &amp; Collaborators Now in Brand-Side Creative Roles</h4>
       <p class="ap-meta">6 contacts &middot; Heads of Content, VPs of Brand, Creative Directors at DTC &amp; consumer brands</p>
-      <p class="ap-body">Six people you&rsquo;ve worked with on projects &mdash; former producers, coordinators, and agency creatives &mdash; who have since moved into senior brand-side roles where they now own or heavily influence marketing budgets. They&rsquo;ve seen your work firsthand. They know your team delivers. None have been re-engaged since they moved brand-side.</p>
+      <p class="ap-body">Six people you&rsquo;ve worked with on set &mdash; former producers, coordinators, and agency creatives &mdash; who have since moved into senior brand-side roles where they now own or heavily influence video production budgets. They&rsquo;ve seen your work firsthand. They know your crew delivers. None have been re-engaged since they moved brand-side.</p>
       <div class="ap-rec">
         <div class="ap-rec-label">Recommended Play</div>
         <p>Reach out to all 6 within 30 days. No pitch &mdash; just catching up. The message is: &ldquo;Saw where you landed. Would love to hear what you&rsquo;re building over there.&rdquo; Let them connect the dots when their next production brief lands.</p>
@@ -2590,7 +2704,7 @@ a { color: inherit; text-decoration: none; }
       <span class="ap-count">5</span><span class="ap-count-label">contacts</span>
       <h4>Ad Agency Creative Directors With Growing Video Budgets</h4>
       <p class="ap-meta">5 contacts &middot; CDs and ECDs at creative agencies who regularly outsource production</p>
-      <p class="ap-body">Five creative directors at mid-size advertising and branding agencies who outsource creative work for their clients. They don&rsquo;t have in-house production teams &mdash; they hire shops like yours for campaigns, content, and creative projects. You&rsquo;ve worked with some of them before. Others know your portfolio. None are in active conversation.</p>
+      <p class="ap-body">Five creative directors at mid-size advertising and branding agencies who outsource video production for their clients. They don&rsquo;t have in-house production teams &mdash; they hire shops like yours for commercials, brand films, and campaign content. You&rsquo;ve worked with some of them before. Others know your reel. None are in active conversation.</p>
       <div class="ap-rec">
         <div class="ap-rec-label">Recommended Play</div>
         <p>Identify which 2&ndash;3 are staffing up for Q2 campaign season. A short conversation framed around &ldquo;what does your production pipeline look like this quarter?&rdquo; opens the door without pressure.</p>
@@ -2610,13 +2724,13 @@ a { color: inherit; text-decoration: none; }
     <button class="audit-preview-close">&times;</button>
     <div class="audit-preview-section">&mdash; 02 &nbsp; Coverage Gaps</div>
     <h2>Where your network is thin.</h2>
-    <p class="ap-desc">You&rsquo;ve stated you want to grow into tech brand campaigns and entertainment content. Here&rsquo;s where the network is thin.</p>
+    <p class="ap-desc">You&rsquo;ve stated you want to grow into tech brand films and entertainment content. Here&rsquo;s where the network is thin.</p>
 
     <div class="ap-card">
       <span class="ap-card-tag">Gap 01</span>
       <span class="ap-count">2</span><span class="ap-count-label">bridges</span>
       <h4>Almost no warm connections into tech company brand video teams</h4>
-      <p class="ap-meta">2 bridge contacts &middot; Where the $150K&ndash;$500K+ campaign budgets originate</p>
+      <p class="ap-meta">2 bridge contacts &middot; Where the $150K&ndash;$500K+ brand film budgets originate</p>
       <p class="ap-body">Your network is strong in DTC and consumer brand production &mdash; but those project budgets typically cap out at $40K&ndash;$80K per spot. The brand video teams at companies like Apple, Google, Salesforce, and Shopify are commissioning hero films, product launches, and culture pieces at 3&ndash;5x those budgets. You have 2 contacts who have passed through that world, but neither has been actively cultivated with this goal in mind.</p>
       <div class="ap-rec">
         <div class="ap-rec-label">Closest Bridge Contacts</div>
@@ -2639,7 +2753,7 @@ a { color: inherit; text-decoration: none; }
         <p>Cold but not dead. A targeted reactivation opener is the right starting move &mdash; reference the branded content boom in streaming and ask what she&rsquo;s seeing from the inside.</p>
       </div>
       <div class="ap-contact-grid" style="margin-top:16px;">
-        <div class="ap-contact"><strong>Sandra Okafor</strong><span class="ap-co-company">Freelance Consultant (formerly Netflix Brand Content)</span><span class="ap-co-email">s.okafor@consultant.com</span><a class="ap-co-link" href="#">LinkedIn &rarr;</a></div>
+        <div class="ap-contact"><strong>Sandra Okafor</strong><span class="ap-co-company">Freelance Producer (formerly Netflix Brand Content)</span><span class="ap-co-email">s.okafor@consultant.com</span><a class="ap-co-link" href="#">LinkedIn &rarr;</a></div>
       </div>
     </div>
   </div>
@@ -2661,11 +2775,11 @@ a { color: inherit; text-decoration: none; }
       <div class="ap-play-body">
         <div class="ap-play-grid">
           <div class="ap-play-field"><label>Last Contact</label><p>11 months ago &mdash; she hired you for a product launch spot (delivered on time, over-performed)</p></div>
-          <div class="ap-play-field"><label>Why Now</label><p>New VP role at a fast-growing beverage brand. Building out her vendor roster from scratch.</p></div>
+          <div class="ap-play-field"><label>Why Now</label><p>New VP role at a fast-growing beverage brand. Building out her production roster from scratch.</p></div>
           <div class="ap-play-field"><label>Estimated Deal Size</label><p>$60K&ndash;$150K campaign &middot; ongoing production retainer potential</p></div>
-          <div class="ap-play-field"><label>Relationship Strength</label><p>Warm &mdash; she&rsquo;s hired you before. Knows your team delivers under pressure.</p></div>
+          <div class="ap-play-field"><label>Relationship Strength</label><p>Warm &mdash; she&rsquo;s hired you before. Knows your crew delivers under pressure.</p></div>
         </div>
-        <div class="ap-play-context"><label>Strategic Context</label><p>Jessica moved from Director of Brand Marketing at a mid-size CPG company to VP of Brand at OLIPOP 8 weeks ago. In her new role, she owns the full brand experience &mdash; campaigns, social content, product launches, and event activations. OLIPOP is scaling fast and planning a major product line extension. She&rsquo;s in the window where she&rsquo;s assembling her vendor list before the first major campaign brief lands. One warm conversation now is worth six months of cold outreach later. She&rsquo;s already seen your work on set &mdash; she&rsquo;s not a stranger, she&rsquo;s a dormant ally.</p></div>
+        <div class="ap-play-context"><label>Strategic Context</label><p>Jessica moved from Director of Brand Marketing at a mid-size CPG company to VP of Brand at OLIPOP 8 weeks ago. In her new role, she owns the full brand experience &mdash; campaigns, social content, product launches, and event activations. OLIPOP is scaling fast and planning a major product line extension. She&rsquo;s in the window where she&rsquo;s assembling her production vendor list before the first major campaign brief lands. One warm conversation now is worth six months of cold outreach later. She&rsquo;s already seen your work on set &mdash; she&rsquo;s not a stranger, she&rsquo;s a dormant ally.</p></div>
         <div class="ap-draft">
           <div class="ap-draft-label">Draft Opener &middot; Email</div>
           <p>Hi Jessica &mdash; congrats on the move to OLIPOP, that brand has been on a tear and it makes sense you&rsquo;d be in the middle of it. That product launch we shot together still gets referenced in our reel. Would love to hear what the production pipeline looks like from where you&rsquo;re sitting now. Happy to grab coffee or jump on a call whenever.</p>
@@ -2687,7 +2801,7 @@ a { color: inherit; text-decoration: none; }
           <div class="ap-play-field"><label>Estimated Deal Size</label><p>$40K&ndash;$120K per spot &middot; 4&ndash;6 productions per year</p></div>
           <div class="ap-play-field"><label>Relationship Strength</label><p>Warm &mdash; one solid meeting, mutual respect, never followed up</p></div>
         </div>
-        <div class="ap-play-context"><label>Strategic Context</label><p>Yard NYC announced winning the Allbirds brand account 11 days ago. New accounts at creative agencies almost always trigger a production ramp &mdash; hero spots, social content, campaign films. Agencies that lock in agency partners now, before the first brief goes out, shape the conversation. You had a strong chemistry meeting with Marcus 7 months ago with no active brief to point to. Now there is one. He already knows your reel. You are not cold. You are warm and perfectly timed.</p></div>
+        <div class="ap-play-context"><label>Strategic Context</label><p>Yard NYC announced winning the Allbirds brand account 11 days ago. New accounts at creative agencies almost always trigger a production ramp &mdash; hero spots, social content, campaign films. Agencies that lock in production partners now, before the first brief goes out, shape the conversation. You had a strong chemistry meeting with Marcus 7 months ago with no active brief to point to. Now there is one. He already knows your reel. You are not cold. You are warm and perfectly timed.</p></div>
         <div class="ap-draft">
           <div class="ap-draft-label">Draft Opener &middot; LinkedIn</div>
           <p>Marcus &mdash; saw the Allbirds news. Congrats, that&rsquo;s a great brand to build with. We&rsquo;ve shot a few campaigns in that performance-meets-lifestyle space recently &mdash; happy to share what we&rsquo;ve learned on the production side if the timing&rsquo;s useful. No pressure either way.</p>
@@ -2705,14 +2819,14 @@ a { color: inherit; text-decoration: none; }
       <div class="ap-play-body">
         <div class="ap-play-grid">
           <div class="ap-play-field"><label>Last Contact</label><p>9 months ago &mdash; introduced at a wrap party, mutual connections in production</p></div>
-          <div class="ap-play-field"><label>Why Now</label><p>Just went freelance. Actively building a vendor network from scratch.</p></div>
+          <div class="ap-play-field"><label>Why Now</label><p>Just went freelance. Actively building a production vendor network from scratch.</p></div>
           <div class="ap-play-field"><label>Opportunity Type</label><p>Referral partner + direct production bookings from her brand clients</p></div>
           <div class="ap-play-field"><label>Relationship Strength</label><p>Warm &mdash; mutual connections, aware of your work from her Glossier production days</p></div>
         </div>
-        <div class="ap-play-context"><label>Strategic Context</label><p>Diane left Glossier&rsquo;s in-house production team 6 weeks ago to go independent as a freelance EP. Freelance executive producers who go independent actively build a vendor network of production companies they can recommend to clients &mdash; or bring in directly on shoots. Her client base will be high-quality DTC and beauty brands who need campaign films, social content, and product launches. She already knows your work. Getting in front of her now, before she&rsquo;s settled on her go-to agency partners, is the play.</p></div>
+        <div class="ap-play-context"><label>Strategic Context</label><p>Diane left Glossier&rsquo;s in-house production team 6 weeks ago to go independent as a freelance EP. Freelance executive producers who go independent actively build a vendor network of production companies they can recommend to clients &mdash; or bring in directly on shoots. Her client base will be high-quality DTC and beauty brands who need campaign films, social content, and product launches. She already knows your work. Getting in front of her now, before she&rsquo;s settled on her go-to production partners, is the play.</p></div>
         <div class="ap-draft">
           <div class="ap-draft-label">Draft Opener &middot; LinkedIn</div>
-          <p>Hey Diane &mdash; saw you went independent, that&rsquo;s exciting. The creative work coming out of Glossier was always really considered. How&rsquo;s the transition going? Would love to hear what you&rsquo;re working on now &mdash; and catch you up on what we&rsquo;ve been shooting lately. Coffee sometime?</p>
+          <p>Hey Diane &mdash; saw you went independent, that&rsquo;s exciting. The production work coming out of Glossier was always really considered. How&rsquo;s the transition going? Would love to hear what you&rsquo;re working on now &mdash; and catch you up on what we&rsquo;ve been shooting lately. Coffee sometime?</p>
         </div>
       </div>
     </div>
@@ -2798,7 +2912,7 @@ a { color: inherit; text-decoration: none; }
     <button class="audit-preview-close">&times;</button>
     <div class="audit-preview-section">&mdash; 05 &nbsp; Agency Partnerships</div>
     <h2>Agencies worth a structural relationship.</h2>
-    <p class="ap-desc">Not just contacts to reactivate &mdash; potential ongoing partners that could generate recurring work without ongoing sales effort.</p>
+    <p class="ap-desc">Not just contacts to reactivate &mdash; potential ongoing partners that could generate recurring production work without ongoing sales effort.</p>
 
     <div class="ap-partner-card">
       <div class="ap-partner-grid">
@@ -2815,7 +2929,7 @@ a { color: inherit; text-decoration: none; }
           <div class="ap-partner-history" style="margin-top:12px;"><label style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); display:block; margin-bottom:4px;">History</label>Met at Brandweek 2 years ago. Exchanged reels over email. No production work together yet.</div>
         </div>
         <div class="ap-partner-right">
-          <p>Redscout wins brand strategy and campaign briefs for DTC and consumer brands but has no in-house production capability. They outsource all video work &mdash; commercials, brand films, social content &mdash; to whoever the client already has in place or to ad-hoc agency partners. Rachel has mentioned wanting a reliable production partner they can co-pitch with &mdash; someone they can bring into a room and trust to deliver on set. Your shop is exactly that partner. This relationship is one capabilities reel away from becoming a preferred production arrangement.</p>
+          <p>Redscout wins brand strategy and campaign briefs for DTC and consumer brands but has no in-house production capability. They outsource all video work &mdash; commercials, brand films, social content &mdash; to whoever the client already has in place or to ad-hoc production partners. Rachel has mentioned wanting a reliable production partner they can co-pitch with &mdash; someone they can bring into a room and trust to deliver on set. Your shop is exactly that partner. This relationship is one capabilities reel away from becoming a preferred production arrangement.</p>
           <div class="ap-partner-model">
             <label>Partnership Model</label>
             <p>Co-pitch arrangement &mdash; Redscout leads creative strategy, your team leads production and post. Estimated 3&ndash;6 productions per year at $40K&ndash;$120K each.</p>
@@ -2863,7 +2977,7 @@ a { color: inherit; text-decoration: none; }
       <h4>Sarah Cho (Hydrant) has gone quiet &mdash; 6 months of silence</h4>
       <div class="ap-blind-name">Sarah Cho &middot; VP of Marketing, Hydrant</div>
       <div style="font-size:11px; color:var(--muted); margin-bottom:8px;">sarah.cho@drinkhydrant.com &nbsp; <a href="#" style="display:inline-block; font-size:11px; font-weight:600; color:var(--black); border:1px solid var(--black); border-radius:4px; padding:2px 10px; text-decoration:none;">LinkedIn &rarr;</a></div>
-      <p class="ap-blind-body">Sarah emailed every 4&ndash;6 weeks for 18 months. You shot 2 product launch videos and a brand anthem for Hydrant through her. The last inbound message was 6 months ago. You&rsquo;ve sent 2 follow-ups with no response. This could be a budget freeze &mdash; or she may be quietly trialling a new competing agency. Either way, this relationship needs attention before it&rsquo;s lost entirely.</p>
+      <p class="ap-blind-body">Sarah emailed every 4&ndash;6 weeks for 18 months. You shot 2 product launch videos and a brand anthem for Hydrant through her. The last inbound message was 6 months ago. You&rsquo;ve sent 2 follow-ups with no response. This could be a budget freeze &mdash; or she may be quietly trialling a new production company. Either way, this relationship needs attention before it&rsquo;s lost entirely.</p>
       <div class="ap-blind-rec">&rarr; Reach out this week with a non-work reason. Reference something personal or industry-relevant. Do not mention a project or an invoice.</div>
     </div>
 
@@ -2872,7 +2986,7 @@ a { color: inherit; text-decoration: none; }
       <h4>Lisa Wong (Caraway Home) booked you for 4 shoots at her last company &mdash; never re-established</h4>
       <div class="ap-blind-name">Lisa Wong &middot; Head of Brand, Caraway Home</div>
       <div style="font-size:11px; color:var(--muted); margin-bottom:8px;">lisa.wong@carawayhome.com &nbsp; <a href="#" style="display:inline-block; font-size:11px; font-weight:600; color:var(--black); border:1px solid var(--black); border-radius:4px; padding:2px 10px; text-decoration:none;">LinkedIn &rarr;</a></div>
-      <p class="ap-blind-body">Lisa hired your team for 4 productions at her previous company &mdash; product spots, a testimonial series, and event coverage &mdash; and changed roles 10 months ago. You congratulated her at the time but never followed up in her new context. She&rsquo;s been in the role long enough to have built her vendor list. If you&rsquo;re not on it, the window may have passed &mdash; but it&rsquo;s worth one more reach-out to find out.</p>
+      <p class="ap-blind-body">Lisa hired your team for 4 productions at her previous company &mdash; product spots, a testimonial series, and event coverage &mdash; and changed roles 10 months ago. You congratulated her at the time but never followed up in her new context. She&rsquo;s been in the role long enough to have built her production vendor list. If you&rsquo;re not on it, the window may have passed &mdash; but it&rsquo;s worth one more reach-out to find out.</p>
       <div class="ap-blind-rec">&rarr; Send one message referencing the specific shoots you did together. Ask what her content pipeline looks like in the new role. Keep it light.</div>
     </div>
 
@@ -2882,7 +2996,7 @@ a { color: inherit; text-decoration: none; }
       <div class="ap-blind-name">Sofia Reyes &middot; Brand Director, Brightland</div>
       <div style="font-size:11px; color:var(--muted); margin-bottom:8px;">sofia.reyes@brightland.co &nbsp; <a href="#" style="display:inline-block; font-size:11px; font-weight:600; color:var(--black); border:1px solid var(--black); border-radius:4px; padding:2px 10px; text-decoration:none;">LinkedIn &rarr;</a></div>
       <p class="ap-blind-body">Brightland booked 3 productions in the previous 12 months &mdash; a hero campaign, seasonal content, and a recipe series &mdash; but has significantly reduced their volume with you this year. No explicit reason was given. Sofia is warm but the work has slowed. This may be budget-related &mdash; or they may be distributing production work across a broader vendor pool.</p>
-      <div class="ap-blind-rec">&rarr; Schedule a portfolio review or a casual catch-up with Sofia. The goal is to understand what changed, not to pitch more work. Ask, don&rsquo;t assume.</div>
+      <div class="ap-blind-rec">&rarr; Schedule a capabilities reel review or a casual catch-up with Sofia. The goal is to understand what changed, not to pitch more shoots. Ask, don&rsquo;t assume.</div>
     </div>
   </div>
 
@@ -3078,7 +3192,7 @@ document.querySelectorAll('.hiw-tab').forEach(tab => {
   });
 });
 
-// Privacy tabs
+// Privacy tabs (desktop)
 document.querySelectorAll('.privacy-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
@@ -3086,28 +3200,115 @@ document.querySelectorAll('.privacy-tab').forEach(tab => {
     tab.classList.add('active');
     const panel = document.getElementById('privpanel-' + tab.dataset.privtab);
     if (panel) panel.classList.add('active');
+    // Sync mobile counter
+    const panels = ['expensive','exposed','control','talk'];
+    const idx = panels.indexOf(tab.dataset.privtab);
+    if (idx >= 0) { privacyMobileIndex = idx; updatePrivacyCounter(); }
   });
 });
 
-// Testimonial slideshow
+// Privacy mobile carousel
+let privacyMobileIndex = 0;
+const privPanelIds = ['expensive','exposed','control','talk'];
+function showPrivacyPanel(idx) {
+  privacyMobileIndex = idx;
+  document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.privacy-panel').forEach(p => p.classList.remove('active'));
+  const tab = document.querySelector('.privacy-tab[data-privtab="' + privPanelIds[idx] + '"]');
+  if (tab) tab.classList.add('active');
+  const panel = document.getElementById('privpanel-' + privPanelIds[idx]);
+  if (panel) panel.classList.add('active');
+  updatePrivacyCounter();
+}
+function updatePrivacyCounter() {
+  const counter = document.getElementById('privCurrent');
+  if (counter) counter.textContent = privacyMobileIndex + 1;
+}
+const privPrev = document.getElementById('privPrev');
+const privNext = document.getElementById('privNext');
+if (privPrev) privPrev.addEventListener('click', () => {
+  showPrivacyPanel(privacyMobileIndex <= 0 ? privPanelIds.length - 1 : privacyMobileIndex - 1);
+});
+if (privNext) privNext.addEventListener('click', () => {
+  showPrivacyPanel(privacyMobileIndex >= privPanelIds.length - 1 ? 0 : privacyMobileIndex + 1);
+});
+
+// How It Works mobile step nav
 (function() {
-  const track = document.getElementById('testimonialTrack');
-  const dots = document.querySelectorAll('.testimonial-dot');
-  let current = 0;
-  const total = dots.length;
-
-  function goToSlide(index) {
-    current = index;
-    track.style.transform = 'translateX(-' + (current * 100) + '%)';
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  const hiwSteps = ['onboard','scan','signal','surface','track'];
+  let hiwMobileIdx = 0;
+  const nextBtn = document.getElementById('hiwMobileNext');
+  const prevBtn = document.getElementById('hiwMobilePrev');
+  const counterEl = document.getElementById('hiwMobileCounter');
+  function showHiwStep(idx) {
+    hiwMobileIdx = idx;
+    document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.hiw-panel').forEach(p => p.classList.remove('active'));
+    const tab = document.querySelector('.hiw-tab[data-tab="' + hiwSteps[idx] + '"]');
+    if (tab) tab.classList.add('active');
+    const panel = document.getElementById('panel-' + hiwSteps[idx]);
+    if (panel) panel.classList.add('active');
+    if (counterEl) counterEl.textContent = String(idx+1).padStart(2,'0') + ' / 05';
   }
-
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    showHiwStep(hiwMobileIdx >= hiwSteps.length - 1 ? 0 : hiwMobileIdx + 1);
   });
-
-  setInterval(() => goToSlide((current + 1) % total), 3000);
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    showHiwStep(hiwMobileIdx <= 0 ? hiwSteps.length - 1 : hiwMobileIdx - 1);
+  });
+  // Sync when desktop tab clicked
+  document.querySelectorAll('.hiw-tab').forEach((tab, i) => {
+    tab.addEventListener('click', () => { showHiwStep(i); });
+  });
 })();
+
+// Testimonial mobile slideshow (4 seconds)
+(function() {
+  const cards = document.querySelectorAll('.testimonial-card');
+  const dots = document.querySelectorAll('.testimonial-dot');
+  if (cards.length < 2) return;
+  let currentTestimonial = 0;
+  function isMobile() { return window.innerWidth <= 768; }
+  function updateTestimonials() {
+    if (!isMobile()) {
+      cards.forEach(c => { c.style.display = ''; c.classList.remove('mobile-active'); });
+      dots.forEach(d => d.classList.remove('active'));
+      return;
+    }
+    cards.forEach((c, i) => {
+      c.classList.toggle('mobile-active', i === currentTestimonial);
+    });
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === currentTestimonial);
+    });
+  }
+  setInterval(() => {
+    if (!isMobile()) return;
+    currentTestimonial = (currentTestimonial + 1) % cards.length;
+    updateTestimonials();
+  }, 4000);
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      currentTestimonial = parseInt(dot.dataset.index);
+      updateTestimonials();
+    });
+  });
+  updateTestimonials();
+  window.addEventListener('resize', updateTestimonials);
+})();
+
+// Digest info buttons (mobile popups)
+document.querySelectorAll('.digest-info-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wasOpen = btn.classList.contains('show-popup');
+    document.querySelectorAll('.digest-info-btn').forEach(b => b.classList.remove('show-popup'));
+    if (!wasOpen) btn.classList.add('show-popup');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.digest-info-btn').forEach(b => b.classList.remove('show-popup'));
+});
 </script>
 </body>
 </html>
