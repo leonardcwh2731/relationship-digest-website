@@ -371,6 +371,18 @@ a { color: inherit; text-decoration: none; }
   .digest-annotations-left { text-align: left; }
   .digest-annotations-left .digest-annotation { flex-direction: row; }
   .digest-annotation { flex: 1 1 45%; }
+  .digest-annotations-left .digest-annotation:nth-child(1),
+  .digest-annotations-left .digest-annotation:nth-child(2),
+  .digest-annotations-left .digest-annotation:nth-child(3),
+  .digest-annotations-left .digest-annotation:nth-child(4),
+  .digest-annotations-right .digest-annotation:nth-child(1),
+  .digest-annotations-right .digest-annotation:nth-child(2),
+  .digest-annotations-right .digest-annotation:nth-child(3) { margin-top: 0; }
+  .digest-annotations-left .digest-annotation::after,
+  .digest-annotations-right .digest-annotation::before { display: none; }
+  #digest-sec-contact, #digest-sec-refresher, #digest-sec-history,
+  #digest-sec-activity, #digest-sec-angle, #digest-sec-draft,
+  #digest-sec-actions { border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
 }
 
 /* Digest Deep-Dive (legacy) */
@@ -1299,15 +1311,101 @@ a { color: inherit; text-decoration: none; }
 
 /* Responsive for new sections */
 @media (max-width: 768px) {
-  .hiw-tabs { flex-wrap: wrap; }
-  .hiw-tab { flex: 1 1 48%; }
-  .hiw-panel-grid { grid-template-columns: 1fr; }
+  /* How It Works tabs */
+  .hiw-tabs { flex-wrap: wrap; gap: 0; }
+  .hiw-tab { flex: 1 1 33%; padding: 14px 8px; }
+  .hiw-tab-name { font-size: 13px; }
+  .hiw-tab-sub { font-size: 10px; }
+  .hiw-tab-num { font-size: 10px; }
+  .hiw-panel-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hiw-panel { padding: 32px 0 0; }
+  .hiw-panel-heading { font-size: 22px; }
   .hiw-mock-metrics { grid-template-columns: repeat(2, 1fr); }
-  .qualification-grid { grid-template-columns: 1fr; }
+  .hiw-onboard { padding: 24px 20px; }
+  .hiw-onboard-flow { flex-direction: column; gap: 12px; }
+  .hiw-onboard-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .hiw-onboard-card { text-align: left; padding: 16px; }
+  .hiw-onboard-card .hiw-onboard-num { margin: 0 0 8px 0; }
+  .hiw-onboard-card span { font-size: 13px; }
+  .hiw-substep { gap: 12px; }
+  .hiw-substep-icon { width: 32px; height: 32px; min-width: 32px; }
+
+  /* Signal & Scan carousels */
+  .signal-slide { min-width: 240px; max-width: 240px; padding: 16px; }
+  .scan-slide { min-width: 260px; max-width: 260px; padding: 18px; }
+
+  /* Digest preview in Surface tab */
+  .hiw-digest-preview-content { max-height: 280px; }
+
+  /* Track tab snapshot */
+  .hiw-snapshot-frame { max-height: 320px; }
+
+  /* Who This Is For */
+  .qualification-grid { grid-template-columns: 1fr; gap: 20px; }
+  .qualification-col { padding: 28px 24px; }
+  .qualification-body p { font-size: 15px; }
+
+  /* Trust & Security grid */
   .trust-grid { grid-template-columns: 1fr; }
-  .privacy-tabs { flex-wrap: wrap; }
-  .privacy-tab { flex: 1 1 48%; }
-  .privacy-panel-inner { padding: 32px 24px; }
+
+  /* Privacy tabs */
+  .privacy-box { max-width: 100%; }
+  .privacy-tabs { flex-wrap: wrap; gap: 0; }
+  .privacy-tab { flex: 1 1 48%; padding: 14px 10px; font-size: 12px; }
+  .privacy-tab + .privacy-tab::before { display: none; }
+  .privacy-panel-inner { padding: 28px 20px; }
+  .privacy-panel-inner p { font-size: 13px; }
+  .privacy-panel-inner p strong { font-size: 14px; }
+
+  /* Digest spotlight annotations */
+  .digest-spotlight { gap: 20px; }
+  .digest-annotation { flex: 1 1 100%; }
+  .digest-annotation h4 { font-size: 13px; }
+  .digest-annotation p { font-size: 12px; }
+  .digest-full-mockup { padding: 24px 18px; }
+  .digest-full-contact { font-size: 14px; }
+  .digest-full-mockup h2 { font-size: 18px; }
+
+  /* Pricing */
+  .pricing-card { padding: 32px 24px; }
+  .pricing-amount { font-size: 34px; }
+
+  /* Testimonials slideshow */
+  .testimonial-grid { gap: 32px; }
+  .testimonial-headshot { width: 140px; height: 140px; }
+}
+
+@media (max-width: 480px) {
+  /* How It Works tabs - stack for very small screens */
+  .hiw-tab { flex: 1 1 100%; padding: 12px 16px; text-align: left; display: flex; align-items: center; gap: 8px; }
+  .hiw-tab-num { display: inline; margin-bottom: 0; margin-right: 4px; }
+  .hiw-tab-name { display: inline; font-size: 14px; }
+  .hiw-tab-sub { display: none; }
+  .hiw-panel-heading { font-size: 20px; }
+  .hiw-panel-body p { font-size: 14px; }
+
+  /* Privacy tabs stack */
+  .privacy-tab { flex: 1 1 100%; text-align: left; padding: 12px 16px; }
+  .privacy-panel-inner { padding: 24px 16px; }
+
+  /* Digest spotlight */
+  .digest-annotation { flex: 1 1 100%; }
+  .digest-full-mockup { padding: 20px 14px; }
+  .digest-full-pills { gap: 4px; }
+  .digest-full-pill { font-size: 10px; padding: 3px 8px; }
+  .digest-full-email-box { padding: 14px; }
+  .digest-full-actions { flex-direction: column; }
+
+  /* Qualification */
+  .qualification-col { padding: 24px 18px; }
+  .qualification-col ul li { font-size: 14px; }
+
+  /* Pricing */
+  .pricing-card { padding: 24px 18px; }
+
+  /* Signal & scan slides smaller */
+  .signal-slide { min-width: 220px; max-width: 220px; }
+  .scan-slide { min-width: 240px; max-width: 240px; }
 }
 </style>
 </head>
