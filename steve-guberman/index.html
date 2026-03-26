@@ -731,14 +731,17 @@ a { color: inherit; text-decoration: none; }
 
 /* Testimonials */
 .testimonial-grid {
-  display: flex; justify-content: center; gap: 64px; margin-top: 48px; position: relative;
+  display: flex; justify-content: center; gap: 64px; margin-top: 48px; position: relative; overflow: hidden;
 }
 .testimonial-card {
   display: none; flex-direction: column; align-items: center; text-align: center;
-  opacity: 0; transition: opacity 600ms ease;
+  opacity: 0; transform: translateX(60px); transition: opacity 500ms ease, transform 500ms ease;
 }
 .testimonial-card.active-slide {
-  display: flex; opacity: 1;
+  display: flex; opacity: 1; transform: translateX(0);
+}
+.testimonial-card.slide-out {
+  display: flex; opacity: 0; transform: translateX(-60px);
 }
 .testimonial-headshot {
   width: 200px; height: 200px; border-radius: 16px; object-fit: cover;
@@ -3282,31 +3285,38 @@ if (privNext) privNext.addEventListener('click', () => {
   });
 })();
 
-// Testimonial slideshow (4 seconds)
+// Testimonial slideshow (4 seconds, slide left)
 (function() {
   const cards = document.querySelectorAll('.testimonial-card');
   const dots = document.querySelectorAll('.testimonial-dot');
   if (cards.length < 2) return;
   let currentTestimonial = 0;
-  function updateTestimonials() {
-    cards.forEach((c, i) => {
-      c.classList.toggle('active-slide', i === currentTestimonial);
-    });
-    dots.forEach((d, i) => {
-      d.classList.toggle('active', i === currentTestimonial);
-    });
+  let transitioning = false;
+  function showSlide(next) {
+    if (transitioning || next === currentTestimonial) return;
+    transitioning = true;
+    const current = cards[currentTestimonial];
+    current.classList.add('slide-out');
+    current.classList.remove('active-slide');
+    setTimeout(() => {
+      current.classList.remove('slide-out');
+      cards[next].classList.add('active-slide');
+      currentTestimonial = next;
+      dots.forEach((d, i) => d.classList.toggle('active', i === currentTestimonial));
+      transitioning = false;
+    }, 500);
+    dots.forEach((d, i) => d.classList.toggle('active', i === next));
   }
   setInterval(() => {
-    currentTestimonial = (currentTestimonial + 1) % cards.length;
-    updateTestimonials();
+    showSlide((currentTestimonial + 1) % cards.length);
   }, 4000);
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
-      currentTestimonial = parseInt(dot.dataset.index);
-      updateTestimonials();
+      showSlide(parseInt(dot.dataset.index));
     });
   });
-  updateTestimonials();
+  cards[0].classList.add('active-slide');
+  dots[0].classList.add('active');
 })();
 
 // Digest info buttons (mobile popups)
