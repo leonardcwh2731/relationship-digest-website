@@ -731,10 +731,14 @@ a { color: inherit; text-decoration: none; }
 
 /* Testimonials */
 .testimonial-grid {
-  display: flex; justify-content: center; gap: 64px; margin-top: 48px;
+  display: flex; justify-content: center; gap: 64px; margin-top: 48px; position: relative;
 }
 .testimonial-card {
-  display: flex; flex-direction: column; align-items: center; text-align: center;
+  display: none; flex-direction: column; align-items: center; text-align: center;
+  opacity: 0; transition: opacity 600ms ease;
+}
+.testimonial-card.active-slide {
+  display: flex; opacity: 1;
 }
 .testimonial-headshot {
   width: 200px; height: 200px; border-radius: 16px; object-fit: cover;
@@ -1458,10 +1462,9 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px; font-weight: 600; color: var(--muted);
 }
 
-/* Mobile: Testimonial slideshow */
-.testimonial-grid { position: relative; }
+/* Testimonial slideshow */
 .testimonial-dots {
-  display: none; justify-content: center; gap: 8px; margin-top: 20px;
+  display: flex; justify-content: center; gap: 8px; margin-top: 20px;
 }
 .testimonial-dot {
   width: 8px; height: 8px; border-radius: 50%; background: var(--card-border);
@@ -1484,10 +1487,6 @@ a { color: inherit; text-decoration: none; }
   .privacy-tabs { display: none !important; }
   .privacy-mobile-nav { display: flex; }
 
-  /* Testimonial slideshow */
-  .testimonial-card { display: none; opacity: 0; transition: opacity 400ms ease; }
-  .testimonial-card.mobile-active { display: flex; opacity: 1; }
-  .testimonial-dots { display: flex; }
 }
 </style>
 </head>
@@ -3283,31 +3282,24 @@ if (privNext) privNext.addEventListener('click', () => {
   });
 })();
 
-// Testimonial mobile slideshow (3 seconds)
+// Testimonial slideshow (4 seconds)
 (function() {
   const cards = document.querySelectorAll('.testimonial-card');
   const dots = document.querySelectorAll('.testimonial-dot');
   if (cards.length < 2) return;
   let currentTestimonial = 0;
-  function isMobile() { return window.innerWidth <= 768; }
   function updateTestimonials() {
-    if (!isMobile()) {
-      cards.forEach(c => { c.style.display = ''; c.classList.remove('mobile-active'); });
-      dots.forEach(d => d.classList.remove('active'));
-      return;
-    }
     cards.forEach((c, i) => {
-      c.classList.toggle('mobile-active', i === currentTestimonial);
+      c.classList.toggle('active-slide', i === currentTestimonial);
     });
     dots.forEach((d, i) => {
       d.classList.toggle('active', i === currentTestimonial);
     });
   }
   setInterval(() => {
-    if (!isMobile()) return;
     currentTestimonial = (currentTestimonial + 1) % cards.length;
     updateTestimonials();
-  }, 3000);
+  }, 4000);
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
       currentTestimonial = parseInt(dot.dataset.index);
@@ -3315,7 +3307,6 @@ if (privNext) privNext.addEventListener('click', () => {
     });
   });
   updateTestimonials();
-  window.addEventListener('resize', updateTestimonials);
 })();
 
 // Digest info buttons (mobile popups)
