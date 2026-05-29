@@ -252,6 +252,7 @@ section.hero + section { border-top: 0; }
 }
 .hero-inner { max-width: 1180px; margin: 0 auto; padding: 0 var(--pad-h); width: 100%; }
 #problem { padding-top: 72px; }
+@media (min-width: 769px) { .hiw-headline-nowrap { white-space: nowrap; } }
 
 /* Eyebrow pill (design-system) */
 .eyebrow-tag {
@@ -931,11 +932,16 @@ section.hero + section { border-top: 0; }
   :root { --pad-v: 60px; --pad-h: 24px; }
   body { overflow-x: hidden; }
   .nav-links { display: none; }
-  .nav { min-width: 0; width: auto; top: 12px; }
-  .nav-inner { gap: 14px; padding: 6px 6px 6px 18px; }
+  .nav {
+    min-width: 0; max-width: none; width: 100%;
+    top: 0; left: 0; right: 0; transform: none;
+    border-radius: 0; border: none; border-bottom: 1px solid var(--hairline);
+    background: rgba(243, 248, 234, 0.92);
+  }
+  .nav-inner { justify-content: space-between; gap: 14px; padding: 10px 18px; }
   .nav-wordmark, .nav-brand-text { font-size: 18px; }
   .nav-cta { padding: 9px 14px; font-size: 12px; white-space: nowrap; }
-  .hero { padding-top: 104px; }
+  .hero { padding-top: 92px; }
   .hero-headline { font-size: clamp(32px, 7.5vw, 48px); }
   .hero-sub { font-size: 16px; }
   .eyebrow-tag { margin-bottom: 20px; }
@@ -1735,7 +1741,7 @@ section.hero + section { border-top: 0; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:900px; margin:0 auto;">
       <div class="section-label">How It Works</div>
-      <h2 class="section-headline" style="white-space:nowrap;">From dormant relationships to new business.</h2>
+      <h2 class="section-headline hiw-headline-nowrap">From dormant relationships to new business.</h2>
       <p class="subtitle" style="margin-top:12px;">Just five simple steps.</p>
     </div>
 
