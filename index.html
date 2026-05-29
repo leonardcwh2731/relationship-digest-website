@@ -92,7 +92,7 @@ a { color: inherit; text-decoration: none; }
 /* Navigation */
 .nav {
   position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100;
-  width: auto; min-width: 720px; max-width: calc(100vw - 32px);
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
   background: rgba(243, 248, 234, 0.55);
   backdrop-filter: saturate(160%) blur(20px);
   -webkit-backdrop-filter: saturate(160%) blur(20px);
@@ -930,10 +930,11 @@ section.hero + section { border-top: 0; }
 @media (max-width: 768px) {
   :root { --pad-v: 60px; --pad-h: 24px; }
   .nav-links { display: none; }
-  .nav { min-width: 0; }
+  .nav { min-width: 0; width: auto; }
   .nav-inner { gap: 14px; padding: 6px 6px 6px 18px; }
   .nav-cta { padding: 9px 14px; font-size: 12px; }
   .hero-headline { font-size: clamp(36px, 8vw, 56px); }
+  #how-it-works .section-headline { white-space: normal; }
   .solution-grid { grid-template-columns: 1fr; }
   .signals-grid { grid-template-columns: 1fr; }
   .audit-grid { grid-template-columns: 1fr; }
@@ -1652,6 +1653,7 @@ section.hero + section { border-top: 0; }
     <div class="nav-links" id="navLinks">
       <a href="#how-it-works">How It Works</a>
       <a href="#digest">Digest</a>
+      <a href="#testimonials">Clients</a>
       <a href="#privacy">Privacy</a>
       <a href="#pricing">Pricing</a>
     </div>
@@ -1726,9 +1728,9 @@ section.hero + section { border-top: 0; }
 <!-- ===== HOW IT WORKS (Interactive Tabs) ===== -->
 <section class="section-white blend-white-to-sage" id="how-it-works">
   <div class="container">
-    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+    <div class="fade-in" style="text-align:center; max-width:900px; margin:0 auto;">
       <div class="section-label">How It Works</div>
-      <h2 class="section-headline">From dormant relationships to new business.</h2>
+      <h2 class="section-headline" style="white-space:nowrap;">From dormant relationships to new business.</h2>
       <p class="subtitle" style="margin-top:12px;">Just five simple steps.</p>
     </div>
 
@@ -2665,13 +2667,9 @@ section.hero + section { border-top: 0; }
     <div class="fade-in">
       <div class="guarantee-card">
         <div class="section-label" style="text-align:center;">Our Promise</div>
-        <h2 class="section-headline" style="text-align:center;">Our 30-Day <br class="mobile-break">&ldquo;My Spouse Asked&rdquo; Guarantee</h2>
+        <h2 class="section-headline" style="text-align:center;">Our 30-Day <br class="mobile-break">&ldquo;My Partner Asked&rdquo; Guarantee</h2>
         <div class="guarantee-body">
-          <p>After the first 30 days, you should have received four weekly recaps, 20+ daily digests, and one monthly snapshot.</p>
-          <br>
-          <p>And if your spouse asks, <em>&ldquo;Hey, how&rsquo;s that Relationship Digest thing working out?&rdquo;</em> and you hesitate for even a moment... just reply to any of our newsletters. We&rsquo;ll return every single cent you paid for. No questions asked.</p>
-          <br>
-          <p>Yes, we are <em>that confident</em>.</p>
+          <p>After receiving four recaps, 20+ digests, and one snapshot within the first 30 days... if your partner asks, <em>&ldquo;Hey, how&rsquo;s that Relationship Digest thing working out?&rdquo;</em> and you hesitate for even a moment... just reply to any of our newsletters or email us at <em><u>relationships@veraops.com</u></em>, we will refund every single cent you&rsquo;ve paid for.</p>
         </div>
       </div>
     </div>
@@ -2730,14 +2728,7 @@ section.hero + section { border-top: 0; }
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          How is this different from a CRM?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
-        </div>
-        <div class="faq-answer"><p>CRMs track deals. We track relationships. A CRM tells you a project closed 18 months ago. We tell you that the client who brought you that project just moved to a bigger company, has been posting about needing creative partners, and here&rsquo;s a draft email to congratulate them on the move. It&rsquo;s a living system... constantly refreshing signals and surfacing new opportunities.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          How is this different from outbound agencies like Surge?
+          How is this different from outbound agencies?
           <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
         </div>
         <div class="faq-answer"><p>They find new people. We resurface people who already know your work. Outbound agencies generate cold meetings with clients who&rsquo;ve never seen your portfolio. We generate warm conversations with clients who&rsquo;ve already worked with you. They&rsquo;re actually complementary... outbound for new, us for existing.</p></div>
