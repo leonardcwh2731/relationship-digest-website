@@ -857,7 +857,7 @@ section.hero + section { border-top: 0; }
   display: flex; flex-direction: column; align-items: center; text-align: center;
 }
 .testimonial-headshot {
-  width: 200px; height: 200px; border-radius: 16px; object-fit: cover;
+  width: 200px; height: 200px; border-radius: 16px; object-fit: cover; object-position: center top;
   border: 2px solid var(--card-border); background: var(--sage); margin-bottom: 24px;
 }
 .testimonial-name { font-size: 15px; font-weight: 700; color: var(--black); }
@@ -914,9 +914,13 @@ section.hero + section { border-top: 0; }
   box-shadow: 0 0 0 4px rgba(61,79,30,0.15);
 }
 
-/* Mobile Nav Toggle */
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-.nav-toggle svg { width: 24px; height: 24px; stroke: var(--black); fill: none; stroke-width: 2; }
+/* Mobile Nav Toggle (hamburger) */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-menu-cta { display: none; }
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -931,19 +935,29 @@ section.hero + section { border-top: 0; }
 @media (max-width: 768px) {
   :root { --pad-v: 60px; --pad-h: 24px; }
   body { overflow-x: hidden; }
-  .nav-links { display: none; }
-  .nav {
-    min-width: 0; max-width: none; width: 100%;
-    top: 0; left: 0; right: 0; transform: none;
-    border-radius: 0; border: none; border-bottom: 1px solid var(--hairline);
-    background: rgba(243, 248, 234, 0.92);
-  }
-  .nav-inner { justify-content: space-between; gap: 14px; padding: 10px 18px; }
+  /* Floating centered pill (same as desktop), compact: brand + hamburger */
+  .nav { min-width: 0; width: auto; max-width: calc(100vw - 24px); top: 12px; }
+  .nav-inner { justify-content: space-between; gap: 16px; padding: 8px 10px 8px 20px; }
   .nav-wordmark, .nav-brand-text { font-size: 18px; }
-  .nav-cta { padding: 9px 14px; font-size: 12px; white-space: nowrap; }
-  .hero { padding-top: 92px; }
-  .hero-headline { font-size: clamp(32px, 7.5vw, 48px); }
-  .hero-sub { font-size: 16px; }
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  /* Dropdown menu panel */
+  .nav-links {
+    display: none;
+    position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 12px; width: min(280px, calc(100vw - 32px));
+    box-shadow: 0 16px 40px -10px rgba(0,0,0,0.22);
+  }
+  .nav.menu-open .nav-links { display: flex; }
+  .nav-links a { padding: 11px 14px; border-radius: 10px; font-size: 15px; color: var(--ink); }
+  .nav-links a:hover { background: var(--paper-2); }
+  .nav-menu-cta { display: inline-flex; justify-content: center; margin-top: 8px; }
+  .hero { padding-top: 104px; }
+  .hero-ctas { flex-direction: row; flex-wrap: nowrap; }
+  .hero-headline { font-size: clamp(36px, 9vw, 60px); }
+  .hero-sub { font-size: 14px; }
   .eyebrow-tag { margin-bottom: 20px; }
   #how-it-works .section-headline { white-space: normal; }
   .solution-grid { grid-template-columns: 1fr; }
@@ -974,8 +988,8 @@ section.hero + section { border-top: 0; }
 
 @media (max-width: 480px) {
   :root { --pad-v: 40px; --pad-h: 18px; }
-  .hero-ctas { flex-direction: column; }
-  .hero-ctas .btn { width: 100%; }
+  .hero-ctas { flex-direction: row; flex-wrap: nowrap; gap: 10px; }
+  .hero-ctas .btn { width: auto; }
   .digest-mockup { padding: 20px 16px; }
   .card { padding: 24px 20px; }
   .card-dark { padding: 24px 20px; }
@@ -1667,15 +1681,17 @@ section.hero + section { border-top: 0; }
       <a href="#testimonials">Clients</a>
       <a href="#privacy">Privacy</a>
       <a href="#pricing">Pricing</a>
+      <a href="https://cal.com/leonard-veraops/relationship-digest-onboarding" class="btn btn-sage nav-menu-cta">Book a Call <span class="arrow">&rarr;</span></a>
     </div>
     <a href="https://cal.com/leonard-veraops/relationship-digest-onboarding" data-cursor="Book" class="btn btn-sage nav-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
   <div class="hero-inner">
-    <div class="eyebrow-tag hero-anim"><span>Built for creative agencies</span></div>
+    <div class="eyebrow-tag hero-anim"><span>Designed for ambitious creative agencies</span></div>
     <h1 class="hero-headline hero-anim">Your next closed won is already in your Gmail... you just need <em>a proper reactivation system</em>.</h1>
     <p class="hero-sub hero-anim"><span class="highlight-mark">~20% of potential revenue is lost</span> between projects, but there isn&rsquo;t a solution that scans your entire network at scale to <span class="highlight-mark">resurface who matters most today.</span></p>
     <div class="hero-ctas hero-anim">
@@ -2787,11 +2803,24 @@ window.addEventListener('scroll', () => {
 
 // Mobile nav
 const navToggle = document.getElementById('navToggle');
+const navEl = document.getElementById('nav');
 const navLinks = document.getElementById('navLinks');
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
+if (navToggle && navEl) {
+  navToggle.addEventListener('click', () => {
+    const open = navEl.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  if (navLinks) navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (navEl.classList.contains('menu-open') && !navEl.contains(e.target)) {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 }
 
