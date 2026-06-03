@@ -561,6 +561,29 @@ section.hero + section { border-top: 0; }
   padding: 12px 16px; border-left: 3px solid var(--olive-deep); background: var(--sage);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
+/* Recap mockup (Weekly + Monthly) — modeled after the real recap email */
+.recap-stats { display: flex; gap: 6px; padding: 12px 0; margin: 0 0 18px; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
+.recap-stat { flex: 1; text-align: center; }
+.recap-stat strong { display: block; font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--ink); }
+.recap-stat span { display: block; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+.recap-section { margin-bottom: 18px; }
+.recap-section > h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--card-border); }
+.recap-contact { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--card-border); }
+.recap-contact:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.recap-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.recap-name span { font-weight: 400; color: var(--text-mid); }
+.recap-day { font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.recap-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 8px 0 3px; }
+.recap-thread { font-size: 11px; color: var(--olive-deep); text-decoration: underline; text-underline-offset: 2px; line-height: 1.5; }
+.recap-body { font-size: 11px; color: var(--text-mid); line-height: 1.5; }
+.recap-status { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 8px 0; }
+.recap-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.recap-tag { font-size: 9px; padding: 3px 8px; border-radius: 12px; background: var(--paper-2); color: var(--text-mid); }
+.recap-buttons { display: flex; gap: 6px; margin-top: 10px; }
+.recap-btn { font-size: 10px; padding: 6px 12px; border-radius: 999px; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); font-weight: 600; }
+.recap-btn.ghost { background: transparent; color: var(--ink); border-color: var(--hairline-2); }
+.recap-btn.disabled { background: var(--paper-2); color: var(--muted); border-color: var(--hairline); }
+.recap-orig { font-size: 10px; color: var(--text-mid); background: var(--paper-2); padding: 8px 10px; border-radius: 6px; margin-top: 6px; line-height: 1.4; }
 /* Sticky snapshot details */
 .snapshot-details { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 20px; }
 .snapshot-detail-card { border: 1.5px solid var(--card-border); border-radius: var(--radius); padding: 24px; background: var(--white); }
@@ -1295,7 +1318,7 @@ section.hero + section { border-top: 0; }
 }
 .snapshot-scroll-track {
   display: flex; flex-direction: column;
-  animation: snapshot-scroll 40s linear infinite;
+  animation: snapshot-scroll 70s linear infinite;
 }
 .hiw-snapshot-frame:hover .snapshot-scroll-track { animation-play-state: paused; }
 @keyframes snapshot-scroll { to { transform: translateY(-50%); } }
@@ -2275,8 +2298,8 @@ section.hero + section { border-top: 0; }
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--olive-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 </div>
                 <div>
-                  <strong>Weekly recap</strong>
-                  <p>A recap of the outcomes your outreach generated that week &mdash; replies, meetings booked, and conversations reopened.</p>
+                  <strong>Weekly and monthly recap</strong>
+                  <p>A recap of your outreach outcomes &mdash; replies, meetings booked, and conversations reopened &mdash; with follow-up messages already crafted so you can keep the thread going with full context.</p>
                 </div>
               </div>
               <div class="hiw-substep">
@@ -2304,98 +2327,272 @@ section.hero + section { border-top: 0; }
               <div class="hiw-snapshot-frame">
                 <div class="snapshot-scroll-track">
                   <div class="snapshot-mockup" style="box-shadow:none; padding:24px 20px;">
-                    <h2 style="font-size:18px;">Relationship Digest &mdash; March 2026 Snapshot</h2>
-                    <div class="snapshot-date">Sunday, March 1, 2026</div>
-                    <ul style="font-size:13px; color:var(--text-mid); margin-bottom:24px; line-height:1.9; padding-left:24px; list-style:disc;">
-                      <li>Digest suggestions: <strong style="color:var(--black);">42</strong></li>
-                      <li>Contacts reached: <strong style="color:var(--black);">18</strong></li>
-                      <li>Contacts replied: <strong style="color:var(--black);">7</strong></li>
-                      <li>Meetings booked: <strong style="color:var(--black);">3</strong></li>
-                      <li>Trigger-based action rate: <strong style="color:var(--black);">54.5%</strong></li>
-                      <li>Non-trigger action rate: <strong style="color:var(--black);">28.6%</strong></li>
-                    </ul>
-                    <div class="snapshot-wins">
-                      <h4>Notable wins</h4>
-                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Outreach that led to replies, meetings, or new opportunities this month.</p>
-                      <div class="snapshot-win-item">
-                        <strong>Sarah Chen (CTO, TechFlow)</strong> &mdash; Your note referencing her recent panel landed perfectly. She replied within 2 hours and you&rsquo;ve since had a 3-thread exchange about potential partnership opportunities. The trigger was a LinkedIn post about scaling engineering teams.
-                      </div>
-                      <div class="snapshot-win-item">
-                        <strong>James Rodriguez (VP Sales, TechFlow)</strong> &mdash; The Google News signal about TechFlow&rsquo;s Series B was well-timed. You reached out the day the news broke, and he responded warmly. A 30-minute call is now on the calendar for next week.
-                      </div>
-                      <div class="snapshot-win-item">
-                        <strong>Maria Santos (Founder, BrightPath)</strong> &mdash; After 3 months of dormancy, the prompt to reconnect over her company&rsquo;s new product launch led to a reply and a coffee meeting. She mentioned interest in collaborating on a Q2 project.
+                    <h2 style="font-size:18px;">Your week in connections</h2>
+                    <div class="snapshot-date">May 25 &ndash; May 31, 2026 &middot; 12 contacts</div>
+                    <div class="recap-section">
+                      <h4>Meetings booked (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Claire Moyle <span>&mdash; U.S. Marketing Manager, Moth Drinks</span></div>
+                        <div class="recap-day">Wed, May 27</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Updated invitation: Moth + Ghost Robot &middot; May 27, 2026</div>
+                        <div class="recap-label">Last meeting</div>
+                        <div class="recap-body">Moth + Ghost Robot &middot; May 27, 2026</div>
+                        <div class="recap-status">The meeting has ended</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
                     </div>
-                    <div class="snapshot-noreply" style="margin-top:16px;">
-                      <h4>No replies</h4>
-                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Contacts who didn&rsquo;t respond, with notes on what to try differently next time.</p>
-                      <div class="snapshot-noreply-item">
-                        <strong>David Kim</strong> (contacted Feb 5) &mdash; The angle about his recent keynote may have felt too generic. <em>Try a more specific angle next month &mdash; reference a particular point from his talk.</em>
-                      </div>
-                      <div class="snapshot-noreply-item">
-                        <strong>Lisa Park</strong> (contacted Feb 12) &mdash; No response to the industry report share. <em>Wait one more month &mdash; she may be in heads-down mode given her company&rsquo;s product launch timeline.</em>
-                      </div>
-                      <div class="snapshot-noreply-item">
-                        <strong>Tom Bradley</strong> (contacted Feb 8) &mdash; The congratulations on his promotion didn&rsquo;t generate a reply. <em>Try a different angle &mdash; perhaps reference a shared connection or mutual interest instead.</em>
+                    <div class="recap-section">
+                      <h4>Conversations in progress (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Paul Rubin <span>&mdash; Executive Producer, ChukMedia</span></div>
+                        <div class="recap-day">Fri, May 29</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: Congrats on the ChukMedia move &middot; May 29, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You asked Paul about his new role at ChukMedia and proposed reconnecting over a call; he confirmed he&rsquo;s available in the coming weeks.</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
                     </div>
-                    <div class="snapshot-focus" style="margin-top:20px;">
-                      <h4>Next focus</h4>
-                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Where to double down next month based on what&rsquo;s working.</p>
-                      <div class="snapshot-focus-item">
-                        Your trigger-based outreach is converting at nearly 2x the rate of non-trigger outreach. Lean into this &mdash; prioritize reaching out within 48 hours while the context is fresh.
+                    <div class="recap-section">
+                      <h4>You reached out (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Lauren DeLaney <span>&mdash; Sr. Community Marketing Manager, Dick&rsquo;s Sporting Goods</span></div>
+                        <div class="recap-day">Fri, May 29</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Catching up since Superfly &middot; May 29, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You reconnected after your Outside Lands days at Superfly, expressed interest in her current work, and proposed exploring a potential collaboration.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Follow-up</span><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
-                      <div class="snapshot-focus-item">
-                        Three of your Tier A contacts haven&rsquo;t been surfaced yet this quarter. Consider scheduling time to review Sarah Chen&rsquo;s reply thread and the upcoming call with James Rodriguez.
+                    </div>
+                    <div class="recap-section">
+                      <h4>Still worth a ping (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Dana Nishimura Bryan <span>&mdash; Director, Retail Creative, The Walt Disney Company</span></div>
+                        <div class="recap-day">Thu, May 28</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: FWGS Finals &middot; Feb 4, 2022</div>
+                        <div class="recap-label">What you have in common</div>
+                        <div class="recap-tags"><span class="recap-tag">FWGS final spots</span><span class="recap-tag">Payment processing</span><span class="recap-tag">Post-production review</span></div>
+                        <div class="recap-label">Why reconnect</div>
+                        <div class="recap-body">Reactivation off Tierney FWGS spots, now leading retail creative at Disney.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Send Email</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Profile corrected (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Kate Egan <span>&mdash; Chief of Staff, Marketing &amp; Communications, Northwell Health</span></div>
+                        <div class="recap-day">Tue, May 26</div>
+                        <div class="recap-orig"><strong>Originally sent</strong><br>Katherine Egan &middot; Strategic Sales &middot; Cresta</div>
+                        <div class="recap-buttons"><span class="recap-btn disabled">No email on file</span><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
                     </div>
                   </div>
-                  <div class="snapshot-mockup" aria-hidden="true" style="box-shadow:none; padding:24px 20px;">
-                    <h2 style="font-size:18px;">Relationship Digest &mdash; March 2026 Snapshot</h2>
-                    <div class="snapshot-date">Sunday, March 1, 2026</div>
-                    <ul style="font-size:13px; color:var(--text-mid); margin-bottom:24px; line-height:1.9; padding-left:24px; list-style:disc;">
-                      <li>Digest suggestions: <strong style="color:var(--black);">42</strong></li>
-                      <li>Contacts reached: <strong style="color:var(--black);">18</strong></li>
-                      <li>Contacts replied: <strong style="color:var(--black);">7</strong></li>
-                      <li>Meetings booked: <strong style="color:var(--black);">3</strong></li>
-                      <li>Trigger-based action rate: <strong style="color:var(--black);">54.5%</strong></li>
-                      <li>Non-trigger action rate: <strong style="color:var(--black);">28.6%</strong></li>
-                    </ul>
-                    <div class="snapshot-wins">
-                      <h4>Notable wins</h4>
-                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Outreach that led to replies, meetings, or new opportunities this month.</p>
-                      <div class="snapshot-win-item">
-                        <strong>Sarah Chen (CTO, TechFlow)</strong> &mdash; Your note referencing her recent panel landed perfectly. She replied within 2 hours and you&rsquo;ve since had a 3-thread exchange about potential partnership opportunities. The trigger was a LinkedIn post about scaling engineering teams.
-                      </div>
-                      <div class="snapshot-win-item">
-                        <strong>James Rodriguez (VP Sales, TechFlow)</strong> &mdash; The Google News signal about TechFlow&rsquo;s Series B was well-timed. You reached out the day the news broke, and he responded warmly. A 30-minute call is now on the calendar for next week.
-                      </div>
-                      <div class="snapshot-win-item">
-                        <strong>Maria Santos (Founder, BrightPath)</strong> &mdash; After 3 months of dormancy, the prompt to reconnect over her company&rsquo;s new product launch led to a reply and a coffee meeting. She mentioned interest in collaborating on a Q2 project.
+                  <div class="snapshot-mockup" style="box-shadow:none; padding:24px 20px;">
+                    <h2 style="font-size:18px;">Your month in connections</h2>
+                    <div class="snapshot-date">May 2026 &middot; 63 contacts</div>
+                    <div class="recap-stats">
+                      <div class="recap-stat"><strong>63</strong><span>100% suggested</span></div>
+                      <div class="recap-stat"><strong>49</strong><span>78% reached</span></div>
+                      <div class="recap-stat"><strong>6</strong><span>10% replied</span></div>
+                      <div class="recap-stat"><strong>2</strong><span>3% meetings</span></div>
+                      <div class="recap-stat"><strong>4</strong><span>6% ongoing</span></div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Meetings booked (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Michael Carnall <span>&mdash; VP Marketing Production, Warner Bros. Discovery</span></div>
+                        <div class="recap-day">Tue, May 5</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Accepted: Mike + Mark (Ghost Robot) &middot; May 6, 2026</div>
+                        <div class="recap-label">Last meeting</div>
+                        <div class="recap-body">Mike + Mark (Ghost Robot) &middot; May 14, 2026</div>
+                        <div class="recap-status">The meeting has ended</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
                     </div>
-                    <div class="snapshot-noreply" style="margin-top:16px;">
-                      <h4>No replies</h4>
-                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Contacts who didn&rsquo;t respond, with notes on what to try differently next time.</p>
-                      <div class="snapshot-noreply-item">
-                        <strong>David Kim</strong> (contacted Feb 5) &mdash; The angle about his recent keynote may have felt too generic. <em>Try a more specific angle next month &mdash; reference a particular point from his talk.</em>
-                      </div>
-                      <div class="snapshot-noreply-item">
-                        <strong>Lisa Park</strong> (contacted Feb 12) &mdash; No response to the industry report share. <em>Wait one more month &mdash; she may be in heads-down mode given her company&rsquo;s product launch timeline.</em>
-                      </div>
-                      <div class="snapshot-noreply-item">
-                        <strong>Tom Bradley</strong> (contacted Feb 8) &mdash; The congratulations on his promotion didn&rsquo;t generate a reply. <em>Try a different angle &mdash; perhaps reference a shared connection or mutual interest instead.</em>
+                    <div class="recap-section">
+                      <h4>Conversations in progress (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Brian Coonce <span>&mdash; Executive Creative Director, Brand Experiences, Uber</span></div>
+                        <div class="recap-day">Mon, May 4</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: Saw the Go-Get Work &middot; May 21, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You discussed reconnecting on potential brand projects after a 2023 pitch and asked to schedule a capabilities share-out with Brian&rsquo;s team.</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
                     </div>
-                    <div class="snapshot-focus" style="margin-top:20px;">
-                      <h4>Next focus</h4>
-                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Where to double down next month based on what&rsquo;s working.</p>
-                      <div class="snapshot-focus-item">
-                        Your trigger-based outreach is converting at nearly 2x the rate of non-trigger outreach. Lean into this &mdash; prioritize reaching out within 48 hours while the context is fresh.
+                    <div class="recap-section">
+                      <h4>You reached out (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Emmie Burns <span>&mdash; Director of Integrated Marketing, Pinterest</span></div>
+                        <div class="recap-day">Fri, May 1</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Congrats on Pinterest &middot; May 1, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You congratulated Emmie on her new Director role at Pinterest and expressed interest in collaborating again, referencing the Play with Cars campaign from Facebook.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Follow-up</span><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
-                      <div class="snapshot-focus-item">
-                        Three of your Tier A contacts haven&rsquo;t been surfaced yet this quarter. Consider scheduling time to review Sarah Chen&rsquo;s reply thread and the upcoming call with James Rodriguez.
+                    </div>
+                    <div class="recap-section">
+                      <h4>Still worth a ping (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Aisha Amin <span>&mdash; CD, Alibaba</span></div>
+                        <div class="recap-day">Fri, May 1</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: Ghost Robot &amp; Alibaba Update &middot; Jun 24, 2024</div>
+                        <div class="recap-label">What you have in common</div>
+                        <div class="recap-tags"><span class="recap-tag">MSA negotiation</span><span class="recap-tag">Video content production</span><span class="recap-tag">Project pipeline</span></div>
+                        <div class="recap-label">Why reconnect</div>
+                        <div class="recap-body">LinkedIn post about Best Dam Tape spot + active 2024 production relationship.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Send Email</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Profile corrected (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Kate Egan <span>&mdash; Chief of Staff, Marketing &amp; Communications, Northwell Health</span></div>
+                        <div class="recap-day">Tue, May 26</div>
+                        <div class="recap-orig"><strong>Originally sent</strong><br>Katherine Egan &middot; Strategic Sales &middot; Cresta</div>
+                        <div class="recap-buttons"><span class="recap-btn disabled">No email on file</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="snapshot-mockup aria-hidden="true"" style="box-shadow:none; padding:24px 20px;">
+                    <h2 style="font-size:18px;">Your week in connections</h2>
+                    <div class="snapshot-date">May 25 &ndash; May 31, 2026 &middot; 12 contacts</div>
+                    <div class="recap-section">
+                      <h4>Meetings booked (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Claire Moyle <span>&mdash; U.S. Marketing Manager, Moth Drinks</span></div>
+                        <div class="recap-day">Wed, May 27</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Updated invitation: Moth + Ghost Robot &middot; May 27, 2026</div>
+                        <div class="recap-label">Last meeting</div>
+                        <div class="recap-body">Moth + Ghost Robot &middot; May 27, 2026</div>
+                        <div class="recap-status">The meeting has ended</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Conversations in progress (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Paul Rubin <span>&mdash; Executive Producer, ChukMedia</span></div>
+                        <div class="recap-day">Fri, May 29</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: Congrats on the ChukMedia move &middot; May 29, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You asked Paul about his new role at ChukMedia and proposed reconnecting over a call; he confirmed he&rsquo;s available in the coming weeks.</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>You reached out (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Lauren DeLaney <span>&mdash; Sr. Community Marketing Manager, Dick&rsquo;s Sporting Goods</span></div>
+                        <div class="recap-day">Fri, May 29</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Catching up since Superfly &middot; May 29, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You reconnected after your Outside Lands days at Superfly, expressed interest in her current work, and proposed exploring a potential collaboration.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Follow-up</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Still worth a ping (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Dana Nishimura Bryan <span>&mdash; Director, Retail Creative, The Walt Disney Company</span></div>
+                        <div class="recap-day">Thu, May 28</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: FWGS Finals &middot; Feb 4, 2022</div>
+                        <div class="recap-label">What you have in common</div>
+                        <div class="recap-tags"><span class="recap-tag">FWGS final spots</span><span class="recap-tag">Payment processing</span><span class="recap-tag">Post-production review</span></div>
+                        <div class="recap-label">Why reconnect</div>
+                        <div class="recap-body">Reactivation off Tierney FWGS spots, now leading retail creative at Disney.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Send Email</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Profile corrected (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Kate Egan <span>&mdash; Chief of Staff, Marketing &amp; Communications, Northwell Health</span></div>
+                        <div class="recap-day">Tue, May 26</div>
+                        <div class="recap-orig"><strong>Originally sent</strong><br>Katherine Egan &middot; Strategic Sales &middot; Cresta</div>
+                        <div class="recap-buttons"><span class="recap-btn disabled">No email on file</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="snapshot-mockup aria-hidden="true"" style="box-shadow:none; padding:24px 20px;">
+                    <h2 style="font-size:18px;">Your month in connections</h2>
+                    <div class="snapshot-date">May 2026 &middot; 63 contacts</div>
+                    <div class="recap-stats">
+                      <div class="recap-stat"><strong>63</strong><span>100% suggested</span></div>
+                      <div class="recap-stat"><strong>49</strong><span>78% reached</span></div>
+                      <div class="recap-stat"><strong>6</strong><span>10% replied</span></div>
+                      <div class="recap-stat"><strong>2</strong><span>3% meetings</span></div>
+                      <div class="recap-stat"><strong>4</strong><span>6% ongoing</span></div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Meetings booked (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Michael Carnall <span>&mdash; VP Marketing Production, Warner Bros. Discovery</span></div>
+                        <div class="recap-day">Tue, May 5</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Accepted: Mike + Mark (Ghost Robot) &middot; May 6, 2026</div>
+                        <div class="recap-label">Last meeting</div>
+                        <div class="recap-body">Mike + Mark (Ghost Robot) &middot; May 14, 2026</div>
+                        <div class="recap-status">The meeting has ended</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Conversations in progress (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Brian Coonce <span>&mdash; Executive Creative Director, Brand Experiences, Uber</span></div>
+                        <div class="recap-day">Mon, May 4</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: Saw the Go-Get Work &middot; May 21, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You discussed reconnecting on potential brand projects after a 2023 pitch and asked to schedule a capabilities share-out with Brian&rsquo;s team.</div>
+                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>You reached out (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Emmie Burns <span>&mdash; Director of Integrated Marketing, Pinterest</span></div>
+                        <div class="recap-day">Fri, May 1</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Congrats on Pinterest &middot; May 1, 2026</div>
+                        <div class="recap-label">What you talked about</div>
+                        <div class="recap-body">You congratulated Emmie on her new Director role at Pinterest and expressed interest in collaborating again, referencing the Play with Cars campaign from Facebook.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Follow-up</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Still worth a ping (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Aisha Amin <span>&mdash; CD, Alibaba</span></div>
+                        <div class="recap-day">Fri, May 1</div>
+                        <div class="recap-label">Last email thread</div>
+                        <div class="recap-thread">Re: Ghost Robot &amp; Alibaba Update &middot; Jun 24, 2024</div>
+                        <div class="recap-label">What you have in common</div>
+                        <div class="recap-tags"><span class="recap-tag">MSA negotiation</span><span class="recap-tag">Video content production</span><span class="recap-tag">Project pipeline</span></div>
+                        <div class="recap-label">Why reconnect</div>
+                        <div class="recap-body">LinkedIn post about Best Dam Tape spot + active 2024 production relationship.</div>
+                        <div class="recap-buttons"><span class="recap-btn">Send Email</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      </div>
+                    </div>
+                    <div class="recap-section">
+                      <h4>Profile corrected (1)</h4>
+                      <div class="recap-contact">
+                        <div class="recap-name">Kate Egan <span>&mdash; Chief of Staff, Marketing &amp; Communications, Northwell Health</span></div>
+                        <div class="recap-day">Tue, May 26</div>
+                        <div class="recap-orig"><strong>Originally sent</strong><br>Katherine Egan &middot; Strategic Sales &middot; Cresta</div>
+                        <div class="recap-buttons"><span class="recap-btn disabled">No email on file</span><span class="recap-btn ghost">Open LinkedIn</span></div>
                       </div>
                     </div>
                   </div>
@@ -2750,7 +2947,7 @@ section.hero + section { border-top: 0; }
           <li><span class="pricing-check">&#10003;</span> Signal detection (LinkedIn + news)</li>
           <li><span class="pricing-check">&#10003;</span> Voice-matched draft emails</li>
           <li><span class="pricing-check">&#10003;</span> Waterfall email enrichment</li>
-          <li><span class="pricing-check">&#10003;</span> Weekly recap</li>
+          <li><span class="pricing-check">&#10003;</span> Weekly and monthly recap</li>
           <li><span class="pricing-check">&#10003;</span> Monthly snapshot</li>
         </ul>
 
