@@ -1313,15 +1313,44 @@ section.hero + section { border-top: 0; }
 
 .hiw-snapshot-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
 .hiw-snapshot-frame {
-  height: 420px; max-height: 420px; overflow: hidden; border: 1px solid var(--card-border);
+  height: 480px; max-height: 480px; overflow: hidden; border: 1px solid var(--card-border);
   border-radius: var(--radius); position: relative;
+  display: flex; flex-direction: column; background: var(--surface);
 }
-.snapshot-scroll-track {
+/* Switcher tabs */
+.track-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--card-border); background: var(--surface); }
+.track-tab {
+  flex: 1; padding: 14px 12px 12px; background: transparent; border: none;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+  color: var(--ink-3); cursor: pointer; position: relative;
+  transition: color 150ms ease, background 150ms ease;
+}
+.track-tab:hover { color: var(--ink); background: var(--paper-2); }
+.track-tab.active { color: var(--ink); }
+.track-tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 14px; right: 14px;
+  height: 2px; background: var(--ink); border-radius: 2px;
+}
+.track-hint {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 8px 14px; font-family: var(--font-mono);
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--ink-3); background: var(--paper-2);
+  border-bottom: 1px solid var(--card-border);
+}
+.track-hint::before, .track-hint::after {
+  content: ''; display: inline-block; width: 18px; height: 1px; background: var(--ink-3);
+}
+.track-views { position: relative; flex: 1; overflow: hidden; }
+.track-view { display: none; height: 100%; overflow: hidden; }
+.track-view.active { display: block; }
+.track-view-scroll {
   display: flex; flex-direction: column;
-  animation: snapshot-scroll 70s linear infinite;
+  animation: snapshot-scroll 50s linear infinite;
 }
-.hiw-snapshot-frame:hover .snapshot-scroll-track { animation-play-state: paused; }
+.track-view:hover .track-view-scroll { animation-play-state: paused; }
 @keyframes snapshot-scroll { to { transform: translateY(-50%); } }
+@media (prefers-reduced-motion: reduce) { .track-view-scroll { animation: none; } }
 
 /* ===== WHO THIS IS FOR ===== */
 .qualification-body { max-width: 680px; margin: 40px auto 0; }
@@ -2325,7 +2354,14 @@ section.hero + section { border-top: 0; }
           <div class="hiw-panel-visual">
             <div class="hiw-mock">
               <div class="hiw-snapshot-frame">
-                <div class="snapshot-scroll-track">
+                <div class="track-tabs" role="tablist" aria-label="Track view switcher">
+                  <button class="track-tab active" data-track="weekly" role="tab" aria-selected="true">Weekly recap</button>
+                  <button class="track-tab" data-track="monthly" role="tab" aria-selected="false">Monthly snapshot</button>
+                </div>
+                <div class="track-hint">Click a tab to preview</div>
+                <div class="track-views">
+              <div class="track-view active" data-view="weekly">
+                <div class="track-view-scroll">
                   <div class="snapshot-mockup" style="box-shadow:none; padding:24px 20px;">
                     <h2 style="font-size:18px;">Your week in connections</h2>
                     <div class="snapshot-date">Aug 18 &ndash; Aug 24, 2026 &middot; 11 contacts</div>
@@ -2390,78 +2426,7 @@ section.hero + section { border-top: 0; }
                       </div>
                     </div>
                   </div>
-                  <div class="snapshot-mockup" style="box-shadow:none; padding:24px 20px;">
-                    <h2 style="font-size:18px;">Your month in connections</h2>
-                    <div class="snapshot-date">August 2026 &middot; 58 contacts</div>
-                    <div class="recap-stats">
-                      <div class="recap-stat"><strong>58</strong><span>100% suggested</span></div>
-                      <div class="recap-stat"><strong>44</strong><span>76% reached</span></div>
-                      <div class="recap-stat"><strong>5</strong><span>9% replied</span></div>
-                      <div class="recap-stat"><strong>2</strong><span>3% meetings</span></div>
-                      <div class="recap-stat"><strong>3</strong><span>5% ongoing</span></div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Meetings booked (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Olivia Bennett <span>&mdash; VP Marketing, Hayfield Wellness</span></div>
-                        <div class="recap-day">Mon, Aug 3</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Accepted: Hayfield + Studio intro &middot; Aug 4, 2026</div>
-                        <div class="recap-label">Last meeting</div>
-                        <div class="recap-body">Hayfield + Studio &middot; Aug 12, 2026</div>
-                        <div class="recap-status">The meeting has ended</div>
-                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
-                      </div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Conversations in progress (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Marcus Rivera <span>&mdash; Creative Director, Aperture Brands</span></div>
-                        <div class="recap-day">Thu, Aug 6</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Re: Saw the recent Aperture spot &middot; Aug 18, 2026</div>
-                        <div class="recap-label">What you talked about</div>
-                        <div class="recap-body">You discussed reactivating on potential campaigns after a 2023 pitch and asked to schedule a capabilities share-out with his team for next week.</div>
-                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
-                      </div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>You reached out (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Priya Shah <span>&mdash; Director of Brand, Northwind Co.</span></div>
-                        <div class="recap-day">Tue, Aug 4</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Congrats on Northwind &middot; Aug 4, 2026</div>
-                        <div class="recap-label">What you talked about</div>
-                        <div class="recap-body">You congratulated Priya on her new role at Northwind and expressed interest in collaborating again, referencing your past launch campaign together.</div>
-                        <div class="recap-buttons"><span class="recap-btn">Follow-up</span><span class="recap-btn ghost">Open LinkedIn</span></div>
-                      </div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Still worth a ping (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Liam O&rsquo;Connor <span>&mdash; Head of Content, Foxglove Media</span></div>
-                        <div class="recap-day">Fri, Aug 7</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Re: Project update &middot; Mar 12, 2024</div>
-                        <div class="recap-label">What you have in common</div>
-                        <div class="recap-tags"><span class="recap-tag">Branded content series</span><span class="recap-tag">Post-production review</span><span class="recap-tag">Creative direction</span></div>
-                        <div class="recap-label">Why reconnect</div>
-                        <div class="recap-body">Recent post about scaling Foxglove&rsquo;s editorial team + your prior content series collaboration.</div>
-                        <div class="recap-buttons"><span class="recap-btn">Send Email</span><span class="recap-btn ghost">Open LinkedIn</span></div>
-                      </div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Profile corrected (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Riley Chen <span>&mdash; Chief of Staff, Lattice Brands</span></div>
-                        <div class="recap-day">Wed, Aug 12</div>
-                        <div class="recap-orig"><strong>Originally sent</strong><br>Riley Chenowith &middot; Sr. Designer &middot; Compass Studio</div>
-                        <div class="recap-buttons"><span class="recap-btn disabled">No email on file</span><span class="recap-btn ghost">Open LinkedIn</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="snapshot-mockup aria-hidden="true"" style="box-shadow:none; padding:24px 20px;">
+                  <div class="snapshot-mockup" aria-hidden="true" style="box-shadow:none; padding:24px 20px;">
                     <h2 style="font-size:18px;">Your week in connections</h2>
                     <div class="snapshot-date">Aug 18 &ndash; Aug 24, 2026 &middot; 11 contacts</div>
                     <div class="recap-section">
@@ -2525,77 +2490,108 @@ section.hero + section { border-top: 0; }
                       </div>
                     </div>
                   </div>
-                  <div class="snapshot-mockup aria-hidden="true"" style="box-shadow:none; padding:24px 20px;">
-                    <h2 style="font-size:18px;">Your month in connections</h2>
-                    <div class="snapshot-date">August 2026 &middot; 58 contacts</div>
-                    <div class="recap-stats">
-                      <div class="recap-stat"><strong>58</strong><span>100% suggested</span></div>
-                      <div class="recap-stat"><strong>44</strong><span>76% reached</span></div>
-                      <div class="recap-stat"><strong>5</strong><span>9% replied</span></div>
-                      <div class="recap-stat"><strong>2</strong><span>3% meetings</span></div>
-                      <div class="recap-stat"><strong>3</strong><span>5% ongoing</span></div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Meetings booked (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Olivia Bennett <span>&mdash; VP Marketing, Hayfield Wellness</span></div>
-                        <div class="recap-day">Mon, Aug 3</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Accepted: Hayfield + Studio intro &middot; Aug 4, 2026</div>
-                        <div class="recap-label">Last meeting</div>
-                        <div class="recap-body">Hayfield + Studio &middot; Aug 12, 2026</div>
-                        <div class="recap-status">The meeting has ended</div>
-                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
+                </div>
+              </div>
+              <div class="track-view" data-view="monthly">
+                <div class="track-view-scroll">
+                  <div class="snapshot-mockup" style="box-shadow:none; padding:24px 20px;">
+                    <h2 style="font-size:18px;">Relationship Digest &mdash; August 2026 Snapshot</h2>
+                    <div class="snapshot-date">Sunday, September 1, 2026</div>
+                    <ul style="font-size:13px; color:var(--text-mid); margin-bottom:24px; line-height:1.9; padding-left:24px; list-style:disc;">
+                      <li>Digest suggestions: <strong style="color:var(--black);">58</strong></li>
+                      <li>Contacts reached: <strong style="color:var(--black);">44</strong></li>
+                      <li>Contacts replied: <strong style="color:var(--black);">5</strong></li>
+                      <li>Meetings booked: <strong style="color:var(--black);">2</strong></li>
+                      <li>Trigger-based action rate: <strong style="color:var(--black);">54.5%</strong></li>
+                      <li>Non-trigger action rate: <strong style="color:var(--black);">28.6%</strong></li>
+                    </ul>
+                    <div class="snapshot-wins">
+                      <h4>Notable wins</h4>
+                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Outreach that led to replies, meetings, or new opportunities this month.</p>
+                      <div class="snapshot-win-item">
+                        <strong>Sarah Mitchell (Brand Director, Verdant Goods)</strong> &mdash; Your note referencing her recent product launch landed perfectly. She replied within a few hours and you&rsquo;ve since had a 3-thread exchange about a Q4 campaign collaboration.
+                      </div>
+                      <div class="snapshot-win-item">
+                        <strong>Olivia Bennett (VP Marketing, Hayfield Wellness)</strong> &mdash; The news signal about Hayfield&rsquo;s seed round was well-timed. You reached out the day the news broke, and she responded warmly. A 30-minute call is now on the calendar for next week.
+                      </div>
+                      <div class="snapshot-win-item">
+                        <strong>Priya Shah (Director of Brand, Northwind Co.)</strong> &mdash; After 4 months of dormancy, the prompt to reconnect over her new role led to a reply and a coffee meeting. She mentioned interest in collaborating on a Q1 project.
                       </div>
                     </div>
-                    <div class="recap-section">
-                      <h4>Conversations in progress (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Marcus Rivera <span>&mdash; Creative Director, Aperture Brands</span></div>
-                        <div class="recap-day">Thu, Aug 6</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Re: Saw the recent Aperture spot &middot; Aug 18, 2026</div>
-                        <div class="recap-label">What you talked about</div>
-                        <div class="recap-body">You discussed reactivating on potential campaigns after a 2023 pitch and asked to schedule a capabilities share-out with his team for next week.</div>
-                        <div class="recap-buttons"><span class="recap-btn ghost">Open LinkedIn</span></div>
+                    <div class="snapshot-noreply" style="margin-top:16px;">
+                      <h4>No replies</h4>
+                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Contacts who didn&rsquo;t respond, with notes on what to try differently next time.</p>
+                      <div class="snapshot-noreply-item">
+                        <strong>Riley Chen</strong> (contacted Aug 5) &mdash; The angle about her recent keynote may have felt too generic. <em>Try a more specific angle next month &mdash; reference a particular point from her talk.</em>
+                      </div>
+                      <div class="snapshot-noreply-item">
+                        <strong>Liam O&rsquo;Connor</strong> (contacted Aug 12) &mdash; No response to the industry report share. <em>Wait one more month &mdash; he may be in heads-down mode given Foxglove&rsquo;s campaign launch timeline.</em>
+                      </div>
+                      <div class="snapshot-noreply-item">
+                        <strong>Jordan Pace</strong> (contacted Aug 8) &mdash; The congratulations on his promotion didn&rsquo;t generate a reply. <em>Try a different angle &mdash; perhaps reference a shared connection or mutual interest instead.</em>
                       </div>
                     </div>
-                    <div class="recap-section">
-                      <h4>You reached out (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Priya Shah <span>&mdash; Director of Brand, Northwind Co.</span></div>
-                        <div class="recap-day">Tue, Aug 4</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Congrats on Northwind &middot; Aug 4, 2026</div>
-                        <div class="recap-label">What you talked about</div>
-                        <div class="recap-body">You congratulated Priya on her new role at Northwind and expressed interest in collaborating again, referencing your past launch campaign together.</div>
-                        <div class="recap-buttons"><span class="recap-btn">Follow-up</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                    <div class="snapshot-focus" style="margin-top:20px;">
+                      <h4>Next focus</h4>
+                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Where to double down next month based on what&rsquo;s working.</p>
+                      <div class="snapshot-focus-item">
+                        Your trigger-based outreach is converting at nearly 2x the rate of non-trigger outreach. Lean into this &mdash; prioritize reaching out within 48 hours while the context is fresh.
                       </div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Still worth a ping (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Liam O&rsquo;Connor <span>&mdash; Head of Content, Foxglove Media</span></div>
-                        <div class="recap-day">Fri, Aug 7</div>
-                        <div class="recap-label">Last email thread</div>
-                        <div class="recap-thread">Re: Project update &middot; Mar 12, 2024</div>
-                        <div class="recap-label">What you have in common</div>
-                        <div class="recap-tags"><span class="recap-tag">Branded content series</span><span class="recap-tag">Post-production review</span><span class="recap-tag">Creative direction</span></div>
-                        <div class="recap-label">Why reconnect</div>
-                        <div class="recap-body">Recent post about scaling Foxglove&rsquo;s editorial team + your prior content series collaboration.</div>
-                        <div class="recap-buttons"><span class="recap-btn">Send Email</span><span class="recap-btn ghost">Open LinkedIn</span></div>
-                      </div>
-                    </div>
-                    <div class="recap-section">
-                      <h4>Profile corrected (1)</h4>
-                      <div class="recap-contact">
-                        <div class="recap-name">Riley Chen <span>&mdash; Chief of Staff, Lattice Brands</span></div>
-                        <div class="recap-day">Wed, Aug 12</div>
-                        <div class="recap-orig"><strong>Originally sent</strong><br>Riley Chenowith &middot; Sr. Designer &middot; Compass Studio</div>
-                        <div class="recap-buttons"><span class="recap-btn disabled">No email on file</span><span class="recap-btn ghost">Open LinkedIn</span></div>
+                      <div class="snapshot-focus-item">
+                        Three of your Tier A contacts haven&rsquo;t been surfaced yet this quarter. Consider scheduling time to review Sarah Mitchell&rsquo;s reply thread and the upcoming call with Olivia Bennett.
                       </div>
                     </div>
                   </div>
+                  <div class="snapshot-mockup" aria-hidden="true" style="box-shadow:none; padding:24px 20px;">
+                    <h2 style="font-size:18px;">Relationship Digest &mdash; August 2026 Snapshot</h2>
+                    <div class="snapshot-date">Sunday, September 1, 2026</div>
+                    <ul style="font-size:13px; color:var(--text-mid); margin-bottom:24px; line-height:1.9; padding-left:24px; list-style:disc;">
+                      <li>Digest suggestions: <strong style="color:var(--black);">58</strong></li>
+                      <li>Contacts reached: <strong style="color:var(--black);">44</strong></li>
+                      <li>Contacts replied: <strong style="color:var(--black);">5</strong></li>
+                      <li>Meetings booked: <strong style="color:var(--black);">2</strong></li>
+                      <li>Trigger-based action rate: <strong style="color:var(--black);">54.5%</strong></li>
+                      <li>Non-trigger action rate: <strong style="color:var(--black);">28.6%</strong></li>
+                    </ul>
+                    <div class="snapshot-wins">
+                      <h4>Notable wins</h4>
+                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Outreach that led to replies, meetings, or new opportunities this month.</p>
+                      <div class="snapshot-win-item">
+                        <strong>Sarah Mitchell (Brand Director, Verdant Goods)</strong> &mdash; Your note referencing her recent product launch landed perfectly. She replied within a few hours and you&rsquo;ve since had a 3-thread exchange about a Q4 campaign collaboration.
+                      </div>
+                      <div class="snapshot-win-item">
+                        <strong>Olivia Bennett (VP Marketing, Hayfield Wellness)</strong> &mdash; The news signal about Hayfield&rsquo;s seed round was well-timed. You reached out the day the news broke, and she responded warmly. A 30-minute call is now on the calendar for next week.
+                      </div>
+                      <div class="snapshot-win-item">
+                        <strong>Priya Shah (Director of Brand, Northwind Co.)</strong> &mdash; After 4 months of dormancy, the prompt to reconnect over her new role led to a reply and a coffee meeting. She mentioned interest in collaborating on a Q1 project.
+                      </div>
+                    </div>
+                    <div class="snapshot-noreply" style="margin-top:16px;">
+                      <h4>No replies</h4>
+                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Contacts who didn&rsquo;t respond, with notes on what to try differently next time.</p>
+                      <div class="snapshot-noreply-item">
+                        <strong>Riley Chen</strong> (contacted Aug 5) &mdash; The angle about her recent keynote may have felt too generic. <em>Try a more specific angle next month &mdash; reference a particular point from her talk.</em>
+                      </div>
+                      <div class="snapshot-noreply-item">
+                        <strong>Liam O&rsquo;Connor</strong> (contacted Aug 12) &mdash; No response to the industry report share. <em>Wait one more month &mdash; he may be in heads-down mode given Foxglove&rsquo;s campaign launch timeline.</em>
+                      </div>
+                      <div class="snapshot-noreply-item">
+                        <strong>Jordan Pace</strong> (contacted Aug 8) &mdash; The congratulations on his promotion didn&rsquo;t generate a reply. <em>Try a different angle &mdash; perhaps reference a shared connection or mutual interest instead.</em>
+                      </div>
+                    </div>
+                    <div class="snapshot-focus" style="margin-top:20px;">
+                      <h4>Next focus</h4>
+                      <p style="font-size:12px; color:var(--muted); margin-bottom:12px;">Where to double down next month based on what&rsquo;s working.</p>
+                      <div class="snapshot-focus-item">
+                        Your trigger-based outreach is converting at nearly 2x the rate of non-trigger outreach. Lean into this &mdash; prioritize reaching out within 48 hours while the context is fresh.
+                      </div>
+                      <div class="snapshot-focus-item">
+                        Three of your Tier A contacts haven&rsquo;t been surfaced yet this quarter. Consider scheduling time to review Sarah Mitchell&rsquo;s reply thread and the upcoming call with Olivia Bennett.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
                 </div>
               </div>
             </div>
@@ -3336,6 +3332,19 @@ if (privNext) privNext.addEventListener('click', () => {
     tab.addEventListener('click', () => { showHiwStep(i); });
   });
 })();
+
+// Track right-side view switcher (Weekly recap | Monthly snapshot)
+document.querySelectorAll('.track-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const key = tab.dataset.track;
+    document.querySelectorAll('.track-tab').forEach(t => {
+      const on = (t === tab);
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.track-view').forEach(v => v.classList.toggle('active', v.dataset.view === key));
+  });
+});
 
 // Testimonial slideshow (seamless slide, desktop + mobile, 4 seconds)
 (function() {
