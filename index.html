@@ -3235,6 +3235,7 @@ document.querySelectorAll('.track-tab').forEach(tab => {
   if (!track || cards.length < 2) return;
   const realCount = dots.length;                                    // number of real testimonials
   let pos = 0;                                                      // current slide index (0..realCount, last is the clone)
+  let timer = null;
 
   function applyTransform(animate) {
     track.style.transition = animate ? '' : 'none';
@@ -3244,29 +3245,47 @@ document.querySelectorAll('.track-tab').forEach(tab => {
     dots.forEach((d, i) => d.classList.toggle('active', i === active));
   }
 
-  // When the slide animation finishes on the clone, snap back to the real first card with no transition
-  track.addEventListener('transitionend', () => {
-    if (pos === realCount) {
+  function advance() {
+    // If we're sitting on the clone, snap (no animation) back to the real
+    // first card BEFORE the next animated move, so pos can never run away.
+    if (pos >= realCount) {
       pos = 0;
       applyTransform(false);
-      // force reflow so the next animated move starts cleanly
+      void track.offsetWidth;     // force reflow so the next move animates
+    }
+    pos++;                        // always move left, at most to the clone
+    applyTransform(true);
+  }
+
+  function start() { stop(); timer = setInterval(advance, 4000); }
+  function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+
+  // After landing on the clone, snap back to the real first card silently
+  // (covers the in-view case so the loop looks seamless).
+  track.addEventListener('transitionend', () => {
+    if (pos >= realCount) {
+      pos = 0;
+      applyTransform(false);
       void track.offsetWidth;
     }
   });
 
-  setInterval(() => {
-    pos++;                       // always move left
-    applyTransform(true);
-  }, 4000);
+  // Pause while the tab is hidden so timers can't pile up and drift the track.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { stop(); }
+    else { pos = pos % realCount; applyTransform(false); start(); }
+  });
 
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
       pos = parseInt(dot.dataset.index);
       applyTransform(true);
+      start();                    // restart the timer from this slide
     });
   });
 
   applyTransform(false);
+  start();
 })();
 
 // Digest info buttons (mobile popups)
