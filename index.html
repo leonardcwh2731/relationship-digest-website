@@ -236,6 +236,7 @@ section.hero + section { border-top: 0; }
 
 /* Utility */
 .mobile-break { display: none; }
+.desktop-break { display: inline; }
 
 /* Animations */
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 300ms ease, transform 300ms ease; }
@@ -1266,7 +1267,8 @@ section.hero + section { border-top: 0; }
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
 }
 @media (max-width: 768px) {
-  .footer { padding: 56px 0 24px; }
+  /* Hide the footer in mobile view */
+  .footer { display: none; }
   .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 32px; padding: 0 24px; }
   .footer-inner .footer-brand-col,
   .footer-inner .footer-col-resources,
@@ -1405,6 +1407,9 @@ section.hero + section { border-top: 0; }
   .steps::before { left: 19px; }
   .hero { min-height: 100vh; padding-bottom: 60px; }
   .mobile-break { display: block; }
+  /* Keep the pricing subtitle on a single line in mobile view */
+  .pricing-subtitle .desktop-break { display: none; }
+  .pricing-subtitle { white-space: nowrap; font-size: clamp(9px, 2.9vw, 15px); }
   .tracking-compare { grid-template-columns: 1fr !important; }
   .hero-bonuses-note { text-align: center; }
   section { padding-bottom: calc(var(--pad-v) + 40px); }
@@ -2277,7 +2282,7 @@ section.hero + section { border-top: 0; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">The Solution</div>
-      <h2 class="section-headline">Introducing <br class="mobile-break">VeraOps.</h2>
+      <h2 class="section-headline">Introducing VeraOps.</h2>
       <p class="subtitle" style="margin-top:12px;">Turning strategic thinking, customized implementation, and sophisticated technology into revenue recovered.</p>
     </div>
     <div class="solution-grid">
@@ -2653,7 +2658,7 @@ section.hero + section { border-top: 0; }
           <div class="digest-full-meta">May 25 &ndash; May 29, 2026 &nbsp;|&nbsp; 15 contacts</div>
 
           <div class="digest-full-section" id="recap-sec-meeting">
-            <div class="recap-sec-head">Meetings Booked (1)</div>
+            <div class="recap-sec-head">Meetings Booked (1) <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Meetings Booked</strong><br>Outreach that turned into a real meeting on your calendar &mdash; with the thread and the next meeting linked.</div></button></div>
             <div class="digest-full-contact">1. Elena Brooks &mdash; VP of Marketing, Marlowe &amp; Finch</div>
             <div class="digest-full-tier"><span>Thu, Jun 4</span></div>
             <div class="digest-full-section-title" style="margin-top:6px;">Last Email Thread</div>
@@ -2669,7 +2674,7 @@ section.hero + section { border-top: 0; }
           </div>
 
           <div class="digest-full-section" id="recap-sec-reached">
-            <div class="recap-sec-head">You Reached Out (1)</div>
+            <div class="recap-sec-head">You Reached Out (1) <button class="digest-info-btn" data-info="2"><span>i</span><div class="digest-info-popup"><strong>You Reached Out</strong><br>People you contacted this week, with a recap of exactly what you said so you can pick the thread back up.</div></button></div>
             <div class="digest-full-contact">2. Marcus Reilly &mdash; Head of Brand, Northwind Studio</div>
             <div class="digest-full-tier"><span>Thu, May 28</span></div>
             <div class="digest-full-section-title" style="margin-top:6px;">Last Email Thread</div>
@@ -2685,7 +2690,7 @@ section.hero + section { border-top: 0; }
           </div>
 
           <div class="digest-full-section" id="recap-sec-ping">
-            <div class="recap-sec-head">Still Worth a Ping (1)</div>
+            <div class="recap-sec-head">Still Worth a Ping (1) <button class="digest-info-btn" data-info="3"><span>i</span><div class="digest-info-popup"><strong>Still Worth a Ping</strong><br>Warm contacts you haven&rsquo;t reached yet &mdash; with what you have in common and a fresh reason to reconnect.</div></button></div>
             <div class="digest-full-contact">3. Priya Anand &mdash; Founder, Halo &amp; Co.</div>
             <div class="digest-full-tier"><span>Tue, May 26</span></div>
             <div class="digest-full-section-title" style="margin-top:6px;">What You Have in Common</div>
@@ -2703,7 +2708,7 @@ section.hero + section { border-top: 0; }
           </div>
 
           <div class="digest-full-section" id="recap-sec-corrected">
-            <div class="recap-sec-head">Profile Corrected (1)</div>
+            <div class="recap-sec-head">Profile Corrected (1) <button class="digest-info-btn" data-info="4"><span>i</span><div class="digest-info-popup"><strong>Profile Corrected</strong><br>Contacts whose role or company changed &mdash; we catch the move and update their profile for you.</div></button></div>
             <div class="digest-full-contact">4. Dana Whitfield &mdash; Chief of Staff, Bright Harbor</div>
             <div class="digest-full-tier"><span>Tue, May 26</span></div>
             <div class="digest-full-section-title" style="margin-top:6px;">Originally Sent</div>
@@ -2875,7 +2880,7 @@ section.hero + section { border-top: 0; }
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Founder&rsquo;s Pricing</div>
       <h2 class="section-headline">Subscribe to our thinking.</h2>
-      <p class="subtitle" style="margin-top:12px;">Buy our way of thinking about dormant relationships and...<br>how we turn them into new business.</p>
+      <p class="subtitle pricing-subtitle" style="margin-top:12px;">Buy our way of thinking about dormant relationships and...<br class="desktop-break">how we turn them into new business.</p>
     </div>
     <div class="pricing-single fade-in">
       <div class="pricing-card featured" style="max-width:440px; margin:48px auto 0;">
