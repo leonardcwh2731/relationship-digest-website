@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — VeraOps · Relationship Digest</title>
+<meta name="description" content="VeraOps Relationship Digest — Terms of Service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --paper: #F3F8EA; --paper-2: #EAF0DC;
+  --surface: #FFFFFF; --surface-ink: #F8FBF1;
+  --ink: #000000; --ink-2: #2B2B2B; --ink-3: #6B6B6B; --ink-4: #A8A8A8;
+  --hairline: #DCE3CD; --hairline-2: #C5CFB1;
+  --spark: #E5A83D; --spark-deep: #B7811F;
+  --font-display: 'Newsreader','Source Serif 4',Georgia,serif;
+  --font-sans: 'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono: 'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 400; line-height: 1.6;
+  color: var(--ink); background: var(--paper);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== NAV (mirrors main relationship digest site) ===== */
+.nav {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100;
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  background: rgba(243, 248, 234, 0.55);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border: 1px solid rgba(220, 227, 205, 0.45);
+  border-radius: 999px;
+  box-shadow: 0 8px 28px -8px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 200ms ease, background 200ms ease;
+}
+.nav.scrolled { box-shadow: 0 10px 32px -8px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.05); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 8px 8px 8px 24px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-wordmark, .nav-brand-text { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em; }
+.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-2); transition: color 150ms ease; white-space: nowrap; text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { padding: 10px 18px; font-size: 13px; gap: 6px; }
+.nav-cta .arrow { transition: transform 150ms ease; }
+.nav-cta:hover .arrow { transform: translateX(2px); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; cursor: pointer; font-family: var(--font-sans);
+  font-weight: 500; border-radius: 999px;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease;
+  position: relative; overflow: hidden;
+  letter-spacing: 0.01em; text-decoration: none;
+}
+.btn:active { transform: scale(0.985); }
+.btn-sage { background: var(--ink); color: var(--paper); padding: 10px 22px; font-size: 14px; }
+.btn-sage:hover { background: var(--ink-2); color: var(--paper); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-menu-cta { display: none; }
+
+/* ===== LEGAL PAGE ===== */
+.legal-page { padding: 140px 0 80px; }
+.container-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 32px; }
+.legal-back { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; margin-bottom: 32px; }
+.legal-back:hover { color: var(--ink); }
+.legal-eyebrow { font-family: var(--font-sans); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-3); margin-bottom: 16px; }
+.legal-page h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 16px; text-wrap: balance; }
+.legal-meta { font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); margin-bottom: 56px; }
+.legal-body { background: var(--paper); }
+.legal-body h2 { font-family: var(--font-display); font-weight: 500; font-size: 28px; line-height: 1.2; letter-spacing: -0.025em; color: var(--ink); margin: 48px 0 16px; }
+.legal-body h3 { font-family: var(--font-sans); font-weight: 600; font-size: 17px; color: var(--ink); margin: 28px 0 10px; }
+.legal-body p { font-family: var(--font-sans); font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; max-width: 64ch; }
+.legal-body ul, .legal-body ol { margin: 0 0 16px 24px; }
+.legal-body li { font-family: var(--font-sans); font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.legal-body a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hairline-2); }
+.legal-body a:hover { text-decoration-color: var(--ink); }
+hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 32px; }
+.footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
+.footer-bureau { grid-column: 2 / -1; grid-row: 2; justify-self: end; display: block; margin-top: 32px; text-decoration: none; }
+.footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
+.footer h5 { font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(243,248,234,0.5); margin: 0 0 16px; }
+.footer a { display: block; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2; color: var(--paper); text-decoration: none; opacity: 0.85; transition: color 150ms ease, opacity 150ms ease; }
+.footer a:hover { opacity: 1; color: var(--spark); }
+.footer .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer .brand img.footer-mark { width: 36px; height: 36px; border-radius: 7px; background: var(--paper); object-fit: cover; }
+.footer .brand span { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: -0.015em; color: var(--paper); }
+.footer .copy { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.6; color: rgba(243,248,234,0.6); max-width: 36ch; margin: 0; }
+.footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.footer-contact p { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; color: rgba(243,248,234,0.6); margin: 0; max-width: 36ch; }
+.footer-contact p a { display: inline; opacity: 0.85; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(243,248,234,0.3); }
+.footer-bottom { max-width: 1200px; margin: 56px auto 0; padding: 24px 32px 0; border-top: 1px solid rgba(243,248,234,0.1); font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1; color: rgba(243,248,234,0.4); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  /* Floating wide pill (~headline width): brand + hamburger */
+  .nav { min-width: 0; width: calc(100vw - 24px); max-width: calc(100vw - 24px); top: 12px; }
+  .nav-inner { justify-content: space-between; gap: 16px; padding: 8px 12px 8px 22px; }
+  .nav-wordmark, .nav-brand-text { font-size: 18px; }
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: flex;
+    position: absolute; top: calc(100% + 10px); right: 6px; left: auto;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 10px; width: min(200px, calc(100vw - 48px));
+    box-shadow: 0 16px 40px -10px rgba(0,0,0,0.22);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px) scale(0.96); transform-origin: top right;
+    transition: opacity 200ms ease, transform 260ms ease, visibility 0s linear 260ms;
+  }
+  .nav.menu-open .nav-links {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity 200ms ease, transform 260ms cubic-bezier(0.2,0.9,0.3,1.2), visibility 0s;
+  }
+  .nav-links > * { opacity: 0; transform: translateY(-4px); transition: opacity 200ms ease, transform 200ms ease; }
+  .nav.menu-open .nav-links > * { opacity: 1; transform: translateY(0); }
+  .nav.menu-open .nav-links > *:nth-child(1) { transition-delay: 60ms; }
+  .nav.menu-open .nav-links > *:nth-child(2) { transition-delay: 90ms; }
+  .nav.menu-open .nav-links > *:nth-child(3) { transition-delay: 120ms; }
+  .nav.menu-open .nav-links > *:nth-child(4) { transition-delay: 150ms; }
+  .nav.menu-open .nav-links > *:nth-child(5) { transition-delay: 180ms; }
+  .nav.menu-open .nav-links > *:nth-child(6) { transition-delay: 210ms; }
+  .nav-links a { padding: 10px 14px; border-radius: 10px; font-size: 15px; color: var(--ink); }
+  .nav-links a:hover { background: var(--paper-2); }
+  .nav-links a.nav-menu-cta { display: inline-flex; justify-content: center; gap: 6px; margin-top: 8px; color: var(--paper); background: var(--ink); border-radius: 999px; }
+  .nav-links a.nav-menu-cta:hover { background: var(--ink-2); color: var(--paper); }
+  .legal-page { padding: 100px 0 56px; }
+  .container-narrow { padding: 0 24px; }
+  .legal-body h2 { font-size: 24px; }
+  .footer { padding: 56px 0 24px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 24px; }
+  .footer-inner .footer-brand-col { grid-column: 1; grid-row: auto; }
+  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 24px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#digest">Digest</a>
+      <a href="index.html#testimonials">Clients</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="https://cal.com/leonard-veraops/relationship-digest" class="btn btn-sage nav-menu-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    </div>
+    <a href="https://cal.com/leonard-veraops/relationship-digest" data-cursor="Book" class="btn btn-sage nav-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="legal-page">
+  <div class="container-narrow">
+    <a href="index.html" class="legal-back">&larr; Back to home</a>
+    <div class="legal-eyebrow">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="legal-meta">Last modified: October 31, 2025</p>
+  </div>
+
+  <div class="legal-body">
+    <div class="container-narrow">
+
+      <h2>Introduction</h2>
+      <p>PLEASE READ THE FOLLOWING TERMS CAREFULLY BECAUSE, BY ACCESSING VERAOPS.COM OR USING SERVICES AVAILABLE ON VERAOPS.COM, YOU ACCEPT AND AGREE TO THEM. PLEASE ALSO READ OUR PRIVACY POLICY TO LEARN HOW WE COLLECT AND USE INFORMATION.</p>
+
+      <h3>Welcome to VeraOps.</h3>
+      <p>These VeraOps Service Terms (these &ldquo;Terms&rdquo;) explain the relationship between BVS I LLC d/b/a VeraOps (&ldquo;VeraOps&rdquo;, &ldquo;we&rdquo; or &ldquo;us&rdquo;) and you when you (i) access and use VERAOPS.COM and its related domains (together, the &ldquo;Site&rdquo;) and/or (ii) use and in some cases purchase VeraOps&rsquo;s proprietary software applications (including all related documentation, updates and upgrades) and any other services offered through the Site (the &ldquo;VeraOps Services&rdquo;).</p>
+      <p>These Terms govern visitors&rsquo; access to and use of the public areas of the Site, as well as access to and use of the VeraOps Services. Unless otherwise indicated, &ldquo;VeraOps Services&rdquo; as used throughout these Terms includes the public areas and the VeraOps Services. For the purposes of these Terms, &ldquo;you&rdquo; or &ldquo;your&rdquo; refers to you as a visitor to or registered user of the VeraOps Services.</p>
+      <p>THESE TERMS, TOGETHER WITH OUR PRIVACY POLICY, FORM AN AGREEMENT BETWEEN YOU AND VERAOPS SERVICES. BY AGREEING TO THESE TERMS OR USING THE VERAOPS SERVICES, YOU REPRESENT TO US THAT YOU ARE LEGALLY COMPETENT TO ENTER INTO THIS AGREEMENT.</p>
+      <p>IF YOU ARE AGREEING TO THESE TERMS OR USING THE VERAOPS SERVICES ON BEHALF OF YOUR EMPLOYER, YOUR ACCEPTANCE OF THESE TERMS IS DEEMED AN AGREEMENT BETWEEN YOUR EMPLOYER AND VERAOPS AND YOU REPRESENT AND WARRANT THAT YOU HAVE AUTHORITY TO BIND YOUR EMPLOYER TO THESE TERMS.</p>
+
+      <h2>License Grant</h2>
+      <p>The VeraOps Services is owned by VeraOps and is licensed, not sold, to you. Subject to your payment of all applicable fees, VeraOps grants to you a personal, nonexclusive, nontransferable, limited license (without the right to sublicense) to access and use the Site and to access and use the VeraOps Services subject to the limitations set forth in these Terms, any relevant purchase order or ordering document related to the VeraOps Services (&ldquo;Order Form&rdquo;) and any and all other terms and policies set forth in the VeraOps Services. You acknowledge that the source code for the VeraOps Services and other trade secrets embodied in the VeraOps Services have not been and will not be licensed or otherwise disclosed to you. All rights not expressly granted herein are reserved by VeraOps.</p>
+
+      <h2>Use of VeraOps Services</h2>
+      <h3>Registration</h3>
+      <p>Unless you are visiting only the public areas of the Site, you are required to complete the payment and complete the onboarding page to use the VeraOps Services (&ldquo;Account&rdquo;). You agree that you will maintain and update your registration and account information to ensure it is current, complete and accurate and that we have the right to terminate your Account and use of the VeraOps Services if you provide untrue, incomplete or inaccurate information.</p>
+
+      <h3>Your Responsibilities</h3>
+      <p>You are responsible for providing the equipment and services that you need to access and use the VeraOps. VeraOps does not guarantee that the VeraOps Services are accessible on any particular equipment or device or with any particular software or service plan.</p>
+      <p>You will use the VeraOps Services only for your individual or business purposes and in accordance with applicable laws, rules and regulations. You are responsible for all of your activities that occur within, through or as a result of your use of the VeraOps Services. You agree that you will not use the VeraOps Services for unlawful purposes or to engage in any illegal, offensive, indecent or objectionable conduct, including violation of any third party privacy or other rights. You agree that you will not use the VeraOps Services if you are under the age of majority in your place of residence or otherwise not fully able and competent to agree to these Terms.</p>
+      <p>If you use the VeraOps Services on your mobile device, you are solely responsible for all message and data fees charged by your wireless service provider. Please contact your mobile service provider for pricing plans and details. VeraOps is not liable for any delays, interruptions or other transmission errors related to your device, service or wireless service provider.</p>
+      <p>Except as specifically permitted in these Terms or expressly authorized in writing by VeraOps, you agree that you will not directly or indirectly: (a) distribute, sell, assign, encumber, transfer, rent, lease, sublicense, modify or time-share the VeraOps Services; (b) use any of the VeraOps Services in any service bureau arrangement or on behalf of any third party; (c) reproduce, adapt, create derivative works of, translate, localize, port or otherwise modify any of the VeraOps Services; or (d) permit any third party to engage in any of the acts described in clauses (a) through (c).</p>
+      <p>You are not permitted to: (a) remove or alter any copyright or other proprietary rights&rsquo; notice or restrictive rights legend contained or included in any of the VeraOps Services; (b) decompile, disassemble, reverse compile, reverse assemble, reverse translate or otherwise reverse engineer any of the VeraOps Services; (c) use any means to discover the source code of the VeraOps Services or to discover the trade secrets in the VeraOps Services; or (d) otherwise circumvent any functionality that controls access to or otherwise protects the VeraOps Services.</p>
+      <p>You are responsible for complying with all laws, rules and regulations (including those relating to internet, data and email privacy) that apply to your use of the VeraOps Services.</p>
+
+      <h3>Our Responsibilities</h3>
+      <p>VeraOps is responsible for providing the VeraOps Services in accordance with these Terms and all applicable laws, rules and regulations.</p>
+      <p>We will maintain commercially reasonable administrative, physical and technical safeguards intended to protect the security, confidentiality and integrity of information that you provide to or through the VeraOps Services (including Your Content as defined in Section 3 below).</p>
+      <p>VeraOps reserves the right but is not obligated to improve, enhance or modify the VeraOps Services. We will notify you in advance of changes to the VeraOps Services that may significantly adversely affect the manner in which you use the VeraOps Services or the manner in which the VeraOps Services perform.</p>
+      <p>VeraOps is not responsible for the content of Other Services or for losses, liabilities, actual or pending claims, actions, damages, expenses, costs of defense and reasonable attorneys&rsquo; fees (&ldquo;Claims&rdquo;) arising from your use of content, information, web sites, software, services and other materials of third parties with which you may interact when you use the VeraOps Services (collectively, &ldquo;Other Services&rdquo;). YOU ACCESS OTHER SERVICES ENTIRELY AT YOUR OWN RISK AND YOU ARE RESPONSIBLE FOR COMPLYING WITH TERMS AND CONDITIONS APPLICABLE TO YOUR ACCESS AND USE OF OTHER SERVICES.</p>
+
+      <h3>Availability</h3>
+      <p>We use commercially reasonable efforts to make the VeraOps Services available to you 24 hours per day, seven (7) days per week, excluding scheduled maintenance time, unavailability caused by you or any software, hardware or service not provided by us, emergency maintenance and/or any cause beyond our reasonable control (including without limitation nature disasters, wars, terrorist act, civil disturbances, acts of any government or agency thereof, strikes or other labor problems, Internet service or other third party service providers&rsquo; failures or delays and systemic electrical, telecommunications or other utility outages or failures).</p>
+
+      <h3>Limitations</h3>
+      <p>VeraOps Services are subject to reasonable limitations and other limitations, as specified within the VeraOps Services or the applicable Order Form(s).</p>
+
+      <h2>Your Content</h2>
+      <p>The VeraOps Services allow you to upload, transmit and use information and other content to and through the VeraOps Services (collectively, &ldquo;Your Content&rdquo;). You are solely responsible for the accuracy, quality, legality and means by which you acquired Your Content. You understand that VeraOps will use Your Content to provide the VeraOps Services to you. You have or will obtain all rights necessary to provide Your Content to VeraOps. You grant VeraOps license to use, reproduce, transmit, display and adapt your Content as necessary for VeraOps to provide the VeraOps Services to you in accordance with these Terms.</p>
+      <p>Without limiting the terms of our Privacy Policy, you understand that (i) we do not guarantee that your use of the VeraOps Services and/or Your Content will be private or secure and we are not responsible or liable to you for any lack of privacy or security that you may experience and (ii) we may use Your Content, including personally identifiable information to provide the VeraOps Services, which may include any and all the features available at https://www.veraops.com. We may also analyze Your Content and derive insights from such analysis (collectively, &ldquo;Analytical Data&rdquo;). VeraOps may use and distribute such Analytical Data for purposes of product development, product insights and for improving its products and services provided that such Analytical Data is in an aggregated, de-identified (anonymized) form that would not permit a third party to identify the data as associated with you or Your Content. VeraOps may share this Analytical Data in the VeraOps Services, with our email subscribers and in marketing material. For sake of clarity, the Analytical Data will not contain any personally identifiable information. VeraOps retains all Intellectual Property Rights in such Analytical Data. Information collected by your internet or mobile service provider and other third parties is used, stored, transferred and disclosed pursuant to your internet or mobile service provider&rsquo;s or the third party&rsquo;s terms, policies and practices.</p>
+      <p>We encourage you to carefully consider disclosure of any information that might be accessible to others. You are fully responsible for taking precautions and providing security measures best suited for your situation and intended use of the VeraOps Services.</p>
+      <p>VeraOps does not store, process or transmit any of your credit card data but relies entirely on third parties to handle these functions. You must comply with such third party&rsquo;s terms made available to you. Payments due for the VeraOps Service may be subject to the Stripe Services Agreement. If you do not agree to Stripe&rsquo;s terms, then please do not sign up for the VeraOps Service.</p>
+      <p>If purchased, your Premium Services will not be activated until your first payment is received. Payments are due in accordance with the Fee Schedule, often annually or monthly in advance. Fees are automatically charged to the credit card that you provided when you registered for the VeraOps Service. Additional Fees will be charged to you on a pro rata basis in the event that you add any additional licenses or seats or upgrade your VeraOps Service during a VeraOps Premium subscription term. To cancel the VeraOps Service, email <a href="mailto:hi@veraops.com">hi@veraops.com</a> with the subject of &lsquo;VeraOps Cancellation&rsquo;. We begin to process cancellation requests immediately, but your credit card provider may require several days to process your cancellation request. Any cancellation would take effect at the end of the current term and no refunds shall be provided. We are not responsible for delays caused by your credit card company.</p>
+      <p>If payment in full of any amount owed to VeraOps under these Terms is not received by VeraOps after such payment has become due, such amounts will thereafter bear interest at the rate 0.05% per day or the maximum rate permitted by applicable law, whichever is less. If any payment due VeraOps is collected at law or through an attorney at law or under advice therefrom or through a collection agency, you agree to pay all costs of collection, including, without limitation, all court costs and reasonable attorneys&rsquo; fees.</p>
+
+      <h2>Warranties</h2>
+      <p>We warrant that we have validly entered into these Terms and have the legal power to do so. You warrant that (i) you have validly entered into these Terms and have the legal power to do so and (ii) you have all necessary rights, licenses, consents and permissions to use Your Content with the VeraOps Services.</p>
+      <p>THE VERAOPS SERVICES ARE LICENSED &ldquo;AS-IS,&rdquo; &ldquo;WITH ALL FAULTS,&rdquo; AND &ldquo;AS AVAILABLE.&rdquo; YOU BEAR ALL RISK OF USING IT. VeraOps, ON BEHALF OF ITSELF, MICROSOFT, WIRELESS CARRIERS OVER WHOSE NETWORK THE VeraOps SERVICES ARE DISTRIBUTED, AND ITS AND THEIR RESPECTIVE AFFILIATES, VENDORS, AGENTS, AND SUPPLIERS (&ldquo;DISTRIBUTORS&rdquo;), GIVES NO EXPRESS WARRANTIES, GUARANTEES, OR CONDITIONS UNDER OR IN RELATION TO THE VeraOps SERVICES. YOU MAY HAVE ADDITIONAL CONSUMER RIGHTS UNDER YOUR LOCAL LAWS WHICH THIS AGREEMENT CANNOT CHANGE. TO THE EXTENT PERMITTED UNDER YOUR LOCAL LAWS, VeraOps AND ALL DISTRIBUTORS EXCLUDE ANY IMPLIED WARRANTIES OR CONDITIONS, INCLUDING THOSE OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. VeraOps DOES NOT WARRANT THAT (A) THE VeraOps SERVICES WILL MEET YOUR REQUIREMENTS, (B) OPERATION OF THE VeraOps SERVICES WILL BE UNINTERRUPTED OR VIRUS- OR ERROR-FREE, (C) THAT THE VeraOps SERVICES WILL OPERATE OR BE COMPATIBLE WITH ANY OTHER APPLICATIONS OR ANY PARTICULAR SYSTEMS OR DEVICES, (D) DEFECTS IN THE VeraOps SERVICES WILL BE CORRECTED OR (E) THAT THE VeraOps SERVICES WILL BE AVAILABLE FOR REINSTALLS ON THE SAME OR MULTIPLE DEVICES. ANY ORAL OR WRITTEN ADVICE PROVIDED BY VeraOps OR ITS AUTHORIZED AGENTS WILL NOT BE DEEMED TO CREATE ANY WARRANTY. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES SO SOME OR ALL OF THE ABOVE EXCLUSIONS MAY NOT APPLY TO YOU.</p>
+
+      <h2>Limitation of Liability</h2>
+      <p>VERAOPS&rsquo;S LIABILITY WITH RESPECT TO ANY SINGLE INCIDENT ARISING OUT OF OR RELATED TO THE DELIVERY, USE OR PERFORMANCE OF THE VeraOps SERVICES OR THESE TERMS (WHETHER IN CONTRACT OR TORT OR UNDER ANY OTHER THEORY OF LIABILITY) WILL NOT EXCEED THE AMOUNT PAID BY YOU HEREUNDER IN THE TWELVE (12) MONTHS PRECEDING THE INCIDENT; PROVIDED THAT IN NO EVENT SHALL VeraOps&rsquo;S AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THESE TERMS (WHETHER IN CONTRACT OR TORT OR UNDER ANY OTHER THEORY OF LIABILITY) EXCEED THE TOTAL AMOUNT PAID BY YOU HEREUNDER. THE FOREGOING LIMITATION WILL NOT LIMIT YOUR PAYMENT OBLIGATIONS.</p>
+      <p>IN NO EVENT WILL VERAOPS BE LIABLE TO YOU OR ANY THIRD PARTY FOR INDIRECT, SPECIAL, EXEMPLARY, INCIDENTAL, CONSEQUENTIAL AND PUNITIVE DAMAGES (INCLUDING, BUT NOT LIMITED TO, COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, LOSS OF USE, DATA OR PROFITS OR BUSINESS INTERRUPTION), HOWEVER CAUSED AND UNDER ANY THEORY OF LIABILITY, WHETHER UNDER THESE TERMS OR OTHERWISE ARISING IN ANY WAY IN CONNECTION WITH THE VERAOPS SERVICES OR THESE TERMS AND WHETHER IN CONTRACT, STRICT LIABILITY OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) EVEN IF VeraOps HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE FOREGOING DISCLAIMER OF LIABILITY WILL NOT APPLY TO THE EXTENT PROHIBITED BY APPLICABLE LAW. YOU AGREE NOT TO SEEK TO RECOVER ANY OTHER DAMAGES, INCLUDING CONSEQUENTIAL, LOST PROFITS, SPECIAL, INDIRECT OR INCIDENTAL DAMAGES FROM ANY DISTRIBUTOR.</p>
+      <p>You agree that the above limitations of liability, together with the other provisions in these Terms that limit liability, are essential terms of these Terms and that VeraOps would not be willing to grant you the rights set forth in these Terms but for your agreement to these limitations of liability.</p>
+
+      <h2>Ownership</h2>
+      <p>The VeraOps Services, including the &ldquo;look and feel&rdquo; (e.g., text, graphics, images, logos), content and other material, are protected under copyright, trademark and other laws. You acknowledge and agree that VeraOps owns all right, title and interest in and to the VeraOps Services (including without limitation any and all patent, copyright, trade secret, trademark, show-how, know-how and any and all other intellectual property rights therein or related thereto) and you agree not to take any action(s) inconsistent with such ownership interests. You do not acquire any rights or licenses under any of VeraOps&rsquo;s copyrights, patents, patent applications, copyrights, trade secrets, trademarks or other intellectual property rights on account of these Terms. Any and all (a) suggestions for correction, change and modification to the VeraOps Services, evaluation data, evaluations and other feedback (including but not limited to quotations of written or oral feedback, information and reports provided to VeraOps by you (collectively, &ldquo;Feedback&rdquo;)), and all (b) improvements, updates, modifications or enhancements, whether made, created or developed by VeraOps or otherwise relating to the VeraOps Services (collectively, &ldquo;Revisions&rdquo;), are and will remain the property of VeraOps. You acknowledge and expressly agree that any contribution of Feedback or Revisions does not and will not give or grant you any right, title or interest in the VeraOps Services or in any such Feedback or Revisions. All Feedback and Revisions become the sole and exclusive property of VeraOps and VeraOps may use and disclose Feedback and Revisions in any manner and for any purpose whatsoever without further notice or compensation to you and without retention by you of any proprietary or other right or claim. You hereby assign to VeraOps any and all right, title and interest (including, but not limited to, any patent, copyright, trade secret, trademark, show-how, know-how, moral rights, and any and all other intellectual property rights) that you may have in and to any and all Feedback and Revisions. Upon request by VeraOps, you will execute any document, registration or filing required to give effect to the foregoing assignment. In addition, VeraOps shall have the right to copy, use, distribute, and display any information, analysis, statistics and other data generated by the VeraOps Services (or derived from your use of the VeraOps Services), including compilation of aggregated statistics about the VeraOps Services; provided, however, that VeraOps shall not publicly disclose or distribute any such data unless such data is in an aggregated form that would not permit a third party to identify the data as associated with you.</p>
+
+      <h2>Indemnification</h2>
+      <p>You agree to indemnify and defend VeraOps and its affiliates, directors, officers, employees and agents from and against all Claims brought against VeraOps by any third party arising from your use of the VeraOps Services or any violation of these Terms, the rights of a third party or applicable law. Your indemnification obligations set forth in this Section 8 apply to any applicable actions taken under your Account. VeraOps reserves the right, at its own expense, to assume the exclusive defense and control of any matter subject to indemnification hereunder. In any event, no settlement that affects the rights or obligations of VeraOps may be made without VeraOps&rsquo;s prior written approval.</p>
+
+      <h2>Modifications to Terms</h2>
+      <p>We may modify these Terms at any time. Modifications become effective immediately upon your first access to or use of the VeraOps Services after the &ldquo;Last modified&rdquo; date at the top of this page. Your continued access or use of the VeraOps Services after the modifications become effective is deemed your conclusive acceptance of the modified Terms.</p>
+
+      <h2>Termination</h2>
+      <p>These Terms will automatically terminate when you fail to comply with any term or condition of these Terms. Upon termination, you will cease all use of the VeraOps Services and will destroy any copy (full or partial) of any and all parts of the VeraOps Services in your possession or control. Termination will not limit any of VeraOps&rsquo;s other rights or remedies at law or in equity. This Section 10 along with Sections 6, 7, 8, 13 and 18 and any other Section that by its nature is reasonably intended to survive the termination or expiration of these Terms, will survive any termination or expiration of these Terms.</p>
+
+      <h2>Export Laws</h2>
+      <p>You agree that you will not export or re-export, directly or indirectly, the VeraOps Services and/or other information or materials provided by VeraOps hereunder, to any country for which the United States or any other relevant jurisdiction requires any export license or other governmental approval at the time of export without first obtaining such license or approval. You are responsible for and hereby agree to comply at your sole expense, with all applicable United States export laws and regulations. You represent and warrant that (i) you are not located in a country that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a &ldquo;terrorist supporting&rdquo; country; and (ii) you are not listed on any U.S. Government list of prohibited or restricted parties.</p>
+
+      <h2>U.S. Government Restricted Rights</h2>
+      <p>The VeraOps Services are &ldquo;commercial computer software&rdquo; and &ldquo;commercial computer software documentation&rdquo; as such terms are used in United States Federal Acquisition Regulations Section 12.212. Any use, duplication or disclosure of the VeraOps Services by or on behalf of the U.S. Government is subject to restrictions as set forth in these Terms.</p>
+
+      <h2>Taxes</h2>
+      <p>You are solely responsible for any and all duties, taxes, levies or fees (including any sales, use or withholding taxes) imposed on or in connection with these Terms or the VeraOps Services by any authority (excluding taxes based on VeraOps&rsquo;s net income).</p>
+
+      <h2>Remedies</h2>
+      <p>You agree that a breach or a threatened breach of these Terms will cause injury to VeraOps for which money damages will not provide an adequate remedy and VeraOps will be entitled to seek equitable relief in addition to any remedies it may have hereunder or at law without a bond, other security or proof of damages.</p>
+
+      <h2>Questions</h2>
+      <p>Please direct questions regarding these Terms to our support team by submitting a request via phone at +1 (302) 223 4061 or email to <a href="mailto:relationships@veraops.com">relationships@veraops.com</a> with the subject of &ldquo;Terms of Service&rdquo;.</p>
+
+      <hr>
+      <p style="font-family:var(--font-mono); font-size:12px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.08em;">&copy; 2026 BVS I LLC d/b/a VeraOps</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="brand">
+        <img src="assets/logo-mark.png" alt="" class="footer-mark">
+        <span>VeraOps</span>
+      </div>
+      <p class="copy">We help digital and creative agencies recover lost revenue from dormant relationships.</p>
+      <div class="footer-contact">
+        <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
+        <p>+1 (302) 223 4061</p>
+        <p>838 Walker Road, Suite 21-2<br>Dover, DE 19904, US</p>
+      </div>
+    </div>
+    <div class="footer-col-resources">
+      <h5>Resources</h5>
+      <a href="index.html#hero">Home</a>
+      <a href="articles/index.html">Articles</a>
+    </div>
+    <div class="footer-col-compare">
+      <h5>Compare</h5>
+      <a href="index.html#faq">Outbound Agencies</a>
+      <a href="index.html#faq">CRM Agencies</a>
+    </div>
+    <div class="footer-col-legal">
+      <h5>Legal</h5>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+    </div>
+    <a href="https://thebureau.community" target="_blank" rel="noopener" class="footer-bureau">
+      <img src="assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
+    <span>Designed for ambitious digital and creative agencies</span>
+  </div>
+</footer>
+
+<script>
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const navEl = document.getElementById('nav');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navEl) {
+  navToggle.addEventListener('click', () => {
+    const open = navEl.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  if (navLinks) navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (navEl.classList.contains('menu-open') && !navEl.contains(e.target)) {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — VeraOps · Relationship Digest</title>
+<meta name="description" content="VeraOps Relationship Digest — Privacy Policy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --paper: #F3F8EA; --paper-2: #EAF0DC;
+  --surface: #FFFFFF; --surface-ink: #F8FBF1;
+  --ink: #000000; --ink-2: #2B2B2B; --ink-3: #6B6B6B; --ink-4: #A8A8A8;
+  --hairline: #DCE3CD; --hairline-2: #C5CFB1;
+  --spark: #E5A83D; --spark-deep: #B7811F;
+  --font-display: 'Newsreader','Source Serif 4',Georgia,serif;
+  --font-sans: 'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono: 'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 400; line-height: 1.6;
+  color: var(--ink); background: var(--paper);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== NAV (mirrors main relationship digest site) ===== */
+.nav {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100;
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  background: rgba(243, 248, 234, 0.55);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border: 1px solid rgba(220, 227, 205, 0.45);
+  border-radius: 999px;
+  box-shadow: 0 8px 28px -8px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 200ms ease, background 200ms ease;
+}
+.nav.scrolled { box-shadow: 0 10px 32px -8px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.05); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 8px 8px 8px 24px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-wordmark, .nav-brand-text { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em; }
+.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-2); transition: color 150ms ease; white-space: nowrap; text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { padding: 10px 18px; font-size: 13px; gap: 6px; }
+.nav-cta .arrow { transition: transform 150ms ease; }
+.nav-cta:hover .arrow { transform: translateX(2px); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; cursor: pointer; font-family: var(--font-sans);
+  font-weight: 500; border-radius: 999px;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease;
+  position: relative; overflow: hidden;
+  letter-spacing: 0.01em; text-decoration: none;
+}
+.btn:active { transform: scale(0.985); }
+.btn-sage { background: var(--ink); color: var(--paper); padding: 10px 22px; font-size: 14px; }
+.btn-sage:hover { background: var(--ink-2); color: var(--paper); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-menu-cta { display: none; }
+
+/* ===== LEGAL PAGE ===== */
+.legal-page { padding: 140px 0 80px; }
+.container-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 32px; }
+.legal-back { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; margin-bottom: 32px; }
+.legal-back:hover { color: var(--ink); }
+.legal-eyebrow { font-family: var(--font-sans); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-3); margin-bottom: 16px; }
+.legal-page h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 16px; text-wrap: balance; }
+.legal-meta { font-family: var(--font-mono); font-size: 13px; color: var(--ink-3); margin-bottom: 56px; }
+.legal-body { background: var(--paper); }
+.legal-body h2 { font-family: var(--font-display); font-weight: 500; font-size: 28px; line-height: 1.2; letter-spacing: -0.025em; color: var(--ink); margin: 48px 0 16px; }
+.legal-body h3 { font-family: var(--font-sans); font-weight: 600; font-size: 17px; color: var(--ink); margin: 28px 0 10px; }
+.legal-body p { font-family: var(--font-sans); font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; max-width: 64ch; }
+.legal-body ul, .legal-body ol { margin: 0 0 16px 24px; }
+.legal-body li { font-family: var(--font-sans); font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.legal-body a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hairline-2); }
+.legal-body a:hover { text-decoration-color: var(--ink); }
+hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 32px; }
+.footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
+.footer-bureau { grid-column: 2 / -1; grid-row: 2; justify-self: end; display: block; margin-top: 32px; text-decoration: none; }
+.footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
+.footer h5 { font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(243,248,234,0.5); margin: 0 0 16px; }
+.footer a { display: block; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2; color: var(--paper); text-decoration: none; opacity: 0.85; transition: color 150ms ease, opacity 150ms ease; }
+.footer a:hover { opacity: 1; color: var(--spark); }
+.footer .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer .brand img.footer-mark { width: 36px; height: 36px; border-radius: 7px; background: var(--paper); object-fit: cover; }
+.footer .brand span { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: -0.015em; color: var(--paper); }
+.footer .copy { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.6; color: rgba(243,248,234,0.6); max-width: 36ch; margin: 0; }
+.footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.footer-contact p { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; color: rgba(243,248,234,0.6); margin: 0; max-width: 36ch; }
+.footer-contact p a { display: inline; opacity: 0.85; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(243,248,234,0.3); }
+.footer-bottom { max-width: 1200px; margin: 56px auto 0; padding: 24px 32px 0; border-top: 1px solid rgba(243,248,234,0.1); font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1; color: rgba(243,248,234,0.4); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  /* Floating wide pill (~headline width): brand + hamburger */
+  .nav { min-width: 0; width: calc(100vw - 24px); max-width: calc(100vw - 24px); top: 12px; }
+  .nav-inner { justify-content: space-between; gap: 16px; padding: 8px 12px 8px 22px; }
+  .nav-wordmark, .nav-brand-text { font-size: 18px; }
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: flex;
+    position: absolute; top: calc(100% + 10px); right: 6px; left: auto;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 10px; width: min(200px, calc(100vw - 48px));
+    box-shadow: 0 16px 40px -10px rgba(0,0,0,0.22);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px) scale(0.96); transform-origin: top right;
+    transition: opacity 200ms ease, transform 260ms ease, visibility 0s linear 260ms;
+  }
+  .nav.menu-open .nav-links {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity 200ms ease, transform 260ms cubic-bezier(0.2,0.9,0.3,1.2), visibility 0s;
+  }
+  .nav-links > * { opacity: 0; transform: translateY(-4px); transition: opacity 200ms ease, transform 200ms ease; }
+  .nav.menu-open .nav-links > * { opacity: 1; transform: translateY(0); }
+  .nav.menu-open .nav-links > *:nth-child(1) { transition-delay: 60ms; }
+  .nav.menu-open .nav-links > *:nth-child(2) { transition-delay: 90ms; }
+  .nav.menu-open .nav-links > *:nth-child(3) { transition-delay: 120ms; }
+  .nav.menu-open .nav-links > *:nth-child(4) { transition-delay: 150ms; }
+  .nav.menu-open .nav-links > *:nth-child(5) { transition-delay: 180ms; }
+  .nav.menu-open .nav-links > *:nth-child(6) { transition-delay: 210ms; }
+  .nav-links a { padding: 10px 14px; border-radius: 10px; font-size: 15px; color: var(--ink); }
+  .nav-links a:hover { background: var(--paper-2); }
+  .nav-links a.nav-menu-cta { display: inline-flex; justify-content: center; gap: 6px; margin-top: 8px; color: var(--paper); background: var(--ink); border-radius: 999px; }
+  .nav-links a.nav-menu-cta:hover { background: var(--ink-2); color: var(--paper); }
+  .legal-page { padding: 100px 0 56px; }
+  .container-narrow { padding: 0 24px; }
+  .legal-body h2 { font-size: 24px; }
+  .footer { padding: 56px 0 24px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 24px; }
+  .footer-inner .footer-brand-col { grid-column: 1; grid-row: auto; }
+  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 24px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#digest">Digest</a>
+      <a href="index.html#testimonials">Clients</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="https://cal.com/leonard-veraops/relationship-digest" class="btn btn-sage nav-menu-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    </div>
+    <a href="https://cal.com/leonard-veraops/relationship-digest" data-cursor="Book" class="btn btn-sage nav-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="legal-page">
+  <div class="container-narrow">
+    <a href="index.html" class="legal-back">&larr; Back to home</a>
+    <div class="legal-eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="legal-meta">Last modified: October 31, 2025</p>
+  </div>
+
+  <div class="legal-body">
+    <div class="container-narrow">
+
+      <h2>Introduction</h2>
+      <h3>Welcome to BVS I LLC d/b/a VeraOps (&ldquo;VeraOps&rdquo;)</h3>
+      <p>VeraOps (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates https://www.veraops.com, the VeraOps, and any affiliated software and mobile applications (collectively, the &ldquo;Site&rdquo;), and related products and services (collectively, the &ldquo;Service&rdquo; or &ldquo;Services&rdquo;)</p>
+      <p>Our Privacy Policy governs your visit to the Site and explains how we collect, safeguard and disclose information that results from your use of our Service.</p>
+      <p>We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.</p>
+      <p>Our Terms and Conditions (&ldquo;Terms&rdquo;) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (&ldquo;agreement&rdquo;).</p>
+
+      <h2>Definitions</h2>
+      <p>SERVICE means the https://www.veraops.com website, VeraOps, and any affiliated software and mobile applications operated by VeraOps.</p>
+      <p>PERSONAL DATA means data about a living individual who can be identified from those data (or from those and other information either in our possession or likely to come into our possession).</p>
+      <p>USAGE DATA is data collected automatically either generated by the use of Service or from Service infrastructure itself (for example, the duration of a page visit).</p>
+      <p>COOKIES are small files stored on your device (computer or mobile device).</p>
+      <p>DATA CONTROLLER means a natural or legal person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal data are, or are to be, processed. For the purpose of this Privacy Policy, we are a Data Controller of your data.</p>
+      <p>DATA PROCESSORS (OR SERVICE PROVIDERS) means any natural or legal person who processes the data on behalf of the Data Controller. We may use the services of various Service Providers in order to process your data more effectively.</p>
+      <p>DATA SUBJECT is any living individual who is the subject of Personal Data.</p>
+      <p>THE USER is the individual using our Service. The User corresponds to the Data Subject, who is the subject of Personal Data.</p>
+
+      <h2>Information Collection and Use</h2>
+      <p>We collect several different types of information for various purposes to provide and improve our Service to you.</p>
+
+      <h3>Personal Data</h3>
+      <p>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you (&ldquo;Personal Data&rdquo;). Personally identifiable information may include, but is not limited to:</p>
+      <p>(a) Email address<br>(b) First name and last name<br>(c) Cookies and Usage Data</p>
+      <p>We may use your Personal Data to contact you with our newsletters, marketing or promotional materials and other information that may be of interest to you. You may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at <a href="mailto:hi@veraops.com">hi@veraops.com</a>.</p>
+      <p>We will not resell your Personal Data to third parties.</p>
+
+      <h3>Information You Provide.</h3>
+      <p>We may collect personal information that can be used to contact or identify you, and may include information such as an individual&rsquo;s name, email address, mailing address, telephone number, and payment or bank account details (&ldquo;Personal Information&rdquo;).</p>
+      <p>When you onboard our services, we may collect some Personal Information, such as your name, your name, your phone number, a credit card or other billing information, your email address, and postal addresses. The Site allows you to link your Third Party Accounts. We may use OAuth (as defined below), if available, to access Third Party Accounts in order to limit our collection of your passwords. &ldquo;OAuth&rdquo; is an open protocol for authorization, commonly used a way for users to log in to sites using their accounts with third-party services, such as Google or Microsoft, but without exposing their third-party-service passwords to such sites. For a Third Party Account that does not support OAuth, we will ask for your login credentials for such Third Party Account, which may include your email address and password. In all cases, we may collect your name and email address and the names and email addresses of your email contacts, subject to the terms of this Privacy Policy. If you create an Account using your login credentials from one of your Third Party Accounts, we may access and collect your name and email address and other Personal Information that your privacy settings on the Third Party Account permit us to access, subject to the terms of this Privacy Policy.</p>
+      <p>When you invite others to join Site, you provide us with certain contact information that allows us to send an invitation. We may also receive Personal Information through other users, for example if they have tried to give you access to a Site account or refer Site to you. It is your responsibility to ensure that your Personal Information is up-to-date.</p>
+
+      <h3>Right to Access</h3>
+      <p>While using your services, we may collect Personal Data and Personal Information. You have a right, as an individual, to request the Personal Data and Personal Information we have collected about you. To do so, please contact <a href="mailto:hi@veraops.com">hi@veraops.com</a>.</p>
+
+      <h3>Usage Data</h3>
+      <p>We may also collect information that your browser sends whenever you visit our Service or when you access Service by or through a mobile device (&ldquo;Usage Data&rdquo;).</p>
+      <p>This Usage Data may include information such as your computer&rsquo;s Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.</p>
+      <p>When you access Service with a mobile device, this Usage Data may include information such as the type of mobile device you use, your mobile device unique ID, the IP address of your mobile device, your mobile operating system, the type of mobile Internet browser you use, unique device identifiers and other diagnostic data.</p>
+
+      <h3>Tracking Cookies Data</h3>
+      <p>We use cookies and similar tracking technologies to track the activity on our Service and we hold certain information.</p>
+      <p>Cookies are files with a small amount of data which may include an anonymous unique identifier. Cookies are sent to your browser from a website and stored on your device. Other tracking technologies are also used such as beacons, tags and scripts to collect and track information and to improve and analyze our Service.</p>
+      <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+      <p>Examples of Cookies we use:</p>
+      <p>(a) Session Cookies: We use Session Cookies to operate our Service.<br>(b) Preference Cookies: We use Preference Cookies to remember your preferences and various settings.<br>(c) Security Cookies: We use Security Cookies for security purposes.<br>(d) Advertising Cookies: Advertising Cookies are used to serve you with advertisements that may be relevant to you and your interests.</p>
+
+      <h2>How We Use Personal Information and Data</h2>
+      <p>VeraOps uses the collected data for various purposes:</p>
+      <p>(a) to provide and maintain our Service;<br>(b) to notify you about changes to our Service;<br>(c) to allow you to participate in interactive features of our Service when you choose to do so;<br>(d) to provide customer support;<br>(e) to gather analysis or valuable information so that we can improve our Service;<br>(f) to monitor the usage of our Service;<br>(g) to detect, prevent and address technical issues;<br>(h) to fulfill any other purpose for which you provide it;<br>(i) to carry out our obligations and enforce our rights arising from any contracts entered into between you and us, including for billing and collection;<br>(j) to provide you with notices about your account and/or subscription, including expiration and renewal notices, email-instructions, etc.;<br>(k) to provide you with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless you have opted not to receive such information;<br>(l) in any other way we may describe when you provide the information.</p>
+
+      <h2>Additional Limits on Use of Your Google User Data</h2>
+      <p>Notwithstanding anything else in this Privacy Policy, if you provide the Site access to the following types of your Google data, the App&rsquo;s use of that data will be subject to these additional restrictions:</p>
+      <p>The Site will only use access to read, write, modify, or control Gmail message metadata to show relevant emails during use of Services and will not transfer this Gmail data to others unless doing so is necessary to provide and improve these features, comply with applicable law, or as part of a merger, acquisition, or sale of assets. The Site will not use this Gmail data for serving advertisements. The Site will not allow humans to read this Gmail data unless we have your affirmative agreement for metadata of specific messages, doing so is necessary for security purposes such as investigating abuse, to comply with applicable law, or for the App&rsquo;s internal operations and even then only when the data have been aggregated and anonymized.</p>
+      <p>The provision of Google and/or Gmail data is not required for use of services.</p>
+
+      <h2>Additional Limits on Use of Integrated Account Data</h2>
+      <p>We will retain integrated account data and credentials provided to us for provision of syncing functionality on various platforms on an opt-in basis. If you provide the Site access to login credentials for external sources, the Site will only use access to read relevant data as part of product-based workflows. The site will not allow humans to access these credentials unless with affirmative consent in providing support, is necessary for security purposes such as investigating abuse, to comply with applicable law, or for the App&rsquo;s internal operations and even then only when the data have been aggregated and anonymized.</p>
+      <p>The provision of integrated account data is not required for use of services.</p>
+
+      <h2>Onward Transfer</h2>
+      <p>VeraOps is responsible for the processing of Personal Information and Personal Data it receives or subsequently transfers to a third party acting as an agent on its behalf. VeraOps complies with applicable data protection law, including Privacy Shield Principles for all onward transfers of Personal Information from the EU, EEA and Switzerland, including the onward transfer liability provisions in the Privacy Shield Principles.</p>
+
+      <h2>Regulatory Enforcement</h2>
+      <p>With respect to Personal Information and Personal Data received or transferred pursuant to the Privacy Shield Frameworks, VeraOps is subject to the regulatory enforcement powers of the U.S. Federal Trade Commission. In certain situations, VeraOps may be required to disclose Personal Information in response to lawful requests by public authorities, including to meet national security or law enforcement requirements.</p>
+      <p>If you have questions about our Privacy Shield certification, we encourage you to contact us (<a href="mailto:hi@veraops.com">hi@veraops.com</a>).</p>
+
+      <h2>Retention of Data</h2>
+      <p>We will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.</p>
+      <p>We will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period, except when this data is used to strengthen the security or to improve the functionality of our Service, or we are legally obligated to retain this data for longer time periods.</p>
+
+      <h2>Transfer of Data</h2>
+      <p>Your information, including Personal Data, may be transferred to &ndash; and maintained on &ndash; computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ from those of your jurisdiction.</p>
+      <p>If you are located outside the United States and choose to provide information to us, please note that we transfer the data, including Personal Data, to the United States and process it there.</p>
+      <p>Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.</p>
+      <p>VeraOps will take all the steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of your data and other personal information.</p>
+      <p>Site will not transfer data to third-parties unless necessary to provide and improve Services, comply with applicable law, or as part of a merger, acquisition, or sale of assets.</p>
+
+      <h2>Disclosure of Data</h2>
+      <p>We may disclose personal information that we collect, or you provide in these cases:</p>
+      <p>(a) Disclosure for Law Enforcement.</p>
+      <p>Under certain circumstances, we may be required to disclose your Personal Data if required to do so by law or in response to valid requests by public authorities.</p>
+      <p>(b) Business Transaction.</p>
+      <p>If we or our subsidiaries are involved in a merger, acquisition or asset sale, your Personal Data may be transferred.</p>
+      <p>(c) Non-Private or Non-Personal Information. We may disclose your non-private, aggregated, or otherwise non-personal information, such as usage statistics of our Service.</p>
+      <p>(d) Advertising. We permit third party advertising networks and providers to collect Web-Behavior Information regarding the use of our Services to help us to deliver targeted online advertisements (&ldquo;ads&rdquo;) to you. They use cookies and similar technologies, to gather information about your browser&rsquo;s or device&rsquo;s visits and usage patterns on our Services and on other websites over time, which helps to better personalize ads to match your interests, and to measure the effectiveness of ad campaigns.</p>
+
+      <h2>Security of Data</h2>
+      <p>The security of your data is important to us but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security.</p>
+
+      <h2>Service Providers</h2>
+      <p>We may employ third party companies and individuals to facilitate our Service (&ldquo;Service Providers&rdquo;), provide Service on our behalf, perform Service-related services or assist us in analyzing how our Service is used.</p>
+      <p>These third parties have access to your Personal Data only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+
+      <h2>Payments</h2>
+      <p>We may provide paid products and/or services within Service. In that case, we use third-party services for payment processing (e.g. payment processors).</p>
+      <p>We will not store or collect your payment card details. That information is provided directly to our third-party payment processors whose use of your personal information is governed by their Privacy Policy. These payment processors adhere to the standards set by PCI-DSS as managed by the PCI Security Standards Council, which is a joint effort of brands like Visa, Mastercard, American Express and Discover. PCI-DSS requirements help ensure the secure handling of payment information.</p>
+      <p>The payment processors we work with are: Stripe</p>
+
+      <h2>Links to Other Sites</h2>
+      <p>Our Service may contain links to other sites that are not operated by us. If you click a third party link, you will be directed to that third party&rsquo;s site. We strongly advise you to review the Privacy Policy of every site you visit.</p>
+      <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
+
+      <h2>Children&rsquo;s Privacy</h2>
+      <p>Our Services are not intended for use by children under the age of 13 (&ldquo;Children&rdquo;).</p>
+      <p>We do not knowingly collect personally identifiable information from Children under 13. If you become aware that a Child has provided us with Personal Data, please contact us. If we become aware that we have collected Personal Data from Children without verification of parental consent, we take steps to remove that information from our servers.</p>
+
+      <h2>Your Choices in Changing or Deleting Your Information</h2>
+      <p>You can modify the Personal Information associated with your Account by contacting us at <a href="mailto:hi@veraops.com">hi@veraops.com</a>. Please note that if you signed up using a Third Party Account, you may have to access and modify the Personal Information associated with your Third Party Account in order to modify certain of the Personal Information associated with your Account.</p>
+      <p>To stop the use and disclosure of your Personal Information and Personal Data, individuals may delete their account. If you want us to delete your Personal Information, Personal Data, and your Account, please delete your Account by contacting us at <a href="mailto:hi@veraops.com">hi@veraops.com</a>. We will take steps to delete your information as soon as is practicable. Once you initiate your request, this process cannot be cancelled, undone, withdrawn, or reversed. When your account is deleted, all associated Personal Data and Personal Information is deleted, subject to the following limitations: a) some information may remain in archived/backup copies for our records for up to one month b) otherwise required by law.</p>
+
+      <h2>Changes to This Privacy Policy</h2>
+      <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+      <p>We will let you know via email and/or a prominent notice on our Service, prior to the change becoming effective and update &ldquo;effective date&rdquo; at the top of this Privacy Policy.</p>
+      <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+      <h2>Privacy Shield Framework</h2>
+      <p>VeraOps complies with the EU-U.S. Privacy Shield Framework and Swiss-U.S. Privacy Shield Framework as set forth by the U.S. Department of Commerce regarding the collection, use, and retention of personal information transferred from the European Union and Switzerland to the United States. VeraOps has been certified to the U.S. Department of Commerce that it adheres to the Privacy Shield Principles. If there is any conflict between the terms in this privacy policy and the Privacy Shield Principles, the Privacy Shield Principles shall govern. To learn more about the Privacy Shield program, and to view our certification, please visit <a href="https://www.privacyshield.gov/" target="_blank" rel="noopener">https://www.privacyshield.gov/</a>.</p>
+
+      <h2>Complaint Resolution and Independent Recourse</h2>
+      <p>In compliance with the Privacy Shield Principles, VeraOps commits to resolve complaints about our collection or use of your personal information. EU and Swiss individuals with inquiries or complaints regarding our Privacy Shield policy should first contact VeraOps at <a href="mailto:relationships@veraops.com">relationships@veraops.com</a>.</p>
+      <p>VeraOps has further committed to refer unresolved Privacy Shield complaints to JAMS, an alternative dispute resolution provider located in the United States. If you do not receive timely acknowledgment of your complaint from us, or if we have not addressed your complaint to your satisfaction, please visit <a href="https://www.jamsadr.com/file-an-eu-us-privacy-shield-claim" target="_blank" rel="noopener">https://www.jamsadr.com/file-an-eu-us-privacy-shield-claim</a> for more information or to file a complaint. The services of JAMS are provided at no cost to you.</p>
+      <p>Under certain conditions, more fully described on the Privacy Shield Principals website <a href="https://www.privacyshield.gov" target="_blank" rel="noopener">https://www.privacyshield.gov</a>, you may invoke binding arbitration when other dispute resolution procedures have been exhausted.</p>
+
+      <h2>Limited Use restrictions</h2>
+      <p>The use of raw or derived user data received from Workspace APIs will adhere to the Google User Data Policy, including the Limited Use requirements.</p>
+
+      <h2>Contact Us</h2>
+      <p>If you have any question, inquiries, or complaints about this Privacy Policy, please contact us:</p>
+      <p>By email: <a href="mailto:relationships@veraops.com">relationships@veraops.com</a><br>By phone: +1 (302) 223 4061</p>
+
+      <hr>
+      <p style="font-family:var(--font-mono); font-size:12px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.08em;">&copy; 2026 BVS I LLC d/b/a VeraOps</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="brand">
+        <img src="assets/logo-mark.png" alt="" class="footer-mark">
+        <span>VeraOps</span>
+      </div>
+      <p class="copy">We help digital and creative agencies recover lost revenue from dormant relationships.</p>
+      <div class="footer-contact">
+        <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
+        <p>+1 (302) 223 4061</p>
+        <p>838 Walker Road, Suite 21-2<br>Dover, DE 19904, US</p>
+      </div>
+    </div>
+    <div class="footer-col-resources">
+      <h5>Resources</h5>
+      <a href="index.html#hero">Home</a>
+      <a href="articles/index.html">Articles</a>
+    </div>
+    <div class="footer-col-compare">
+      <h5>Compare</h5>
+      <a href="index.html#faq">Outbound Agencies</a>
+      <a href="index.html#faq">CRM Agencies</a>
+    </div>
+    <div class="footer-col-legal">
+      <h5>Legal</h5>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+    </div>
+    <a href="https://thebureau.community" target="_blank" rel="noopener" class="footer-bureau">
+      <img src="assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
+    <span>Designed for ambitious digital and creative agencies</span>
+  </div>
+</footer>
+
+<script>
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const navEl = document.getElementById('nav');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navEl) {
+  navToggle.addEventListener('click', () => {
+    const open = navEl.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  if (navLinks) navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (navEl.classList.contains('menu-open') && !navEl.contains(e.target)) {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+</script>
+
+</body>
+</html>
