@@ -2834,13 +2834,14 @@ section.hero + section { border-top: 0; }
       <div class="privacy-tabs">
         <button class="privacy-tab active" data-privtab="expensive">Only what&rsquo;s needed.</button>
         <button class="privacy-tab" data-privtab="control">Always in control.</button>
+        <button class="privacy-tab" data-privtab="security">Enterprise Security</button>
         <button class="privacy-tab" data-privtab="talk">Speak to an active user.</button>
       </div>
 
       <!-- Privacy Mobile Carousel Nav (hidden on desktop) -->
       <div class="privacy-mobile-nav" id="privacyMobileNav">
         <button id="privPrev">&larr;</button>
-        <span class="privacy-mobile-counter"><span id="privCurrent">1</span> / 3</span>
+        <span class="privacy-mobile-counter"><span id="privCurrent">1</span> / 4</span>
         <button id="privNext">&rarr;</button>
       </div>
 
@@ -2862,6 +2863,14 @@ section.hero + section { border-top: 0; }
             <p>If anything ever feels wrong, or you notice something unexpected, or you simply change your mind... you can revoke access instantly from your Google account settings.</p>
             <p>No need to email us. No contract tied to data connection.</p>
             <p>Just note that if you&rsquo;re still an active user, we won&rsquo;t be able to track your outreach and update your contacts&rsquo; information anymore.</p>
+          </div>
+        </div>
+
+        <div class="privacy-panel" id="privpanel-security">
+          <div class="privacy-panel-inner">
+            <p><strong>Enterprise Security in One Framework (ESOF) Application Security.</strong></p>
+            <p>Every year, we put our application through ESOF AppSec &mdash; an enterprise-grade application security and vulnerability management platform built by TAC Security.</p>
+            <p>TAC Security is an independent authority we run our application through, year after year, to get formally approved for our application security. We don&rsquo;t treat this as a checkbox: we actively pay for these assessments because earning your trust around inbox access means proving our security to an external authority, not just claiming it ourselves.</p>
           </div>
         </div>
 
@@ -3198,7 +3207,7 @@ document.querySelectorAll('.privacy-tab').forEach(tab => {
     const panel = document.getElementById('privpanel-' + tab.dataset.privtab);
     if (panel) panel.classList.add('active');
     // Sync mobile counter
-    const panels = ['expensive','control','talk'];
+    const panels = ['expensive','control','security','talk'];
     const idx = panels.indexOf(tab.dataset.privtab);
     if (idx >= 0) { privacyMobileIndex = idx; updatePrivacyCounter(); }
   });
@@ -3206,7 +3215,7 @@ document.querySelectorAll('.privacy-tab').forEach(tab => {
 
 // Privacy mobile carousel
 let privacyMobileIndex = 0;
-const privPanelIds = ['expensive','control','talk'];
+const privPanelIds = ['expensive','control','security','talk'];
 function showPrivacyPanel(idx) {
   privacyMobileIndex = idx;
   document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
