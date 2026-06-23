@@ -83,6 +83,42 @@ a { color: inherit; text-decoration: none; }
   transition: width 50ms linear;
 }
 
+/* Editorial pull-quote — oversized serif statement between sections */
+.pullquote {
+  background: var(--paper-2);
+  padding: calc(var(--pad-v) * 0.85) 0;
+  position: relative; z-index: 2;
+}
+.pullquote .container { max-width: 980px; }
+.pullquote blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.4vw, 40px);
+  line-height: 1.24; letter-spacing: -0.02em;
+  color: var(--ink); font-weight: 500; margin: 0;
+  text-wrap: balance;
+}
+.pullquote blockquote em { font-style: italic; color: var(--spark-deep); }
+.pullquote .pullquote-mark {
+  font-family: var(--font-display); font-size: clamp(56px, 8vw, 96px);
+  line-height: 0.6; color: var(--spark); display: block; margin-bottom: 8px;
+  opacity: 0.85;
+}
+.pullquote cite {
+  display: block; margin-top: 24px; font-style: normal;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+@media (max-width: 768px) { .pullquote { padding: 60px 0; } }
+
+/* Paper grain overlay — fixed, never intercepts clicks, sits above paper but below content */
+.grain-overlay {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.85; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+@media (prefers-reduced-motion: reduce) { .grain-overlay { opacity: 0.7; } }
+
 /* Container */
 .container {
   width: 100%; max-width: var(--max-w);
@@ -2127,6 +2163,9 @@ section.hero + section { border-top: 0; }
 </head>
 <body>
 
+<!-- Paper grain texture (decorative, non-interactive) -->
+<div class="grain-overlay" aria-hidden="true"></div>
+
 <!-- Scroll Progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -2167,8 +2206,8 @@ section.hero + section { border-top: 0; }
     <h1 class="hero-headline hero-anim">Your next closed won is already in your Gmail... you just need <em>a proper reactivation system</em>.</h1>
     <p class="hero-sub hero-anim"><span class="highlight-mark">10-20% of potential revenue are lost</span> between projects, but there isn&rsquo;t a solution that scans your entire network at scale to <span class="highlight-mark">resurface who matters most today.</span></p>
     <div class="hero-ctas hero-anim">
-      <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Book" class="btn btn-sage-lg">Book a Call <span class="arrow">&rarr;</span></a>
-      <a href="#solution" data-cursor="View" class="btn btn-ghost">How It Works</a>
+      <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" data-magnetic="0.22" class="btn btn-sage-lg">Book a Call <span class="arrow">&rarr;</span></a>
+      <a href="#solution" data-cursor="See how" data-magnetic="0.18" class="btn btn-ghost">How It Works</a>
     </div>
     <div class="scroll-cue hero-anim"><span class="line"></span> Scroll <span class="line"></span></div>
   </div>
@@ -2218,7 +2257,7 @@ section.hero + section { border-top: 0; }
     <div class="symptom-layout reverse fade-in">
       <div class="symptom-copy">
         <div class="symptom-kicker">Problem 02 &mdash; Why it never gets fixed</div>
-        <h3>Then relationships got buried.</h3>
+        <h3>Relationships got buried.</h3>
         <p>Those relationships are then buried under thousands of email threads and calendar events, and reconnecting with them means going contact by contact for days or even weeks. Just by thinking of it overwhelms you, so you leave them aside.</p>
       </div>
       <div class="symptom-visual">
@@ -2279,7 +2318,7 @@ section.hero + section { border-top: 0; }
 <!-- ===== SOLUTION ===== -->
 <section class="section-sage blend-sage-to-white" id="solution">
   <div class="container">
-    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+    <div data-reveal-stagger style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">The Solution</div>
       <h2 class="section-headline">Introducing VeraOps.</h2>
       <p class="subtitle" style="margin-top:12px;">Turning strategic thinking, customized implementation, and sophisticated technology into revenue recovered.</p>
@@ -2738,12 +2777,23 @@ section.hero + section { border-top: 0; }
   </div>
 </section>
 
+<!-- ===== PULL QUOTE ===== -->
+<section class="pullquote">
+  <div class="container">
+    <div data-reveal-stagger>
+      <span class="pullquote-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s <em>already changed how I approach business development.</em></blockquote>
+      <cite>Mark DePace &middot; Co-Founder &amp; CCO, Ghost Robot &mdash; an integrated creative studio for Google, Arhaus &amp; Away</cite>
+    </div>
+  </div>
+</section>
+
 <!-- ===== WHO THIS IS FOR ===== -->
 <section class="section-sage blend-sage-to-white" id="who-this-is-for" style="padding-bottom:calc(var(--pad-v) + 30px);">
   <div class="container">
-    <div class="fade-in" style="max-width:680px; margin:0 auto; text-align:center;">
+    <div data-reveal-stagger style="max-width:680px; margin:0 auto; text-align:center;">
       <div class="section-label">Who This Is For</div>
-      <h2 class="section-headline">This is not for every agency.</h2>
+      <h2 class="section-headline">This is not for every creative agency.</h2>
     </div>
     <div class="qualification-grid fade-in">
       <div class="qualification-col for-you">
@@ -2773,9 +2823,10 @@ section.hero + section { border-top: 0; }
 <!-- ===== TESTIMONIALS ===== -->
 <section class="section-white" id="testimonials" style="padding-bottom:calc(var(--pad-v) + 50px);">
   <div class="container">
-    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+    <div data-reveal-stagger style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Who's On It</div>
-      <h2 class="section-headline">Trusted by actual operators.</h2>
+      <h2 class="section-headline">Trusted by fellow creatives.</h2>
+      <p class="subtitle" style="margin-top:12px;">Founders and creative leads from production, branding, and digital studios.</p>
     </div>
     <div class="testimonial-grid fade-in">
       <div class="testimonial-track" id="testimonialTrack">
@@ -2994,7 +3045,7 @@ section.hero + section { border-top: 0; }
     <h2 class="cta-headline" style="text-align:center;">Ready to turn your dormant relationships into new business?</h2>
     <p class="subtitle" style="text-align:center;">Book a discovery call and see if we&rsquo;re a fit.</p>
     <div style="text-align:center;">
-      <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-sage-xl">Book a Call &rarr;</a>
+      <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" data-magnetic="0.22" class="btn btn-sage-xl">Book a Call &rarr;</a>
     </div>
   </div>
 </section>
@@ -3088,6 +3139,38 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.fade-in, .stagger-in').forEach(el => observer.observe(el));
+
+// Reveal-stagger: children of [data-reveal-stagger] cascade in on reveal (editorial build).
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!prefersReducedMotion) {
+  document.querySelectorAll('[data-reveal-stagger]').forEach(group => {
+    const kids = Array.from(group.children);
+    kids.forEach(k => { k.style.opacity = '0'; k.style.transform = 'translateY(34px)'; k.style.filter = 'blur(6px)'; k.style.transition = 'opacity 800ms cubic-bezier(0.2,0.8,0.2,1), transform 800ms cubic-bezier(0.2,0.8,0.2,1), filter 800ms ease'; });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        kids.forEach((k, i) => { k.style.transitionDelay = (i * 150) + 'ms'; k.style.opacity = '1'; k.style.transform = 'none'; k.style.filter = 'none'; });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -12% 0px' });
+    io.observe(group);
+  });
+}
+
+// Magnetic pull on primary CTAs — subtle, resets on leave (skipped when reduced motion).
+if (!prefersReducedMotion && !(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) {
+  document.querySelectorAll('[data-magnetic]').forEach(el => {
+    const strength = parseFloat(el.getAttribute('data-magnetic')) || 0.2;
+    el.style.transition = 'transform 200ms cubic-bezier(0.2,0.8,0.2,1)';
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width / 2);
+      const my = e.clientY - (r.top + r.height / 2);
+      el.style.transform = 'translate(' + (mx * strength) + 'px,' + (my * strength) + 'px)';
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+}
 
 // Highlight marks animation
 const heroSub = document.querySelector('.hero-sub');
