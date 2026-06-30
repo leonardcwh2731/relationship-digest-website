@@ -1232,10 +1232,26 @@ section.hero + section { border-top: 0; }
 .testimonial-headshot {
   width: 100%; max-width: 340px; height: auto; aspect-ratio: 1 / 1;
   border-radius: 16px; object-fit: cover; object-position: center top;
-  border: 2px solid var(--card-border); background: var(--sage); margin-bottom: 24px;
+  border: 2px solid var(--card-border); background: var(--sage);
 }
 .testimonial-name { font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: var(--black); }
 .testimonial-role { font-size: 16px; color: var(--muted); margin-top: 6px; }
+
+/* Headshot + quote two-column layout */
+.testimonial-person {
+  flex: 0 0 340px; display: flex; flex-direction: column; align-items: center;
+}
+.testimonial-quote {
+  flex: 1; min-width: 0; text-align: left; max-width: 480px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.testimonial-quote blockquote {
+  margin: 0; font-family: var(--font-display); font-size: 22px; font-weight: 500;
+  line-height: 1.55; letter-spacing: -0.01em; color: var(--black);
+}
+.testimonial-quote blockquote::before { content: "\201C"; }
+.testimonial-quote blockquote::after { content: "\201D"; }
+.testimonial-quote .testimonial-name { margin-top: 28px; }
 
 /* Final CTA */
 .final-cta {
@@ -2133,6 +2149,8 @@ section.hero + section { border-top: 0; }
 }
 .testimonial-grid .testimonial-card {
   flex: 0 0 100%; min-width: 100%; box-sizing: border-box; padding: 0 16px;
+  display: flex; flex-direction: row; align-items: center; justify-content: center;
+  gap: 56px; text-align: left; min-height: 420px;
 }
 .testimonial-dots {
   display: flex; justify-content: center; gap: 8px; margin-top: 20px;
@@ -2158,6 +2176,11 @@ section.hero + section { border-top: 0; }
   .privacy-tabs { display: none !important; }
   .privacy-mobile-nav { display: flex; }
 
+  /* Testimonials: stack headshot over quote */
+  .testimonial-grid .testimonial-card { flex-direction: column; gap: 28px; text-align: center; }
+  .testimonial-person { flex: 0 0 auto; }
+  .testimonial-quote { text-align: center; max-width: 100%; }
+  .testimonial-quote blockquote { font-size: 21px; }
 }
 </style>
 </head>
@@ -2831,30 +2854,55 @@ section.hero + section { border-top: 0; }
     <div class="testimonial-grid fade-in">
       <div class="testimonial-track" id="testimonialTrack">
         <div class="testimonial-card">
-          <img class="testimonial-headshot" src="mark-depace.png" alt="Mark DePace">
-          <div class="testimonial-name">Mark DePace</div>
-          <div class="testimonial-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div>
+          <div class="testimonial-person">
+            <img class="testimonial-headshot" src="mark-depace.png" alt="Mark DePace">
+          </div>
+          <div class="testimonial-quote">
+            <blockquote>VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s <span class="highlight-mark">already changed how I approach business development</span>.</blockquote>
+            <div class="testimonial-name">Mark DePace</div>
+            <div class="testimonial-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div>
+          </div>
         </div>
         <div class="testimonial-card">
-          <img class="testimonial-headshot" src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&height=800" alt="Frank Siringo">
-          <div class="testimonial-name">Frank Siringo</div>
-          <div class="testimonial-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
+          <div class="testimonial-person">
+            <img class="testimonial-headshot" src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&height=800" alt="Frank Siringo">
+          </div>
+          <div class="testimonial-quote">
+            <blockquote>VeraOps gave me an <span class="highlight-mark">easy way to get back in touch with people I&rsquo;d worked with and respected</span> but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.</blockquote>
+            <div class="testimonial-name">Frank Siringo</div>
+            <div class="testimonial-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
+          </div>
         </div>
         <div class="testimonial-card">
-          <img class="testimonial-headshot" src="todd-griffin.png" alt="Todd Griffin">
-          <div class="testimonial-name">Todd Griffin</div>
-          <div class="testimonial-role">Director of Engagement &middot; BX Studio, NY</div>
+          <div class="testimonial-person">
+            <img class="testimonial-headshot" src="todd-griffin.png" alt="Todd Griffin">
+          </div>
+          <div class="testimonial-quote">
+            <blockquote>I used Relationship Digest too! Beyond surfacing lapsed contacts it <span class="highlight-mark">smartly focuses on a small number of them</span>, so you keep the follow-up motion manageable.</blockquote>
+            <div class="testimonial-name">Todd Griffin</div>
+            <div class="testimonial-role">Director of Engagement &middot; BX Studio, NY</div>
+          </div>
         </div>
         <div class="testimonial-card">
-          <img class="testimonial-headshot" src="david-yassky.png" alt="David Yassky">
-          <div class="testimonial-name">David Yassky</div>
-          <div class="testimonial-role">Principal and Co-Founder &middot; Driver Digital, NY</div>
+          <div class="testimonial-person">
+            <img class="testimonial-headshot" src="david-yassky.png" alt="David Yassky">
+          </div>
+          <div class="testimonial-quote">
+            <blockquote>It&rsquo;s so easy to create and maintain this habit. Instead of scratching my head and trying to remember my highest-impact network, it&rsquo;s <span class="highlight-mark">surfaced to me daily in a super easy and digestible way</span>. That&rsquo;s more than half the battle right there.</blockquote>
+            <div class="testimonial-name">David Yassky</div>
+            <div class="testimonial-role">Principal and Co-Founder &middot; Driver Digital, NY</div>
+          </div>
         </div>
         <!-- Clone of first card for seamless infinite loop -->
         <div class="testimonial-card" aria-hidden="true">
-          <img class="testimonial-headshot" src="mark-depace.png" alt="">
-          <div class="testimonial-name">Mark DePace</div>
-          <div class="testimonial-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div>
+          <div class="testimonial-person">
+            <img class="testimonial-headshot" src="mark-depace.png" alt="">
+          </div>
+          <div class="testimonial-quote">
+            <blockquote>VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s <span class="highlight-mark">already changed how I approach business development</span>.</blockquote>
+            <div class="testimonial-name">Mark DePace</div>
+            <div class="testimonial-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div>
+          </div>
         </div>
       </div>
     </div>
@@ -3182,6 +3230,7 @@ if (heroSub) {
   markObserver.observe(heroSub);
 }
 
+
 // FAQ
 function toggleFaq(el) {
   const item = el.closest('.faq-item');
@@ -3334,12 +3383,28 @@ document.querySelectorAll('.track-tab').forEach(tab => {
   let pos = 0;                                                      // current slide index (0..realCount, last is the clone)
   let timer = null;
 
+  // Replay the gold highlight sweep on whichever card is now showing.
+  function highlightCard(index) {
+    cards.forEach((card, i) => {
+      const marks = card.querySelectorAll('.highlight-mark');
+      if (i === index) {
+        // Reset to 0%, force reflow, then re-add so the sweep animates fresh.
+        marks.forEach(m => m.classList.remove('active'));
+        void card.offsetWidth;
+        marks.forEach(m => m.classList.add('active'));
+      } else {
+        marks.forEach(m => m.classList.remove('active'));
+      }
+    });
+  }
+
   function applyTransform(animate) {
     track.style.transition = animate ? '' : 'none';
     track.style.transform = `translateX(-${pos * 100}%)`;
     // Active dot maps the clone back to the first real card
     const active = pos % realCount;
     dots.forEach((d, i) => d.classList.toggle('active', i === active));
+    highlightCard(pos);
   }
 
   function advance() {
@@ -3381,8 +3446,26 @@ document.querySelectorAll('.track-tab').forEach(tab => {
     });
   });
 
-  applyTransform(false);
-  start();
+  // Position the track without triggering the highlight, then start the
+  // autoplay + first highlight sweep only once the section scrolls into view.
+  track.style.transform = `translateX(-${pos * 100}%)`;
+
+  const section = document.getElementById('testimonials');
+  if (section && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          applyTransform(false);   // lands on card 0 and sweeps its highlight
+          start();
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(section);
+  } else {
+    applyTransform(false);
+    start();
+  }
 })();
 
 // Digest info buttons (mobile popups)
