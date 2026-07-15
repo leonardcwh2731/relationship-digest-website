@@ -972,21 +972,24 @@ section.hero + section { border-top: 0; }
 /* Position left annotations to align with digest section borders */
 /* Annotations are absolutely positioned so each connector centers on its
    target section's vertical line without cascading into its siblings. */
-.digest-annotations-left, .digest-annotations-right { position: relative; display: block; min-height: 1880px; }
+.digest-annotations-left, .digest-annotations-right { position: relative; display: block; min-height: 2200px; }
 .digest-annotations-left .digest-annotation, .digest-annotations-right .digest-annotation { position: absolute; left: 0; right: 0; }
-.digest-annotations-left .digest-annotation:nth-child(1) { top: 163px; }   /* #1 → Connection Details */
-.digest-annotations-left .digest-annotation:nth-child(2) { top: 432px; }   /* #3 → Last Email Thread */
-.digest-annotations-left .digest-annotation:nth-child(3) { top: 775px; }   /* #5 → What They're Up To */
-.digest-annotations-left .digest-annotation:nth-child(4) { top: 1078px; }  /* #7 → Why Reach Out Today */
-.digest-annotations-left .digest-annotation:nth-child(5) { top: 1546px; }  /* #9 → Send Email buttons */
+.digest-annotations-left .digest-annotation:nth-child(1) { top: 521px; }   /* #2 → Connection Details */
+.digest-annotations-left .digest-annotation:nth-child(2) { top: 790px; }   /* #4 → Last Email Thread */
+.digest-annotations-left .digest-annotation:nth-child(3) { top: 1134px; }  /* #6 → What They're Up To */
+.digest-annotations-left .digest-annotation:nth-child(4) { top: 1437px; }  /* #8 → Why Reach Out Today */
+.digest-annotations-left .digest-annotation:nth-child(5) { top: 1903px; }  /* #10 → Send Email buttons */
 
-.digest-annotations-right .digest-annotation:nth-child(1) { top: 272px; }  /* #2 → Quick Refresher */
-.digest-annotations-right .digest-annotation:nth-child(2) { top: 617px; }  /* #4 → Shared History */
-.digest-annotations-right .digest-annotation:nth-child(3) { top: 933px; }  /* #6 → In the News */
-.digest-annotations-right .digest-annotation:nth-child(4) { top: 1326px; } /* #8 → Suggested Email */
-.digest-annotations-right .digest-annotation:nth-child(5) { top: 1645px; } /* #10 → After Actions */
+.digest-annotations-right .digest-annotation:nth-child(1) { top: 295px; }  /* #1 → Outreach Momentum */
+.digest-annotations-right .digest-annotation:nth-child(2) { top: 631px; }  /* #3 → Quick Refresher */
+.digest-annotations-right .digest-annotation:nth-child(3) { top: 976px; }  /* #5 → Shared History */
+.digest-annotations-right .digest-annotation:nth-child(4) { top: 1291px; } /* #7 → In the News */
+.digest-annotations-right .digest-annotation:nth-child(5) { top: 1684px; } /* #9 → Suggested Email */
+.digest-annotations-right .digest-annotation:nth-child(6) { top: 2011px; } /* #11 → After Actions */
 
 /* Vertical borders on digest sections — lines connect here */
+#digest-sec-momentum { position: relative; }
+#digest-sec-momentum::before { content: ''; position: absolute; right: -15px; top: 0; bottom: 0; width: 3px; border-radius: 3px; background: var(--hairline-2); }
 #digest-sec-contact { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
 #digest-sec-refresher { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
 #digest-sec-thread { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
@@ -1040,21 +1043,14 @@ section.hero + section { border-top: 0; }
   .digest-annotations-left { text-align: left; }
   .digest-annotations-left .digest-annotation { flex-direction: row; }
   .digest-annotation { flex: 1 1 45%; }
-  .digest-annotations-left .digest-annotation:nth-child(1),
-  .digest-annotations-left .digest-annotation:nth-child(2),
-  .digest-annotations-left .digest-annotation:nth-child(3),
-  .digest-annotations-left .digest-annotation:nth-child(4),
-  .digest-annotations-left .digest-annotation:nth-child(5),
-  .digest-annotations-right .digest-annotation:nth-child(1),
-  .digest-annotations-right .digest-annotation:nth-child(2),
-  .digest-annotations-right .digest-annotation:nth-child(3),
-  .digest-annotations-right .digest-annotation:nth-child(4),
-  .digest-annotations-right .digest-annotation:nth-child(5) { margin-top: 0; top: auto; }
+  .digest-annotations-left .digest-annotation,
+  .digest-annotations-right .digest-annotation { margin-top: 0; top: auto; }
   .digest-annotations-left .digest-annotation::after,
   .digest-annotations-right .digest-annotation::before { display: none; }
   #digest-sec-contact, #digest-sec-refresher, #digest-sec-thread, #digest-sec-history,
   #digest-sec-activity, #digest-sec-news, #digest-sec-angle, #digest-sec-draft,
   #digest-sec-actions { border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
+  #digest-sec-momentum::before { display: none; }
 }
 
 /* Digest Deep-Dive (legacy) */
@@ -1065,6 +1061,39 @@ section.hero + section { border-top: 0; }
 }
 .digest-full-mockup h2 { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 6px; color: var(--black); }
 .digest-full-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--card-border); }
+
+/* === Your Momentum panel === */
+.digest-momentum { background: var(--surface-ink); border: 1px solid var(--card-border); border-radius: 12px; padding: 18px 18px 15px; margin-bottom: 22px; }
+.digest-momentum-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
+.digest-momentum-headline { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--black); line-height: 1.3; margin-bottom: 5px; }
+.digest-momentum-sub { font-size: 12px; color: var(--text-mid); line-height: 1.55; margin-bottom: 16px; }
+.digest-momentum-top { display: flex; align-items: flex-start; gap: 22px; margin-bottom: 16px; }
+.digest-momentum-streak { flex: 0 0 auto; }
+.digest-momentum-streak-num { font-family: var(--font-display); font-size: 34px; font-weight: 700; line-height: 1; color: var(--ink-4); }
+.digest-momentum-streak-cap { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-top: 5px; }
+.digest-momentum-week { flex: 1 1 auto; padding-left: 20px; }
+.digest-momentum-week-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+.digest-momentum-dots { display: flex; gap: 6px; margin-bottom: 10px; }
+.dm-dot { width: 26px; height: 26px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--ink-4); background: var(--paper-2); border: 1px solid var(--card-border); }
+.dm-dot-empty { background: transparent; border-style: dashed; }
+.dm-dot-on { background: #2E7D32; border-color: #2E7D32; color: #fff; }
+.digest-momentum-week-meta { font-size: 12px; color: var(--text-mid); }
+.digest-momentum-week-meta strong { color: var(--black); }
+.digest-momentum-stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.dm-stat { text-align: center; padding: 13px 8px; border-right: 1px solid var(--card-border); }
+.dm-stat:last-child { border-right: none; }
+.dm-stat-num { font-family: var(--font-display); font-size: 19px; font-weight: 700; color: var(--black); line-height: 1; }
+.dm-stat-cap { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 7px; line-height: 1.3; }
+.digest-momentum-foot { font-size: 12px; color: var(--text-mid); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--card-border); }
+.digest-momentum-foot strong { color: var(--black); }
+@media (max-width: 560px) {
+  .digest-momentum-top { flex-direction: column; gap: 18px; }
+  .digest-momentum-week { border-left: none; padding-left: 0; border-top: 1px solid var(--card-border); padding-top: 16px; width: 100%; }
+  .digest-momentum-stats { grid-template-columns: repeat(2, 1fr); }
+  .dm-stat:nth-child(even) { border-right: none; }
+  .dm-stat { border-bottom: 1px solid var(--card-border); }
+}
+
 .digest-full-section { margin-bottom: 16px; }
 .digest-full-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
 .digest-full-contact { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
@@ -1108,6 +1137,8 @@ section.hero + section { border-top: 0; }
 /* --- After-action hover previews: the confirmation page each button leads to --- */
 .digest-after-item { position: relative; flex: 1 1 auto; min-width: 0; display: flex; }
 .digest-after-item .digest-after-btn { width: 100%; }
+/* Lift the hovered item above sibling sections/annotations so its popup is never covered */
+.digest-after-item:hover, .digest-after-item:focus-within { z-index: 60; }
 
 .digest-after-preview {
   position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(4px);
@@ -3156,38 +3187,38 @@ section.hero + section { border-top: 0; }
     <!-- Digest view -->
     <div class="tech-view active" data-techview="digest">
     <div class="digest-spotlight fade-in">
-      <!-- Left annotations (1, 3, 5, 7, 9) -->
+      <!-- Left annotations (2, 4, 6, 8, 10) -->
       <div class="digest-annotations digest-annotations-left">
         <div class="digest-annotation" data-points-to="contact">
-          <div class="digest-annotation-num">1</div>
+          <div class="digest-annotation-num">2</div>
           <div>
             <h4>Contact Intelligence</h4>
             <p>Tier level, relationship type, and last contact date so you know exactly where you stand.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="thread">
-          <div class="digest-annotation-num">3</div>
+          <div class="digest-annotation-num">4</div>
           <div>
             <h4>Conversation Recall</h4>
             <p>A snippet of your most recent exchange with this contact, plus a direct link to open the full thread in Gmail.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="activity">
-          <div class="digest-annotation-num">5</div>
+          <div class="digest-annotation-num">6</div>
           <div>
             <h4>Live Activity Feed</h4>
             <p>Recent LinkedIn posts and personal updates so you know what they&rsquo;re working on right now.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="angle">
-          <div class="digest-annotation-num">7</div>
+          <div class="digest-annotation-num">8</div>
           <div>
             <h4>Contextual Angle</h4>
             <p>The specific reason to reach out today, tying their latest signals to your shared history.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="actions">
-          <div class="digest-annotation-num">9</div>
+          <div class="digest-annotation-num">10</div>
           <div>
             <h4>One-Click Actions</h4>
             <p>Send the email or open their LinkedIn profile directly from your digest.</p>
@@ -3199,7 +3230,45 @@ section.hero + section { border-top: 0; }
       <div class="digest-spotlight-center">
         <div class="digest-full-mockup" style="margin:0;">
           <h2>Your warm connections to spark today</h2>
-          <div class="digest-full-meta">Monday, March 9, 2026 &nbsp;|&nbsp; Daily quota: 3 contacts</div>
+          <div class="digest-full-meta">Monday, March 9, 2026 &nbsp;|&nbsp; 3 connections</div>
+
+          <div class="digest-momentum" id="digest-sec-momentum">
+            <div>
+              <div class="digest-momentum-label">Your Momentum</div>
+              <div class="digest-momentum-headline">James, ready to pick the streak back up?</div>
+              <div class="digest-momentum-sub">You&rsquo;ve reached out on 57 days all-time &mdash; one message today restarts the run.</div>
+            </div>
+
+            <div class="digest-momentum-top">
+              <div class="digest-momentum-streak">
+                <div class="digest-momentum-streak-num">12</div>
+                <div class="digest-momentum-streak-cap">Day Streak</div>
+              </div>
+              <div class="digest-momentum-week">
+                <div class="digest-momentum-week-label">Last 7 Days</div>
+                <div class="digest-momentum-dots">
+                  <span class="dm-dot dm-dot-on">W</span>
+                  <span class="dm-dot dm-dot-on">T</span>
+                  <span class="dm-dot dm-dot-on">F</span>
+                  <span class="dm-dot dm-dot-empty">S</span>
+                  <span class="dm-dot dm-dot-empty">S</span>
+                  <span class="dm-dot dm-dot-on">M</span>
+                  <span class="dm-dot dm-dot-on">T</span>
+                </div>
+                <div class="digest-momentum-week-meta">Best streak: <strong>18 days</strong> &middot; <strong>57</strong> total outreach days</div>
+              </div>
+            </div>
+
+            <div class="digest-momentum-stats">
+              <div class="dm-stat"><div class="dm-stat-num">248</div><div class="dm-stat-cap">Reached Out</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">41</div><div class="dm-stat-cap">Replied</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">17%</div><div class="dm-stat-cap">Response Rate</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">11</div><div class="dm-stat-cap">Meetings</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">4%</div><div class="dm-stat-cap">Meeting Rate</div></div>
+            </div>
+
+            <div class="digest-momentum-foot"><strong>512</strong> warm contacts still to reconnect with &middot; <strong>89</strong> digests so far</div>
+          </div>
 
           <div class="digest-full-section" id="digest-sec-contact">
             <div class="digest-full-section-title">Connection Details <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Contact Intelligence</strong><br>Tier level, relationship type, and last contact date so you know exactly where you stand.</div></button></div>
@@ -3382,38 +3451,45 @@ section.hero + section { border-top: 0; }
         </div>
       </div>
 
-      <!-- Right annotations (2, 4, 6, 8) -->
+      <!-- Right annotations (1, 3, 5, 7, 9, 11) -->
       <div class="digest-annotations digest-annotations-right">
+        <div class="digest-annotation" data-points-to="momentum">
+          <div class="digest-annotation-num">1</div>
+          <div>
+            <h4>Outreach Momentum</h4>
+            <p>Your reconnection habit at a glance &mdash; your day streak and last 7 days, the running totals from replies to meetings, and how many warm contacts are still waiting, so you can see the payoff of showing up daily.</p>
+          </div>
+        </div>
         <div class="digest-annotation" data-points-to="refresher">
-          <div class="digest-annotation-num">2</div>
+          <div class="digest-annotation-num">3</div>
           <div>
             <h4>Relationship Narrative</h4>
             <p>A full summary of how you know this person, your shared history, and the nature of the relationship.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="history">
-          <div class="digest-annotation-num">4</div>
+          <div class="digest-annotation-num">5</div>
           <div>
             <h4>Shared History &amp; Referrals</h4>
             <p>Past projects, referrals given and received, and conversation topics at a glance.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="news">
-          <div class="digest-annotation-num">6</div>
+          <div class="digest-annotation-num">7</div>
           <div>
             <h4>Live Company News Tracker</h4>
             <p>Real-time press and announcements about their company so you know when something is changing.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="draft">
-          <div class="digest-annotation-num">8</div>
+          <div class="digest-annotation-num">9</div>
           <div>
             <h4>Voice-Matched Draft</h4>
             <p>A complete email draft written in your voice, with subject line, ready to edit and send.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="after">
-          <div class="digest-annotation-num">10</div>
+          <div class="digest-annotation-num">11</div>
           <div>
             <h4>Post-Suggestion Actions</h4>
             <p>These directly shape your next digest: mark someone important and we prioritize them, mark do-not-contact and we stop surfacing them. And if we matched the wrong person, hit &ldquo;Wrong LinkedIn&rdquo; and we&rsquo;ll correct it.</p>
@@ -4597,7 +4673,8 @@ document.addEventListener('click', () => {
 });
 </script>
 
-<!-- ===== FOOTER (from VeraOps Design System) ===== -->
+<!-- ===== FOOTER (hidden from live site — restore by removing the comment wrappers) ===== -->
+<!--
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand-col">
@@ -4631,6 +4708,8 @@ document.addEventListener('click', () => {
     <span>Designed for ambitious creative agencies</span>
   </div>
 </footer>
+-->
+<!-- ===== end hidden FOOTER ===== -->
 
 </body>
 </html>
