@@ -166,13 +166,13 @@ a { color: inherit; text-decoration: none; }
 .btn:active { transform: scale(0.985); }
 .btn-sage { background: var(--ink); color: var(--paper); padding: 10px 22px; font-size: 14px; }
 .btn-sage:hover { background: var(--ink-2); color: var(--paper); }
-.btn-sage-lg { background: var(--ink); color: var(--paper); padding: 14px 24px; font-size: 15px; }
+.btn-sage-lg { background: var(--ink); color: var(--paper); padding: 10px 24px; font-size: 15px; }
 .btn-sage-lg:hover { background: var(--ink-2); }
-.btn-sage-xl { background: var(--ink); color: var(--paper); padding: 16px 28px; font-size: 15px; }
+.btn-sage-xl { background: var(--ink); color: var(--paper); padding: 10px 24px; font-size: 15px; }
 .btn-sage-xl:hover { background: var(--ink-2); }
-.btn-ghost { background: transparent; border: 1px solid var(--ink); color: var(--ink); padding: 13px 22px; font-size: 15px; }
+.btn-ghost { background: transparent; border: 1px solid var(--ink); color: var(--ink); padding: 10px 24px; font-size: 15px; }
 .btn-ghost:hover { background: var(--ink); color: var(--paper); }
-.btn-light { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 14px 24px; font-size: 15px; }
+.btn-light { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 10px 24px; font-size: 15px; }
 .btn-light:hover { background: var(--ink); color: var(--paper); }
 .btn .ripple {
   position: absolute; border-radius: 50%; background: rgba(255,255,255,0.3);
@@ -193,6 +193,7 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(40px, 5.6vw, 72px); font-weight: 500;
   line-height: 1.05; letter-spacing: -0.03em; color: var(--ink);
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 .hero-headline em { color: var(--spark-deep); font-style: italic; }
 .section-headline {
@@ -288,7 +289,30 @@ section.hero + section { border-top: 0; }
   display: flex; align-items: center; justify-content: center; text-align: center;
   background: var(--paper);
 }
-.hero-inner { max-width: 1180px; margin: 0 auto; padding: 0 var(--pad-h); width: 100%; }
+.hero-inner { max-width: 1400px; margin: 0 auto; padding: 0 var(--pad-h); width: 100%; position: relative; z-index: 1; }
+
+/* Subtle networking background — two clusters branching into each other.
+   Kept very faint and faded toward the center so it never competes with the copy. */
+.hero-network {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  opacity: 0.5;
+  /* Only a small clear pocket behind the headline; the network reads across ~75%
+     of the hero, ramping up quickly outside that pocket. */
+  -webkit-mask-image: radial-gradient(78% 58% at 50% 45%, transparent 0%, rgba(0,0,0,0.20) 26%, rgba(0,0,0,0.70) 50%, #000 72%, #000 100%);
+          mask-image: radial-gradient(78% 58% at 50% 45%, transparent 0%, rgba(0,0,0,0.20) 26%, rgba(0,0,0,0.70) 50%, #000 72%, #000 100%);
+}
+.hero-network svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-net-lines path {
+  fill: none; stroke: var(--hairline-2); stroke-width: 1; opacity: 0.6;
+}
+.hero-net-lines .hero-net-bridge { stroke: var(--spark); stroke-width: 1.1; opacity: 0.5; }
+.hero-net-nodes circle { fill: var(--hairline-2); opacity: 0.65; }
+.hero-net-nodes .hero-net-hub { fill: var(--spark); opacity: 0.65; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-net-nodes .hero-net-hub { animation: hero-net-pulse 4.5s ease-in-out infinite; }
+}
+@keyframes hero-net-pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.7; } }
+@media (max-width: 768px) { .hero-network { opacity: 0.7; } }
 #problem { padding-top: 72px; }
 @media (min-width: 769px) { .hiw-headline-nowrap { white-space: nowrap; } }
 
@@ -302,7 +326,7 @@ section.hero + section { border-top: 0; }
 }
 .eyebrow-tag span { line-height: 1; }
 
-.hero .hero-headline { max-width: 1080px; margin: 0 auto 24px; }
+.hero .hero-headline { max-width: 1340px; margin: 0 auto 24px; }
 .hero-ctas { display: inline-flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 0; }
 .hero-ctas .btn { padding-top: 10px; padding-bottom: 10px; }
 
@@ -365,6 +389,7 @@ section.hero + section { border-top: 0; }
   .cursor-on, .cursor-on * { cursor: auto !important; }
   .cursor-dot, .cursor-label { display: none; }
 }
+.gold-text { color: var(--spark-deep); font-weight: 600; }
 .highlight-mark {
   background-size: 0% 100%;
   background-image: linear-gradient(120deg, var(--spark-paper) 0%, var(--spark-soft) 100%);
@@ -538,6 +563,120 @@ section.hero + section { border-top: 0; }
 }
 .symptom-saw-bar.peak { background: var(--spark-soft); border-color: var(--spark); }
 .symptom-saw-caption { font-size: 12px; color: var(--ink-4); font-style: italic; line-height: 1.5; }
+/* No proper process — a messy manual tracker nobody can read */
+#symptom-adhoc .symptom-card { height: auto; }
+.symptom-tracker {
+  display: flex; flex-direction: column; flex: 1;
+  border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden;
+  background: var(--surface-ink);
+}
+.symptom-tracker-row {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr; align-items: center;
+  padding: 11px 14px; border-bottom: 1px solid var(--hairline);
+}
+.symptom-tracker-row:last-child { border-bottom: none; }
+.symptom-tracker-head {
+  background: var(--paper-2);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-4);
+}
+.symptom-tracker-row .tk-name { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.symptom-tracker-row .tk-cell {
+  font-size: 12px; font-family: var(--font-mono);
+}
+.tk-cell.yes { color: #6E9E5A; }
+.tk-cell.no { color: var(--ink-4); }
+.tk-cell.unk { color: var(--spark-deep); font-style: italic; }
+.tk-cell.blank { color: var(--ink-4); }
+.tk-cell.blank::after { content: '\2014'; opacity: 0.35; }
+
+/* The Alternative — Claude vs. VeraOps, three amplified problems */
+.alt-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 56px; align-items: stretch;
+}
+.alt-card {
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+  padding: 32px 28px; display: flex; flex-direction: column;
+  box-shadow: 0 12px 36px -18px rgba(0,0,0,0.16);
+}
+.alt-card-num {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.14em; color: var(--spark-deep); margin-bottom: 16px;
+}
+.alt-card-title {
+  font-family: var(--font-display); font-size: 21px; font-weight: 500;
+  line-height: 1.25; letter-spacing: -0.015em; color: var(--ink);
+  margin-bottom: 14px; text-wrap: balance; min-height: 2.5em;
+}
+.alt-card p:not(.alt-card-cost) { font-size: 14.5px; line-height: 1.7; color: var(--text-mid); min-height: 9.9em; }
+.alt-card p + p { margin-top: 12px; }
+.alt-card p em { color: var(--spark-deep); font-style: italic; }
+.alt-card-cost {
+  margin-top: auto; padding-top: 18px; border-top: 1px solid var(--hairline);
+  font-size: 13px !important; color: var(--ink-3) !important;
+  min-height: 4.2em;
+}
+.alt-card-cost span {
+  display: block; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+  margin-bottom: 6px;
+}
+.alt-close {
+  max-width: 720px; margin: 48px auto 0; text-align: center;
+  padding-top: 36px; border-top: 1px solid var(--hairline);
+}
+.alt-close p {
+  font-family: var(--font-display); font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 500; line-height: 1.5; letter-spacing: -0.01em; color: var(--ink);
+  text-wrap: balance;
+}
+.alt-close p + p { margin-top: 18px; }
+.alt-close p em { color: var(--spark-deep); font-style: italic; }
+@media (max-width: 900px) {
+  .alt-grid { grid-template-columns: 1fr; gap: 16px; }
+  .alt-card p:not(.alt-card-cost) { min-height: 0; }
+  .alt-card-cost { margin-top: 18px; min-height: 0; }
+}
+
+/* === Compare / Anchoring === */
+.cmp-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 56px; align-items: stretch;
+}
+.cmp-card {
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+  padding: 28px 24px; display: flex; flex-direction: column;
+  box-shadow: 0 12px 36px -18px rgba(0,0,0,0.16);
+}
+.cmp-kicker {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+  margin-bottom: 14px;
+}
+.cmp-price {
+  font-family: var(--font-display); font-size: clamp(21px, 1.9vw, 25px);
+  font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink);
+  margin-bottom: 5px;
+}
+.cmp-price small { font-size: 13px; font-weight: 400; opacity: 0.55; letter-spacing: 0; }
+.cmp-who {
+  font-size: 12.5px; line-height: 1.5; color: var(--ink-3); margin-bottom: 16px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--hairline); min-height: 3.4em;
+}
+.cmp-card > p { font-size: 14px; line-height: 1.7; color: var(--text-mid); min-height: 11.9em; }
+.cmp-card p em { color: var(--ink); font-style: italic; }
+.cmp-tradeoff {
+  margin-top: auto; padding-top: 18px; border-top: 1px solid var(--hairline);
+  font-size: 12.5px !important; color: var(--ink-3);
+  display: flex; align-items: flex-start; gap: 8px; min-height: 0 !important;
+}
+.cmp-mark { font-weight: 700; color: #C9756B; min-width: 12px; line-height: 1.55; }
+@media (max-width: 1050px) {
+  .cmp-grid { grid-template-columns: 1fr; gap: 16px; }
+  .cmp-kicker, .cmp-who { min-height: 0; }
+  .cmp-card > p { min-height: 0; }
+}
 
 /* Bridge into the solution */
 .problem-bridge {
@@ -557,6 +696,9 @@ section.hero + section { border-top: 0; }
   .symptom-layout .symptom-visual, .symptom-layout.reverse .symptom-visual { grid-column: 1; }
   .symptom-layout .symptom-copy, .symptom-layout.reverse .symptom-copy { order: 1; }
   .symptom-layout .symptom-visual, .symptom-layout.reverse .symptom-visual { order: 2; }
+  /* Stacked on mobile — let the Service bullets sit naturally, not stretched. */
+  #step-service .step-bullets { justify-content: flex-start; }
+  #step-service .step-bullets li { padding: 14px 0; }
   /* On mobile the visuals stack below the copy — drop the fixed equal-height
      so wrapped content is never clipped. */
   .symptom-card { height: auto; min-height: 0; }
@@ -618,38 +760,109 @@ section.hero + section { border-top: 0; }
 .strat-insight p { font-size: 12px; color: var(--ink-2); line-height: 1.5; margin: 0; }
 .strat-insight p strong { color: var(--ink); }
 
-/* Service — quarterly audit + cadence visual */
+/* Service visual v4 — one connected pipeline card, three stages */
+/* Stretch the copy column to the graphic's height and distribute the three
+   bullets so each lines up with its matching stage in the card. */
+#step-service .symptom-layout { grid-template-columns: 1fr 1fr; align-items: start; }
+#step-service .svc-layout-spaced { margin-top: 52px; }
+@media (max-width: 720px) {
+  #step-service .section-headline { white-space: normal !important; }
+}
+#step-service .symptom-copy { display: flex; flex-direction: column; }
+#step-service .step-bullets {
+  display: flex; flex-direction: column; justify-content: flex-start;
+  margin-top: 20px;
+}
+#step-service .step-bullets li { padding: 18px 0; }
+#step-service .step-bullets li:first-child { padding-top: 0; }
+#step-service .step-bullets li:last-child { padding-bottom: 0; }
 .svc-card {
-  background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px;
-  padding: 22px; box-shadow: 0 12px 36px -16px rgba(0,0,0,0.18);
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 18px;
+  box-shadow: 0 18px 48px -24px rgba(0,0,0,0.2); overflow: hidden;
 }
-.svc-card-head {
-  display: flex; align-items: center; justify-content: space-between;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+.svc-stage { position: relative; padding: 16px 26px; }
+.svc-stage + .svc-stage { border-top: 1px solid var(--hairline); }
+/* Vertical thread connecting the three stages */
+.svc-stage + .svc-stage::before {
+  content: ''; position: absolute; top: -13px; left: 40px; width: 2px; height: 26px;
+  background: var(--spark-soft); border-radius: 2px;
+}
+.svc-stage-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 9px;
+}
+.svc-stage-tag {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  color: #fff; background: var(--spark-deep); border-radius: 6px; padding: 4px 8px; line-height: 1;
+}
+.svc-stage-title {
+  font-family: var(--font-sans); font-size: 14px; font-weight: 600; color: var(--ink);
+}
+.svc-stage-meta {
+  margin-left: auto; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--ink-4);
-  padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--hairline);
 }
-.svc-clusters { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-.svc-cluster {
-  display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-  background: var(--surface-ink); border: 1px solid var(--hairline); border-radius: 10px;
+
+/* Stage 1 — pool of dots → tier bars */
+.svc-pool {
+  display: flex; flex-wrap: wrap; gap: 7px; justify-content: flex-start;
+  background: var(--surface-ink); border: 1px solid var(--hairline); border-radius: 12px;
+  padding: 11px 16px; margin-bottom: 12px;
 }
-.svc-cluster-bar { flex: 1; height: 6px; border-radius: 999px; background: var(--paper-2); overflow: hidden; }
-.svc-cluster-bar span { display: block; height: 100%; border-radius: 999px; background: var(--spark); }
-.svc-cluster-name { font-size: 12px; font-weight: 600; color: var(--ink-2); min-width: 92px; }
-.svc-cluster-count { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); min-width: 42px; text-align: right; }
-.svc-cadence-label {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--ink-4); margin-bottom: 10px;
+.svc-dot { width: 9px; height: 9px; border-radius: 999px; background: var(--hairline-2); }
+.svc-pool .svc-dot:nth-child(4n+1) { background: var(--spark-soft); }
+.svc-pool .svc-dot:nth-child(7n) { background: var(--spark); }
+.svc-tier-bars { display: flex; flex-direction: column; gap: 7px; }
+.svc-tier-bar { display: flex; align-items: center; gap: 12px; }
+.svc-tier-badge {
+  width: 24px; height: 24px; min-width: 24px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600; line-height: 1;
 }
-.svc-cadence { display: flex; flex-direction: column; gap: 8px; }
-.svc-cadence-row { display: flex; gap: 10px; align-items: center; }
-.svc-cadence-tag {
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+.svc-tier-badge.a { background: var(--spark-deep); color: #fff; }
+.svc-tier-badge.b { background: var(--spark-soft); color: var(--spark-deep); }
+.svc-tier-badge.c { background: var(--paper-2); color: var(--ink-4); border: 1px solid var(--hairline); }
+.svc-tier-label { font-size: 12px; color: var(--ink-2); min-width: 132px; }
+.svc-tier-track { flex: 1; height: 10px; border-radius: 999px; background: var(--paper-2); overflow: hidden; }
+.svc-tier-fill { display: block; height: 100%; border-radius: 999px; }
+.svc-tier-fill.a { background: var(--spark-deep); }
+.svc-tier-fill.b { background: var(--spark); }
+.svc-tier-fill.c { background: var(--spark-soft); }
+.svc-tier-n { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); min-width: 32px; text-align: right; }
+
+/* Stage 2 — signal chips → the pick */
+.svc-signals { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 11px; }
+.svc-signal {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em;
   color: var(--spark-deep); background: var(--spark-paper); border: 1px solid var(--spark-soft);
-  border-radius: 6px; padding: 4px 8px; min-width: 78px; text-align: center;
+  border-radius: 999px; padding: 6px 12px;
 }
-.svc-cadence-row span { font-size: 12px; color: var(--ink-2); line-height: 1.4; }
+.svc-pick-row {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--spark-paper); border: 1px solid var(--spark-soft); border-radius: 12px; padding: 12px 14px;
+}
+.svc-pick-avatar {
+  width: 36px; height: 36px; min-width: 36px; border-radius: 9px;
+  background: #fff; border: 1px solid var(--spark-soft); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--spark-deep);
+}
+.svc-pick-meta { flex: 1; min-width: 0; }
+.svc-pick-meta strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.svc-pick-meta span { display: block; font-size: 12px; color: var(--ink-4); }
+.svc-pick-flag {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: var(--spark-deep); border-radius: 6px; padding: 5px 9px; white-space: nowrap;
+}
+
+/* Stage 3 — reconnection flow */
+.svc-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.svc-flow-step {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  padding: 8px 13px; border-radius: 999px; background: var(--paper-2);
+  border: 1px solid var(--hairline); color: var(--ink-4); white-space: nowrap;
+}
+.svc-flow-step.done { color: var(--ink-3); }
+.svc-flow-step.active { background: var(--spark-deep); border-color: var(--spark-deep); color: #fff; }
+.svc-flow-arrow { color: var(--ink-4); font-size: 13px; }
 
 /* Technology — Digest | Recap toggle (scoped, separate from global .track-tab) */
 .tech-toggle {
@@ -668,6 +881,7 @@ section.hero + section { border-top: 0; }
 
 /* Solution */
 .solution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 40px; }
+.solution-grid.solution-grid-2 { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-left: auto; margin-right: auto; }
 .solution-grid .card h3 { margin-bottom: 12px; }
 .solution-icon {
   width: 56px; height: 56px; margin: 0 auto 20px; background: var(--sage);
@@ -715,11 +929,12 @@ section.hero + section { border-top: 0; }
 .signal-card .signal-example { font-size: 14px; color: var(--olive-deep); font-style: italic; margin-bottom: 10px; line-height: 1.5; }
 .signal-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
 
-/* Digest Spotlight Layout */
+/* Digest Spotlight Layout — wider center mockup, narrower equal side annotations */
 .digest-spotlight {
   margin-top: 48px; display: grid;
-  grid-template-columns: 1fr minmax(400px, 480px) 1fr;
-  gap: 24px; align-items: start;
+  grid-template-columns: 230px minmax(420px, 560px) 230px;
+  justify-content: center;
+  gap: 28px; align-items: start;
 }
 .digest-spotlight-center { position: relative; z-index: 1; }
 .digest-annotations {
@@ -732,40 +947,44 @@ section.hero + section { border-top: 0; }
 }
 .digest-annotations-left .digest-annotation { flex-direction: row-reverse; }
 .digest-annotation-num {
-  width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+  width: 24px; height: 24px; min-width: 24px; border-radius: 50%;
   background: var(--spark-paper); color: var(--spark-deep);
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 12px; border: 1px solid var(--spark-soft);
 }
 .digest-annotation h4 {
-  font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
+  font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
 }
 .digest-annotation p {
-  font-size: 13px; color: var(--ink-3); line-height: 1.55;
+  font-size: 12.5px; color: var(--ink-3); line-height: 1.5;
 }
 /* Connector lines from annotations to digest */
 .digest-annotation { position: relative; }
 .digest-annotations-left .digest-annotation::after {
-  content: ''; position: absolute; right: -24px; top: 14px;
-  width: 24px; height: 2px; background: var(--hairline-2);
+  content: ''; position: absolute; right: -28px; top: 12px;
+  width: 28px; height: 2px; background: var(--hairline-2);
 }
 .digest-annotations-right .digest-annotation::before {
-  content: ''; position: absolute; left: -24px; top: 14px;
-  width: 24px; height: 2px; background: var(--hairline-2);
+  content: ''; position: absolute; left: -28px; top: 12px;
+  width: 28px; height: 2px; background: var(--hairline-2);
 }
 
 /* Position left annotations to align with digest section borders */
-.digest-annotations-left .digest-annotation:nth-child(1) { margin-top: 173px; }  /* #1 Contact Intelligence → Connection Details */
-.digest-annotations-left .digest-annotation:nth-child(2) { margin-top: 175px; }  /* #3 Conversation Recall → Last Email Thread */
-.digest-annotations-left .digest-annotation:nth-child(3) { margin-top: 215px; }  /* #5 Live Activity Feed → What They're Up To */
-.digest-annotations-left .digest-annotation:nth-child(4) { margin-top: 227px; }  /* #7 Contextual Angle → Why Reach Out Today */
-.digest-annotations-left .digest-annotation:nth-child(5) { margin-top: 380px; }  /* #9 One-Click Actions → Send Email buttons */
+/* Annotations are absolutely positioned so each connector centers on its
+   target section's vertical line without cascading into its siblings. */
+.digest-annotations-left, .digest-annotations-right { position: relative; display: block; min-height: 1880px; }
+.digest-annotations-left .digest-annotation, .digest-annotations-right .digest-annotation { position: absolute; left: 0; right: 0; }
+.digest-annotations-left .digest-annotation:nth-child(1) { top: 163px; }   /* #1 → Connection Details */
+.digest-annotations-left .digest-annotation:nth-child(2) { top: 432px; }   /* #3 → Last Email Thread */
+.digest-annotations-left .digest-annotation:nth-child(3) { top: 775px; }   /* #5 → What They're Up To */
+.digest-annotations-left .digest-annotation:nth-child(4) { top: 1078px; }  /* #7 → Why Reach Out Today */
+.digest-annotations-left .digest-annotation:nth-child(5) { top: 1546px; }  /* #9 → Send Email buttons */
 
-/* Position right annotations to align with digest section borders */
-.digest-annotations-right .digest-annotation:nth-child(1) { margin-top: 306px; } /* #2 Relationship Narrative → Quick Refresher */
-.digest-annotations-right .digest-annotation:nth-child(2) { margin-top: 156px; } /* #4 Shared History & Referrals → Shared History */
-.digest-annotations-right .digest-annotation:nth-child(3) { margin-top: 259px; } /* #6 Live Company News Tracker → What's in the News */
-.digest-annotations-right .digest-annotation:nth-child(4) { margin-top: 312px; } /* #8 Voice-Matched Draft → Suggested Email */
+.digest-annotations-right .digest-annotation:nth-child(1) { top: 272px; }  /* #2 → Quick Refresher */
+.digest-annotations-right .digest-annotation:nth-child(2) { top: 617px; }  /* #4 → Shared History */
+.digest-annotations-right .digest-annotation:nth-child(3) { top: 933px; }  /* #6 → In the News */
+.digest-annotations-right .digest-annotation:nth-child(4) { top: 1326px; } /* #8 → Suggested Email */
+.digest-annotations-right .digest-annotation:nth-child(5) { top: 1645px; } /* #10 → After Actions */
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-contact { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
@@ -777,6 +996,11 @@ section.hero + section { border-top: 0; }
 #digest-sec-angle { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
 #digest-sec-draft { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
 #digest-sec-actions { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
+#digest-sec-after { position: relative; padding-right: 14px; margin-right: -14px; }
+#digest-sec-after::after {
+  content: ''; position: absolute; right: 0; top: 24px; bottom: 0; width: 3px;
+  background: var(--hairline-2);
+}
 
 /* ===== Recap Spotlight — same annotated layout as the Digest ===== */
 /* Recap mockup sections — one contact each */
@@ -809,7 +1033,10 @@ section.hero + section { border-top: 0; }
 
 @media (max-width: 900px) {
   .digest-spotlight { grid-template-columns: 1fr; }
-  .digest-annotations { flex-direction: row; flex-wrap: wrap; gap: 16px; padding-top: 0; }
+  .digest-annotations, .digest-annotations-left, .digest-annotations-right {
+    position: static; display: flex; flex-direction: row; flex-wrap: wrap; gap: 16px; padding-top: 0; min-height: 0;
+  }
+  .digest-annotations-left .digest-annotation, .digest-annotations-right .digest-annotation { position: static; }
   .digest-annotations-left { text-align: left; }
   .digest-annotations-left .digest-annotation { flex-direction: row; }
   .digest-annotation { flex: 1 1 45%; }
@@ -821,7 +1048,8 @@ section.hero + section { border-top: 0; }
   .digest-annotations-right .digest-annotation:nth-child(1),
   .digest-annotations-right .digest-annotation:nth-child(2),
   .digest-annotations-right .digest-annotation:nth-child(3),
-  .digest-annotations-right .digest-annotation:nth-child(4) { margin-top: 0; }
+  .digest-annotations-right .digest-annotation:nth-child(4),
+  .digest-annotations-right .digest-annotation:nth-child(5) { margin-top: 0; top: auto; }
   .digest-annotations-left .digest-annotation::after,
   .digest-annotations-right .digest-annotation::before { display: none; }
   #digest-sec-contact, #digest-sec-refresher, #digest-sec-thread, #digest-sec-history,
@@ -852,10 +1080,319 @@ section.hero + section { border-top: 0; }
 .digest-full-email-subject { font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark); }
 .digest-full-email-body { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
 .digest-full-email-body p { margin-bottom: 10px; }
-.digest-full-actions { display: flex; gap: 8px; }
-.digest-full-btn { flex: 1; padding: 10px 16px; border-radius: var(--radius); font-size: 13px; font-weight: 700; text-align: center; border: none; cursor: pointer; }
+.digest-thread-meta { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+.digest-thread-link {
+  display: inline-flex; align-items: center; font-size: 12px; font-weight: 600;
+  color: var(--olive-deep); text-decoration: none;
+  border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 14px;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.digest-thread-link:hover { background: var(--sage); border-color: var(--olive-deep); }
+.digest-full-actions { display: flex; gap: 10px; justify-content: center; }
+.digest-full-btn { flex: 0 0 auto; padding: 9px 20px; border-radius: var(--radius); font-size: 12.5px; font-weight: 700; text-align: center; border: none; cursor: pointer; white-space: nowrap; }
 .digest-full-btn-dark { background: var(--black); color: var(--white); }
 .digest-full-btn-outline { background: var(--white); color: var(--black); border: 1.5px solid var(--black); }
+.digest-after-status { font-size: 13px; color: var(--text-mid); margin-bottom: 12px; }
+.digest-after-status strong { color: var(--text-dark); font-weight: 700; }
+.digest-after-actions { display: flex; flex-wrap: nowrap; gap: 6px; }
+.digest-after-btn {
+  flex: 1 1 auto; min-width: 0; text-align: center; line-height: 1.2;
+  padding: 9px 8px; border-radius: 8px; font-size: 11.5px; font-weight: 700;
+  background: var(--white); color: var(--black); border: 1.5px solid var(--card-border);
+  cursor: pointer; transition: border-color 150ms ease, background 150ms ease;
+}
+.digest-after-btn:hover { border-color: var(--black); }
+.digest-after-btn.danger { color: #D14343; border-color: rgba(209,67,67,0.4); }
+.digest-after-btn.danger:hover { border-color: #D14343; background: rgba(209,67,67,0.05); }
+
+/* --- After-action hover previews: the confirmation page each button leads to --- */
+.digest-after-item { position: relative; flex: 1 1 auto; min-width: 0; display: flex; }
+.digest-after-item .digest-after-btn { width: 100%; }
+
+.digest-after-preview {
+  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(4px);
+  width: 300px; max-width: 84vw; z-index: 40;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+}
+.digest-after-item:hover .digest-after-preview,
+.digest-after-item:focus-within .digest-after-preview {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+/* Hover bridge so the gap between button and card doesn't close it */
+.digest-after-preview::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px;
+}
+
+/* Opens BELOW its button instead of above */
+.digest-after-preview.below {
+  bottom: auto; top: calc(100% + 10px);
+  transform: translateX(-50%) translateY(-4px);
+}
+.digest-after-item:hover .digest-after-preview.below,
+.digest-after-item:focus-within .digest-after-preview.below {
+  transform: translateX(-50%) translateY(0);
+}
+.digest-after-preview.below::before {
+  top: auto; bottom: 100%; left: 0; right: 0; height: 12px; width: auto;
+}
+
+/* Side-anchored variant: opens to the LEFT of its button, vertically centred */
+.digest-after-preview.side-left {
+  bottom: auto; top: 50%; left: auto; right: calc(100% + 12px);
+  transform: translateY(-50%) translateX(4px);
+}
+.digest-after-item:hover .digest-after-preview.side-left,
+.digest-after-item:focus-within .digest-after-preview.side-left {
+  transform: translateY(-50%) translateX(0);
+}
+.digest-after-preview.side-left::before {
+  top: 0; bottom: 0; left: auto; right: -12px; width: 12px; height: auto;
+}
+.digest-after-preview-inner {
+  background: #F1F5E4; border-radius: 12px; padding: 12px;
+  box-shadow: 0 12px 34px rgba(0,0,0,0.18); border: 1px solid var(--card-border);
+}
+.digest-after-card {
+  background: var(--white); border-radius: 10px; padding: 18px 16px 16px;
+  text-align: center;
+}
+.digest-after-card-brand {
+  font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  letter-spacing: 0.01em; color: var(--black); line-height: 1;
+}
+.digest-after-card-rule {
+  width: 34px; height: 1px; background: var(--card-border); margin: 8px auto 12px;
+}
+.digest-after-card-title { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+.digest-after-card-body { font-size: 10.5px; line-height: 1.6; color: var(--text-mid); margin-bottom: 14px; }
+.digest-after-card-body strong { color: var(--black); font-weight: 700; }
+.digest-after-card-btns { display: flex; gap: 8px; justify-content: center; }
+.digest-after-card-btn {
+  font-size: 10px; font-weight: 700; padding: 7px 12px; border-radius: 7px;
+  border: 1.5px solid var(--black); background: var(--white); color: var(--black);
+  white-space: nowrap;
+}
+.digest-after-card-btn.solid { background: var(--black); color: var(--white); }
+
+/* Wrong-LinkedIn variant: taller, left-aligned, three numbered steps.
+   Opens to the RIGHT of its button, vertically centred on it, rather than
+   above like the two short cards. Kept compact so it stays in the viewport. */
+.digest-after-preview.wide {
+  width: 300px;
+  bottom: auto; top: 50%; left: calc(100% + 12px);
+  transform: translateY(-50%) translateX(-4px);
+}
+.digest-after-item:hover .digest-after-preview.wide,
+.digest-after-item:focus-within .digest-after-preview.wide {
+  transform: translateY(-50%) translateX(0);
+}
+/* Hover bridge sits on the card's left edge for the side-anchored variant */
+.digest-after-preview.wide::before {
+  top: 0; bottom: 0; left: -12px; right: auto; width: 12px; height: auto;
+}
+.digest-after-preview.wide .digest-after-preview-inner { padding: 10px; }
+.digest-after-preview.wide .digest-after-card { text-align: center; padding: 14px 12px 12px; }
+.digest-after-preview.wide .digest-after-card-rule { margin: 6px auto 9px; }
+.digest-after-preview.wide .digest-after-card-title { margin-bottom: 2px; }
+.digest-after-steps { text-align: left; margin-top: 10px; }
+.digest-after-step { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+.digest-after-step-num {
+  width: 15px; height: 15px; min-width: 15px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  font-size: 8.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.digest-after-step-label { font-size: 10px; font-weight: 700; color: var(--black); }
+.digest-after-profile {
+  border: 1px solid var(--card-border); border-radius: 8px; background: #F8FAFB;
+  padding: 8px; text-align: center; margin-bottom: 6px;
+}
+.digest-after-avatar {
+  width: 22px; height: 22px; border-radius: 50%; margin: 0 auto 5px;
+  background: var(--sage); color: var(--olive-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 0.02em;
+}
+.digest-after-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.digest-after-profile-name { font-size: 10px; font-weight: 700; color: var(--black); }
+.digest-after-profile-role { font-size: 8.5px; color: var(--text-mid); margin: 2px 0 6px; }
+.digest-after-profile-btn {
+  font-size: 8.5px; font-weight: 700; padding: 4px 9px; border-radius: 6px;
+  border: 1px solid var(--card-border); background: var(--white); color: var(--black);
+}
+.digest-after-input {
+  border: 1px solid var(--card-border); border-radius: 8px; background: var(--white);
+  padding: 7px 10px; font-size: 9.5px; color: var(--muted); margin-bottom: 8px;
+}
+.digest-after-notfound {
+  border: 1.5px solid #D14343; border-radius: 8px; padding: 7px; text-align: center; margin-bottom: 9px;
+}
+.digest-after-notfound-title { font-size: 9.5px; font-weight: 700; color: #D14343; }
+.digest-after-notfound-sub { font-size: 8.5px; color: #D14343; margin-top: 2px; }
+.digest-after-preview.wide .digest-after-card-btns .digest-after-card-btn { flex: 1; }
+.digest-after-card-btn.disabled { background: #A9A9A9; border-color: #A9A9A9; color: var(--white); }
+
+/* Don't let the previews fight the mobile tooltips / narrow viewports */
+@media (max-width: 760px) {
+  .digest-after-preview { display: none; }
+}
+
+/* ===== Recap v2 — annotated report with stats, flow, banners ===== */
+.recap-spotlight-grid { margin-top: 44px; }
+.recap-mockup { padding: 36px 34px; }
+/* Recap annotations align (centered) to the colored section banners.
+   These override the digest nth-child tops since the columns reuse the
+   .digest-annotations-left/right classes. */
+.recap-annos-left, .recap-annos-right { min-height: 2900px; }
+.recap-annos-left .digest-annotation:nth-child(1) { top: 758px; }   /* 1 → Meetings Booked */
+.recap-annos-left .digest-annotation:nth-child(2) { top: 1731px; }  /* 3 → No Reply */
+.recap-annos-left .digest-annotation:nth-child(3) { top: 2766px; }  /* 5 → After Actions */
+.recap-annos-right .digest-annotation:nth-child(1) { top: 1173px; }  /* 2 → First Reply */
+.recap-annos-right .digest-annotation:nth-child(2) { top: 2222px; } /* 4 → Pending */
+
+/* Recap header cycler — week → month → quarter, rolling upward */
+.recap-cycler {
+  position: relative; overflow: hidden;
+  /* tall enough for the h2 + meta line */
+  height: 62px; margin-bottom: 28px; padding-bottom: 64px;
+  border-bottom: 1px solid var(--card-border);
+}
+.recap-slide {
+  position: absolute; left: 0; right: 0; top: 0; height: 62px;
+  opacity: 0; transform: translateY(100%);
+  transition: opacity 520ms cubic-bezier(0.2,0.8,0.2,1), transform 520ms cubic-bezier(0.2,0.8,0.2,1);
+  pointer-events: none;
+}
+.recap-slide.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.recap-slide.is-leaving { opacity: 0; transform: translateY(-100%); }
+.recap-slide h2 { margin-bottom: 6px; }
+.recap-slide .digest-full-meta { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+@media (prefers-reduced-motion: reduce) {
+  .recap-slide { transition: none; }
+}
+
+/* Recap bands carry a vertical accent line where the annotation connector lands,
+   mirroring the digest's per-section border lines. */
+#recap-band-meetings, #recap-band-noreply, #recap-band-after {
+  position: relative;
+  margin-left: -14px; padding-left: 14px;
+  border-left: 3px solid var(--hairline-2);
+}
+#recap-band-firstreply, #recap-band-pending {
+  position: relative;
+  margin-right: -14px; padding-right: 14px;
+  border-right: 3px solid var(--hairline-2);
+}
+@media (max-width: 900px) {
+  #recap-band-meetings, #recap-band-noreply, #recap-band-after,
+  #recap-band-firstreply, #recap-band-pending {
+    border: none; margin-left: 0; margin-right: 0; padding-left: 16px; padding-right: 16px;
+  }
+}
+
+/* Recap is a static mockup — nothing inside it should be clickable. */
+.recap-mockup a,
+.recap-mockup button,
+.recap-jump-pill {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Stats + Sankey swap in sync with the header cycler.
+   Slides are stacked; the active one is in flow, others are hidden. */
+.recap-data-cycler { position: relative; }
+.recap-data-slide {
+  opacity: 0; visibility: hidden;
+  position: absolute; inset: 0;
+  transition: opacity 420ms ease;
+  pointer-events: none;
+}
+.recap-data-slide.is-active {
+  opacity: 1; visibility: visible;
+  position: relative; inset: auto;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) { .recap-data-slide { transition: none; } }
+
+/* Statistics summary card + flow */
+.recap-stats-card {
+  border: 1px solid var(--card-border); border-radius: 12px;
+  padding: 22px 20px; margin-bottom: 24px; background: var(--white);
+}
+.recap-stats-title {
+  text-align: center; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--muted); margin-bottom: 18px;
+}
+.recap-stats-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 20px; }
+.recap-stat { flex: 1; text-align: center; }
+.recap-stat-label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; }
+.recap-stat-val { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--black); line-height: 1; }
+/* Fixed-height flow box so swapping week/month/quarter never shifts the page
+   (the annotations are pinned to absolute pixel offsets). */
+.recap-flow { width: 100%; height: 330px; display: flex; align-items: center; justify-content: center; }
+.recap-sankey-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+@media (max-width: 620px) { .recap-flow { height: 230px; } }
+
+/* Jump to a section */
+.recap-jump { margin-bottom: 28px; }
+.recap-jump-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
+.recap-jump-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.recap-jump-pill {
+  font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 999px;
+  border: 1px solid transparent;
+}
+.recap-jump-pill.meetings { color: #2F6B3A; background: #E7F3E9; border-color: #C7E2CD; }
+.recap-jump-pill.firstreply { color: #6D28A8; background: #F3E9FB; border-color: #E0C9F2; }
+.recap-jump-pill.noreply { color: #C0392B; background: #FBEAE7; border-color: #F2CFC9; }
+.recap-jump-pill.pending { color: #3F4A54; background: #EEF1F3; border-color: #D9DEE2; }
+.recap-jump-pill.after { color: #C05A16; background: #FBF0E5; border-color: #F0D8BF; }
+
+/* Section banners */
+.recap-band {
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: 8px; padding: 12px 16px; margin: 4px 0 12px; color: #fff;
+}
+.recap-band.meetings { background: #2F6B3A; }
+.recap-band.firstreply { background: #6D28A8; }
+.recap-band.noreply { background: #C0392B; }
+.recap-band.pending { background: #2C3138; }
+.recap-band.after { background: #E07B1E; }
+.recap-band-title { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.recap-band-section { font-size: 11px; font-weight: 500; opacity: 0.85; }
+.recap-band-desc { font-size: 13px; color: var(--text-mid); margin: 0 0 18px; }
+
+/* Entry blocks */
+.recap-entry { padding: 4px 0 22px; margin-bottom: 4px; border-bottom: 1px solid var(--card-border); }
+.recap-entry:last-child { border-bottom: none; }
+.recap-entry .digest-full-contact { font-size: 15px; margin-bottom: 0; }
+.recap-entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.recap-flag {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 4px 9px; border-radius: 6px; white-space: nowrap; flex: 0 0 auto;
+}
+.recap-flag.meetings { color: #2F6B3A; background: #E7F3E9; }
+.recap-flag.firstreply { color: #6D28A8; background: #F3E9FB; }
+.recap-flag.noreply { color: #C0392B; background: #FBEAE7; }
+.recap-flag.pending { color: #3F4A54; background: #EEF1F3; }
+.recap-flag.fixed { color: #1F8A70; background: #E4F5EF; }
+.recap-flag.important { color: #C05A16; background: #FBF0E5; }
+.recap-flag.donotcontact { color: #C0392B; background: #FBEAE7; }
+.recap-thread-subject { font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+
+/* After-actions sub-groups */
+.recap-sub-title { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 2px; }
+.recap-sub-desc { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+.recap-role-line { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+.recap-original { background: #F4F5F6; border-radius: 8px; padding: 12px 14px; margin-top: 12px; }
+.recap-original-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; }
+.recap-status-line { font-size: 13px; font-weight: 700; margin-top: 8px; }
+.recap-status-line.important { color: #1F8A70; }
+.recap-status-line.danger { color: #C0392B; }
+@media (max-width: 560px) {
+  .recap-mockup { padding: 22px 18px; }
+  .recap-stat-val { font-size: 20px; }
+  .recap-stats-row { gap: 4px; }
+}
 
 /* Sticky callouts */
 .digest-callouts { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 20px; }
@@ -1148,6 +1685,26 @@ section.hero + section { border-top: 0; }
 .referral-feature p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
 
 /* Pricing */
+/* Segmented pill toggle: Quarter | Annual */
+.pricing-toggle {
+  display: inline-flex; gap: 4px; margin: 40px auto 0;
+  background: var(--surface-ink, #EFEFEF); border: 1px solid var(--hairline);
+  border-radius: 999px; padding: 5px;
+}
+.pricing-toggle-btn {
+  border: 0; cursor: pointer; background: transparent;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+  color: var(--ink-3); padding: 10px 22px; border-radius: 999px;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
+}
+.pricing-toggle-btn:hover { color: var(--ink); }
+.pricing-toggle-btn.active {
+  background: var(--white); color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.pricing-toggle-save { font-weight: 500; opacity: 0.75; }
+
 .pricing-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px;
   max-width: 800px; margin-left: auto; margin-right: auto;
@@ -1184,6 +1741,9 @@ section.hero + section { border-top: 0; }
 .pricing-features li.bonus { font-weight: 600; }
 .pricing-features li.excluded { opacity: 0.5; }
 .pricing-features li.pricing-separator { border-bottom: none; justify-content: flex-start; padding: 16px 0 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sage-mid); }
+.pricing-features li.pricing-sub { border-bottom: none; padding: 3px 0 3px 30px; font-size: 14px; opacity: 0.82; }
+.pricing-features li.pricing-sub .pricing-check { color: var(--sage-mid); font-weight: 400; min-width: 12px; font-size: 12px; }
+.pricing-features li.pricing-sub + li:not(.pricing-sub) { padding-top: 12px; }
 .pricing-guarantee { margin-top: 14px; font-size: 13px; font-weight: 500; text-align: center; color: rgba(255,255,255,0.7); }
 .pricing-card:not(.featured) .pricing-guarantee { color: var(--ink-3); }
 
@@ -1788,6 +2348,50 @@ section.hero + section { border-top: 0; }
 @keyframes snapshot-scroll { to { transform: translateY(-50%); } }
 @media (prefers-reduced-motion: reduce) { .track-view-scroll { animation: none; } }
 
+/* ===== RECONNECTION STORIES ===== */
+/* Three equal-width columns; each column is a flex-column and the last card
+   in it stretches so all three columns end flush at the same bottom line. */
+.story-masonry {
+  margin-top: 52px; display: flex; gap: 24px; align-items: stretch;
+  max-width: 1080px; margin-left: auto; margin-right: auto;
+}
+.story-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.story-col .story-card:last-child { flex: 1; }
+.story-card {
+  background: var(--white); border: 1px solid var(--card-border); border-radius: 16px;
+  padding: 26px 26px 22px; box-shadow: 0 10px 30px -18px rgba(0,0,0,0.16);
+}
+.story-card-top {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding-bottom: 16px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--card-border);
+}
+.story-initial {
+  width: 36px; height: 36px; min-width: 36px; border-radius: 10px;
+  background: var(--spark-paper); border: 1px solid var(--spark-soft); color: var(--spark-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 15px; font-weight: 600; line-height: 1;
+  margin-top: 1px;
+}
+.story-heading { min-width: 0; }
+.story-headline {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 700;
+  line-height: 1.45; letter-spacing: 0; color: var(--ink);
+  margin-bottom: 4px;
+}
+.story-company {
+  display: block; font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.04em; color: var(--muted);
+}
+.story-body p { font-size: 13.5px; line-height: 1.65; color: var(--text-mid); }
+.story-body p + p { margin-top: 12px; }
+.story-body strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 720px) {
+  .story-masonry { flex-direction: column; max-width: 460px; }
+  .story-col { flex: 1 1 auto; }
+  .story-col .story-card:last-child { flex: 0 0 auto; }
+}
+
 /* ===== WHO THIS IS FOR ===== */
 .qualification-body { max-width: 680px; margin: 40px auto 0; }
 .qualification-body p { font-size: 16px; color: var(--text-mid); line-height: 1.75; margin-bottom: 16px; }
@@ -1849,7 +2453,7 @@ section.hero + section { border-top: 0; }
 
 /* ===== PRIVACY TABS ===== */
 .privacy-box {
-  margin-top: 48px; max-width: 800px; margin-left: auto; margin-right: auto;
+  margin-top: 48px; max-width: 920px; margin-left: auto; margin-right: auto;
 }
 .privacy-tabs {
   display: flex; gap: 0; align-items: stretch;
@@ -1881,7 +2485,9 @@ section.hero + section { border-top: 0; }
 .privacy-panel.active { display: block; }
 .privacy-panel-inner {
   background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px;
-  padding: 48px 44px; box-shadow: 4px 4px 20px rgba(0,0,0,0.06);
+  padding: 40px 44px; box-shadow: 4px 4px 20px rgba(0,0,0,0.06);
+  min-height: 300px;
+  display: flex; flex-direction: column; justify-content: center;
 }
 .privacy-panel-inner p {
   font-size: 14px; color: var(--text-mid); line-height: 1.7; margin-bottom: 14px;
@@ -2061,7 +2667,9 @@ section.hero + section { border-top: 0; }
   .digest-full-mockup { padding: 20px 14px; }
 
   /* New step visuals — comfortable padding on phones */
-  .strat-dash, .svc-card { padding: 18px; }
+  .strat-dash { padding: 18px; }
+  .svc-stage { padding: 18px 18px; }
+  .svc-tier-label { min-width: 0; }
   .strat-metrics { gap: 8px; }
   .strat-metric { padding: 10px; }
   .strat-metric .strat-metric-val { font-size: 20px; }
@@ -2196,8 +2804,9 @@ section.hero + section { border-top: 0; }
 <div class="section-dots" id="sectionDots">
   <button class="section-dot active" data-section="hero" aria-label="Hero"></button>
   <button class="section-dot" data-section="symptom-cold" aria-label="Problem"></button>
+  <button class="section-dot" data-section="alternative" aria-label="The Alternative"></button>
   <button class="section-dot" data-section="solution" aria-label="Solution"></button>
-  <button class="section-dot" data-section="step-strategy" aria-label="How It Works"></button>
+  <button class="section-dot" data-section="step-service" aria-label="How It Works"></button>
   <button class="section-dot" data-section="who-this-is-for" aria-label="Who This Is For"></button>
   <button class="section-dot" data-section="digest" aria-label="Digest"></button>
   <button class="section-dot" data-section="privacy" aria-label="Privacy"></button>
@@ -2224,10 +2833,46 @@ section.hero + section { border-top: 0; }
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="hero">
+  <!-- Subtle networking background: two clusters branching into each other -->
+  <div class="hero-network" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <g class="hero-net-lines">
+        <!-- Cluster A (left) -->
+        <path d="M120,150 L280,110"/><path d="M120,150 L200,300"/><path d="M280,110 L400,240"/>
+        <path d="M200,300 L400,240"/><path d="M400,240 L330,430"/><path d="M200,300 L330,430"/>
+        <path d="M120,150 L40,320"/><path d="M40,320 L200,300"/><path d="M330,430 L180,560"/>
+        <path d="M180,560 L60,690"/><path d="M330,430 L260,700"/><path d="M180,560 L260,700"/>
+        <path d="M260,700 L420,790"/><path d="M60,690 L200,820"/><path d="M200,820 L420,790"/>
+        <!-- Bridges: cluster A → cluster B (the branching out) -->
+        <path d="M400,240 L780,180" class="hero-net-bridge"/>
+        <path d="M330,430 L740,520" class="hero-net-bridge"/>
+        <path d="M400,240 L740,520" class="hero-net-bridge"/>
+        <path d="M420,790 L820,740" class="hero-net-bridge"/>
+        <!-- Cluster B (right) -->
+        <path d="M780,180 L980,110"/><path d="M780,180 L900,340"/><path d="M980,110 L1140,240"/>
+        <path d="M900,340 L1140,240"/><path d="M1140,240 L1300,170"/><path d="M900,340 L740,520"/>
+        <path d="M1140,240 L1280,420"/><path d="M900,340 L1080,500"/><path d="M1080,500 L1280,420"/>
+        <path d="M740,520 L1080,500"/><path d="M1300,170 L1410,330"/><path d="M1280,420 L1400,560"/>
+        <path d="M1080,500 L1180,680"/><path d="M820,740 L1180,680"/><path d="M1180,680 L1380,760"/>
+        <path d="M740,520 L820,740"/><path d="M1400,560 L1380,760"/>
+      </g>
+      <g class="hero-net-nodes">
+        <circle cx="120" cy="150" r="4"/><circle cx="280" cy="110" r="3"/><circle cx="200" cy="300" r="3.5"/>
+        <circle cx="400" cy="240" r="5.5" class="hero-net-hub"/><circle cx="330" cy="430" r="4"/><circle cx="40" cy="320" r="3"/>
+        <circle cx="180" cy="560" r="3.5"/><circle cx="60" cy="690" r="3"/><circle cx="260" cy="700" r="4"/>
+        <circle cx="420" cy="790" r="4.5" class="hero-net-hub"/><circle cx="200" cy="820" r="3"/>
+        <circle cx="780" cy="180" r="5.5" class="hero-net-hub"/><circle cx="980" cy="110" r="3"/><circle cx="900" cy="340" r="4"/>
+        <circle cx="1140" cy="240" r="5" class="hero-net-hub"/><circle cx="1300" cy="170" r="3"/><circle cx="740" cy="520" r="4.5"/>
+        <circle cx="1280" cy="420" r="3.5"/><circle cx="1080" cy="500" r="4"/><circle cx="1410" cy="330" r="3"/>
+        <circle cx="1400" cy="560" r="3"/><circle cx="1180" cy="680" r="4.5" class="hero-net-hub"/>
+        <circle cx="820" cy="740" r="3.5"/><circle cx="1380" cy="760" r="3"/>
+      </g>
+    </svg>
+  </div>
   <div class="hero-inner">
-    <div class="eyebrow-tag hero-anim"><span>Designed for ambitious creative agencies</span></div>
-    <h1 class="hero-headline hero-anim">Your next closed won is already in your Gmail... you just need <em>a proper reactivation system</em>.</h1>
-    <p class="hero-sub hero-anim"><span class="highlight-mark">10-20% of potential revenue are lost</span> between projects, but there isn&rsquo;t a solution that scans your entire network at scale to <span class="highlight-mark">resurface who matters most today.</span></p>
+    <div class="eyebrow-tag hero-anim"><span>Designed for creative agency leaders who value their relationships</span></div>
+    <h1 class="hero-headline hero-anim">Amplify the power of your relationships left untouched for years, <em>pulled straight from your Gmail &amp; Calendar</em>.</h1>
+    <p class="hero-sub hero-anim">Skip the new app and the CRM you rarely open &mdash; we fix the <span class="highlight-mark">broken data AI gives you</span>, surface live signals, and embed a <span class="highlight-mark">dedicated relationship partner</span> in your agency to turn your dormant relationships into conversations, referrals, and revenue.</p>
     <div class="hero-ctas hero-anim">
       <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" data-magnetic="0.22" class="btn btn-sage-lg">Book a Call <span class="arrow">&rarr;</span></a>
       <a href="#solution" data-cursor="See how" data-magnetic="0.18" class="btn btn-ghost">How It Works</a>
@@ -2243,8 +2888,8 @@ section.hero + section { border-top: 0; }
     <div class="symptom-layout fade-in">
       <div class="symptom-copy">
         <div class="symptom-kicker">Problem 01 &mdash; Why relationships goes dormant</div>
-        <h3>You got busy.</h3>
-        <p>You were heads-down in delivery, putting out fires, and shipping the next project, and you never get the chance to nurture the relationships you&rsquo;ve already built&hellip; so they quietly turn dormant.</p>
+        <h3>You were swamped.</h3>
+        <p>You were heads-down in production, putting out fires, and delivering your next work, and you never get the chance to nurture the relationships you&rsquo;ve already built and involved in each project&hellip; so they quietly turn dormant.</p>
       </div>
       <div class="symptom-visual">
         <div class="symptom-card">
@@ -2281,7 +2926,7 @@ section.hero + section { border-top: 0; }
       <div class="symptom-copy">
         <div class="symptom-kicker">Problem 02 &mdash; Why it never gets fixed</div>
         <h3>Relationships got buried.</h3>
-        <p>Those relationships are then buried under thousands of email threads and calendar events, and reconnecting with them means going contact by contact for days or even weeks. Just by thinking of it overwhelms you, so you leave them aside.</p>
+        <p>Neglecting those relationships for a long period of time leads to them getting buried under thousands of email threads, calendar events, and invoices, and reconnecting with them means going contact by contact for weeks.</p>
       </div>
       <div class="symptom-visual">
         <div class="symptom-card">
@@ -2302,38 +2947,89 @@ section.hero + section { border-top: 0; }
   </div>
 </section>
 
-<!-- ===== PROBLEM 3: NO SYSTEMATIC PROCESS ===== -->
+<!-- ===== PROBLEM 3: TRACKING THEM DOWN ===== -->
 <section class="section-white blend-white-to-sage" id="symptom-adhoc">
   <div class="container">
     <div class="symptom-layout fade-in">
       <div class="symptom-copy">
-        <div class="symptom-kicker">Problem 03 &mdash; Why AI alone doesn&rsquo;t solve it</div>
-        <h3>But there isn&rsquo;t a proper reactivation system.</h3>
-        <p>The best you can do is use AI to do a huge push over the weekend. But the problem will surface again when you get busy. Instead, what you actually need is a proper system that scans, filters, and resurfaces the right person at the right moment, on a daily basis.</p>
+        <div class="symptom-kicker">Problem 03 &mdash; Why it never sticks</div>
+        <h3>No proper reconnection process.</h3>
+        <p>The upside of reconnecting with those relationships is way too much than the downsides, so you started working your way through manually. But after weeks of compiling your relationships, things got messy. You don&rsquo;t know who you have already reached out to, who have replied, and the reconnection process for each relationship.</p>
       </div>
       <div class="symptom-visual">
         <div class="symptom-card">
           <div class="symptom-card-head">
-            <span>Reconnect effort over time</span>
+            <span>My reconnection tracker.xlsx</span>
             <span class="symptom-card-dot adhoc"></span>
           </div>
-          <div class="symptom-saw">
-            <div class="symptom-saw-graph">
-              <div class="symptom-saw-bar peak" style="height:90%"></div>
-              <div class="symptom-saw-bar" style="height:14%"></div>
-              <div class="symptom-saw-bar" style="height:8%"></div>
-              <div class="symptom-saw-bar" style="height:6%"></div>
-              <div class="symptom-saw-bar peak" style="height:78%"></div>
-              <div class="symptom-saw-bar" style="height:12%"></div>
-              <div class="symptom-saw-bar" style="height:7%"></div>
-              <div class="symptom-saw-bar" style="height:5%"></div>
-              <div class="symptom-saw-bar" style="height:5%"></div>
+          <div class="symptom-tracker">
+            <div class="symptom-tracker-row symptom-tracker-head">
+              <span>Contact</span><span>Reached?</span><span>Replied?</span>
             </div>
-            <div class="symptom-saw-label"><span>One big push</span><span>&hellip;then silence</span></div>
+            <div class="symptom-tracker-row">
+              <span class="tk-name">Maya R.</span><span class="tk-cell yes">Yes</span><span class="tk-cell unk">?</span>
+            </div>
+            <div class="symptom-tracker-row">
+              <span class="tk-name">Daniel K.</span><span class="tk-cell unk">not sure</span><span class="tk-cell no">&mdash;</span>
+            </div>
+            <div class="symptom-tracker-row">
+              <span class="tk-name">Sofia P.</span><span class="tk-cell yes">Yes</span><span class="tk-cell yes">Yes?</span>
+            </div>
+            <div class="symptom-tracker-row">
+              <span class="tk-name">Marcus L.</span><span class="tk-cell unk">?</span><span class="tk-cell unk">?</span>
+            </div>
+            <div class="symptom-tracker-row">
+              <span class="tk-name">Priya N.</span><span class="tk-cell blank"></span><span class="tk-cell blank"></span>
+            </div>
           </div>
-          <div class="symptom-saw-caption">A burst of effort, then flatline. Repeat. Nothing compounds.</div>
+          <div class="symptom-card-note">Weeks in, and no one can tell you the status of a single relationship.</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE ALTERNATIVE ===== -->
+<section class="section-sage blend-sage-to-white" id="alternative">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:800px; margin:0 auto;">
+      <div class="section-label">The Alternatives</div>
+      <h2 class="section-headline">Claude, Codex, or any other AI tools.</h2>
+      <p class="subtitle" style="margin-top:12px;">They are a great place to start and save cost at first. But as you dive deeper, you&rsquo;d soon face with a couple of problems.</p>
+    </div>
+
+    <div class="alt-grid fade-in">
+      <div class="alt-card">
+        <div class="alt-card-num">01</div>
+        <h3 class="alt-card-title">Lack nuances.</h3>
+        <p>They read your messages and vaguely label each contact as hot, warm, or cold. They don&rsquo;t know your industry, your work, or how creative agencies win work. So the quietly valuable relationships never get surfaced.</p>
+        <p class="alt-card-cost"><span>The cost</span> Miss out relationships that actually matters.</p>
+      </div>
+
+      <div class="alt-card">
+        <div class="alt-card-num">02</div>
+        <h3 class="alt-card-title">Broken data layer.</h3>
+        <p>They are used to amplify the power of your relationships, not be the source of truth. So leaning on them means you&rsquo;d be scaling the enrichment and signals monitoring system faster, but in a wrong direction.</p>
+        <p class="alt-card-cost"><span>The cost</span> Scale the wrong things fast.</p>
+      </div>
+
+      <div class="alt-card">
+        <div class="alt-card-num">03</div>
+        <h3 class="alt-card-title">Heavy maintenance.</h3>
+        <p>After building out the system, you still have to do the real work: fine-tuning prompts, fixing bugs, maintaining data subscriptions, optimizing signals, and more. Which often takes a team to maintain.</p>
+        <p class="alt-card-cost"><span>The cost</span> Still takes a lot of time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PULL QUOTE ===== -->
+<section class="pullquote">
+  <div class="container">
+    <div data-reveal-stagger>
+      <span class="pullquote-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s <em>already changed how I approach business development.</em></blockquote>
+      <cite>Mark DePace &middot; Co-Founder &amp; CCO, Ghost Robot &mdash; an integrated creative studio for Google, Arhaus &amp; Away</cite>
     </div>
   </div>
 </section>
@@ -2344,23 +3040,15 @@ section.hero + section { border-top: 0; }
     <div data-reveal-stagger style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">The Solution</div>
       <h2 class="section-headline">Introducing VeraOps.</h2>
-      <p class="subtitle" style="margin-top:12px;">Turning strategic thinking, customized implementation, and sophisticated technology into revenue recovered.</p>
+      <p class="subtitle" style="margin-top:12px;">Turning strategic thinking, hands-on support, and sophisticated technology into conversations, referrals, and revenue recovered.</p>
     </div>
-    <div class="solution-grid">
-      <a href="#step-strategy" data-cursor="View" class="card solution-card stagger-in" style="text-align:center;">
-        <div class="solution-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        </div>
-        <h3>Strategy</h3>
-        <p>We craft a reactivation strategy built around your network, then keep it on track with light monthly and quarterly calls.</p>
-        <span class="solution-card-link">See how &rarr;</span>
-      </a>
+    <div class="solution-grid solution-grid-2">
       <a href="#step-service" data-cursor="View" class="card solution-card stagger-in" style="text-align:center;">
         <div class="solution-icon">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3>Service</h3>
-        <p>A hands-on team consistently auditing, tiering, and optimizing your network.</p>
+        <p>Tailored tiering. Handpicked relationships. Managed reconnection outcomes.</p>
         <span class="solution-card-link">See how &rarr;</span>
       </a>
       <a href="#digest" data-cursor="View" class="card solution-card stagger-in" style="text-align:center;">
@@ -2368,7 +3056,7 @@ section.hero + section { border-top: 0; }
           <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/></svg>
         </div>
         <h3>Technology</h3>
-        <p>Relationship Digest and the recaps &mdash; the system that surfaces who to reach out to today and tracks every outcome for you.</p>
+        <p>Relationship Digest. Relationship Recaps. Sent directly to your Gmail.</p>
         <span class="solution-card-link">See how &rarr;</span>
       </a>
     </div>
@@ -2376,127 +3064,75 @@ section.hero + section { border-top: 0; }
   </div>
 </section>
 
-<!-- ===== STEP 1: STRATEGY ===== -->
-<section class="section-sage blend-sage-to-white" id="step-strategy">
+
+<!-- ===== STEP 1: SERVICE ===== -->
+<section class="section-white blend-white-to-sage" id="step-service">
   <div class="container">
-    <div class="symptom-head fade-in">
-      <div class="symptom-kicker">01 &mdash; Strategy</div>
+    <div class="fade-in" style="text-align:center; max-width:820px; margin:0 auto;">
+      <div class="symptom-kicker" style="margin-bottom:14px;">01 &mdash; Service</div>
+      <h2 class="section-headline">A hands-on team behind every reconnection.</h2>
+      <p class="subtitle" style="margin-top:12px;">Relationships should <em>never</em> be delegated entirely to AI.</p>
     </div>
-    <div class="symptom-layout fade-in">
+    <div class="symptom-layout fade-in svc-layout-spaced">
       <div class="symptom-copy">
-        <h3>Reactivation strategy built around your relationships.</h3>
         <ul class="step-bullets">
           <li>
             <span class="step-bullet-num">1</span>
-            <p><strong>Insights.</strong> We turn two sources into clear, agency-specific insights: the dashboard we help you manage, and the audit we run on your network every quarter &mdash; then hand you a concrete recommendation to focus on next.</p>
+            <p><strong>Tailored tiering strategy.</strong> A lone calendar invite would have been marked as spam in other systems. But for us, we go one step further by analyzing the context of the invite because sometimes, they might be a junior copywriter supporting a project. And <span class="highlight-mark">now leading a team of creatives and controlling the budget</span>.</p>
           </li>
           <li>
             <span class="step-bullet-num">2</span>
-            <p><strong>Clusters.</strong> We surface the different clusters within your network and keep you informed about the ones you might be neglecting, so no pocket of recoverable revenue slips through.</p>
+            <p><strong>Handpicked relationships.</strong> We <span class="highlight-mark">handpick three contacts that are most in-market right now</span> according to your agency goals, using signals like unfinished threads, past project threads, job change, company news, and more.</p>
           </li>
           <li>
             <span class="step-bullet-num">3</span>
-            <p><strong>Strategy calls.</strong> A call every month and every quarter. Monthly is about staying aligned and on track; quarterly is about tweaking the approach, focusing on the crux, and getting the bigger objective right.</p>
+            <p><strong>Managed reconnection outcomes.</strong> We track your reconnection from a raw contact in your Gmail to a reply in the recommended relationship. When one stalls, we manage it, feed the outcome back into our picks, and <span class="highlight-mark">even map intro paths to break into new accounts</span>.</p>
           </li>
         </ul>
       </div>
       <div class="symptom-visual">
-        <div class="strat-dash">
-          <div class="strat-dash-head">
-            <span>Network dashboard</span>
-            <span class="strat-live">Live</span>
+       <div class="svc-card">
+        <!-- Stage 1 — the whole pool sorted into tiers -->
+        <div class="svc-stage">
+          <div class="svc-stage-head"><span class="svc-stage-tag">01</span><span class="svc-stage-title">Tiering</span><span class="svc-stage-meta">2,847 contacts sorted</span></div>
+          <div class="svc-pool">
+            <span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span>
           </div>
-          <div class="strat-metrics">
-            <div class="strat-metric">
-              <div class="strat-metric-val">2,418</div>
-              <div class="strat-metric-label">Contacts mapped</div>
-              <div class="strat-metric-delta">+142 this qtr</div>
-            </div>
-            <div class="strat-metric">
-              <div class="strat-metric-val">316</div>
-              <div class="strat-metric-label">Tier A &amp; B</div>
-              <div class="strat-metric-delta">High potential</div>
-            </div>
-            <div class="strat-metric">
-              <div class="strat-metric-val">38%</div>
-              <div class="strat-metric-label">Reactivated</div>
-              <div class="strat-metric-delta">&uarr; 11% MoM</div>
-            </div>
-          </div>
-          <div class="strat-chart-label">Reactivation momentum &middot; last 8 weeks</div>
-          <div class="strat-chart">
-            <div class="strat-chart-bar" style="height:32%"></div>
-            <div class="strat-chart-bar" style="height:44%"></div>
-            <div class="strat-chart-bar" style="height:38%"></div>
-            <div class="strat-chart-bar" style="height:56%"></div>
-            <div class="strat-chart-bar" style="height:64%"></div>
-            <div class="strat-chart-bar" style="height:72%"></div>
-            <div class="strat-chart-bar hot" style="height:84%"></div>
-            <div class="strat-chart-bar hot" style="height:92%"></div>
-          </div>
-          <div class="strat-insight">
-            <div class="strat-insight-icon">&#9650;</div>
-            <p><strong>Insight:</strong> Your strongest cluster is dormant ex-clients from 2022&ndash;2023 &mdash; 47 Tier-A contacts with no touch in 12+ months. Prioritize this quarter.</p>
+          <div class="svc-tier-bars">
+            <div class="svc-tier-bar"><span class="svc-tier-badge a">A</span><span class="svc-tier-label">On-project collaborators</span><span class="svc-tier-track"><span class="svc-tier-fill a" style="width:24%"></span></span><span class="svc-tier-n">47</span></div>
+            <div class="svc-tier-bar"><span class="svc-tier-badge b">B</span><span class="svc-tier-label">Past clients &amp; partners</span><span class="svc-tier-track"><span class="svc-tier-fill b" style="width:52%"></span></span><span class="svc-tier-n">184</span></div>
+            <div class="svc-tier-bar"><span class="svc-tier-badge c">C</span><span class="svc-tier-label">Warm prospects</span><span class="svc-tier-track"><span class="svc-tier-fill c" style="width:82%"></span></span><span class="svc-tier-n">312</span></div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ===== STEP 2: SERVICE ===== -->
-<section class="section-white blend-white-to-sage" id="step-service">
-  <div class="container">
-    <div class="symptom-layout reverse fade-in">
-      <div class="symptom-copy">
-        <div class="symptom-kicker">02 &mdash; Service</div>
-        <h3>Customized implementation for your agency.</h3>
-        <ul class="step-bullets">
-          <li>
-            <span class="step-bullet-num">1</span>
-            <p><strong>Interview.</strong> We interview you about your ICP &mdash; your ideal client, ideal company, and goals &mdash; and ask about recent agency updates, so every outreach email we craft is tuned to you.</p>
-          </li>
-          <li>
-            <span class="step-bullet-num">2</span>
-            <p><strong>Audit.</strong> Every quarter we audit your entire network and reactivation funnel &mdash; how far your dormant pool reaches, how fast active relationships are turning dormant, and how well you&rsquo;re reactivating them.</p>
-          </li>
-        </ul>
-      </div>
-      <div class="symptom-visual">
-        <div class="svc-card">
-          <div class="svc-card-head">
-            <span>Quarterly network audit</span>
-            <span>Q3 2026</span>
+        <!-- Stage 2 — signals converge on one handpicked person -->
+        <div class="svc-stage">
+          <div class="svc-stage-head"><span class="svc-stage-tag">02</span><span class="svc-stage-title">Handpicked</span><span class="svc-stage-meta">in-market today</span></div>
+          <div class="svc-signals">
+            <span class="svc-signal">New venture</span>
+            <span class="svc-signal">Job change</span>
+            <span class="svc-signal">Promotion</span>
           </div>
-          <div class="svc-clusters">
-            <div class="svc-cluster">
-              <span class="svc-cluster-name">Past clients</span>
-              <span class="svc-cluster-bar"><span style="width:88%"></span></span>
-              <span class="svc-cluster-count">312</span>
-            </div>
-            <div class="svc-cluster">
-              <span class="svc-cluster-name">Referral partners</span>
-              <span class="svc-cluster-bar"><span style="width:62%"></span></span>
-              <span class="svc-cluster-count">184</span>
-            </div>
-            <div class="svc-cluster">
-              <span class="svc-cluster-name">Warm prospects</span>
-              <span class="svc-cluster-bar"><span style="width:51%"></span></span>
-              <span class="svc-cluster-count">147</span>
-            </div>
-            <div class="svc-cluster">
-              <span class="svc-cluster-name">Dormant crew</span>
-              <span class="svc-cluster-bar"><span style="width:34%"></span></span>
-              <span class="svc-cluster-count">96</span>
-            </div>
+          <div class="svc-pick-row">
+            <div class="svc-pick-avatar">EL</div>
+            <div class="svc-pick-meta"><strong>Elena L. &mdash; ex-Creative Dir.</strong><span>Just started a new venture &middot; Tier A</span></div>
+            <span class="svc-pick-flag">Picked</span>
           </div>
-          <div class="svc-cadence-label">Ongoing service</div>
-          <div class="svc-cadence">
-            <div class="svc-cadence-row"><span class="svc-cadence-tag">Quarterly</span><span>Full network &amp; reactivation-funnel audit</span></div>
-            <div class="svc-cadence-row"><span class="svc-cadence-tag">Daily / weekly</span><span>Contact, tiering &amp; ICP optimization</span></div>
-            <div class="svc-cadence-row"><span class="svc-cadence-tag">Anytime</span><span>Direct access to our team through Slack</span></div>
-            <div class="svc-cadence-row"><span class="svc-cadence-tag">On request</span><span>Custom data points based on your ICP &amp; needs</span></div>
+        </div>
+
+        <!-- Stage 3 — end-to-end reconnection flow -->
+        <div class="svc-stage">
+          <div class="svc-stage-head"><span class="svc-stage-tag">03</span><span class="svc-stage-title">Managed</span><span class="svc-stage-meta">tracked end to end</span></div>
+          <div class="svc-flow">
+            <span class="svc-flow-step done">In inbox</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-step done">Surfaced</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-step active">Reconnecting</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-step">Reply</span>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -2507,9 +3143,9 @@ section.hero + section { border-top: 0; }
 <section class="section-sage blend-sage-to-white" id="digest">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
-      <div class="symptom-kicker" style="margin-bottom:14px;">03 &mdash; Technology</div>
+      <div class="symptom-kicker" style="margin-bottom:14px;">02 &mdash; Technology</div>
       <h2 class="section-headline">The system that lands in your inbox.</h2>
-      <p class="subtitle" style="margin-top:12px;">Relationship Digest that surfaces who to reach out to today, and recaps that track every outreach, with in-built follow-up emails.</p>
+      <p class="subtitle" style="margin-top:12px;">No apps to deal with. No need to log into your CRM as well.</p>
     </div>
 
     <div class="tech-toggle fade-in" role="tablist" aria-label="Technology view switcher">
@@ -2526,7 +3162,7 @@ section.hero + section { border-top: 0; }
           <div class="digest-annotation-num">1</div>
           <div>
             <h4>Contact Intelligence</h4>
-            <p>Tier level, confidence score, and last contact date so you know exactly where you stand.</p>
+            <p>Tier level, relationship type, and last contact date so you know exactly where you stand.</p>
           </div>
         </div>
         <div class="digest-annotation" data-points-to="thread">
@@ -2566,10 +3202,10 @@ section.hero + section { border-top: 0; }
           <div class="digest-full-meta">Monday, March 9, 2026 &nbsp;|&nbsp; Daily quota: 3 contacts</div>
 
           <div class="digest-full-section" id="digest-sec-contact">
-            <div class="digest-full-section-title">Connection Details <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Contact Intelligence</strong><br>Tier level, confidence score, and last contact date so you know exactly where you stand.</div></button></div>
+            <div class="digest-full-section-title">Connection Details <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Contact Intelligence</strong><br>Tier level, relationship type, and last contact date so you know exactly where you stand.</div></button></div>
             <div class="digest-full-contact">1. Rachel Moreno &mdash; Account Manager, Bolt Communications</div>
             <div class="digest-full-tier">
-              <span>Tier A</span> &middot; <span>Confidence: High</span> &middot; <span>Last contacted: About 14 months ago</span>
+              <span>Tier A</span> &middot; <span>Client, Supporting member</span> &middot; <span>Last contacted: About 14 months ago</span>
             </div>
           </div>
 
@@ -2580,8 +3216,10 @@ section.hero + section { border-top: 0; }
 
           <div class="digest-full-section" id="digest-sec-thread">
             <div class="digest-full-section-title">Last Email Thread <button class="digest-info-btn" data-info="3"><span>i</span><div class="digest-info-popup"><strong>Conversation Recall</strong><br>A direct link to your most recent email thread with this contact so you can pick up exactly where you left off.</div></button></div>
-            <div style="font-size:13px; color:var(--text-mid); line-height:1.7;">
-              <a href="https://mail.google.com/" target="_blank" style="color:var(--text-mid); text-decoration:underline;">Personal invitation</a> <span style="color:var(--muted);">(September 25, 2024)</span>
+            <div class="digest-full-email-box">
+              <div class="digest-full-email-subject"><strong>Subject:</strong> Re: Bolt launch &mdash; final deliverables + thank you</div>
+              <div class="digest-thread-meta">Rachel Moreno &rarr; you &middot; January 18, 2025</div>
+              <a href="https://mail.google.com/" target="_blank" class="digest-thread-link">Open full thread in Gmail &rarr;</a>
             </div>
           </div>
 
@@ -2642,6 +3280,7 @@ section.hero + section { border-top: 0; }
                 <p>Saw Bolt just landed a couple of new consumer brands for Q2... congrats, that&rsquo;s huge. The fintech rebrand looked great too.</p>
                 <p>It got me thinking about the product launch we did together. If any of these new accounts need creative support, I&rsquo;d love to chat about how we could help again.</p>
                 <p>Either way, would be great to catch up. Coffee or a quick call sometime this month?</p>
+                <p>Best,<br>James</p>
               </div>
             </div>
           </div>
@@ -2649,6 +3288,96 @@ section.hero + section { border-top: 0; }
           <div class="digest-full-actions" id="digest-sec-actions">
             <button class="digest-full-btn digest-full-btn-dark" style="position:relative; display:inline-flex; align-items:center; justify-content:center; gap:8px;">Send Email <span class="digest-info-btn" data-info="9" style="position:static; transform:none;"><span>i</span><div class="digest-info-popup"><strong>One-Click Actions</strong><br>Send the email or open their LinkedIn profile directly from your digest.</div></span></button>
             <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-after" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--card-border);">
+            <div class="digest-full-section-title">After Actions</div>
+            <div class="digest-after-status">This contact is currently marked <strong>normal</strong>.</div>
+            <div class="digest-after-actions">
+              <div class="digest-after-item">
+                <button class="digest-after-btn">Mark as important</button>
+                <div class="digest-after-preview side-left" aria-hidden="true">
+                  <div class="digest-after-preview-inner">
+                    <div class="digest-after-card">
+                      <div class="digest-after-card-brand">VeraOps</div>
+                      <div class="digest-after-card-rule"></div>
+                      <div class="digest-after-card-title">Marked as Important</div>
+                      <div class="digest-after-card-body"><strong>Rachel Moreno</strong> is now marked Important and will be prioritized in your future digests.</div>
+                      <div class="digest-after-card-btns">
+                        <span class="digest-after-card-btn">Close tab</span>
+                        <span class="digest-after-card-btn solid">Mark as normal</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="digest-after-item">
+                <button class="digest-after-btn danger">Mark as do not contact</button>
+                <div class="digest-after-preview below" aria-hidden="true">
+                  <div class="digest-after-preview-inner">
+                    <div class="digest-after-card">
+                      <div class="digest-after-card-brand">VeraOps</div>
+                      <div class="digest-after-card-rule"></div>
+                      <div class="digest-after-card-title">Marked as Do not contact</div>
+                      <div class="digest-after-card-body"><strong>Rachel Moreno</strong> has been marked as Do not contact and will not appear in your future digests.</div>
+                      <div class="digest-after-card-btns">
+                        <span class="digest-after-card-btn">Close tab</span>
+                        <span class="digest-after-card-btn solid">Remove Do not contact</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="digest-after-item">
+                <button class="digest-after-btn">Wrong LinkedIn</button>
+                <div class="digest-after-preview wide" aria-hidden="true">
+                  <div class="digest-after-preview-inner">
+                    <div class="digest-after-card">
+                      <div class="digest-after-card-brand">VeraOps</div>
+                      <div class="digest-after-card-rule"></div>
+                      <div class="digest-after-card-title">Profile Change</div>
+                      <div class="digest-after-steps">
+                        <div class="digest-after-step">
+                          <span class="digest-after-step-num">1</span>
+                          <span class="digest-after-step-label">Choose an alternative profile</span>
+                        </div>
+                        <div class="digest-after-profile">
+                          <div class="digest-after-avatar">RM</div>
+                          <div class="digest-after-profile-name">Rachel Moreno</div>
+                          <div class="digest-after-profile-role">Account Manager &middot; Bolt Communications</div>
+                          <span class="digest-after-profile-btn">Open LinkedIn</span>
+                        </div>
+                        <div class="digest-after-profile">
+                          <div class="digest-after-avatar">RM</div>
+                          <div class="digest-after-profile-name">Raquel Moreno</div>
+                          <div class="digest-after-profile-role">Account Manager &middot; Bolt Creative Group</div>
+                          <span class="digest-after-profile-btn">Open LinkedIn</span>
+                        </div>
+                        <div class="digest-after-step" style="margin-top:10px;">
+                          <span class="digest-after-step-num">2</span>
+                          <span class="digest-after-step-label">Enter the correct LinkedIn URL</span>
+                        </div>
+                        <div class="digest-after-input">https://www.linkedin.com/in/&hellip;</div>
+                        <div class="digest-after-step">
+                          <span class="digest-after-step-num">3</span>
+                          <span class="digest-after-step-label">No profile found</span>
+                        </div>
+                        <div class="digest-after-notfound">
+                          <div class="digest-after-notfound-title">No profile found</div>
+                          <div class="digest-after-notfound-sub">I can&rsquo;t find this person &mdash; mark as do not contact.</div>
+                        </div>
+                      </div>
+                      <div class="digest-after-card-btns">
+                        <span class="digest-after-card-btn">Cancel</span>
+                        <span class="digest-after-card-btn disabled">Submit</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2683,115 +3412,300 @@ section.hero + section { border-top: 0; }
             <p>A complete email draft written in your voice, with subject line, ready to edit and send.</p>
           </div>
         </div>
+        <div class="digest-annotation" data-points-to="after">
+          <div class="digest-annotation-num">10</div>
+          <div>
+            <h4>Post-Suggestion Actions</h4>
+            <p>These directly shape your next digest: mark someone important and we prioritize them, mark do-not-contact and we stop surfacing them. And if we matched the wrong person, hit &ldquo;Wrong LinkedIn&rdquo; and we&rsquo;ll correct it.</p>
+          </div>
+        </div>
       </div>
     </div>
     </div>
 
     <!-- Recap view -->
     <div class="tech-view" data-techview="recap">
-    <div class="digest-spotlight fade-in" id="recap-spotlight">
-      <!-- Left annotations (1, 3) -->
-      <div class="digest-annotations digest-annotations-left">
-        <div class="digest-annotation" data-points-to="meeting">
+    <div class="digest-spotlight recap-spotlight-grid fade-in">
+      <!-- Left annotations -->
+      <div class="digest-annotations digest-annotations-left recap-annos-left">
+        <div class="digest-annotation">
           <div class="digest-annotation-num">1</div>
           <div>
             <h4>Meetings Booked</h4>
-            <p>Outreach that turned into a real meeting on your calendar &mdash; with the thread and the next meeting linked.</p>
+            <p>The outcome we&rsquo;re after &mdash; a dormant relationship that turned into a real conversation on the calendar.</p>
           </div>
         </div>
-        <div class="digest-annotation" data-points-to="ping">
+        <div class="digest-annotation">
           <div class="digest-annotation-num">3</div>
           <div>
-            <h4>Still Worth a Ping</h4>
-            <p>Warm contacts you haven&rsquo;t reached yet &mdash; with what you have in common and a fresh reason to reconnect.</p>
+            <h4>No Reply</h4>
+            <p>You reached out but haven&rsquo;t heard back yet &mdash; still worth a nudge, with a fresh angle for the follow-up.</p>
+          </div>
+        </div>
+        <div class="digest-annotation">
+          <div class="digest-annotation-num">5</div>
+          <div>
+            <h4>After Actions</h4>
+            <p>What changed from the actions you took in the digest &mdash; profiles we corrected, contacts you flagged important, and ones you asked us to stop surfacing.</p>
           </div>
         </div>
       </div>
 
-      <!-- Center: Recap Mockup -->
       <div class="digest-spotlight-center">
-        <div class="digest-full-mockup" style="margin:0;">
-          <h2>Your week in connections</h2>
-          <div class="digest-full-meta">May 25 &ndash; May 29, 2026 &nbsp;|&nbsp; 15 contacts</div>
-
-          <div class="digest-full-section" id="recap-sec-meeting">
-            <div class="recap-sec-head">Meetings Booked (1) <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Meetings Booked</strong><br>Outreach that turned into a real meeting on your calendar &mdash; with the thread and the next meeting linked.</div></button></div>
-            <div class="digest-full-contact">1. Elena Brooks &mdash; VP of Marketing, Marlowe &amp; Finch</div>
-            <div class="digest-full-tier"><span>Thu, Jun 4</span></div>
-            <div class="digest-full-section-title" style="margin-top:6px;">Last Email Thread</div>
-            <div style="font-size:13px; color:var(--text-mid); line-height:1.7;">
-              <a href="https://mail.google.com/" target="_blank" style="color:var(--text-mid); text-decoration:underline;">Re: Great catching up</a> <span style="color:var(--muted);">(June 2, 2026)</span>
-            </div>
-            <div class="digest-full-section-title" style="margin-top:12px;">Next Meeting</div>
-            <div class="digest-full-refresher" style="margin-bottom:8px;">Intro call &mdash; brand refresh scope <span style="color:var(--muted);">(June 11, 2026)</span></div>
-            <div class="recap-good" style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">You&rsquo;ve got a meeting lined up</div>
-            <div class="digest-full-actions" style="margin-top:14px;">
-              <button class="digest-full-btn digest-full-btn-outline" style="flex:0 0 calc(50% - 4px);">Open LinkedIn</button>
-            </div>
+      <div class="digest-full-mockup recap-mockup" style="margin:0;">
+        <div class="recap-cycler" id="recapCycler" aria-live="polite">
+          <div class="recap-slide is-active" data-period="week">
+            <h2>Your week in connections</h2>
+            <div class="digest-full-meta">Jun 29 &ndash; Jul 05, 2026 &nbsp;|&nbsp; 15 contacts</div>
           </div>
-
-          <div class="digest-full-section" id="recap-sec-reached">
-            <div class="recap-sec-head">You Reached Out (1) <button class="digest-info-btn" data-info="2"><span>i</span><div class="digest-info-popup"><strong>You Reached Out</strong><br>People you contacted this week, with a recap of exactly what you said so you can pick the thread back up.</div></button></div>
-            <div class="digest-full-contact">2. Marcus Reilly &mdash; Head of Brand, Northwind Studio</div>
-            <div class="digest-full-tier"><span>Thu, May 28</span></div>
-            <div class="digest-full-section-title" style="margin-top:6px;">Last Email Thread</div>
-            <div style="font-size:13px; color:var(--text-mid); line-height:1.7;">
-              <a href="https://mail.google.com/" target="_blank" style="color:var(--text-mid); text-decoration:underline;">Congrats on the new role</a> <span style="color:var(--muted);">(May 29, 2026)</span>
-            </div>
-            <div class="digest-full-section-title" style="margin-top:12px;">What You Talked About</div>
-            <div class="digest-full-refresher">You reconnected after collaborating on the 2022 summer campaign and congratulated him on the move to Northwind. You floated working together again on brand and social, and offered to set up a quick call whenever suits him.</div>
-            <div class="digest-full-actions" style="margin-top:14px;">
-              <button class="digest-full-btn digest-full-btn-dark">Follow-Up</button>
-              <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
-            </div>
+          <div class="recap-slide" data-period="month">
+            <h2>Your month in connections</h2>
+            <div class="digest-full-meta">Jun 01 &ndash; Jun 30, 2026 &nbsp;|&nbsp; 63 contacts</div>
           </div>
-
-          <div class="digest-full-section" id="recap-sec-ping">
-            <div class="recap-sec-head">Still Worth a Ping (1) <button class="digest-info-btn" data-info="3"><span>i</span><div class="digest-info-popup"><strong>Still Worth a Ping</strong><br>Warm contacts you haven&rsquo;t reached yet &mdash; with what you have in common and a fresh reason to reconnect.</div></button></div>
-            <div class="digest-full-contact">3. Priya Anand &mdash; Founder, Halo &amp; Co.</div>
-            <div class="digest-full-tier"><span>Tue, May 26</span></div>
-            <div class="digest-full-section-title" style="margin-top:6px;">What You Have in Common</div>
-            <div class="digest-full-pills">
-              <span class="digest-full-pill">Product launch campaign</span>
-              <span class="digest-full-pill">Editorial direction</span>
-              <span class="digest-full-pill">Seasonal brand work</span>
-            </div>
-            <div class="digest-full-section-title" style="margin-top:12px;">Why Reconnect</div>
-            <div class="digest-full-refresher">An unfinished thread from 2023 &mdash; the capsule launch you scoped together &mdash; resurfaced by Halo &amp; Co.&rsquo;s recent funding announcement and a new collection drop.</div>
-            <div class="digest-full-actions" style="margin-top:14px;">
-              <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
-              <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
-            </div>
-          </div>
-
-          <div class="digest-full-section" id="recap-sec-corrected">
-            <div class="recap-sec-head">Profile Corrected (1) <button class="digest-info-btn" data-info="4"><span>i</span><div class="digest-info-popup"><strong>Profile Corrected</strong><br>Contacts whose role or company changed &mdash; we catch the move and update their profile for you.</div></button></div>
-            <div class="digest-full-contact">4. Dana Whitfield &mdash; Chief of Staff, Bright Harbor</div>
-            <div class="digest-full-tier"><span>Tue, May 26</span></div>
-            <div class="digest-full-section-title" style="margin-top:6px;">Originally Sent</div>
-            <div class="digest-full-refresher" style="margin-bottom:0;">Dana W. &middot; Account Lead &middot; Field &amp; Form</div>
-            <div class="digest-full-actions" style="margin-top:14px;">
-              <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
-              <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
-            </div>
+          <div class="recap-slide" data-period="quarter">
+            <h2>Your quarter in connections</h2>
+            <div class="digest-full-meta">Apr 01 &ndash; Jun 30, 2026 &nbsp;|&nbsp; 198 contacts</div>
           </div>
         </div>
+
+        <!-- Statistics summary + flow — swaps in sync with the header cycler -->
+        <div class="recap-stats-card">
+          <div class="recap-stats-title">Statistics Summary</div>
+          <div class="recap-data-cycler" id="recapDataCycler">
+
+            <div class="recap-data-slide is-active" data-period="week">
+            <div class="recap-stats-row">
+              <div class="recap-stat"><span class="recap-stat-label">Suggested</span><span class="recap-stat-val">15</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Contacted</span><span class="recap-stat-val">6</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Replied</span><span class="recap-stat-val">1</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Ongoing</span><span class="recap-stat-val">0</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Meetings</span><span class="recap-stat-val">0</span></div>
+            </div>
+              <div class="recap-flow">
+                <img src="assets/recap-sankey-week.png" alt="Weekly flow: 15 suggested, 6 contacted, 1 replied, 8 pending, 1 after actions" class="recap-sankey-img">
+              </div>
+            </div>
+
+            <div class="recap-data-slide" data-period="month">
+            <div class="recap-stats-row">
+              <div class="recap-stat"><span class="recap-stat-label">Suggested</span><span class="recap-stat-val">63</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Contacted</span><span class="recap-stat-val">48</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Replied</span><span class="recap-stat-val">6</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Ongoing</span><span class="recap-stat-val">2</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Meetings</span><span class="recap-stat-val">2</span></div>
+            </div>
+              <div class="recap-flow">
+                <img src="assets/recap-sankey-month.png" alt="Monthly flow: 63 suggested, 48 contacted, 6 replied, 2 ongoing, 2 meetings" class="recap-sankey-img">
+              </div>
+            </div>
+
+            <div class="recap-data-slide" data-period="quarter">
+            <div class="recap-stats-row">
+              <div class="recap-stat"><span class="recap-stat-label">Suggested</span><span class="recap-stat-val">198</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Contacted</span><span class="recap-stat-val">86</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Replied</span><span class="recap-stat-val">12</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Ongoing</span><span class="recap-stat-val">7</span></div>
+              <div class="recap-stat"><span class="recap-stat-label">Meetings</span><span class="recap-stat-val">6</span></div>
+            </div>
+              <div class="recap-flow">
+                <img src="assets/recap-sankey-quarter.png" alt="Quarterly flow: 198 suggested, 86 contacted, 12 replied, 7 ongoing, 6 meetings" class="recap-sankey-img">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Jump to a section -->
+        <div class="recap-jump">
+          <div class="recap-jump-label">Jump to a section</div>
+          <div class="recap-jump-pills">
+            <span class="recap-jump-pill meetings">Meetings Booked (2)</span>
+            <span class="recap-jump-pill firstreply">First Reply (1)</span>
+            <span class="recap-jump-pill noreply">No Reply (5)</span>
+            <span class="recap-jump-pill pending">Pending (8)</span>
+            <span class="recap-jump-pill after">After actions (3)</span>
+          </div>
+        </div>
+
+        <!-- ===== MEETINGS BOOKED ===== -->
+        <div class="recap-band meetings" id="recap-band-meetings">
+          <span class="recap-band-title">Meetings Booked &middot; 2</span>
+          <span class="recap-band-section">Section 1 of 5</span>
+        </div>
+        <p class="recap-band-desc">Reached out, had a meeting</p>
+
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Dana Whitfield &mdash; Founder | Executive Producer, Kestrel House</div>
+            <span class="recap-flag meetings">Meeting</span>
+          </div>
+          <div class="digest-full-tier"><span>Mon, Jun 1</span></div>
+          <div class="digest-full-section-title" style="margin-top:10px;">Last Email Thread</div>
+          <div class="recap-thread-subject"><strong>Subject:</strong> Re: Intro + Kestrel House</div>
+          <div class="digest-thread-meta">James Rowan &rarr; Dana Whitfield &middot; June 18, 2026</div>
+          <a href="https://mail.google.com/" target="_blank" class="digest-thread-link">Open full thread in Gmail &rarr;</a>
+          <div class="digest-full-section-title" style="margin-top:14px;">The meeting has ended</div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-outline" style="flex:0 0 auto;">Open LinkedIn</button>
+          </div>
+        </div>
+
+        <!-- ===== FIRST REPLY ===== -->
+        <div class="recap-band firstreply" id="recap-band-firstreply">
+          <span class="recap-band-title">First Reply &middot; 1</span>
+          <span class="recap-band-section">Section 2 of 5</span>
+        </div>
+        <p class="recap-band-desc">Received a reply, but went quiet later</p>
+
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Nadia Frost &mdash; Marketing Manager, Halcyon Retail Group</div>
+            <span class="recap-flag firstreply">First reply</span>
+          </div>
+          <div class="digest-full-tier"><span>Mon, Jun 29</span></div>
+          <div class="digest-full-section-title" style="margin-top:10px;">Last Email Thread</div>
+          <div class="recap-thread-subject"><strong>Subject:</strong> Re: Catching up since the launch campaign</div>
+          <div class="digest-thread-meta">James Rowan &rarr; Nadia Frost &middot; July 1, 2026</div>
+          <a href="https://mail.google.com/" target="_blank" class="digest-thread-link">Open full thread in Gmail &rarr;</a>
+          <div class="digest-full-section-title" style="margin-top:14px;">What You Talked About</div>
+          <div class="digest-full-refresher">You reconnected with Nadia after the retail launch campaign you delivered together, congratulating her on her new role as Marketing Manager at Halcyon and sharing your studio&rsquo;s recent branded-content and experiential work. Nadia replied that she&rsquo;s currently focused on in-store marketing, but offered to pass your information along if the right opportunity comes up &mdash; keeping the door open for future collaboration.</div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-outline" style="flex:0 0 auto;">Open LinkedIn</button>
+          </div>
+        </div>
+
+        <!-- ===== NO REPLY ===== -->
+        <div class="recap-band noreply" id="recap-band-noreply">
+          <span class="recap-band-title">No Reply &middot; 5</span>
+          <span class="recap-band-section">Section 3 of 5</span>
+        </div>
+        <p class="recap-band-desc">Reached out, but no reply yet</p>
+
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Priya Menon &mdash; Senior Director, Communications &amp; Web Presence, Westbrook University</div>
+            <span class="recap-flag noreply">No reply</span>
+          </div>
+          <div class="digest-full-tier"><span>Mon, Jun 29</span></div>
+          <div class="digest-full-section-title" style="margin-top:10px;">Last Email Thread</div>
+          <div class="recap-thread-subject"><strong>Subject:</strong> Been a minute, Priya</div>
+          <div class="digest-thread-meta">James Rowan &rarr; Priya Menon &middot; June 29, 2026</div>
+          <a href="https://mail.google.com/" target="_blank" class="digest-thread-link">Open full thread in Gmail &rarr;</a>
+          <div class="digest-full-section-title" style="margin-top:14px;">What You Talked About</div>
+          <div class="digest-full-refresher">Reconnect over the brand campaign you produced together at her previous agency, bridge to her communications role at Westbrook, and reintroduce your studio&rsquo;s current branded-content and social-first video work.</div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-dark">Follow-Up</button>
+            <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
+          </div>
+        </div>
+
+        <!-- ===== PENDING ===== -->
+        <div class="recap-band pending" id="recap-band-pending">
+          <span class="recap-band-title">Pending &middot; 8</span>
+          <span class="recap-band-section">Section 4 of 5</span>
+        </div>
+        <p class="recap-band-desc">Not yet reached out</p>
+
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Claire Whitman &mdash; Photo Editor, Ardent Media</div>
+            <span class="recap-flag pending">Pending</span>
+          </div>
+          <div class="digest-full-tier"><span>Mon, Jun 29</span></div>
+          <div class="digest-full-section-title" style="margin-top:10px;">Last Email Thread</div>
+          <div class="recap-thread-subject"><strong>Subject:</strong> Re: Editorial video project</div>
+          <div class="digest-thread-meta">Claire Whitman &rarr; James Rowan &middot; February 1, 2021</div>
+          <a href="https://mail.google.com/" target="_blank" class="digest-thread-link">Open full thread in Gmail &rarr;</a>
+          <div class="digest-full-section-title" style="margin-top:14px;">What You Have in Common</div>
+          <div class="digest-full-pills">
+            <span class="digest-full-pill">Photography assignments and project opportunities</span>
+            <span class="digest-full-pill">Business relationship framework and collaboration model</span>
+            <span class="digest-full-pill">Fall client work pipeline</span>
+          </div>
+          <div class="digest-full-section-title" style="margin-top:14px;">Why Reconnect</div>
+          <div class="digest-full-refresher">Reopen the 2020 conversation where Claire said she&rsquo;d follow up about fall assignments, bridging from her editorial days to her current role at Ardent Media.</div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
+            <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
+          </div>
+        </div>
+
+        <!-- ===== AFTER ACTIONS ===== -->
+        <div class="recap-band after" id="recap-band-after">
+          <span class="recap-band-title">After Actions &middot; 3</span>
+          <span class="recap-band-section">Section 5 of 5</span>
+        </div>
+        <p class="recap-band-desc">What changed from the actions you took in the digest.</p>
+
+        <div class="recap-sub-title">Profile corrected (1)</div>
+        <div class="recap-sub-desc">We fixed a contact whose LinkedIn profile was wrong</div>
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Marco Ferreira</div>
+            <span class="recap-flag fixed">Profile fixed</span>
+          </div>
+          <div class="recap-role-line">Brand President</div>
+          <div class="recap-role-line">Lumen Atelier</div>
+          <div class="digest-full-tier"><span>Fri, Jul 3</span></div>
+          <div class="recap-original">
+            <div class="recap-original-label">Originally sent</div>
+            <div class="recap-role-line" style="font-weight:700; color:var(--text-dark);">Marco Ferreira</div>
+            <div class="recap-role-line">Chief Brand Officer</div>
+            <div class="recap-role-line">Lumen Atelier</div>
+          </div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
+            <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
+          </div>
+        </div>
+
+        <div class="recap-sub-title" style="margin-top:24px;">Important (1)</div>
+        <div class="recap-sub-desc">You flagged these to keep at the top of your list</div>
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Sana Okafor &mdash; Associate Creative Director, Northwave</div>
+            <span class="recap-flag important">Important</span>
+          </div>
+          <div class="recap-status-line important">Marked as important</div>
+          <div class="digest-full-refresher" style="margin-top:4px;">You marked this contact as important, and we now prioritize them in their future digest.</div>
+          <div class="digest-full-tier"><span>Thu, Jul 2</span></div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-outline" style="flex:0 0 auto;">Open LinkedIn</button>
+          </div>
+        </div>
+
+        <div class="recap-sub-title" style="margin-top:24px;">Do not contact (1)</div>
+        <div class="recap-sub-desc">You asked us to stop surfacing these contacts</div>
+        <div class="recap-entry">
+          <div class="recap-entry-head">
+            <div class="digest-full-contact">1. Ray Calloway &mdash; CEO | Co-Founder, Skyline Aerials</div>
+            <span class="recap-flag donotcontact">Do not contact</span>
+          </div>
+          <div class="recap-status-line danger">Marked as do not contact</div>
+          <div class="digest-full-refresher" style="margin-top:4px;">You marked this contact as do not contact. It won&rsquo;t appear in your future digest.</div>
+          <div class="digest-full-tier"><span>Thu, Jul 2</span></div>
+          <div class="digest-full-actions" style="margin-top:14px;">
+            <button class="digest-full-btn digest-full-btn-outline" style="flex:0 0 auto;">Open LinkedIn</button>
+          </div>
+        </div>
+
+      </div>
       </div>
 
-      <!-- Right annotations (2, 4) -->
-      <div class="digest-annotations digest-annotations-right">
-        <div class="digest-annotation" data-points-to="reached">
+      <!-- Right annotations -->
+      <div class="digest-annotations digest-annotations-right recap-annos-right">
+        <div class="digest-annotation">
           <div class="digest-annotation-num">2</div>
           <div>
-            <h4>You Reached Out</h4>
-            <p>People you contacted this week, with a recap of exactly what you said so you can pick the thread back up.</p>
+            <h4>First Reply</h4>
+            <p>Someone you reached out to who wrote back &mdash; the warmest signal in the recap, worth a fast follow-up before it cools.</p>
           </div>
         </div>
-        <div class="digest-annotation" data-points-to="corrected">
+        <div class="digest-annotation">
           <div class="digest-annotation-num">4</div>
           <div>
-            <h4>Profile Corrected</h4>
-            <p>Contacts whose role or company changed &mdash; we catch the move and update their profile for you.</p>
+            <h4>Pending</h4>
+            <p>Suggested this cycle but not yet contacted &mdash; still queued, with the context ready for when you get to them.</p>
           </div>
         </div>
       </div>
@@ -2800,48 +3714,6 @@ section.hero + section { border-top: 0; }
   </div>
 </section>
 
-<!-- ===== PULL QUOTE ===== -->
-<section class="pullquote">
-  <div class="container">
-    <div data-reveal-stagger>
-      <span class="pullquote-mark" aria-hidden="true">&ldquo;</span>
-      <blockquote>VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s <em>already changed how I approach business development.</em></blockquote>
-      <cite>Mark DePace &middot; Co-Founder &amp; CCO, Ghost Robot &mdash; an integrated creative studio for Google, Arhaus &amp; Away</cite>
-    </div>
-  </div>
-</section>
-
-<!-- ===== WHO THIS IS FOR ===== -->
-<section class="section-sage blend-sage-to-white" id="who-this-is-for" style="padding-bottom:calc(var(--pad-v) + 30px);">
-  <div class="container">
-    <div data-reveal-stagger style="max-width:680px; margin:0 auto; text-align:center;">
-      <div class="section-label">Who This Is For</div>
-      <h2 class="section-headline">This is not for every creative agency.</h2>
-    </div>
-    <div class="qualification-grid fade-in">
-      <div class="qualification-col for-you">
-        <h3>This is for you if&hellip;</h3>
-        <ul>
-          <li>Your agency sits in the $5M&ndash;$10M ARR range &mdash; the revenue range where a deep, dormant network is worth recovering.</li>
-          <li>You&rsquo;re relationship-driven: you&rsquo;re constantly building relationships, you pay close attention to them, and you genuinely value them.</li>
-          <li>You treat your inbox as your main hub &mdash; it&rsquo;s where your real relationships and history actually live.</li>
-          <li>You have a dedicated seller running revenue operations, so you can focus purely on relationships &mdash; or you do both.</li>
-          <li>Your typical deal size is at least $50K per year, so reactivating a single relationship pays for itself many times over.</li>
-        </ul>
-      </div>
-      <div class="qualification-col not-for-you">
-        <h3>This is not for you if&hellip;</h3>
-        <ul>
-          <li>You&rsquo;re well outside that revenue range &mdash; too early to have a deep network, or large enough to already have this solved.</li>
-          <li>You&rsquo;re transactional about relationships: you don&rsquo;t invest in them, follow up, or treat them as worth your attention.</li>
-          <li>Your relationships don&rsquo;t run through your inbox, so there&rsquo;s little history for us to scan and resurface.</li>
-          <li>Nobody owns business development &mdash; sales is entirely founder-led with no dedicated seller in place.</li>
-          <li>Your deal sizes are small and high-volume, where reactivating one relationship doesn&rsquo;t move the needle.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===== TESTIMONIALS ===== -->
 <section class="section-white" id="testimonials" style="padding-bottom:calc(var(--pad-v) + 50px);">
@@ -2915,21 +3787,132 @@ section.hero + section { border-top: 0; }
   </div>
 </section>
 
+<!-- ===== RECONNECTION STORIES (hidden from live site — restore by removing the comment wrappers) ===== -->
+<!--
+<section class="section-sage blend-sage-to-white" id="reactivation-stories">
+  <div class="container">
+    <div data-reveal-stagger style="text-align:center; max-width:680px; margin:0 auto;">
+      <div class="section-label">Reconnection Stories</div>
+      <h2 class="section-headline">It actually happened.</h2>
+      <p class="subtitle" style="margin-top:12px;">Real dormant relationships turned conversations, referrals, and revenue.</p>
+    </div>
+    <div class="story-masonry fade-in">
+      <div class="story-col">
+        <div class="story-card">
+          <div class="story-card-top">
+            <span class="story-initial">M</span>
+            <div class="story-heading">
+              <h3 class="story-headline">A former client turned into a partnership opportunity seven years later.</h3>
+              <span class="story-company">Contact MR &middot; Company NH</span>
+            </div>
+          </div>
+          <div class="story-body">
+            <p>Back in 2016, Contact MR was a VP at a travel and media publisher and brought our client in for multiple shoots. But things went quiet after a while.</p>
+            <p>Seven years passed, our system picked it up and suggested her in a daily digest, providing our client with context about what they talked about in the past and that she&rsquo;s recently started her own venture.</p>
+            <p>About three weeks of back and forth, we managed to get on a call with herself and her business partner. During the call, she shared about the projects she&rsquo;s working on which sparked the quotation conversation. We sent in our first quote, but got turned down.</p>
+            <p>That wasn&rsquo;t the end. Our client actually referred a close client of theirs to them for partnership and they eventually got back to them with a project, <strong>40%</strong> (in terms of quote size) larger than the former.</p>
+          </div>
+        </div>
+        <div class="story-card">
+          <div class="story-card-top">
+            <span class="story-initial">J</span>
+            <div class="story-heading">
+              <h3 class="story-headline">A warm intro that went quiet turned into a five-figure opportunity.</h3>
+              <span class="story-company">Contact JP &middot; Company JG</span>
+            </div>
+          </div>
+          <div class="story-body">
+            <p>Three years ago, our client was introduced to Contact JP through a warm intro. They had a call and a few rounds of back and forth, but never managed to get into the proposal phase. Our client followed up a few times, but still, she didn&rsquo;t reply.</p>
+            <p>A year later, our system scanned and surfaced her in a daily digest with the context of what they discussed and where the conversation stopped.</p>
+            <p>Our client reached out to her and managed to have a chat with her. After some back and forth, they managed to take the relationship one step further where they discuss more about the project and our client sent over a five-figure quote.</p>
+          </div>
+        </div>
+      </div>
+      <div class="story-col">
+        <div class="story-card">
+          <div class="story-card-top">
+            <span class="story-initial">J</span>
+            <div class="story-heading">
+              <h3 class="story-headline">One dormant contact became three relationships inside a new company, plus a five-figure opportunity.</h3>
+              <span class="story-company">Contact JL &middot; Company CP</span>
+            </div>
+          </div>
+          <div class="story-body">
+            <p>Contact JL was an account executive at a large PR firm that our client has a close working relationship with. Five months before we surfaced her, she had moved to a smaller agency as a senior manager, an agency with production needs of its own. Our system picked up the job change and included her in a daily digest. Our client sent a reconnection email, followed up, and got a meeting five weeks later. It went well, so they sent over their capabilities deck.</p>
+            <p>After a month of silence, she came back and referred our client to an internal project. After learning more about the project needs, our client quoted them about <strong>$20,000</strong>. The project eventually went to someone else, but our client managed to build two new relationships with her colleagues (1x Director &amp; 1x Vice President) they wouldn&rsquo;t have done so easily.</p>
+          </div>
+        </div>
+        <div class="story-card">
+          <div class="story-card-top">
+            <span class="story-initial">C</span>
+            <div class="story-heading">
+              <h3 class="story-headline">A single follow-up bump reopened a client relationship after seven years.</h3>
+              <span class="story-company">Contact CM &middot; Company MD</span>
+            </div>
+          </div>
+          <div class="story-body">
+            <p>After the last project ended in 2019, our client didn&rsquo;t hear anything from Contact CM. Over the next seven years, she has changed companies three times and freelanced twice, before joining her current company about a year and a half ago.</p>
+            <p>Our system captured the job change since last interaction and bumped her up in a daily digest. Our client didn&rsquo;t hear back, so after ten days our system bumped her again with a different messaging.</p>
+            <p>She replied right after that follow-up. Our client booked a call with her within the week. They talked about what&rsquo;s coming up, and our client shared ideas they could implement for her future production work via a proposal that&rsquo;s worth <strong>five to six figures</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- ===== end hidden RECONNECTION STORIES ===== -->
+
+<!-- ===== WHO THIS IS FOR ===== -->
+<section class="section-sage blend-sage-to-white" id="who-this-is-for" style="padding-bottom:calc(var(--pad-v) + 30px);">
+  <div class="container">
+    <div data-reveal-stagger style="max-width:680px; margin:0 auto; text-align:center;">
+      <div class="section-label">Who This Is For</div>
+      <h2 class="section-headline">This is not for every creative agency.</h2>
+      <p class="subtitle" style="margin-top:12px;">We work best with a specific kind of team. Here&rsquo;s how to know if that&rsquo;s you.</p>
+    </div>
+    <div class="qualification-grid fade-in">
+      <div class="qualification-col for-you">
+        <h3>This is for you if&hellip;</h3>
+        <ul>
+          <li>Your <span class="gold-text">per-project deal size</span> is $25K and above, or your best clients come back &mdash; so one reconnected relationship pays for itself many times over.</li>
+          <li>You have <span class="gold-text">one or more dedicated sellers</span> focusing on business development on your team.</li>
+          <li>Your agency <span class="gold-text">depends on relationships and referrals</span> for new business and opportunities.</li>
+          <li>You work with <span class="gold-text">multiple stakeholders in a project</span>, from the decision maker to the junior lead.</li>
+          <li>You treat <span class="gold-text">Gmail as your main hub</span> &mdash; it&rsquo;s where your real relationships and history actually live.</li>
+        </ul>
+      </div>
+      <div class="qualification-col not-for-you">
+        <h3>This is not for you if&hellip;</h3>
+        <ul>
+          <li>Your work is small, high-volume, and one-off &mdash; clients rarely return, so reconnecting with one relationship doesn&rsquo;t move the needle.</li>
+          <li>Nobody owns business development &mdash; sales is entirely founder-led with no dedicated seller in place.</li>
+          <li>Your new business doesn&rsquo;t really run on relationships or referrals &mdash; it comes from ads, inbound, or one-off transactions.</li>
+          <li>Your projects are solo or single-contact, so there&rsquo;s no web of stakeholders to reconnect with.</li>
+          <li>Your relationships don&rsquo;t run through Gmail, so there&rsquo;s little history for us to scan and resurface.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ===== TRUST & SECURITY ===== -->
 <section class="section-sage blend-sage-to-white" id="privacy" style="padding-bottom:calc(var(--pad-v) + 30px);">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Your Privacy</div>
-      <h2 class="section-headline">Connecting your inbox isn&rsquo;t a small thing. Here&rsquo;s how we manage the risk.</h2>
+      <h2 class="section-headline">Your inbox, handled with care.</h2>
+      <p class="subtitle" style="margin-top:12px;">Connecting your inbox isn&rsquo;t a small thing. Here&rsquo;s how we manage the risk.</p>
     </div>
 
     <!-- Privacy Box -->
     <div class="privacy-box fade-in">
       <!-- Privacy Tab Navigation -->
       <div class="privacy-tabs">
-        <button class="privacy-tab active" data-privtab="expensive">Only what&rsquo;s needed.</button>
-        <button class="privacy-tab" data-privtab="control">Always in control.</button>
-        <button class="privacy-tab" data-privtab="security">Enterprise Security.</button>
+        <button class="privacy-tab active" data-privtab="expensive">We extract what&rsquo;s needed.</button>
+        <button class="privacy-tab" data-privtab="control">You are always in control.</button>
+        <button class="privacy-tab" data-privtab="security">You get enterprise-level security.</button>
         <button class="privacy-tab" data-privtab="talk">Speak to an active user.</button>
       </div>
 
@@ -2974,7 +3957,7 @@ section.hero + section { border-top: 0; }
             <p><strong>Still not sure? Speak to an active user.</strong></p>
             <p>If privacy is still a concern to you, we can let you speak to one of our active users.</p>
             <p>Just click on the button below and send us a request email.</p>
-            <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=relationships@veraops.com&su=Re%3A+Inbox+connection&body=Hi+The+VeraOps+Team%2C%0A%0AI%27m+considering+Relationship+Digest+and+would+like+to+speak+with+an+active+user+regarding+the+connection+of+my+inbox.%0A%0ACould+you+arrange+a+quick+conversation%3F%0A%0AThanks" target="_blank" class="btn btn-sage" style="margin-top:24px; color:#fff;">Speak to an active user &rarr;</a>
+            <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=relationships@veraops.com&su=Re%3A+Inbox+connection&body=Hi+The+VeraOps+Team%2C%0A%0AI%27m+considering+Relationship+Digest+and+would+like+to+speak+with+an+active+user+regarding+the+connection+of+my+inbox.%0A%0ACould+you+arrange+a+quick+conversation%3F%0A%0AThanks" target="_blank" class="btn btn-sage-lg" style="margin-top:24px; color:#fff; align-self:flex-start; width:auto;">Speak to an active user &rarr;</a>
           </div>
         </div>
 
@@ -2987,32 +3970,84 @@ section.hero + section { border-top: 0; }
 <section class="section-white blend-white-to-sage" id="pricing">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
-      <div class="section-label">Founder&rsquo;s Pricing</div>
+      <div class="section-label">Pricing</div>
       <h2 class="section-headline">Subscribe to our thinking.</h2>
-      <p class="subtitle pricing-subtitle" style="margin-top:12px;">Buy our way of thinking about dormant relationships and... <br class="desktop-break">how we turn them into new business.</p>
+      <p class="subtitle pricing-subtitle" style="margin-top:12px;">You get our way of thinking about dormant relationships... and the system that turns them into new business.</p>
+    </div>
+    <div class="fade-in" style="text-align:center;">
+      <div class="pricing-toggle" role="tablist" aria-label="Billing period">
+        <button class="pricing-toggle-btn active" data-plan="quarter" role="tab" aria-selected="true">Quarter</button>
+        <button class="pricing-toggle-btn" data-plan="annual" role="tab" aria-selected="false">Annual <span class="pricing-toggle-save">(2 months free)</span></button>
+      </div>
     </div>
     <div class="pricing-single fade-in">
-      <div class="pricing-card featured" style="max-width:440px; margin:48px auto 0;">
-        <div class="pricing-amount">$1,000 <span style="font-size:18px; font-weight:500; opacity:0.6;">/ month</span></div>
-        <div class="pricing-period">Min. 6-month commitment</div>
+      <div class="pricing-card featured" style="max-width:440px; margin:32px auto 0;">
+        <div class="pricing-amount" data-price-quarter="$1,000" data-price-annual="$10,000">$1,000 <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;">/ month</span></div>
+        <div class="pricing-period"><span class="pricing-billing">Billed quarterly</span> &middot; No setup fee</div>
 
         <ul class="pricing-features">
-          <li class="pricing-separator"><span>Strategy</span></li>
-          <li><span class="pricing-check">&#10003;</span> Insights from managed dashboard and quarterly audit</li>
-          <li><span class="pricing-check">&#10003;</span> Relationships clusters that you might be neglecting</li>
-          <li><span class="pricing-check">&#10003;</span> Monthly and quarterly strategy calls</li>
           <li class="pricing-separator"><span>Service</span></li>
-          <li><span class="pricing-check">&#10003;</span> Enhanced contact cleaning and verification</li>
-          <li><span class="pricing-check">&#10003;</span> Tiering and ICP optimization</li>
-          <li><span class="pricing-check">&#10003;</span> Quarterly network and reactivation audit</li>
+          <li><span class="pricing-check">&#10003;</span> Reconnection strategy and insights</li>
+          <li><span class="pricing-check">&#10003;</span> Tailored tiering strategy</li>
+          <li><span class="pricing-check">&#10003;</span> Handpick relationships for daily digest</li>
+          <li><span class="pricing-check">&#10003;</span> Personalized ICP configuration</li>
+          <li><span class="pricing-check">&#10003;</span> Custom signals engineering</li>
+          <li><span class="pricing-check">&#10003;</span> Managed reconnection outcomes</li>
+          <li><span class="pricing-check">&#10003;</span> Warm introduction path</li>
           <li><span class="pricing-check">&#10003;</span> Direct access to our team through Slack</li>
-          <li><span class="pricing-check">&#10003;</span> Custom data points based on your ICP and needs</li>
           <li class="pricing-separator"><span>Technology</span></li>
           <li><span class="pricing-check">&#10003;</span> Relationship Digest</li>
-          <li><span class="pricing-check">&#10003;</span> Regular Recaps</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Advanced account scan, cleaning, and enrichment</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Relationship intelligence (quick refresher, shared history, referrals received and given)</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> 3-stage relationship journey: first seen, last contacted, and current status</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Surfacing of live signals and buying intent</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Suggested email, tailored to your writing voice</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Sent to your Gmail every morning</li>
+          <li><span class="pricing-check">&#10003;</span> Relationship Recap</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Quick snapshot of your reconnection progress</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Reverse engineer successful reconnection</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Updates for your reconnection strategy and what to focus next</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Sent to your Gmail every week, month, and quarter</li>
         </ul>
 
         <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-light" style="width:100%; margin-top:8px;">Book a Call &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW WE COMPARE ===== -->
+<section class="section-sage blend-sage-to-white" id="compare">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:800px; margin:0 auto;">
+      <div class="section-label">How We Compare</div>
+      <h2 class="section-headline">What it costs to solve this another way.</h2>
+      <p class="subtitle" style="margin-top:12px;">Every option below works. Each one asks you to give up something else &mdash; the strategy, the system, or the months it takes to stand up.</p>
+    </div>
+
+    <div class="cmp-grid fade-in">
+      <div class="cmp-card">
+        <div class="cmp-kicker">Strategy without system</div>
+        <div class="cmp-price">$4,000&ndash;$15,000 <small>/ month</small></div>
+        <div class="cmp-who">Fractional business development lead</div>
+        <p>You hire the thinking. A seasoned operator gives you ten to fifteen hours a week, and they are genuinely good at this &mdash; but they still work the relationships <em>they</em> can remember. Nothing scans the ten years already sitting in your inbox.</p>
+        <p class="cmp-tradeoff"><span class="cmp-mark">&mdash;</span> Judgment without engineering capabilities, at two to six times the cost.</p>
+      </div>
+
+      <div class="cmp-card">
+        <div class="cmp-kicker">System without strategy</div>
+        <div class="cmp-price">$3,000&ndash;$5,750 <small>/ month</small></div>
+        <div class="cmp-who">UserGems, Champify</div>
+        <p>You buy the signal. Job changes and buying intent land in your CRM &mdash; and then it is yours to interpret. Built for revenue teams with an ops function to run them, plus an <em>$8,000</em> setup fee before the first notification fires.</p>
+        <p class="cmp-tradeoff"><span class="cmp-mark">&mdash;</span> Notifications without anyone telling you what matters.</p>
+      </div>
+
+      <div class="cmp-card">
+        <div class="cmp-kicker">System and implementation</div>
+        <div class="cmp-price">$150&ndash;$400 <small>/ user / month</small></div>
+        <div class="cmp-who">Introhive &mdash; plus $10,000&ndash;$50,000 in services</div>
+        <p>The closest thing to both halves at once. But it is built for top-100 law firms and Big Four accounting practices, takes <em>90 to 180 days</em> to reach value, and lives in a dashboard &mdash; and tools that ask you to open another tab plateau near 30&ndash;40% adoption.</p>
+        <p class="cmp-tradeoff"><span class="cmp-mark">&mdash;</span> Six figures a year, two quarters of setup, and a dashboard to deal with.</p>
       </div>
     </div>
   </div>
@@ -3085,8 +4120,9 @@ section.hero + section { border-top: 0; }
     <div class="section-label" style="text-align:center;">Get Started</div>
     <h2 class="cta-headline" style="text-align:center;">Ready to turn your dormant relationships into new business?</h2>
     <p class="subtitle" style="text-align:center;">Book a discovery call and see if we&rsquo;re a fit.</p>
-    <div style="text-align:center;">
+    <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
       <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" data-magnetic="0.22" class="btn btn-sage-xl">Book a Call &rarr;</a>
+      <a href="#hero" data-cursor="Top" class="btn btn-ghost" id="backToTop">&uarr; Back to Top</a>
     </div>
   </div>
 </section>
@@ -3230,6 +4266,23 @@ if (heroSub) {
   markObserver.observe(heroSub);
 }
 
+// Highlight marks in the tiering-strategy list (same sweep as the hero)
+const tieringList = document.querySelector('.step-bullets');
+if (tieringList) {
+  const marks = tieringList.querySelectorAll('.highlight-mark');
+  const tieringObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        marks.forEach((mark, i) => {
+          setTimeout(() => mark.classList.add('active'), 300 + i * 500);
+        });
+        tieringObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  tieringObserver.observe(tieringList);
+}
+
 
 // FAQ
 function toggleFaq(el) {
@@ -3277,6 +4330,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// Recap cycler — header rolls upward; stats + Sankey cross-fade in sync
+(function() {
+  const cycler = document.getElementById('recapCycler');
+  const dataCycler = document.getElementById('recapDataCycler');
+  if (!cycler) return;
+  const slides = Array.from(cycler.querySelectorAll('.recap-slide'));
+  const dataSlides = dataCycler ? Array.from(dataCycler.querySelectorAll('.recap-data-slide')) : [];
+  if (slides.length < 2) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let i = 0;
+  const INTERVAL = 4200;   // time each period stays on screen
+  const EXIT_MS  = 560;    // must exceed the header CSS transition duration
+
+  function showData(period) {
+    dataSlides.forEach(el => el.classList.toggle('is-active', el.dataset.period === period));
+  }
+
+  setInterval(() => {
+    const current = slides[i];
+    const next = slides[(i + 1) % slides.length];
+
+    // Header: outgoing rolls up + fades, incoming rises from below
+    current.classList.remove('is-active');
+    current.classList.add('is-leaving');
+    next.classList.add('is-active');
+    setTimeout(() => { current.classList.remove('is-leaving'); }, EXIT_MS);
+
+    // Stats + Sankey swap to the same period
+    showData(next.dataset.period);
+
+    i = (i + 1) % slides.length;
+  }, INTERVAL);
+})();
 
 // Section dots
 const dots = document.querySelectorAll('.section-dot');
@@ -3359,6 +4447,33 @@ if (privPrev) privPrev.addEventListener('click', () => {
 if (privNext) privNext.addEventListener('click', () => {
   showPrivacyPanel(privacyMobileIndex >= privPanelIds.length - 1 ? 0 : privacyMobileIndex + 1);
 });
+
+// Pricing billing-period toggle (Quarter | Annual)
+(function () {
+  const btns = document.querySelectorAll('.pricing-toggle-btn');
+  const amount = document.querySelector('.pricing-amount');
+  const unit = document.querySelector('.pricing-amount-unit');
+  const billing = document.querySelector('.pricing-billing');
+  if (!btns.length || !amount || !unit || !billing) return;
+
+  const PLANS = {
+    quarter: { price: amount.dataset.priceQuarter, unit: '/ month', billing: 'Billed quarterly' },
+    annual:  { price: amount.dataset.priceAnnual,  unit: '/ year',  billing: 'Billed annually' },
+  };
+
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    const plan = PLANS[btn.dataset.plan];
+    if (!plan) return;
+    btns.forEach(b => {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    amount.firstChild.nodeValue = plan.price + ' ';
+    unit.textContent = plan.unit;
+    billing.textContent = plan.billing;
+  }));
+})();
 
 // Recap sub-view switcher (Weekly recap | Monthly snapshot)
 document.querySelectorAll('.track-tab').forEach(tab => {
