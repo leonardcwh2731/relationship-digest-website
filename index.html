@@ -2422,6 +2422,7 @@ section.hero + section { border-top: 0; }
 .story-body p { font-size: 13.5px; line-height: 1.65; color: var(--text-mid); }
 .story-body p + p { margin-top: 12px; }
 .story-body strong { color: var(--ink); font-weight: 600; }
+.story-gold { color: var(--spark-deep); font-weight: 600; }
 @media (max-width: 720px) {
   .story-masonry { flex-direction: column; max-width: 460px; }
   .story-col { flex: 1 1 auto; }
@@ -3926,7 +3927,7 @@ section.hero + section { border-top: 0; }
             <p>Back in 2016, Contact MR was a VP at a travel and media publisher and brought our client in for multiple shoots. But things went quiet after a while.</p>
             <p>Seven years passed, our system picked it up and suggested her in a daily digest, providing our client with context about what they talked about in the past and that she&rsquo;s recently started her own venture.</p>
             <p>About three weeks of back and forth, we managed to get on a call with herself and her business partner. During the call, she shared about the projects she&rsquo;s working on which sparked the quotation conversation. We sent in our first quote, but got turned down.</p>
-            <p>That wasn&rsquo;t the end. <span class="highlight-mark">Our client actually referred a close client of theirs to them for partnership and they eventually got back to them with a project, 40% (in terms of quote size) larger than the former.</span></p>
+            <p>That wasn&rsquo;t the end. <span class="story-gold">Our client actually referred a close client of theirs to them for partnership and they eventually got back to them with a project, 40% (in terms of quote size) larger than the former.</span></p>
           </div>
         </div>
         <div class="story-card">
@@ -3940,7 +3941,7 @@ section.hero + section { border-top: 0; }
           <div class="story-body">
             <p>Three years ago, our client was introduced to Contact JP through a warm intro. They had a call and a few rounds of back and forth, but never managed to get into the proposal phase. Our client followed up a few times, but still, she didn&rsquo;t reply.</p>
             <p>A year later, our system scanned and surfaced her in a daily digest with the context of what they discussed and where the conversation stopped.</p>
-            <p>Our client reached out to her and managed to have a chat with her. After some back and forth, they managed to take the relationship one step further where they discuss more about the project and <span class="highlight-mark">our client sent over a five-figure quote</span>.</p>
+            <p>Our client reached out to her and managed to have a chat with her. After some back and forth, they managed to take the relationship one step further where they discuss more about the project and <span class="story-gold">our client sent over a five-figure quote</span>.</p>
           </div>
         </div>
       </div>
@@ -3955,7 +3956,7 @@ section.hero + section { border-top: 0; }
           </div>
           <div class="story-body">
             <p>Contact JL was an account executive at a large PR firm that our client has a close working relationship with. Five months before we surfaced her, she had moved to a smaller agency as a senior manager, an agency with production needs of its own. Our system picked up the job change and included her in a daily digest. Our client sent a reconnection email, followed up, and got a meeting five weeks later. It went well, so they sent over their capabilities deck.</p>
-            <p>After a month of silence, she came back and referred our client to an internal project. After learning more about the project needs, <span class="highlight-mark">our client quoted them about $20,000</span>. The project eventually went to someone else, but our client managed to <span class="highlight-mark">build two new relationships with her colleagues (1x Director &amp; 1x Vice President) they wouldn&rsquo;t have done so easily</span>.</p>
+            <p>After a month of silence, she came back and referred our client to an internal project. After learning more about the project needs, <span class="story-gold">our client quoted them about $20,000</span>. The project eventually went to someone else, but our client managed to <span class="story-gold">build two new relationships with her colleagues (1x Director &amp; 1x Vice President) they wouldn&rsquo;t have done so easily</span>.</p>
           </div>
         </div>
         <div class="story-card">
@@ -3969,7 +3970,7 @@ section.hero + section { border-top: 0; }
           <div class="story-body">
             <p>After the last project ended in 2019, our client didn&rsquo;t hear anything from Contact CM. Over the next seven years, she has changed companies three times and freelanced twice, before joining her current company about a year and a half ago.</p>
             <p>Our system captured the job change since last interaction and bumped her up in a daily digest. Our client didn&rsquo;t hear back, so after ten days our system bumped her again with a different messaging.</p>
-            <p>She replied right after that follow-up. Our client booked a call with her within the week. <span class="highlight-mark">They talked about what&rsquo;s coming up, and our client shared ideas they could implement for her future production work via a proposal that&rsquo;s worth five to six figures</span>.</p>
+            <p>She replied right after that follow-up. Our client booked a call with her within the week. <span class="story-gold">They talked about what&rsquo;s coming up, and our client shared ideas they could implement for her future production work via a proposal that&rsquo;s worth five to six figures</span>.</p>
           </div>
         </div>
       </div>
@@ -4395,24 +4396,6 @@ if (tieringList) {
   }, { threshold: 0.3 });
   tieringObserver.observe(tieringList);
 }
-
-// Highlight marks in the Reconnection Stories cards (same gold sweep).
-// Each card sweeps its own marks as it scrolls into view.
-document.querySelectorAll('#reactivation-stories .story-card').forEach(card => {
-  const marks = card.querySelectorAll('.highlight-mark');
-  if (!marks.length) return;
-  const storyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        marks.forEach((mark, i) => {
-          setTimeout(() => mark.classList.add('active'), 300 + i * 500);
-        });
-        storyObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  storyObserver.observe(card);
-});
 
 
 // FAQ
