@@ -2685,7 +2685,7 @@ section.hero + section { border-top: 0; }
    as a set. Built from existing tokens — no new colours. */
 .pgfx {
   border: 1px solid var(--card-border); border-radius: 10px;
-  background: var(--white); padding: 16px; margin: 0 0 14px;
+  background: var(--white); padding: 16px; margin: 22px 0 0;
 }
 .pgfx-chip {
   display: inline-block; font-family: var(--font-mono, monospace); font-size: 11px;
@@ -2755,7 +2755,7 @@ section.hero + section { border-top: 0; }
 
 /* Gmail scope table — the one we hold is called out, the rest are context. */
 .privacy-scopes {
-  list-style: none; margin: 0 0 14px; padding: 0;
+  list-style: none; margin: 22px 0 0; padding: 0;
   border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden;
 }
 .privacy-scopes li {
@@ -4288,7 +4288,6 @@ section.hero + section { border-top: 0; }
     <!-- Privacy Accordion -->
     <div class="privacy-box fade-in">
       <div class="privacy-rail">
-
         <div class="privacy-step">
           <div class="privacy-step-marker"><span>01</span></div>
           <div class="privacy-step-body">
@@ -4322,10 +4321,8 @@ section.hero + section { border-top: 0; }
                 <span class="scope-desc">Complete control, including permanent deletion.</span>
               </li>
             </ul>
-            <p>We hold the first one and nothing else. So how does the digest hand you a ready-to-send email? A <strong>mailto</strong> link &mdash; it opens in your own Gmail, composed and sent by you.</p>
           </div>
         </div>
-
         <div class="privacy-step">
           <div class="privacy-step-marker"><span>02</span></div>
           <div class="privacy-step-body">
@@ -4346,10 +4343,8 @@ section.hero + section { border-top: 0; }
                 <span class="pgfx-chip">Subject lines</span>
               </div>
             </div>
-            <p>We keep the contact signal. The sensitive content never lands in our database.</p>
           </div>
         </div>
-
         <div class="privacy-step">
           <div class="privacy-step-marker"><span>03</span></div>
           <div class="privacy-step-body">
@@ -4363,15 +4358,13 @@ section.hero + section { border-top: 0; }
               <span class="pgfx-node pgfx-node-end">Discard</span>
               <span class="pgfx-nostore">No copy retained</span>
             </div>
-            <p>A saved snapshot goes stale the moment it&rsquo;s written &mdash; people change roles, threads go quiet, replies land overnight. Live data is both safer and more accurate.</p>
           </div>
         </div>
-
         <div class="privacy-step">
           <div class="privacy-step-marker"><span>04</span></div>
           <div class="privacy-step-body">
             <h3 class="privacy-step-title">You&rsquo;re always one click from revoking everything.</h3>
-            <p>Change your mind at any point and you can cut access yourself, from your own Google Admin console. No email to us, no contract tied to the connection.</p>
+            <p>Remove connection to our app, anytime.</p>
             <div class="pgfx">
               <ol class="pgfx-steps">
                 <li><span class="pgfx-steps-n">1</span> Open your <strong>Google Admin</strong> console</li>
@@ -4382,15 +4375,13 @@ section.hero + section { border-top: 0; }
               </ol>
               <div class="pgfx-note">Takes effect immediately &mdash; no confirmation from us required.</div>
             </div>
-            <p>The only consequence: while revoked, we can&rsquo;t track your outreach or keep your contacts current.</p>
           </div>
         </div>
-
         <div class="privacy-step">
           <div class="privacy-step-marker"><span>05</span></div>
           <div class="privacy-step-body">
             <h3 class="privacy-step-title">You get enterprise-level security.</h3>
-            <p>Every year we put the application through ESOF AppSec, an enterprise-grade security and vulnerability assessment built by TAC Security.</p>
+            <p>Every year we put the application through ESOF AppSec, an enterprise-grade security and vulnerability assessment built by TAC Security, Google&rsquo;s trusted partner. We pay for these assessments because proving security to an outside authority counts for more than claiming it ourselves.</p>
             <div class="pgfx pgfx-cert">
               <div class="pgfx-cert-seal">
                 <span class="pgfx-cert-mark">&#10003;</span>
@@ -4400,21 +4391,17 @@ section.hero + section { border-top: 0; }
                 <div class="pgfx-cert-meta">Independent assessment &middot; renewed annually</div>
               </div>
             </div>
-            <p>We pay for these assessments because proving security to an outside authority counts for more than claiming it ourselves.</p>
           </div>
         </div>
-
         <div class="privacy-step">
           <div class="privacy-step-marker"><span>06</span></div>
           <div class="privacy-step-body">
             <h3 class="privacy-step-title">Still not sure? Speak to an active user.</h3>
-            <p>Everything above is us describing ourselves. We know that only counts for so much when the question is whether to connect your inbox &mdash; so we would rather you hear it from someone with nothing to sell you.</p>
-            <p>We&rsquo;ll introduce you to an agency currently running VeraOps. Ask them anything: what we actually touched, whether anything surprised them after connecting, how it felt in the first month, and whether they would do it again.</p>
-            <p>After making the introduction, we stay out of the conversation to avoid any bias.</p>
+            <p>If that&rsquo;s not enough, we&rsquo;ll put you in touch with an agency already using VeraOps and you can ask them whatever you want.</p>
+            <p>After the introduction, we stay out of it.</p>
             <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=relationships@veraops.com&su=Re%3A+Inbox+connection&body=Hi+The+VeraOps+Team%2C%0A%0AI%27m+considering+Relationship+Digest+and+would+like+to+speak+with+an+active+user+regarding+the+connection+of+my+inbox.%0A%0ACould+you+arrange+a+quick+conversation%3F%0A%0AThanks" target="_blank" class="btn btn-sage-lg" style="margin-top:20px; color:#fff; align-self:flex-start; width:auto;">Speak to an active user &rarr;</a>
           </div>
         </div>
-
       </div>
     </div>
   </div>
