@@ -1167,7 +1167,10 @@ section.hero + section { border-top: 0; }
   transition: background 150ms ease, border-color 150ms ease;
 }
 .digest-thread-link:hover { background: var(--sage); border-color: var(--olive-deep); }
-.digest-full-actions { display: flex; gap: 10px; justify-content: flex-start; }
+/* Digest keeps its actions centred; the recap contact list reads as a column
+   of records, so those align left. */
+.digest-full-actions { display: flex; gap: 10px; justify-content: center; }
+[data-techview="recap"] .digest-full-actions { justify-content: flex-start; }
 .digest-full-btn { flex: 0 0 auto; padding: 9px 20px; border-radius: var(--radius); font-size: 12.5px; font-weight: 700; text-align: center; border: none; cursor: pointer; white-space: nowrap; }
 .digest-full-btn-dark { background: var(--black); color: var(--white); }
 .digest-full-btn-outline { background: var(--white); color: var(--black); border: 1.5px solid var(--black); }
@@ -2932,7 +2935,12 @@ section.hero + section { border-top: 0; }
   .privacy-step-body p { font-size: 13.5px; }
   .privacy-scopes li { grid-template-columns: 1fr; }
   .privacy-scopes .scope-code, .privacy-scopes .scope-desc { grid-column: 1; }
-  .privacy-scopes .scope-flag { grid-column: 1; grid-row: auto; }
+  /* Badge is last in the DOM; pin it to row 1 so it labels the row instead of
+     trailing under the description once the columns collapse. */
+  .privacy-scopes .scope-flag { grid-column: 1; grid-row: 1; justify-self: end; margin: 0; }
+  .privacy-scopes .scope-name { grid-row: 1; }
+  .privacy-scopes .scope-code { grid-row: 2; }
+  .privacy-scopes .scope-desc { grid-row: 3; }
   /* Step graphics stack once the card is narrow. */
   .pgfx-split { grid-template-columns: 1fr; }
   .pgfx-col + .pgfx-col { border-left: none; border-top: 1px solid var(--card-border); }
@@ -2960,6 +2968,26 @@ section.hero + section { border-top: 0; }
   /* How It Works tabs - hide, replaced by dropdown on mobile */
   .hiw-panel-heading { font-size: 20px; }
   .hiw-panel-body p { font-size: 14px; }
+
+  /* Warm-intro path: shrink the chips so row one still holds three of them
+     rather than wrapping into a stranded third line. */
+  .svc-flow { gap: 6px; }
+  .svc-flow-step { font-size: 10px; padding: 7px 10px; letter-spacing: 0.02em; }
+  .svc-flow-arrow { font-size: 11px; }
+
+  /* Revoke steps: tighter gutter, and let the breadcrumb break rather than
+     push past the card edge at 320px. */
+  .pgfx-steps li { padding-left: 26px; font-size: 12.5px; }
+  .pgfx-steps-n { width: 18px; height: 18px; font-size: 9px; }
+  .pgfx-sep { margin: 0 3px; }
+  .pgfx-steps li strong { overflow-wrap: anywhere; }
+
+  /* Certification badge */
+  .pgfx-cert { gap: 12px; }
+  .pgfx-cert-seal { width: 36px; height: 36px; min-width: 36px; }
+  .pgfx-cert-mark { font-size: 17px; }
+  .pgfx-cert-name { font-size: 13px; }
+  .pgfx-cert-meta { font-size: 11px; line-height: 1.45; }
 
   /* FAQ accordion */
   .faq-question { padding: 16px 14px; gap: 10px; }
@@ -3408,7 +3436,7 @@ section.hero + section { border-top: 0; }
           </li>
           <li>
             <span class="step-bullet-num">2</span>
-            <p><strong>Custom Signals Engineering.</strong> Every agency has its own path from a relationship to a deal. We look at the ones that have already worked for you, reverse engineer what made them land, and turn that path into a signal we track on your behalf &mdash; so we surface the relationships that fit it. Custom signals are <span class="highlight-mark">built for your agency alone, from your own history</span>.</p>
+            <p><strong>Custom signals engineering.</strong> Every agency has its own path from a relationship to a deal. We look at the ones that have already worked for you, reverse engineer what made them land, and turn that path into a signal we track on your behalf &mdash; so we surface the relationships that fit it. Custom signals are <span class="highlight-mark">built for your agency alone, from your own history</span>.</p>
           </li>
           <li>
             <span class="step-bullet-num">3</span>
