@@ -388,6 +388,19 @@ section.hero + section { border-top: 0; }
 @media (hover: none) {
   .cursor-on, .cursor-on * { cursor: auto !important; }
   .cursor-dot, .cursor-label { display: none; }
+  /* Auto-scrolling strips pause on :hover, which touch can never trigger —
+     content would scroll away unstoppably. Swap the animation for native swipe. */
+  .signal-carousel, .scan-carousel, .track-view {
+    overflow-x: auto; scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .signal-carousel::-webkit-scrollbar,
+  .scan-carousel::-webkit-scrollbar,
+  .track-view::-webkit-scrollbar { display: none; }
+  .signal-carousel-track, .scan-carousel-track, .track-view-scroll { animation: none; }
+  .signal-carousel-track > *, .scan-carousel-track > * { scroll-snap-align: start; }
+  /* The fade masks imply more content off-screen; with real scrolling they mislead. */
+  .scan-carousel::after { display: none; }
 }
 .gold-text { color: var(--spark-deep); font-weight: 600; }
 .highlight-mark {
@@ -697,8 +710,12 @@ section.hero + section { border-top: 0; }
   .symptom-layout .symptom-copy, .symptom-layout.reverse .symptom-copy { order: 1; }
   .symptom-layout .symptom-visual, .symptom-layout.reverse .symptom-visual { order: 2; }
   /* Stacked on mobile — let the Service bullets sit naturally, not stretched. */
+  /* ID selector to beat the two-column rule on #step-service .symptom-layout. */
+  #step-service .symptom-layout { grid-template-columns: 1fr; align-items: start; }
   #step-service .step-bullets { justify-content: flex-start; }
   #step-service .step-bullets li { padding: 14px 0; }
+  /* Card no longer stretches to match the copy column once stacked. */
+  #step-service .svc-stage { justify-content: flex-start; padding: 18px 20px; }
   /* On mobile the visuals stack below the copy — drop the fixed equal-height
      so wrapped content is never clipped. */
   .symptom-card { height: auto; min-height: 0; }
@@ -763,7 +780,7 @@ section.hero + section { border-top: 0; }
 /* Service visual v4 — one connected pipeline card, three stages */
 /* Stretch the copy column to the graphic's height and distribute the three
    bullets so each lines up with its matching stage in the card. */
-#step-service .symptom-layout { grid-template-columns: 1fr 1fr; align-items: start; }
+#step-service .symptom-layout { grid-template-columns: 1fr 1fr; align-items: stretch; }
 #step-service .svc-layout-spaced { margin-top: 52px; }
 @media (max-width: 720px) {
   #step-service .section-headline { white-space: normal !important; }
@@ -776,11 +793,18 @@ section.hero + section { border-top: 0; }
 #step-service .step-bullets li { padding: 18px 0; }
 #step-service .step-bullets li:first-child { padding-top: 0; }
 #step-service .step-bullets li:last-child { padding-bottom: 0; }
+/* Card stretches to the bullet column's height (see align-items: stretch above) */
+#step-service .symptom-visual { display: flex; }
 .svc-card {
   background: var(--surface); border: 1px solid var(--hairline); border-radius: 18px;
   box-shadow: 0 18px 48px -24px rgba(0,0,0,0.2); overflow: hidden;
+  display: flex; flex-direction: column; width: 100%;
 }
-.svc-stage { position: relative; padding: 16px 26px; }
+/* Stages share the card height evenly so content breathes instead of stacking at the top */
+.svc-stage {
+  position: relative; padding: 22px 26px;
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
+}
 .svc-stage + .svc-stage { border-top: 1px solid var(--hairline); }
 /* Vertical thread connecting the three stages */
 .svc-stage + .svc-stage::before {
@@ -788,7 +812,7 @@ section.hero + section { border-top: 0; }
   background: var(--spark-soft); border-radius: 2px;
 }
 .svc-stage-head {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 9px;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
 }
 .svc-stage-tag {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
@@ -829,12 +853,24 @@ section.hero + section { border-top: 0; }
 .svc-tier-fill.c { background: var(--spark-soft); }
 .svc-tier-n { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); min-width: 32px; text-align: right; }
 
-/* Stage 2 — signal chips → the pick */
+/* Stage 2 — a custom signal is a group of conditions that must all tick */
 .svc-signals { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 11px; }
 .svc-signal {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em;
   color: var(--spark-deep); background: var(--spark-paper); border: 1px solid var(--spark-soft);
   border-radius: 999px; padding: 6px 12px;
+}
+.svc-siggroup {
+  border: 1px dashed var(--spark-soft); border-radius: 12px;
+  padding: 12px; background: var(--paper-2);
+}
+.svc-siggroup-label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-4); margin-bottom: 10px;
+}
+.svc-siggroup .svc-signals { margin-bottom: 0; }
+.svc-signal.ticked::before {
+  content: '\2713'; margin-right: 6px; font-weight: 700;
 }
 .svc-pick-row {
   display: flex; align-items: center; gap: 12px;
@@ -855,6 +891,11 @@ section.hero + section { border-top: 0; }
 
 /* Stage 3 — reconnection flow */
 .svc-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* Four-step path: force an even 2 + 2 break instead of letting chip widths decide */
+.svc-flow.two-row { row-gap: 10px; }
+.svc-flow.two-row > .svc-flow-arrow:nth-child(4) { flex-basis: 100%; height: 0; overflow: hidden; margin: 0; }
+/* Turn marker: sits at the head of row two, linking back to the chip above */
+.svc-flow.two-row > .svc-flow-turn { order: 0; }
 .svc-flow-step {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
   padding: 8px 13px; border-radius: 999px; background: var(--paper-2);
@@ -2072,6 +2113,8 @@ section.hero + section { border-top: 0; }
   .pricing-card { padding: 28px 20px; }
   .snapshot-stats { grid-template-columns: 1fr; }
   .testimonial-grid { flex-direction: column; align-items: center; gap: 32px; }
+  /* 340px is non-shrinking and overflows once the gutter is subtracted. */
+  .testimonial-person { flex: 0 0 auto; width: 100%; max-width: 340px; }
   .step { gap: 16px; margin-bottom: 28px; }
   .step-number { width: 36px; height: 36px; min-width: 36px; font-size: 14px; }
   .step-content h3 { font-size: 18px; }
@@ -2738,6 +2781,11 @@ section.hero + section { border-top: 0; }
   align-items: center; justify-content: center; cursor: pointer;
   margin-left: 8px; vertical-align: middle; position: relative;
 }
+/* Keep the 18px dot but expand the tap area to the 44px minimum. */
+.digest-info-btn::after {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+}
 .digest-info-popup {
   display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
   background: var(--olive-deep); color: var(--white); padding: 12px 16px;
@@ -3109,7 +3157,7 @@ section.hero + section { border-top: 0; }
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3>Service</h3>
-        <p>Tailored tiering. Custom signals engineering. Handpicked relationships.</p>
+        <p>Warm intros mapping. Custom signals. Handpicked relationships.</p>
         <span class="solution-card-link">See how &rarr;</span>
       </a>
       <a href="#digest" data-cursor="View" class="card solution-card stagger-in" style="text-align:center;">
@@ -3139,7 +3187,7 @@ section.hero + section { border-top: 0; }
         <ul class="step-bullets">
           <li>
             <span class="step-bullet-num">1</span>
-            <p><strong>Tailored tiering strategy.</strong> A lone calendar invite would have been marked as spam in other systems. But for us, we go one step further by analyzing the context of the invite because sometimes, they might be a junior copywriter supporting a project. And <span class="highlight-mark">now leading a team of creatives and controlling the budget</span>.</p>
+            <p><strong>Warm introduction mapping.</strong> The accounts you want to win are rarely as far away as they look. Someone you already know has worked alongside the people inside them, and that shared history is a door most agencies never think to try. We find those paths and hand them to you, so you <span class="highlight-mark">break into new accounts through relationships you already have</span>.</p>
           </li>
           <li>
             <span class="step-bullet-num">2</span>
@@ -3147,51 +3195,47 @@ section.hero + section { border-top: 0; }
           </li>
           <li>
             <span class="step-bullet-num">3</span>
-            <p><strong>Handpicked relationships.</strong> We <span class="highlight-mark">handpick three contacts that are most in-market right now</span> according to your agency goals, using signals like unfinished threads, past project threads, job change, company news, and more.</p>
+            <p><strong>Handpicked relationships.</strong> The last step is deliberately manual. A relationship operator on our team reads the shortlist and weighs what an AI agent can&rsquo;t see &mdash; whether the timing is right, the history holds up, or this is genuinely worth a reconnection &mdash; before <span class="highlight-mark">choosing the three most suitable relationships for your digest</span>.</p>
           </li>
         </ul>
       </div>
       <div class="symptom-visual">
        <div class="svc-card">
-        <!-- Stage 1 — the whole pool sorted into tiers -->
+        <!-- Stage 1 — existing network maps a path into a target account -->
         <div class="svc-stage">
-          <div class="svc-stage-head"><span class="svc-stage-tag">01</span><span class="svc-stage-title">Tiering</span><span class="svc-stage-meta">2,847 contacts sorted</span></div>
-          <div class="svc-pool">
-            <span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span><span class="svc-dot"></span>
-          </div>
-          <div class="svc-tier-bars">
-            <div class="svc-tier-bar"><span class="svc-tier-badge a">A</span><span class="svc-tier-label">On-project collaborators</span><span class="svc-tier-track"><span class="svc-tier-fill a" style="width:24%"></span></span><span class="svc-tier-n">47</span></div>
-            <div class="svc-tier-bar"><span class="svc-tier-badge b">B</span><span class="svc-tier-label">Past clients &amp; partners</span><span class="svc-tier-track"><span class="svc-tier-fill b" style="width:52%"></span></span><span class="svc-tier-n">184</span></div>
-            <div class="svc-tier-bar"><span class="svc-tier-badge c">C</span><span class="svc-tier-label">Warm prospects</span><span class="svc-tier-track"><span class="svc-tier-fill c" style="width:82%"></span></span><span class="svc-tier-n">312</span></div>
+          <div class="svc-stage-head"><span class="svc-stage-tag">01</span><span class="svc-stage-title">Warm intro mapping</span><span class="svc-stage-meta">paths into 42 target accounts</span></div>
+          <div class="svc-flow two-row">
+            <span class="svc-flow-step done">Your contact</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-step done">Past company</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-arrow svc-flow-turn">&rarr;</span>
+            <span class="svc-flow-step done">Ex-colleague</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-step active">New ideal account</span>
           </div>
         </div>
 
-        <!-- Stage 2 — signals converge on one handpicked person -->
+        <!-- Stage 2 — signals reverse engineered from the agency's own wins -->
         <div class="svc-stage">
-          <div class="svc-stage-head"><span class="svc-stage-tag">02</span><span class="svc-stage-title">Handpicked</span><span class="svc-stage-meta">in-market today</span></div>
-          <div class="svc-signals">
-            <span class="svc-signal">New venture</span>
-            <span class="svc-signal">Job change</span>
-            <span class="svc-signal">Promotion</span>
+          <div class="svc-stage-head"><span class="svc-stage-tag">02</span><span class="svc-stage-title">Custom signals</span><span class="svc-stage-meta">built from your own wins</span></div>
+          <div class="svc-siggroup">
+            <div class="svc-siggroup-label">Per-agency, multi-signals setup</div>
+            <div class="svc-signals">
+              <span class="svc-signal ticked">Ad Age news</span>
+              <span class="svc-signal ticked">Partnership post</span>
+              <span class="svc-signal ticked">Indeed job posting</span>
+            </div>
           </div>
+        </div>
+
+        <!-- Stage 3 — a human cuts the shortlist down to three -->
+        <div class="svc-stage">
+          <div class="svc-stage-head"><span class="svc-stage-tag">03</span><span class="svc-stage-title">Handpicked</span><span class="svc-stage-meta">chosen by an operator</span></div>
           <div class="svc-pick-row">
             <div class="svc-pick-avatar">EL</div>
-            <div class="svc-pick-meta"><strong>Elena L. &mdash; ex-Creative Dir.</strong><span>Just started a new venture &middot; Tier A</span></div>
+            <div class="svc-pick-meta"><strong>Elena L. &mdash; ex-Creative Dir.</strong><span>Just started a new venture &middot; worked with Maya R.</span></div>
             <span class="svc-pick-flag">Picked</span>
-          </div>
-        </div>
-
-        <!-- Stage 3 — end-to-end reconnection flow -->
-        <div class="svc-stage">
-          <div class="svc-stage-head"><span class="svc-stage-tag">03</span><span class="svc-stage-title">Managed</span><span class="svc-stage-meta">tracked end to end</span></div>
-          <div class="svc-flow">
-            <span class="svc-flow-step done">In inbox</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step done">Surfaced</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step active">Reconnecting</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step">Reply</span>
           </div>
         </div>
         </div>
@@ -3858,7 +3902,7 @@ section.hero + section { border-top: 0; }
             <img class="testimonial-headshot" src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&height=800" alt="Frank Siringo">
           </div>
           <div class="testimonial-quote">
-            <blockquote>VeraOps gave me an <span class="highlight-mark">easy way to get back in touch with people I&rsquo;d worked with and respected</span> but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.</blockquote>
+            <blockquote>VeraOps gave me an easy way to get back in touch with people I&rsquo;d worked with and respected but had fallen out of touch with over time. It&rsquo;s become a <span class="highlight-mark">meaningful way to stay intentional about relationships and keep strong connections active</span>.</blockquote>
             <div class="testimonial-name">Frank Siringo</div>
             <div class="testimonial-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
           </div>
@@ -3994,7 +4038,7 @@ section.hero + section { border-top: 0; }
           <li>Your <span class="gold-text">per-project deal size</span> is $25K and above, or your best clients come back &mdash; so one reconnected relationship pays for itself many times over.</li>
           <li>You have <span class="gold-text">one or more dedicated sellers</span> focusing on business development on your team.</li>
           <li>Your agency <span class="gold-text">depends on relationships and referrals</span> for new business and opportunities.</li>
-          <li>You work with <span class="gold-text">multiple stakeholders in a project</span>, from the decision maker to the junior lead.</li>
+          <li>You want a partner who <span class="gold-text">combines relationship instinct with technical depth</span> &mdash; so you reach more opportunities and close more deals.</li>
           <li>You treat <span class="gold-text">Gmail as your main hub</span> &mdash; it&rsquo;s where your real relationships and history actually live.</li>
         </ul>
       </div>
@@ -4004,7 +4048,7 @@ section.hero + section { border-top: 0; }
           <li>Your work is small, high-volume, and one-off &mdash; clients rarely return, so reconnecting with one relationship doesn&rsquo;t move the needle.</li>
           <li>Nobody owns business development &mdash; sales is entirely founder-led with no dedicated seller in place.</li>
           <li>Your new business doesn&rsquo;t really run on relationships or referrals &mdash; it comes from ads, inbound, or one-off transactions.</li>
-          <li>Your projects are solo or single-contact, so there&rsquo;s no web of stakeholders to reconnect with.</li>
+          <li>You want software you run yourself, not a partner working the relationships alongside you.</li>
           <li>Your relationships don&rsquo;t run through Gmail, so there&rsquo;s little history for us to scan and resurface.</li>
         </ul>
       </div>
