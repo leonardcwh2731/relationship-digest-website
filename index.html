@@ -893,7 +893,7 @@ section.hero + section { border-top: 0; }
 .svc-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 /* Four-step path: force an even 2 + 2 break instead of letting chip widths decide */
 .svc-flow.two-row { row-gap: 10px; }
-.svc-flow.two-row > .svc-flow-arrow:nth-child(4) { flex-basis: 100%; height: 0; overflow: hidden; margin: 0; }
+.svc-flow.two-row > .svc-flow-arrow:nth-child(6) { flex-basis: 100%; height: 0; overflow: hidden; margin: 0; }
 /* Turn marker: sits at the head of row two, linking back to the chip above */
 .svc-flow.two-row > .svc-flow-turn { order: 0; }
 .svc-flow-step {
@@ -1124,7 +1124,11 @@ section.hero + section { border-top: 0; }
 .dm-stat { text-align: center; padding: 13px 8px; border-right: 1px solid var(--card-border); }
 .dm-stat:last-child { border-right: none; }
 .dm-stat-num { font-family: var(--font-display); font-size: 19px; font-weight: 700; color: var(--black); line-height: 1; }
-.dm-stat-cap { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 7px; line-height: 1.3; }
+/* Green delta under each figure. Stats with no change keep an empty row so
+   every caption still sits on the same baseline. */
+.dm-stat-delta { font-size: 9.5px; font-weight: 700; color: #2E7D32; line-height: 1; margin-top: 5px; }
+.dm-stat-delta-none { visibility: hidden; }
+.dm-stat-cap { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-top: 6px; line-height: 1.3; }
 .digest-momentum-notes { list-style: none; margin: 16px 0 0; padding: 0; }
 .digest-momentum-notes li { position: relative; padding-left: 16px; font-size: 12px; color: var(--text-mid); line-height: 1.55; margin-bottom: 8px; }
 .digest-momentum-notes li:last-child { margin-bottom: 0; }
@@ -1163,7 +1167,7 @@ section.hero + section { border-top: 0; }
   transition: background 150ms ease, border-color 150ms ease;
 }
 .digest-thread-link:hover { background: var(--sage); border-color: var(--olive-deep); }
-.digest-full-actions { display: flex; gap: 10px; justify-content: center; }
+.digest-full-actions { display: flex; gap: 10px; justify-content: flex-start; }
 .digest-full-btn { flex: 0 0 auto; padding: 9px 20px; border-radius: var(--radius); font-size: 12.5px; font-weight: 700; text-align: center; border: none; cursor: pointer; white-space: nowrap; }
 .digest-full-btn-dark { background: var(--black); color: var(--white); }
 .digest-full-btn-outline { background: var(--white); color: var(--black); border: 1.5px solid var(--black); }
@@ -1850,14 +1854,57 @@ section.hero + section { border-top: 0; }
 }
 
 /* FAQ */
-.faq-list { max-width: 720px; margin: 40px auto 0; }
-.faq-item { border-bottom: 1px solid var(--card-border); padding: 24px 0; }
-.faq-question { font-size: 17px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; user-select: none; }
-.faq-toggle { width: 24px; height: 24px; min-width: 24px; display: flex; align-items: center; justify-content: center; transition: transform 200ms ease; }
-.faq-item.open .faq-toggle { transform: rotate(45deg); }
-.faq-answer { max-height: 0; overflow: hidden; transition: max-height 300ms ease, padding 300ms ease; }
-.faq-item.open .faq-answer { max-height: 600px; padding-top: 16px; }
-.faq-answer p { font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+.faq-list {
+  max-width: 780px; margin: 40px auto 0;
+  background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px;
+  box-shadow: 4px 4px 20px rgba(0,0,0,0.06); overflow: hidden;
+}
+.faq-item + .faq-item { border-top: 1px solid var(--card-border); }
+.faq-question {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 28px; text-align: left; font-family: inherit;
+  user-select: none; transition: background 200ms ease;
+}
+.faq-question:hover { background: rgba(0,0,0,0.02); }
+.faq-num {
+  font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--muted); min-width: 22px;
+  transition: color 200ms ease;
+}
+.faq-q-text {
+  flex: 1; font-size: 16px; font-weight: 600; color: var(--text-dark);
+  letter-spacing: -0.01em; line-height: 1.45; transition: color 200ms ease;
+}
+.faq-item.open .faq-num,
+.faq-item.open .faq-q-text { color: var(--olive-deep); }
+/* Plus / minus drawn in CSS so it animates with the row. */
+.faq-toggle { position: relative; width: 14px; height: 14px; min-width: 14px; flex-shrink: 0; }
+.faq-toggle::before, .faq-toggle::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  background: var(--olive-deep); border-radius: 1px;
+  transform: translate(-50%, -50%);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.faq-toggle::before { width: 14px; height: 2px; }
+.faq-toggle::after  { width: 2px; height: 14px; }
+.faq-item.open .faq-toggle::after { opacity: 0; transform: translate(-50%, -50%) rotate(90deg); }
+/* Grid-rows animates to auto height — no max-height guess to outgrow. */
+.faq-answer {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-item.open .faq-answer { grid-template-rows: 1fr; }
+.faq-answer > .faq-answer-inner { overflow: hidden; min-height: 0; }
+.faq-answer-inner {
+  padding: 0 28px 0 66px;
+  opacity: 0; transition: opacity 200ms ease;
+}
+.faq-item.open .faq-answer-inner { opacity: 1; padding-bottom: 26px; }
+.faq-answer-inner p {
+  font-size: 14px; color: var(--text-mid); line-height: 1.75; margin: 0;
+  max-width: 64ch;
+}
 
 /* Testimonials */
 .testimonial-grid {
@@ -2535,50 +2582,210 @@ section.hero + section { border-top: 0; }
 .privacy-box {
   margin-top: 48px; max-width: 920px; margin-left: auto; margin-right: auto;
 }
-.privacy-tabs {
-  display: flex; gap: 0; align-items: stretch;
+/* Stepped rail — everything visible at once, connected by a vertical line.
+   Deliberately not collapsible, so it reads differently from the FAQ. */
+/* Marker-and-copy rail, centred on the page as a block. The rail itself keeps
+   its original shape: number on the left, copy left-aligned beside it. */
+.privacy-rail {
+  margin: 8px auto 0; position: relative;
+  max-width: 760px;
 }
-.privacy-tab {
-  flex: 1; background: none; border: none; cursor: pointer;
-  padding: 20px 16px; text-align: center;
-  font-family: inherit; font-size: 13px; font-weight: 600;
-  color: var(--muted); position: relative;
-  transition: color 200ms ease;
+.privacy-step {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 24px; position: relative;
+  padding-bottom: 38px;
 }
-.privacy-tab:hover { color: var(--text-dark); }
-.privacy-tab.active { color: var(--olive-deep); }
-.privacy-tab.active::after {
-  content: ''; position: absolute; bottom: 0; left: 20%; right: 20%; height: 2px;
-  background: var(--olive-deep); border-radius: 2px;
+.privacy-step:last-child { padding-bottom: 0; }
+/* The connecting line runs through the marker column. */
+.privacy-step::before {
+  content: ''; position: absolute; left: 21px; top: 44px; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--card-border), transparent 92%);
 }
-/* Vertical dividers between tabs */
-.privacy-tab + .privacy-tab::before {
-  content: ''; position: absolute; left: 0; top: 25%; height: 50%;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--card-border), transparent);
+.privacy-step:last-child::before { display: none; }
+.privacy-step-marker {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--white); border: 1.5px solid var(--card-border);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.privacy-step-marker span {
+  font-family: var(--font-mono, monospace); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--olive-deep);
+}
+.privacy-step-body {
+  display: flex; flex-direction: column;
+  padding-top: 8px; text-align: left;
+}
+.privacy-step-title {
+  font-size: 19px; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em;
+  color: var(--black); margin: 0 0 12px;
+}
+.privacy-step-body p {
+  font-size: 14px; color: var(--text-mid); line-height: 1.75; margin: 0 0 12px;
+}
+.privacy-step-body p:last-of-type { margin-bottom: 0; }
+.privacy-step-body p strong { color: var(--black); }
+/* ---- Agency logo marquee ------------------------------------------------
+   One row scrolling left, forever. The track holds the eight logos twice; the
+   animation travels exactly -50%, so the second copy lands where the first
+   began and the loop is seamless. */
+.agency-marquee {
+  position: relative; overflow: hidden;
+  margin: 52px auto 0;
+  /* Same width as the fixed nav pill so the two align down the page. */
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  /* Fade the marks in and out at the edges rather than cutting them dead. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+.agency-track {
+  display: flex; align-items: center; width: max-content;
+  animation: agency-scroll 46s linear infinite;
+}
+.agency-marquee:hover .agency-track { animation-play-state: paused; }
+@keyframes agency-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.agency-logo {
+  margin: 0; padding: 0 34px;
+  display: flex; align-items: center; justify-content: center;
+  height: 112px; flex-shrink: 0;
+}
+.agency-logo img { width: auto; height: auto; object-fit: contain; display: block; }
+/* Sizes are per-logo, derived from measured ink coverage rather than bounding
+   box, so a dense square and an airy wordmark read at the same visual weight. */
+.agency-logo img.lg-ghost   { height: 41px; }
+.agency-logo img.lg-bubbly  { height: 88px; }
+.agency-logo img.lg-bx      { height: 38px; }
+.agency-logo img.lg-barrel  { height: 19px; }
+.agency-logo img.lg-outsight{ height: 38px; }
+.agency-logo img.lg-driver  { height: 27px; }
+.agency-logo img.lg-rafferty{ height: 41px; }
+.agency-logo img.lg-paper   { height: 27px; }
+@media (prefers-reduced-motion: reduce) {
+  .agency-track { animation: none; }
+}
+@media (max-width: 640px) {
+  .agency-marquee { width: calc(100vw - 36px); margin-top: 34px; }
+  .agency-logo { padding: 0 20px; height: 88px; }
+  .agency-logo img.lg-ghost   { height: 32px; }
+  .agency-logo img.lg-bubbly  { height: 68px; }
+  .agency-logo img.lg-bx      { height: 30px; }
+  .agency-logo img.lg-barrel  { height: 15px; }
+  .agency-logo img.lg-outsight{ height: 30px; }
+  .agency-logo img.lg-driver  { height: 21px; }
+  .agency-logo img.lg-rafferty{ height: 32px; }
+  .agency-logo img.lg-paper   { height: 21px; }
 }
 
-.privacy-panels {
-  margin-top: 24px;
+/* ---- Privacy step graphics ---------------------------------------------
+   One small diagram per step, sharing a common frame so the six steps read
+   as a set. Built from existing tokens — no new colours. */
+.pgfx {
+  border: 1px solid var(--card-border); border-radius: 10px;
+  background: var(--white); padding: 16px; margin: 0 0 14px;
 }
-.privacy-panel { display: none; }
-.privacy-panel.active { display: block; }
-.privacy-panel-inner {
-  background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px;
-  padding: 40px 44px; box-shadow: 4px 4px 20px rgba(0,0,0,0.06);
-  min-height: 300px;
-  display: flex; flex-direction: column; justify-content: center;
+.pgfx-chip {
+  display: inline-block; font-family: var(--font-mono, monospace); font-size: 11px;
+  padding: 5px 10px; border-radius: 999px; margin: 0 5px 6px 0;
+  border: 1px solid var(--card-border); color: var(--text-mid); background: var(--white);
 }
-.privacy-panel-inner p {
-  font-size: 14px; color: var(--text-mid); line-height: 1.7; margin-bottom: 14px;
+/* 02 — kept vs destroyed */
+.pgfx-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; overflow: hidden; }
+.pgfx-col { padding: 14px 16px; }
+.pgfx-col + .pgfx-col { border-left: 1px solid var(--card-border); }
+.pgfx-col-head {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
 }
-.privacy-panel-inner p:first-child {
-  font-size: 14px; color: var(--text-mid); margin-bottom: 18px;
+.pgfx-keep { background: var(--sage, rgba(0,0,0,0.02)); }
+.pgfx-keep .pgfx-col-head { color: var(--olive-deep); }
+.pgfx-drop .pgfx-col-head { color: var(--muted); }
+.pgfx-tick { font-weight: 700; }
+.pgfx-cross { font-weight: 700; font-size: 14px; line-height: 1; }
+.pgfx-keep .pgfx-chip { border-color: var(--olive-deep); color: var(--olive-deep); }
+.pgfx-drop .pgfx-chip { opacity: 0.6; text-decoration: line-through; }
+/* 03 / 04 — node flows */
+.pgfx-flow, .pgfx-path { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.pgfx-node {
+  font-family: var(--font-mono, monospace); font-size: 11px; white-space: nowrap;
+  padding: 7px 12px; border-radius: 999px;
+  border: 1px solid var(--card-border); background: var(--white); color: var(--text-mid);
 }
-.privacy-panel-inner p strong {
-  font-size: 15px; color: var(--black);
+.pgfx-node-end, .pgfx-node-stop {
+  background: var(--olive-deep); border-color: var(--olive-deep); color: #fff; font-weight: 600;
 }
-.privacy-panel-inner p:last-of-type { margin-bottom: 0; }
+.pgfx-arrow { color: var(--muted); font-size: 13px; }
+.pgfx-nostore {
+  font-size: 11px; color: var(--olive-deep); font-weight: 600;
+  padding: 4px 10px; border: 1px dashed var(--olive-deep); border-radius: 999px;
+}
+.pgfx-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
+/* 04 — numbered revoke path */
+.pgfx-steps { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+/* The number is floated out of the text flow so the sentence stays a single
+   inline run — flex would space-separate every <strong> as its own item. */
+.pgfx-steps li {
+  position: relative; padding: 8px 0 8px 30px;
+  font-size: 13px; color: var(--text-mid); line-height: 1.6;
+}
+.pgfx-steps li + li { border-top: 1px dashed var(--card-border); }
+.pgfx-steps-n {
+  position: absolute; left: 0; top: 8px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--sage, rgba(0,0,0,0.04)); color: var(--olive-deep);
+  font-family: var(--font-mono, monospace); font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.pgfx-steps li strong { color: var(--black); font-weight: 600; }
+/* Breadcrumb chevron inside a bold run — tighter than a word space. */
+.pgfx-sep { color: var(--muted); font-weight: 400; margin: 0 5px; }
+.pgfx-steps-final { color: var(--olive-deep); font-weight: 600; }
+/* 05 — certification badge */
+.pgfx-cert { display: flex; align-items: center; gap: 14px; }
+.pgfx-cert-seal {
+  width: 42px; height: 42px; min-width: 42px; border-radius: 50%;
+  background: var(--olive-deep); display: flex; align-items: center; justify-content: center;
+}
+.pgfx-cert-mark { color: #fff; font-size: 20px; font-weight: 700; line-height: 1; }
+.pgfx-cert-name { font-size: 14px; font-weight: 700; color: var(--black); }
+.pgfx-cert-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* Gmail scope table — the one we hold is called out, the rest are context. */
+.privacy-scopes {
+  list-style: none; margin: 0 0 14px; padding: 0;
+  border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden;
+}
+.privacy-scopes li {
+  display: grid;
+  grid-template-columns: minmax(96px, auto) minmax(0, 1fr);
+  column-gap: 12px; align-items: baseline;
+  padding: 12px 14px; background: var(--white);
+}
+.privacy-scopes li + li { border-top: 1px solid var(--card-border); }
+.privacy-scopes .scope-name {
+  font-size: 13.5px; font-weight: 700; color: var(--muted);
+}
+.privacy-scopes .scope-code {
+  grid-column: 2; font-family: var(--font-mono, monospace); font-size: 11.5px;
+  color: var(--muted); opacity: 0.85;
+}
+.privacy-scopes .scope-desc {
+  grid-column: 2; font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-top: 3px;
+}
+.privacy-scopes .scope-flag {
+  grid-column: 1; grid-row: 2;
+  font-family: var(--font-mono, monospace); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: #fff; background: var(--olive-deep);
+  border-radius: 5px; padding: 3px 7px; justify-self: start; margin-top: 5px;
+}
+/* The scope we actually hold reads at full strength; the others sit back. */
+.privacy-scopes .scope-used { background: var(--sage, rgba(0,0,0,0.02)); }
+.privacy-scopes .scope-used .scope-name { color: var(--olive-deep); }
+.privacy-scopes .scope-used .scope-desc { color: var(--text-dark); }
 
 /* Signal Carousel */
 .signal-carousel {
@@ -2707,14 +2914,30 @@ section.hero + section { border-top: 0; }
   /* Trust & Security grid */
   .trust-grid { grid-template-columns: 1fr; }
 
-  /* Privacy tabs */
+  /* FAQ accordion */
+  .faq-question { padding: 18px 18px; gap: 12px; }
+  .faq-q-text { font-size: 15px; }
+  .faq-answer-inner { padding: 0 18px; }
+  .faq-item.open .faq-answer-inner { padding-bottom: 22px; }
+  .faq-answer-inner p { font-size: 13.5px; }
+
+  /* Privacy rail */
   .privacy-box { max-width: 100%; }
-  .privacy-tabs { flex-wrap: wrap; gap: 0; }
-  .privacy-tab { flex: 1 1 48%; padding: 14px 10px; font-size: 12px; }
-  .privacy-tab + .privacy-tab::before { display: none; }
-  .privacy-panel-inner { padding: 28px 20px; }
-  .privacy-panel-inner p { font-size: 13px; }
-  .privacy-panel-inner p strong { font-size: 14px; }
+  .privacy-step { grid-template-columns: 38px minmax(0, 1fr); column-gap: 16px; padding-bottom: 30px; }
+  .privacy-step::before { left: 18px; top: 38px; }
+  .privacy-step-marker { width: 38px; height: 38px; }
+  .privacy-step-marker span { font-size: 11px; }
+  .privacy-step-title { font-size: 17px; }
+  .privacy-step-body { padding-top: 6px; }
+  .privacy-step-body p { font-size: 13.5px; }
+  .privacy-scopes li { grid-template-columns: 1fr; }
+  .privacy-scopes .scope-code, .privacy-scopes .scope-desc { grid-column: 1; }
+  .privacy-scopes .scope-flag { grid-column: 1; grid-row: auto; }
+  /* Step graphics stack once the card is narrow. */
+  .pgfx-split { grid-template-columns: 1fr; }
+  .pgfx-col + .pgfx-col { border-left: none; border-top: 1px solid var(--card-border); }
+  .pgfx-flow, .pgfx-path { gap: 6px; }
+  .pgfx-node { font-size: 10.5px; padding: 6px 10px; }
 
   /* Digest spotlight annotations */
   .digest-spotlight { gap: 20px; }
@@ -2738,9 +2961,20 @@ section.hero + section { border-top: 0; }
   .hiw-panel-heading { font-size: 20px; }
   .hiw-panel-body p { font-size: 14px; }
 
-  /* Privacy tabs stack */
-  .privacy-tab { flex: 1 1 100%; text-align: left; padding: 12px 16px; }
-  .privacy-panel-inner { padding: 24px 16px; }
+  /* FAQ accordion */
+  .faq-question { padding: 16px 14px; gap: 10px; }
+  .faq-q-text { font-size: 14px; }
+  .faq-num { min-width: 18px; font-size: 10px; }
+  .faq-answer-inner { padding: 0 14px; }
+  .faq-item.open .faq-answer-inner { padding-bottom: 20px; }
+
+  /* Privacy rail */
+  .privacy-step { grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; padding-bottom: 26px; }
+  .privacy-step::before { left: 15px; top: 32px; }
+  .privacy-step-marker { width: 32px; height: 32px; }
+  .privacy-step-marker span { font-size: 10px; }
+  .privacy-step-title { font-size: 16px; }
+  .privacy-step-body { padding-top: 4px; }
 
   /* Digest spotlight */
   .digest-annotation { flex: 1 1 100%; }
@@ -2759,7 +2993,7 @@ section.hero + section { border-top: 0; }
   .digest-full-pills { gap: 4px; }
   .digest-full-pill { font-size: 10px; padding: 3px 8px; }
   .digest-full-email-box { padding: 14px; }
-  .digest-full-actions { flex-direction: column; }
+  .digest-full-actions { flex-direction: column; align-items: stretch; }
 
   /* Qualification */
   .qualification-col { padding: 24px 18px; }
@@ -2816,21 +3050,6 @@ section.hero + section { border-top: 0; }
   cursor: pointer; color: var(--olive-deep); font-size: 16px; font-weight: 700;
 }
 .hiw-mobile-next-btn:hover { background: var(--sage-mid); }
-
-/* Mobile: Privacy carousel nav */
-.privacy-mobile-nav {
-  display: none; justify-content: space-between; align-items: center;
-  margin-top: 16px; padding: 0 4px;
-}
-.privacy-mobile-nav button {
-  background: var(--sage); border: 1px solid var(--card-border); border-radius: 50%;
-  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: var(--olive-deep); font-size: 16px; font-weight: 700;
-}
-.privacy-mobile-nav button:hover { background: var(--sage-mid); }
-.privacy-mobile-counter {
-  font-size: 13px; font-weight: 600; color: var(--muted);
-}
 
 /* Testimonial slideshow (desktop + mobile) */
 .testimonial-grid {
@@ -2889,9 +3108,7 @@ section.hero + section { border-top: 0; }
   .hiw-mobile-step-nav { display: flex; }
   .hiw-tabs { display: none !important; }
 
-  /* Privacy: hide tabs, show carousel nav */
-  .privacy-tabs { display: none !important; }
-  .privacy-mobile-nav { display: flex; }
+  /* Privacy accordion works identically at every width — no mobile swap needed. */
 
   /* Testimonials: stack headshot over quote */
   .testimonial-grid .testimonial-card { flex-direction: column; gap: 28px; text-align: center; }
@@ -3209,10 +3426,12 @@ section.hero + section { border-top: 0; }
             <span class="svc-flow-arrow">&rarr;</span>
             <span class="svc-flow-step done">Past company</span>
             <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-arrow svc-flow-turn">&rarr;</span>
             <span class="svc-flow-step done">Ex-colleague</span>
             <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step active">New ideal account</span>
+            <span class="svc-flow-arrow svc-flow-turn">&rarr;</span>
+            <span class="svc-flow-step done">New ideal account</span>
+            <span class="svc-flow-arrow">&rarr;</span>
+            <span class="svc-flow-step active">Decision maker</span>
           </div>
         </div>
 
@@ -3334,11 +3553,11 @@ section.hero + section { border-top: 0; }
             </div>
 
             <div class="digest-momentum-stats">
-              <div class="dm-stat"><div class="dm-stat-num">248</div><div class="dm-stat-cap">Reached Out</div></div>
-              <div class="dm-stat"><div class="dm-stat-num">41</div><div class="dm-stat-cap">Replied</div></div>
-              <div class="dm-stat"><div class="dm-stat-num">17%</div><div class="dm-stat-cap">Response Rate</div></div>
-              <div class="dm-stat"><div class="dm-stat-num">11</div><div class="dm-stat-cap">Meetings</div></div>
-              <div class="dm-stat"><div class="dm-stat-num">4%</div><div class="dm-stat-cap">Meeting Rate</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">248</div><div class="dm-stat-delta">&#9650;+3</div><div class="dm-stat-cap">Reached Out</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">41</div><div class="dm-stat-delta dm-stat-delta-none">&nbsp;</div><div class="dm-stat-cap">Replied</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">17%</div><div class="dm-stat-delta dm-stat-delta-none">&nbsp;</div><div class="dm-stat-cap">Response Rate</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">11</div><div class="dm-stat-delta">&#9650;+1</div><div class="dm-stat-cap">Meetings</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">4%</div><div class="dm-stat-delta">&#9650;+1 pts</div><div class="dm-stat-cap">Meeting Rate</div></div>
             </div>
 
             <ul class="digest-momentum-notes">
@@ -4066,62 +4285,204 @@ section.hero + section { border-top: 0; }
       <p class="subtitle" style="margin-top:12px;">Connecting your inbox isn&rsquo;t a small thing. Here&rsquo;s how we manage the risk.</p>
     </div>
 
-    <!-- Privacy Box -->
+    <!-- Privacy Accordion -->
     <div class="privacy-box fade-in">
-      <!-- Privacy Tab Navigation -->
-      <div class="privacy-tabs">
-        <button class="privacy-tab active" data-privtab="expensive">We extract what&rsquo;s needed.</button>
-        <button class="privacy-tab" data-privtab="control">You are always in control.</button>
-        <button class="privacy-tab" data-privtab="security">You get enterprise-level security.</button>
-        <button class="privacy-tab" data-privtab="talk">Speak to an active user.</button>
+      <div class="privacy-rail">
+
+        <div class="privacy-step">
+          <div class="privacy-step-marker"><span>01</span></div>
+          <div class="privacy-step-body">
+            <h3 class="privacy-step-title">We only request for read-only access.</h3>
+            <p>Gmail&rsquo;s API is divided into five core scopes. Each one grants a different level of reach into your mailbox:</p>
+            <ul class="privacy-scopes">
+              <li class="scope-used">
+                <span class="scope-name">Read-only</span>
+                <span class="scope-code">gmail.readonly</span>
+                <span class="scope-desc">View messages, attachments, and metadata. Nothing can be changed.</span>
+                <span class="scope-flag">What we request</span>
+              </li>
+              <li>
+                <span class="scope-name">Modify</span>
+                <span class="scope-code">gmail.modify</span>
+                <span class="scope-desc">Read, create, and modify threads, messages, and labels.</span>
+              </li>
+              <li>
+                <span class="scope-name">Compose</span>
+                <span class="scope-code">gmail.compose</span>
+                <span class="scope-desc">Create, update, and delete drafts &mdash; and send them.</span>
+              </li>
+              <li>
+                <span class="scope-name">Send</span>
+                <span class="scope-code">gmail.send</span>
+                <span class="scope-desc">Send email on your behalf.</span>
+              </li>
+              <li>
+                <span class="scope-name">Full access</span>
+                <span class="scope-code">mail.google.com</span>
+                <span class="scope-desc">Complete control, including permanent deletion.</span>
+              </li>
+            </ul>
+            <p>We hold the first one and nothing else. So how does the digest hand you a ready-to-send email? A <strong>mailto</strong> link &mdash; it opens in your own Gmail, composed and sent by you.</p>
+          </div>
+        </div>
+
+        <div class="privacy-step">
+          <div class="privacy-step-marker"><span>02</span></div>
+          <div class="privacy-step-body">
+            <h3 class="privacy-step-title">We extract what we need and destroy the rest.</h3>
+            <p>Storing your emails wouldn&rsquo;t make the product better &mdash; it would slow every query, raise our compute costs, and create risk we have no reason to carry.</p>
+            <div class="pgfx pgfx-split">
+              <div class="pgfx-col pgfx-keep">
+                <div class="pgfx-col-head"><span class="pgfx-tick">&#10003;</span> What we keep</div>
+                <span class="pgfx-chip">Name</span>
+                <span class="pgfx-chip">Company &amp; role</span>
+                <span class="pgfx-chip">Last contact date</span>
+                <span class="pgfx-chip">Thread summary</span>
+              </div>
+              <div class="pgfx-col pgfx-drop">
+                <div class="pgfx-col-head"><span class="pgfx-cross">&times;</span> Destroyed immediately</div>
+                <span class="pgfx-chip">Email bodies</span>
+                <span class="pgfx-chip">Attachments</span>
+                <span class="pgfx-chip">Subject lines</span>
+              </div>
+            </div>
+            <p>We keep the contact signal. The sensitive content never lands in our database.</p>
+          </div>
+        </div>
+
+        <div class="privacy-step">
+          <div class="privacy-step-marker"><span>03</span></div>
+          <div class="privacy-step-body">
+            <h3 class="privacy-step-title">We refresh email and calendar data in real time, so we don&rsquo;t have to store it.</h3>
+            <p>Our team does a last-mile check before picking your three. That review pulls your data fresh, at the moment it&rsquo;s needed &mdash; nothing is kept afterwards.</p>
+            <div class="pgfx pgfx-flow">
+              <span class="pgfx-node">Fetch live</span>
+              <span class="pgfx-arrow">&rarr;</span>
+              <span class="pgfx-node">Review</span>
+              <span class="pgfx-arrow">&rarr;</span>
+              <span class="pgfx-node pgfx-node-end">Discard</span>
+              <span class="pgfx-nostore">No copy retained</span>
+            </div>
+            <p>A saved snapshot goes stale the moment it&rsquo;s written &mdash; people change roles, threads go quiet, replies land overnight. Live data is both safer and more accurate.</p>
+          </div>
+        </div>
+
+        <div class="privacy-step">
+          <div class="privacy-step-marker"><span>04</span></div>
+          <div class="privacy-step-body">
+            <h3 class="privacy-step-title">You&rsquo;re always one click from revoking everything.</h3>
+            <p>Change your mind at any point and you can cut access yourself, from your own Google Admin console. No email to us, no contract tied to the connection.</p>
+            <div class="pgfx">
+              <ol class="pgfx-steps">
+                <li><span class="pgfx-steps-n">1</span> Open your <strong>Google Admin</strong> console</li>
+                <li><span class="pgfx-steps-n">2</span> Go to <strong>Security<span class="pgfx-sep">&rsaquo;</span>API controls<span class="pgfx-sep">&rsaquo;</span>App access control</strong></li>
+                <li><span class="pgfx-steps-n">3</span> Select <strong>Accessed apps</strong></li>
+                <li><span class="pgfx-steps-n">4</span> Select <strong>RelationshipOps</strong> and click <strong>Change access</strong></li>
+                <li><span class="pgfx-steps-n">5</span> Under <strong>Access to Google Data</strong>, select <span class="pgfx-steps-final">Limited</span></li>
+              </ol>
+              <div class="pgfx-note">Takes effect immediately &mdash; no confirmation from us required.</div>
+            </div>
+            <p>The only consequence: while revoked, we can&rsquo;t track your outreach or keep your contacts current.</p>
+          </div>
+        </div>
+
+        <div class="privacy-step">
+          <div class="privacy-step-marker"><span>05</span></div>
+          <div class="privacy-step-body">
+            <h3 class="privacy-step-title">You get enterprise-level security.</h3>
+            <p>Every year we put the application through ESOF AppSec, an enterprise-grade security and vulnerability assessment built by TAC Security.</p>
+            <div class="pgfx pgfx-cert">
+              <div class="pgfx-cert-seal">
+                <span class="pgfx-cert-mark">&#10003;</span>
+              </div>
+              <div class="pgfx-cert-body">
+                <div class="pgfx-cert-name">ESOF AppSec &middot; TAC Security</div>
+                <div class="pgfx-cert-meta">Independent assessment &middot; renewed annually</div>
+              </div>
+            </div>
+            <p>We pay for these assessments because proving security to an outside authority counts for more than claiming it ourselves.</p>
+          </div>
+        </div>
+
+        <div class="privacy-step">
+          <div class="privacy-step-marker"><span>06</span></div>
+          <div class="privacy-step-body">
+            <h3 class="privacy-step-title">Still not sure? Speak to an active user.</h3>
+            <p>Everything above is us describing ourselves. We know that only counts for so much when the question is whether to connect your inbox &mdash; so we would rather you hear it from someone with nothing to sell you.</p>
+            <p>We&rsquo;ll introduce you to an agency currently running VeraOps. Ask them anything: what we actually touched, whether anything surprised them after connecting, how it felt in the first month, and whether they would do it again.</p>
+            <p>After making the introduction, we stay out of the conversation to avoid any bias.</p>
+            <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=relationships@veraops.com&su=Re%3A+Inbox+connection&body=Hi+The+VeraOps+Team%2C%0A%0AI%27m+considering+Relationship+Digest+and+would+like+to+speak+with+an+active+user+regarding+the+connection+of+my+inbox.%0A%0ACould+you+arrange+a+quick+conversation%3F%0A%0AThanks" target="_blank" class="btn btn-sage-lg" style="margin-top:20px; color:#fff; align-self:flex-start; width:auto;">Speak to an active user &rarr;</a>
+          </div>
+        </div>
+
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Privacy Mobile Carousel Nav (hidden on desktop) -->
-      <div class="privacy-mobile-nav" id="privacyMobileNav">
-        <button id="privPrev">&larr;</button>
-        <span class="privacy-mobile-counter"><span id="privCurrent">1</span> / 4</span>
-        <button id="privNext">&rarr;</button>
-      </div>
+<!-- ===== AGENCY LOGOS ===== -->
+<section class="section-white blend-white-to-sage" id="agencies">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <div class="section-label">Who Else Is Connected</div>
+      <h2 class="section-headline">You won&rsquo;t be the only one.</h2>
+      <p class="subtitle" style="margin-top:12px;">Firms that have their workspaces connected to our system.</p>
+    </div>
+  </div>
 
-      <!-- Privacy Tab Panels -->
-      <div class="privacy-panels">
-
-        <div class="privacy-panel active" id="privpanel-expensive">
-          <div class="privacy-panel-inner">
-            <p><strong>We extract what we need and destroy the rest.</strong></p>
-            <p>Storing your emails doesn&rsquo;t make our product better, in fact, it makes it worst. Because they take up memory, slow down every database query, and make our cron jobs run longer... which means higher compute costs on every single run. And storing them creates risks we have no reason to carry.</p>
-            <p>That&rsquo;s why we do <strong>not</strong> save any sensitive email content.</p>
-            <p>We extract the contact signals we need and destroy everything else immediately... and the access we have is read-only which means we can never send, delete, or modify anything in your inbox.</p>
-          </div>
-        </div>
-
-        <div class="privacy-panel" id="privpanel-control">
-          <div class="privacy-panel-inner">
-            <p><strong>You&rsquo;re always one click from revoking everything.</strong></p>
-            <p>If anything ever feels wrong, or you notice something unexpected, or you simply change your mind... you can revoke access instantly from your Google account settings.</p>
-            <p>No need to email us. No contract tied to data connection.</p>
-            <p>Just note that if you&rsquo;re still an active user, we won&rsquo;t be able to track your outreach and update your contacts&rsquo; information anymore.</p>
-          </div>
-        </div>
-
-        <div class="privacy-panel" id="privpanel-security">
-          <div class="privacy-panel-inner">
-            <p><strong>You get enterprise-level security.</strong></p>
-            <p>Every year, we put our application through Enterprise Security in One Framework (ESOF) Application Security (AppSec) &mdash; an enterprise-grade application security and vulnerability management platform built by TAC Security.</p>
-            <p>TAC Security is an independent authority we run our application through, year after year, to get formally approved for our application security. We don&rsquo;t treat this as a checkbox: we actively pay for these assessments because earning your trust around inbox access means proving our security to an external authority, not just claiming it ourselves.</p>
-          </div>
-        </div>
-
-        <div class="privacy-panel" id="privpanel-talk">
-          <div class="privacy-panel-inner">
-            <p><strong>Still not sure? Speak to an active user.</strong></p>
-            <p>If privacy is still a concern to you, we can let you speak to one of our active users.</p>
-            <p>Just click on the button below and send us a request email.</p>
-            <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=relationships@veraops.com&su=Re%3A+Inbox+connection&body=Hi+The+VeraOps+Team%2C%0A%0AI%27m+considering+Relationship+Digest+and+would+like+to+speak+with+an+active+user+regarding+the+connection+of+my+inbox.%0A%0ACould+you+arrange+a+quick+conversation%3F%0A%0AThanks" target="_blank" class="btn btn-sage-lg" style="margin-top:24px; color:#fff; align-self:flex-start; width:auto;">Speak to an active user &rarr;</a>
-          </div>
-        </div>
-
-      </div>
+  <div class="agency-marquee fade-in">
+    <div class="agency-track">
+      <!-- Logos live in assets/agency-logos/. Sizes are per-logo (see CSS) so
+           every mark reads at the same visual weight. The set repeats once for
+           the seamless -50% loop; the duplicate is hidden from screen readers. -->
+      <figure class="agency-logo">
+        <img class="lg-ghost" src="assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bubbly" src="assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bx" src="assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-barrel" src="assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-outsight" src="assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-driver" src="assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-rafferty" src="assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-paper" src="assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-ghost" src="assets/agency-logos/ghost-robot.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bubbly" src="assets/agency-logos/team-bubbly-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bx" src="assets/agency-logos/bx-studio-clean.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-barrel" src="assets/agency-logos/barrel-holdings-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-outsight" src="assets/agency-logos/agency-outsight-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-driver" src="assets/agency-logos/driver-digital-clean.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-rafferty" src="assets/agency-logos/rafferty-weiss.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-paper" src="assets/agency-logos/paperwhite-studio-v2.png" alt="" loading="lazy">
+      </figure>
     </div>
   </div>
 </section>
@@ -4131,18 +4492,18 @@ section.hero + section { border-top: 0; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="section-label">Pricing</div>
-      <h2 class="section-headline">Subscribe to our thinking.</h2>
-      <p class="subtitle pricing-subtitle" style="margin-top:12px;">You get our way of thinking about dormant relationships... and the system that turns them into new business.</p>
+      <h2 class="section-headline">Subscribe to VeraOps.</h2>
+      <p class="subtitle pricing-subtitle" style="margin-top:12px;">You get our way of thinking about dormant relationships, the system that turns them into new business, and a team that runs it alongside you.</p>
     </div>
     <div class="fade-in" style="text-align:center;">
       <div class="pricing-toggle" role="tablist" aria-label="Billing period">
         <button class="pricing-toggle-btn active" data-plan="quarter" role="tab" aria-selected="true">Quarter</button>
-        <button class="pricing-toggle-btn" data-plan="annual" role="tab" aria-selected="false">Annual <span class="pricing-toggle-save">(2 months free)</span></button>
+        <button class="pricing-toggle-btn" data-plan="annual" role="tab" aria-selected="false">Annual <span class="pricing-toggle-save">(30 days free)</span></button>
       </div>
     </div>
     <div class="pricing-single fade-in">
       <div class="pricing-card featured" style="max-width:440px; margin:32px auto 0;">
-        <div class="pricing-amount" data-price-quarter="$1,000" data-price-annual="$10,000">$1,000 <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;">/ month</span></div>
+        <div class="pricing-amount" data-price-quarter="$2,000" data-price-annual="$22,000">$2,000 <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;">/ month</span></div>
         <div class="pricing-period"><span class="pricing-billing">Billed quarterly</span> &middot; No setup fee</div>
 
         <ul class="pricing-features">
@@ -4151,6 +4512,7 @@ section.hero + section { border-top: 0; }
           <li><span class="pricing-check">&#10003;</span> Tailored tiering strategy, based on ICP</li>
           <li><span class="pricing-check">&#10003;</span> Handpick relationships for daily digest</li>
           <li><span class="pricing-check">&#10003;</span> Custom signals engineering</li>
+          <li><span class="pricing-check">&#10003;</span> Warm introduction mapping</li>
           <li><span class="pricing-check">&#10003;</span> Direct access to our team through Slack</li>
           <li class="pricing-separator"><span>Technology</span></li>
           <li><span class="pricing-check">&#10003;</span> Relationship Digest</li>
@@ -4163,7 +4525,8 @@ section.hero + section { border-top: 0; }
           <li><span class="pricing-check">&#10003;</span> Relationship Recap</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Snapshot of your reconnection progress</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Reverse engineer successful reconnection</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Strategy updates and what to focus next</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Follow-up system after initial outreach</li>
+          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Align and adjust reconnection strategy</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Sent to your Gmail every week, month, and quarter</li>
         </ul>
 
@@ -4218,54 +4581,75 @@ section.hero + section { border-top: 0; }
       <h2 class="section-headline">Questions we get asked.</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          Does inbox-sifting involve multiple people, or just one person?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+      <div class="faq-item open">
+        <button class="faq-question" aria-expanded="true">
+          <span class="faq-num">01</span>
+          <span class="faq-q-text">Does inbox-sifting involve multiple people, or just one person?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>It can be either. Some teams have only one person connected, while others may need multiple team members involved. We think it is more valuable for the team members themselves to use it, since they are the ones with the more active client relationships &mdash; though we understand you may want to start with yourself first. Scanning team members&rsquo; inboxes is also useful because if a team member leaves, the company still keeps the relationship asset.</p></div>
         </div>
-        <div class="faq-answer"><p>It can be either. Some teams have only one person connected, while others may need multiple team members involved. We think it is more valuable for the team members themselves to use it, since they are the ones with the more active client relationships &mdash; though we understand you may want to start with yourself first. Scanning team members&rsquo; inboxes is also useful because if a team member leaves, the company still keeps the relationship asset.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          How often is the digest sent, and how many contacts are in each digest?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">02</span>
+          <span class="faq-q-text">How often is the digest sent, and how many contacts are in each digest?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>The digest is sent once every weekday and includes three contacts per digest. There is also a weekly recap, a monthly recap, and a quarterly recap.</p></div>
         </div>
-        <div class="faq-answer"><p>The digest is sent once every weekday and includes three contacts per digest. There is also a weekly recap, a monthly recap, and a quarterly recap.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          What happens if a contact is wrong or the LinkedIn data is inaccurate?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">03</span>
+          <span class="faq-q-text">What happens if a contact is wrong or the LinkedIn data is inaccurate?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>We try to verify that the LinkedIn profile matches the real person you contacted. If the profile is wrong, you can tell us it is the wrong person. If we cannot find a LinkedIn URL, there is not much we can do about it, but we will monitor it on our side.</p></div>
         </div>
-        <div class="faq-answer"><p>We try to verify that the LinkedIn profile matches the real person you contacted. If the profile is wrong, you can tell us it is the wrong person. If we cannot find a LinkedIn URL, there is not much we can do about it, but we will monitor it on our side.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          How far back should inbox history go to get meaningful results?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">04</span>
+          <span class="faq-q-text">How far back should inbox history go to get meaningful results?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Ten years is typically the sweet spot. That is usually enough history to uncover a large and useful pool of past relationships without going so far back that the data becomes too noisy or difficult to clean.</p></div>
         </div>
-        <div class="faq-answer"><p>Ten years is typically the sweet spot. That is usually enough history to uncover a large and useful pool of past relationships without going so far back that the data becomes too noisy or difficult to clean.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          Why does the solution send three people per day?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">05</span>
+          <span class="faq-q-text">Why does the solution send three people per day?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>The logic is that outreach compounds: one good introduction can turn into replies, follow-ups, and meetings, which then create more work and more opportunity. Sending too many recommendations each day can reduce follow-through and make the process feel like noise. Hence, we believe that three contacts per day is the sweet spot.</p></div>
         </div>
-        <div class="faq-answer"><p>The logic is that outreach compounds: one good introduction can turn into replies, follow-ups, and meetings, which then create more work and more opportunity. Sending too many recommendations each day can reduce follow-through and make the process feel like noise. Hence, we believe that three contacts per day is the sweet spot.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          How is my data protected when I give inbox access?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">06</span>
+          <span class="faq-q-text">How is my data protected when I give inbox access?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>We have enterprise security certifications through an application security framework, and the company is certified by a Google-partnered security provider. We also do not save full email bodies. Instead, during onboarding we scrape the emails for relevant information, summarize it, and save snippets and summaries rather than the raw email content.</p></div>
         </div>
-        <div class="faq-answer"><p>We have enterprise security certifications through an application security framework, and the company is certified by a Google-partnered security provider. We also do not save full email bodies. Instead, during onboarding we scrape the emails for relevant information, summarize it, and save snippets and summaries rather than the raw email content.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          Can I get the extracted contact data if I want it?
-          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg></span>
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">07</span>
+          <span class="faq-q-text">Can I get the extracted contact data if I want it?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Yes. We&rsquo;re open to sharing them should you not plan to continue after the first 6 months.</p></div>
         </div>
-        <div class="faq-answer"><p>Yes. We&rsquo;re open to sharing them should you not plan to continue after the first 6 months.</p></div>
       </div>
     </div>
   </div>
@@ -4340,7 +4724,7 @@ if (navToggle && navEl) {
     requestAnimationFrame(raf);
   }
   requestAnimationFrame(raf);
-  const hoverSel = 'a, button, .btn, [data-cursor], .hiw-tab, .privacy-tab, input, textarea, summary, .faq-question';
+  const hoverSel = 'a, button, .btn, [data-cursor], .hiw-tab, input, textarea, summary, .faq-question';
   document.querySelectorAll(hoverSel).forEach(el => {
     el.addEventListener('mouseenter', () => {
       dot.classList.add('is-hover');
@@ -4442,12 +4826,22 @@ if (tieringList) {
 
 
 // FAQ
-function toggleFaq(el) {
-  const item = el.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
-}
+// FAQ accordion — one open at a time; clicking the open row closes it.
+document.querySelectorAll('.faq-item .faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      const q = i.querySelector('.faq-question');
+      if (q) q.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
 
 // Ripple
 document.querySelectorAll('.btn').forEach(btn => {
@@ -4564,46 +4958,7 @@ document.querySelectorAll('.tech-toggle-btn').forEach(btn => {
   });
 });
 
-// Privacy tabs (desktop)
-document.querySelectorAll('.privacy-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.privacy-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    const panel = document.getElementById('privpanel-' + tab.dataset.privtab);
-    if (panel) panel.classList.add('active');
-    // Sync mobile counter
-    const panels = ['expensive','control','security','talk'];
-    const idx = panels.indexOf(tab.dataset.privtab);
-    if (idx >= 0) { privacyMobileIndex = idx; updatePrivacyCounter(); }
-  });
-});
-
-// Privacy mobile carousel
-let privacyMobileIndex = 0;
-const privPanelIds = ['expensive','control','security','talk'];
-function showPrivacyPanel(idx) {
-  privacyMobileIndex = idx;
-  document.querySelectorAll('.privacy-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.privacy-panel').forEach(p => p.classList.remove('active'));
-  const tab = document.querySelector('.privacy-tab[data-privtab="' + privPanelIds[idx] + '"]');
-  if (tab) tab.classList.add('active');
-  const panel = document.getElementById('privpanel-' + privPanelIds[idx]);
-  if (panel) panel.classList.add('active');
-  updatePrivacyCounter();
-}
-function updatePrivacyCounter() {
-  const counter = document.getElementById('privCurrent');
-  if (counter) counter.textContent = privacyMobileIndex + 1;
-}
-const privPrev = document.getElementById('privPrev');
-const privNext = document.getElementById('privNext');
-if (privPrev) privPrev.addEventListener('click', () => {
-  showPrivacyPanel(privacyMobileIndex <= 0 ? privPanelIds.length - 1 : privacyMobileIndex - 1);
-});
-if (privNext) privNext.addEventListener('click', () => {
-  showPrivacyPanel(privacyMobileIndex >= privPanelIds.length - 1 ? 0 : privacyMobileIndex + 1);
-});
+// Privacy rail is static — always expanded, no JS needed.
 
 // Pricing billing-period toggle (Quarter | Annual)
 (function () {
