@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeraOps &mdash; ABM Agent</title>
+<meta name="description" content="Use our ABM agent for 90 days to break into the accounts you actually want &mdash; without hiring an outbound agency or an outsourced business development firm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* === Design System tokens (paper-and-ink) === */
+  --paper:        #F3F8EA;
+  --paper-2:      #EAF0DC;
+  --surface:      #FFFFFF;
+  --surface-ink:  #F8FBF1;
+  --ink:          #000000;
+  --ink-2:        #2B2B2B;
+  --ink-3:        #6B6B6B;
+  --ink-4:        #A8A8A8;
+  --hairline:     #DCE3CD;
+  --hairline-2:   #C5CFB1;
+  --spark:        #E5A83D;
+  --spark-deep:   #B7811F;
+  --spark-soft:   #F4D89A;
+  --spark-paper:  #FBF1D8;
+
+  /* === Legacy variable names remapped to design system === */
+  --black: var(--ink);
+  --white: var(--surface);
+  --sage: var(--paper-2);
+  --muted: var(--ink-3);
+  --olive-deep: var(--ink);
+  --digest-bg: #1A1A1A;
+  --hover-dark: var(--ink-2);
+  --sage-mid: var(--hairline-2);
+  --card-border: var(--hairline);
+  --text-dark: var(--ink);
+  --text-mid: var(--ink-2);
+  --text-soft: var(--ink-3);
+
+  /* Type families */
+  --font-display: 'Newsreader', 'Source Serif 4', Georgia, serif;
+  --font-sans:    'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --max-w: 1200px;
+  --pad-v: 120px;
+  --pad-h: 32px;
+  --radius: 10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* Scroll Progress */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--olive-deep); z-index: 200; width: 0%;
+  transition: width 50ms linear;
+}
+
+/* Paper grain overlay */
+.grain-overlay {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.85; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+@media (prefers-reduced-motion: reduce) { .grain-overlay { opacity: 0.7; } }
+
+/* Container */
+.container {
+  width: 100%; max-width: var(--max-w);
+  margin: 0 auto; padding: 0 var(--pad-h);
+  position: relative; z-index: 2;
+}
+
+/* Navigation */
+.nav {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100;
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  background: rgba(243, 248, 234, 0.55);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border: 1px solid rgba(220, 227, 205, 0.45);
+  border-radius: 999px;
+  box-shadow: 0 8px 28px -8px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 200ms ease, background 200ms ease;
+}
+.nav.scrolled { box-shadow: 0 10px 32px -8px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.05); }
+.nav-inner {
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 8px 8px 8px 24px;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-wordmark, .nav-brand-text {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em;
+}
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-2); transition: color 150ms ease; white-space: nowrap; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { padding: 10px 18px; font-size: 13px; gap: 6px; }
+.nav-cta .arrow { transition: transform 150ms ease; }
+.nav-cta:hover .arrow { transform: translateX(2px); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; cursor: pointer; font-family: var(--font-sans);
+  font-weight: 500; border-radius: 999px;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease;
+  position: relative; overflow: hidden;
+  letter-spacing: 0.01em;
+}
+.btn:active { transform: scale(0.985); }
+.btn-sage { background: var(--ink); color: var(--paper); padding: 10px 22px; font-size: 14px; }
+.btn-sage:hover { background: var(--ink-2); color: var(--paper); }
+.btn-sage-lg { background: var(--ink); color: var(--paper); padding: 10px 24px; font-size: 15px; }
+.btn-sage-lg:hover { background: var(--ink-2); }
+.btn-sage-xl { background: var(--ink); color: var(--paper); padding: 10px 24px; font-size: 15px; }
+.btn-sage-xl:hover { background: var(--ink-2); }
+.btn-ghost { background: transparent; border: 1px solid var(--ink); color: var(--ink); padding: 10px 24px; font-size: 15px; }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn-light { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 10px 24px; font-size: 15px; }
+.btn-light:hover { background: var(--ink); color: var(--paper); }
+.btn .ripple {
+  position: absolute; border-radius: 50%; background: rgba(255,255,255,0.3);
+  transform: scale(0); animation: ripple-anim 600ms ease forwards; pointer-events: none;
+}
+@keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+
+/* Section Label / Eyebrow */
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 12px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 18px;
+}
+
+/* Typography */
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.6vw, 72px); font-weight: 500;
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--ink);
+  text-wrap: balance; overflow-wrap: break-word;
+}
+.hero-headline em { color: var(--spark-deep); font-style: italic; }
+.section-headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 38px); font-weight: 500;
+  line-height: 1.1; letter-spacing: -0.025em; color: var(--ink);
+  text-wrap: balance;
+}
+.section-headline em { color: var(--spark-deep); font-style: italic; }
+.cta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.2vw, 48px); font-weight: 500;
+  line-height: 1.1; letter-spacing: -0.025em; color: var(--ink);
+  text-wrap: balance;
+}
+.cta-headline em { color: var(--spark-deep); font-style: italic; }
+.subtitle { font-size: 18px; line-height: 1.55; color: var(--ink-2); }
+
+/* Sections — separated by hairlines, not blocks */
+.section-white { background: var(--paper); padding: var(--pad-v) 0; position: relative; }
+.section-sage { background: var(--paper); padding: var(--pad-v) 0; position: relative; }
+section + section { border-top: 1px solid var(--hairline); }
+section.hero + section { border-top: 0; }
+
+/* Gold highlight sweep */
+.highlight-mark {
+  background-size: 0% 100%;
+  background-image: linear-gradient(120deg, var(--spark-paper) 0%, var(--spark-soft) 100%);
+  background-repeat: no-repeat;
+  transition: background-size 0.8s ease;
+  border-radius: 2px; padding: 1px 2px; margin: -1px -2px;
+}
+.highlight-mark.active { background-size: 100% 100%; }
+.gold-text { color: var(--spark-deep); font-weight: 600; }
+
+/* Animations */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 300ms ease, transform 300ms ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.stagger-in { opacity: 0; transform: translateY(30px); transition: opacity 500ms ease, transform 500ms ease; }
+.stagger-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh; padding-top: 150px; padding-bottom: 80px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: var(--paper);
+}
+.hero-inner { max-width: 1400px; margin: 0 auto; padding: 0 var(--pad-h); width: 100%; position: relative; z-index: 2; }
+
+.hero-network {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  opacity: 0.5;
+  -webkit-mask-image: radial-gradient(78% 58% at 50% 45%, transparent 0%, rgba(0,0,0,0.20) 26%, rgba(0,0,0,0.70) 50%, #000 72%, #000 100%);
+          mask-image: radial-gradient(78% 58% at 50% 45%, transparent 0%, rgba(0,0,0,0.20) 26%, rgba(0,0,0,0.70) 50%, #000 72%, #000 100%);
+}
+.hero-network svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-net-lines path { fill: none; stroke: var(--hairline-2); stroke-width: 1; opacity: 0.6; }
+.hero-net-lines .hero-net-bridge { stroke: var(--spark); stroke-width: 1.1; opacity: 0.5; }
+.hero-net-nodes circle { fill: var(--hairline-2); opacity: 0.65; }
+.hero-net-nodes .hero-net-hub { fill: var(--spark); opacity: 0.65; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-net-nodes .hero-net-hub { animation: hero-net-pulse 4.5s ease-in-out infinite; }
+}
+@keyframes hero-net-pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.7; } }
+@media (max-width: 768px) { .hero-network { opacity: 0.7; } }
+
+.eyebrow-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 14px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--hairline);
+  font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1;
+  color: var(--ink-2); letter-spacing: 0.02em; margin-bottom: 28px;
+}
+.eyebrow-tag span { line-height: 1; }
+
+.hero .hero-headline { max-width: 1340px; margin: 0 auto 24px; }
+.hero-sub { margin: 0 auto 32px; font-size: 18px; color: var(--ink-2); line-height: 1.55; max-width: 62ch; }
+.hero-ctas { display: inline-flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; }
+.hero-ctas .btn { padding-top: 10px; padding-bottom: 10px; }
+
+.hero-note {
+  margin-top: 26px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+
+/* Hero entrance animation */
+.hero-anim { opacity: 0; transform: translateY(20px); animation: hero-rise 0.9s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+.hero-anim:nth-child(1) { animation-delay: 0.05s; }
+.hero-anim:nth-child(2) { animation-delay: 0.15s; }
+.hero-anim:nth-child(3) { animation-delay: 0.25s; }
+.hero-anim:nth-child(4) { animation-delay: 0.35s; }
+.hero-anim:nth-child(5) { animation-delay: 0.45s; }
+.hero-anim:nth-child(6) { animation-delay: 0.55s; }
+@keyframes hero-rise { to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim { animation: none; opacity: 1; transform: none; }
+  .scroll-cue .line { animation: none; }
+}
+
+/* Scroll cue */
+.scroll-cue {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 36px 0 0;
+  font-family: var(--font-mono); font-weight: 500; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-3);
+}
+.scroll-cue .line {
+  width: 28px; height: 1px; background: var(--ink-3); transform-origin: left;
+  animation: scroll-cue-line 1.6s cubic-bezier(0.65,0,0.35,1) infinite;
+}
+@keyframes scroll-cue-line {
+  0%   { transform: scaleX(0); transform-origin: left; }
+  50%  { transform: scaleX(1); transform-origin: left; }
+  51%  { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+
+
+/* ===== PROBLEM ===== */
+.problem-head { max-width: 760px; }
+.problem-lede {
+  font-size: 17px; line-height: 1.75; color: var(--text-mid); margin-top: 18px; max-width: 68ch;
+}
+.problem-lede strong { color: var(--ink); font-weight: 600; }
+
+.prob-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; margin-top: 56px;
+}
+.prob {
+  padding: 28px 0; border-top: 1px solid var(--hairline);
+}
+.prob-index { margin-bottom: 12px; }
+.prob-num {
+  font-family: var(--font-display); font-size: 34px; font-weight: 500;
+  line-height: 1; color: var(--spark-deep); letter-spacing: -0.02em;
+}
+.prob h3 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 500;
+  line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 10px;
+}
+.prob p { font-size: 15px; line-height: 1.7; color: var(--text-mid); }
+
+/* Bridge into the solution */
+.problem-bridge {
+  max-width: 760px; margin-top: 64px; padding-top: 36px;
+  border-top: 1px solid var(--hairline);
+}
+.problem-bridge p {
+  font-family: var(--font-display); font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 500; line-height: 1.32; letter-spacing: -0.02em; color: var(--ink);
+  text-wrap: balance;
+}
+.problem-bridge p em { font-style: italic; color: var(--spark-deep); }
+
+/* ===== COMPARE / ALTERNATIVES ===== */
+/* The usual route: a full-width editorial block, not a boxed callout. The
+   role and cost sit on the left; the limitations run as a numbered list. */
+.route {
+  display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 0 64px; margin-top: 56px;
+  border-top: 2px solid var(--ink); padding-top: 36px;
+}
+.route-head { position: sticky; top: 110px; align-self: start; }
+.route-role {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-4);
+  margin-bottom: 12px;
+}
+.route-cost {
+  font-family: var(--font-display); font-size: clamp(34px, 4vw, 46px);
+  font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--ink);
+}
+.route-cost small { font-size: 15px; font-weight: 400; opacity: 0.5; letter-spacing: 0; }
+.route-note {
+  font-size: 14px; line-height: 1.6; color: var(--ink-3); margin-top: 14px; max-width: 30ch;
+}
+.route-list { list-style: none; margin: 0; padding: 0; }
+.route-list li {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 0 18px;
+  padding: 22px 0; border-top: 1px solid var(--hairline);
+}
+.route-list li:first-child { border-top: 0; padding-top: 0; }
+.route-n {
+  font-family: var(--font-display); font-size: 22px; font-weight: 500;
+  line-height: 1.2; color: var(--spark-deep); letter-spacing: -0.02em;
+}
+.route-list b {
+  display: block; font-size: 17px; font-weight: 600; color: var(--ink);
+  line-height: 1.35; margin-bottom: 7px; letter-spacing: -0.01em;
+}
+.route-list p { font-size: 15px; line-height: 1.7; color: var(--text-mid); margin: 0; }
+/* Hand-off line from the problem into the solution. */
+.cmp-bridge {
+  max-width: 720px; margin: 56px 0 0; padding-top: 36px;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-display); font-size: clamp(19px, 2.2vw, 24px);
+  font-weight: 500; line-height: 1.4; letter-spacing: -0.015em; color: var(--ink);
+  text-wrap: balance;
+}
+.cmp-bridge em { font-style: italic; color: var(--spark-deep); }
+
+/* ===== PULL QUOTE ===== */
+.pullquote {
+  background: var(--paper-2);
+  padding: calc(var(--pad-v) * 0.85) 0;
+  position: relative; z-index: 2;
+}
+.pullquote .container { max-width: 980px; }
+.pullquote blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.4vw, 40px);
+  line-height: 1.24; letter-spacing: -0.02em;
+  color: var(--ink); font-weight: 500; margin: 0;
+  text-wrap: balance;
+}
+.pullquote blockquote em { font-style: italic; color: var(--spark-deep); }
+.pullquote .pullquote-mark {
+  font-family: var(--font-display); font-size: clamp(56px, 8vw, 96px);
+  line-height: 0.6; color: var(--spark); display: block; margin-bottom: 8px;
+  opacity: 0.85;
+}
+.pullquote cite {
+  display: block; margin-top: 24px; font-style: normal;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+
+/* ===== SOLUTION ===== */
+.sol-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; margin-top: 56px;
+}
+.sol {
+  padding: 30px 0; border-top: 1px solid var(--hairline);
+}
+.sol-num {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--spark-paper); border: 1px solid var(--spark-soft); color: var(--spark-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  margin-bottom: 16px;
+}
+.sol h3 {
+  font-family: var(--font-display); font-size: 23px; font-weight: 500;
+  line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 10px;
+}
+.sol p { font-size: 15px; line-height: 1.7; color: var(--text-mid); }
+
+/* ===== PRICING ===== */
+.pricing-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px;
+  max-width: 900px; margin-left: auto; margin-right: auto; align-items: stretch;
+}
+.pricing-card {
+  border: 1.5px solid var(--card-border); border-radius: var(--radius); padding: 40px 32px;
+  background: var(--white); text-align: center; transition: box-shadow 200ms ease, transform 200ms ease;
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+}
+.pricing-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.pricing-card.featured { border-color: var(--olive-deep); background: var(--digest-bg); color: var(--white); }
+.pricing-card.featured::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--spark-soft), var(--spark), var(--spark-soft));
+  background-size: 200% 100%; animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.pricing-badge {
+  display: inline-block; font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  background: var(--spark-paper); color: var(--spark-deep);
+  padding: 5px 12px; border-radius: 999px; margin-bottom: 18px; align-self: center;
+}
+.pricing-card.featured .pricing-badge { background: rgba(229,168,61,0.16); color: var(--spark); }
+.pricing-amount {
+  font-family: var(--font-display); font-size: clamp(34px, 4vw, 46px); font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1;
+}
+.pricing-amount-unit { font-size: 18px; font-weight: 500; opacity: 0.6; }
+.pricing-period { font-size: 14px; color: var(--muted); margin-top: 8px; margin-bottom: 26px; }
+.pricing-card.featured .pricing-period { color: rgba(255,255,255,0.6); }
+.pricing-features { text-align: left; list-style: none; margin-bottom: 28px; flex: 1; }
+.pricing-features li {
+  font-size: 14px; padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.6;
+}
+.pricing-card.featured .pricing-features li { border-bottom-color: rgba(255,255,255,0.08); }
+.pricing-check { color: var(--spark-deep); font-weight: 600; min-width: 18px; }
+.pricing-card.featured .pricing-check { color: var(--spark); }
+.pricing-features li.pricing-separator {
+  border-bottom: none; padding: 16px 0 4px; font-family: var(--font-mono);
+  font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--ink-4);
+}
+.pricing-card.featured .pricing-features li.pricing-separator { color: rgba(255,255,255,0.45); }
+/* "Everything in the trial" roll-up line at the head of the annual plan. */
+.pricing-features li.pricing-inherit {
+  border-bottom: 1px solid var(--hairline); padding-bottom: 12px;
+}
+.pricing-features li.pricing-inherit strong { font-weight: 600; color: var(--ink); }
+.pricing-note {
+  margin-top: 14px; font-size: 12.5px; text-align: center; color: var(--ink-3);
+}
+.pricing-card.featured .pricing-note { color: rgba(255,255,255,0.55); }
+
+/* ===== TIMELINE / GANTT ===== */
+.tl-legend {
+  display: flex; gap: 28px; flex-wrap: wrap; margin-top: 48px; margin-bottom: 20px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  color: var(--ink-3); text-transform: uppercase;
+}
+.tl-legend span { display: flex; align-items: center; gap: 9px; }
+.tl-sw { width: 22px; height: 10px; border-radius: 3px; display: inline-block; }
+.tl-sw.solid { background: var(--ink); }
+.tl-sw.faded { background: var(--spark); opacity: 0.45; }
+
+.gantt {
+  border: 1px solid var(--hairline); border-radius: 16px; background: var(--surface);
+  box-shadow: 0 12px 36px -18px rgba(0,0,0,0.16); overflow: hidden;
+}
+.gantt-head { display: grid; grid-template-columns: 210px 1fr; border-bottom: 1px solid var(--hairline); }
+.gantt-head .g-lbl {
+  padding: 14px 20px; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+  border-right: 1px solid var(--hairline);
+}
+.g-months { display: grid; grid-template-columns: repeat(3, 1fr); }
+.g-months div {
+  padding: 14px 20px; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+  border-right: 1px solid var(--hairline);
+}
+.g-months div:last-child { border-right: 0; }
+.g-row { display: grid; grid-template-columns: 210px 1fr; border-bottom: 1px solid var(--hairline); }
+.g-row:last-child { border-bottom: 0; }
+.g-rlbl {
+  padding: 20px; border-right: 1px solid var(--hairline);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.g-rlbl b { font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--ink); }
+.g-rlbl span { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4); margin-top: 6px; letter-spacing: 0.04em; }
+.g-bars {
+  position: relative; height: 82px;
+  background-image: linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: 33.333% 100%;
+}
+.g-bar {
+  position: absolute; top: 24px; height: 34px; border-radius: 6px;
+  display: flex; align-items: center; padding: 0 14px;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em;
+  white-space: nowrap; overflow: hidden;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 700ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.g-row.visible .g-bar { transform: scaleX(1); }
+.g-row.visible .g-bar:nth-child(2) { transition-delay: 180ms; }
+.g-bar.active { background: var(--ink); color: var(--paper); }
+.g-bar.follow { background: var(--spark-paper); border: 1px solid var(--spark-soft); color: var(--spark-deep); }
+@media (prefers-reduced-motion: reduce) { .g-bar { transform: none; transition: none; } }
+
+/* Swipe affordance for the horizontally scrolling gantt — mobile only. */
+.g-scale { display: none; }
+.gantt-hint {
+  display: none; margin-top: 12px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-4);
+}
+
+.tl-note {
+  font-family: var(--font-display); font-size: 17px; line-height: 1.65; color: var(--text-mid);
+  max-width: 70ch; margin-top: 28px; padding-left: 20px; border-left: 2px solid var(--spark);
+}
+.tl-note em { font-style: italic; color: var(--ink); }
+
+/* ===== PHASES ===== */
+/* ===== STEPS (Per Target Account) =====
+   Two phase blocks, each a run of rows. The day sits in a fixed rail, the
+   title next to it, and a chevron pinned at a constant distance so the eye
+   has a stable right edge. Detail opens in place on hover. */
+.steps { margin-top: 52px; max-width: 720px; }
+
+.steps-phase {
+  /* Same track widths as .step, so "PHASE ONE" sits in the day rail and the
+     phase name lines up with the step titles beneath it. */
+  display: grid; grid-template-columns: 104px minmax(0, 1fr) auto;
+  align-items: baseline; gap: 0 20px;
+  padding: 0 0 16px; margin-bottom: 14px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.steps-phase:not(:first-child) { margin-top: 68px; }
+.steps-phase-tag {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--spark-deep);
+}
+.steps-phase-name {
+  font-family: var(--font-display); font-size: 23px; font-weight: 500;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.steps-phase-days {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+
+.step {
+  display: grid; grid-template-columns: 104px minmax(0, 1fr) 16px;
+  align-items: start; gap: 0 20px;
+  padding: 16px 18px; margin: 0 -18px;
+  border-radius: 12px; position: relative; cursor: default; outline: none;
+  border: 1px solid transparent;
+  transition: background 220ms ease, border-color 220ms ease,
+              box-shadow 220ms ease, transform 220ms ease;
+}
+/* Hairline between rows, drawn on the row itself so it can fade on hover. */
+.step + .step::before {
+  content: ''; position: absolute; top: -1px; left: 18px; right: 18px;
+  height: 1px; background: var(--hairline);
+  transition: opacity 180ms ease;
+}
+/* Open state: a defined card that lifts off the paper, with a gold left edge
+   marking which row you are reading. */
+.step:hover, .step:focus-visible {
+  background: var(--surface);
+  border-color: var(--hairline);
+  box-shadow: 0 14px 34px -18px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.03);
+  transform: translateY(-1px);
+  z-index: 2;
+}
+.step:hover::after, .step:focus-visible::after {
+  content: ''; position: absolute; left: 0; top: 12px; bottom: 12px;
+  width: 2px; border-radius: 2px; background: var(--spark);
+}
+/* Hide the neighbouring rules so the raised card reads as one clean shape. */
+.step:hover::before, .step:hover + .step::before,
+.step:focus-visible::before, .step:focus-visible + .step::before { opacity: 0; }
+
+.step-day {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-4); padding-top: 4px;
+  transition: color 200ms ease; white-space: nowrap;
+}
+.step:hover .step-day, .step:focus-visible .step-day { color: var(--spark-deep); }
+
+.step-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.step-head b {
+  font-size: 16.5px; font-weight: 600; color: var(--ink);
+  letter-spacing: -0.01em; line-height: 1.35;
+}
+/* Chevron lives in its own grid track, so it never drifts from the title. */
+.step-more {
+  grid-column: 3; width: 7px; height: 7px; margin-top: 8px; justify-self: end;
+  border-right: 1.5px solid var(--hairline-2); border-bottom: 1.5px solid var(--hairline-2);
+  transform: rotate(45deg);
+  transition: transform 260ms cubic-bezier(0.4,0,0.2,1), border-color 200ms ease;
+}
+.step:hover .step-more, .step:focus-visible .step-more {
+  transform: rotate(-135deg); border-color: var(--spark-deep);
+}
+/* The body spans title + chevron tracks so the text keeps full measure. */
+.step .reveal-body { grid-column: 2 / -1; }
+.step p { font-size: 14.5px; line-height: 1.7; color: var(--text-mid); margin: 9px 0 0; max-width: 58ch; }
+
+.once {
+  display: inline-block; font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  background: var(--spark-paper); color: var(--spark-deep); border: 1px solid var(--spark-soft);
+  padding: 2px 8px; border-radius: 999px; margin-left: 8px; vertical-align: middle;
+}
+
+/* ===== HOVER-REVEAL (route list + phase items) =====
+   Headings carry the scan; the detail opens on hover so the sections stay
+   light. grid-template-rows animates to auto height with no max-height guess.
+   Touch devices get tap-to-toggle instead (see @media (hover: none) below). */
+.reveal-body {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal-body > div { overflow: hidden; min-height: 0; }
+.reveal-body p {
+  opacity: 0; transition: opacity 200ms ease 60ms;
+}
+.route-list li:hover .reveal-body,
+.route-list li:focus-within .reveal-body,
+.step:hover .reveal-body,
+.step:focus-within .reveal-body { grid-template-rows: 1fr; }
+.route-list li:hover .reveal-body p,
+.route-list li:focus-within .reveal-body p,
+.step:hover .reveal-body p,
+.step:focus-within .reveal-body p { opacity: 1; }
+
+/* The whole row is the hover target, so give it a readable affordance. */
+.route-list li { cursor: default; transition: background 180ms ease; }
+.route-list li > div { position: relative; }
+
+/* A hairline cue that there is more to read, fading as the row opens. */
+.reveal-cue {
+  display: block; margin-top: 6px; height: 1px; width: 34px;
+  background: var(--spark); opacity: 0.55;
+  transition: width 300ms ease, opacity 200ms ease;
+}
+.route-list li:hover .reveal-cue { width: 0; opacity: 0; }
+
+/* Touch: no hover, so the row toggles on tap. */
+@media (hover: none) {
+  .route-list li, .step { cursor: pointer; }
+  .route-list li.is-open .reveal-body,
+  .step.is-open .reveal-body { grid-template-rows: 1fr; }
+  .route-list li.is-open .reveal-body p,
+  .step.is-open .reveal-body p { opacity: 1; }
+  .route-list li.is-open .reveal-cue { width: 0; opacity: 0; }
+  .step.is-open .step-more { transform: rotate(-135deg); border-color: var(--spark-deep); }
+}
+
+/* ===== REVIEWS ===== */
+.rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.rev-card {
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+  padding: 28px 24px; box-shadow: 0 12px 36px -18px rgba(0,0,0,0.16);
+}
+.rev-day {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--spark-deep); margin-bottom: 14px;
+}
+.rev-card h3 {
+  font-family: var(--font-display); font-size: 21px; font-weight: 500;
+  letter-spacing: -0.015em; color: var(--ink); margin-bottom: 10px;
+}
+.rev-card p { font-size: 14px; line-height: 1.7; color: var(--text-mid); }
+
+/* ===== FAQ ===== */
+.faq-list {
+  max-width: 780px; margin: 48px auto 0;
+  background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px;
+  box-shadow: 4px 4px 20px rgba(0,0,0,0.06); overflow: hidden;
+}
+.faq-item + .faq-item { border-top: 1px solid var(--card-border); }
+.faq-question {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 28px; text-align: left; font-family: inherit;
+  user-select: none; transition: background 200ms ease;
+}
+.faq-question:hover { background: rgba(0,0,0,0.02); }
+.faq-num {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.08em; color: var(--muted); min-width: 22px;
+  transition: color 200ms ease;
+}
+.faq-q-text {
+  flex: 1; font-size: 16px; font-weight: 600; color: var(--text-dark);
+  letter-spacing: -0.01em; line-height: 1.45; transition: color 200ms ease;
+}
+.faq-item.open .faq-num { color: var(--spark-deep); }
+.faq-item.open .faq-q-text { color: var(--ink); }
+.faq-toggle { position: relative; width: 14px; height: 14px; min-width: 14px; flex-shrink: 0; }
+.faq-toggle::before, .faq-toggle::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  background: var(--spark-deep); border-radius: 1px;
+  transform: translate(-50%, -50%);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.faq-toggle::before { width: 14px; height: 2px; }
+.faq-toggle::after  { width: 2px; height: 14px; }
+.faq-item.open .faq-toggle::after { opacity: 0; transform: translate(-50%, -50%) rotate(90deg); }
+.faq-answer {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-item.open .faq-answer { grid-template-rows: 1fr; }
+.faq-answer > .faq-answer-inner { overflow: hidden; min-height: 0; }
+.faq-answer-inner { padding: 0 28px 0 66px; opacity: 0; transition: opacity 200ms ease; }
+.faq-item.open .faq-answer-inner { opacity: 1; padding-bottom: 26px; }
+.faq-answer-inner p { font-size: 14px; color: var(--text-mid); line-height: 1.75; margin: 0; max-width: 64ch; }
+.faq-answer-inner p + p { margin-top: 16px; }
+
+/* Numbered privacy steps inside an FAQ answer — the privacy-rail pattern,
+   compressed to sit inside the accordion. */
+.faq-privacy { list-style: none; margin: 16px 0 0; padding: 0; max-width: 64ch; }
+.faq-privacy li {
+  display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 14px;
+  padding: 14px 0; border-top: 1px solid var(--hairline);
+}
+.faq-privacy li:first-child { border-top: none; padding-top: 4px; }
+.faq-privacy-num {
+  width: 28px; height: 28px; border-radius: 999px;
+  background: var(--spark-paper); border: 1px solid var(--spark-soft); color: var(--spark-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; margin-top: 1px;
+}
+.faq-privacy b { display: block; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.faq-privacy p { font-size: 13.5px; line-height: 1.65; }
+.faq-privacy code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--surface-ink); border: 1px solid var(--hairline);
+  border-radius: 4px; padding: 1px 5px; color: var(--ink-2);
+}
+
+/* ===== FINAL CTA ===== */
+.final-cta { text-align: center; padding: var(--pad-v) 0; background: var(--paper); }
+.final-cta .cta-headline { margin-bottom: 20px; max-width: 720px; margin-left: auto; margin-right: auto; }
+.final-cta .subtitle { margin-bottom: 32px; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; margin-top: 0; position: relative; z-index: 2; }
+.footer-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto; gap: 32px;
+}
+.footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
+.footer-bureau {
+  /* Sits in the Legal column so its left edge lines up with those links,
+     and pulled up so the badge bottom sits level with the address block. */
+  grid-column: 3; grid-row: 2;
+  justify-self: start; align-self: start; display: block;
+  margin-top: -32px; text-decoration: none;
+}
+.footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
+.footer .brand img.footer-mark {
+  width: 36px; height: 36px; border-radius: 7px;
+  background: var(--paper); object-fit: cover;
+}
+.footer h5 {
+  font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: rgba(243, 248, 234, 0.5); margin: 0 0 16px;
+}
+.footer a {
+  display: block; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2;
+  color: var(--paper); text-decoration: none; opacity: 0.85;
+  transition: color 150ms ease, opacity 150ms ease;
+}
+.footer a:hover { opacity: 1; color: var(--spark); }
+.footer .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer .brand span {
+  font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1;
+  letter-spacing: -0.015em; color: var(--paper);
+}
+.footer .copy {
+  font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.6;
+  color: rgba(243, 248, 234, 0.6); max-width: 36ch; margin: 0;
+}
+.footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.footer-contact p {
+  font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5;
+  color: rgba(243, 248, 234, 0.6); margin: 0; max-width: 36ch;
+}
+.footer-contact p a { display: inline; opacity: 0.85; }
+.footer-bottom {
+  max-width: 1200px; margin: 56px auto 0; padding: 24px 32px 0;
+  border-top: 1px solid rgba(243, 248, 234, 0.1);
+  font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1;
+  color: rgba(243, 248, 234, 0.4);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+
+/* ===== SECTION NAV DOTS ===== */
+.section-dots {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 90; display: flex; flex-direction: column; gap: 12px;
+}
+.section-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.18);
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  cursor: pointer; border: none; padding: 0;
+}
+.section-dot.active {
+  background: var(--spark-deep); transform: scale(1.5);
+  box-shadow: 0 0 0 4px rgba(229,168,61,0.22);
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor-on, .cursor-on * { cursor: none !important; }
+.cursor-dot, .cursor-label { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1000; will-change: transform; }
+.cursor-dot {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: var(--paper); mix-blend-mode: difference;
+  transition: width 220ms cubic-bezier(0.2,0.8,0.2,1), height 220ms cubic-bezier(0.2,0.8,0.2,1);
+}
+.cursor-dot.is-hover { width: 16px; height: 16px; }
+.cursor-dot.is-press { width: 6px; height: 6px; }
+.cursor-label {
+  padding: 4px 10px; border-radius: 999px; background: var(--ink); color: var(--paper);
+  font-family: var(--font-mono); font-weight: 500; font-size: 11px; line-height: 1;
+  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  opacity: 0; transition: opacity 140ms ease;
+}
+.cursor-label.is-show { opacity: 1; }
+@media (hover: none) {
+  .cursor-on, .cursor-on * { cursor: auto !important; }
+  .cursor-dot, .cursor-label { display: none; }
+}
+
+/* Mobile Nav Toggle */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-menu-cta { display: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1050px) {
+  .rev-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+@media (max-width: 900px) {
+  .section-dots { display: none; }
+  .prob-grid { grid-template-columns: 1fr; gap: 0; }
+  .sol-grid { grid-template-columns: 1fr; gap: 0; }
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --pad-v: 60px; --pad-h: 24px; }
+  body { overflow-x: hidden; }
+
+  .nav { min-width: 0; width: calc(100vw - 24px); max-width: calc(100vw - 24px); top: 12px; }
+  .nav-inner { justify-content: space-between; gap: 16px; padding: 8px 12px 8px 22px; }
+  .nav-wordmark, .nav-brand-text { font-size: 18px; }
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: flex;
+    position: absolute; top: calc(100% + 10px); right: 6px; left: auto;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 10px; width: min(210px, calc(100vw - 48px));
+    box-shadow: 0 16px 40px -10px rgba(0,0,0,0.22);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px) scale(0.96); transform-origin: top right;
+    transition: opacity 200ms ease, transform 260ms ease, visibility 0s linear 260ms;
+  }
+  .nav.menu-open .nav-links {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity 200ms ease, transform 260ms cubic-bezier(0.2,0.9,0.3,1.2), visibility 0s;
+  }
+  .nav-links a { padding: 9px 12px; border-radius: 10px; font-size: 14px; }
+  .nav-links a:hover { background: var(--paper); }
+  /* The CTA inside the dropdown is a button, not a plain link — restore its
+     own colours, which the `.nav-links a` rule above would otherwise win. */
+  .nav-links a.nav-menu-cta { color: var(--paper); }
+  .nav-links a.nav-menu-cta:hover { background: var(--ink-2); color: var(--paper); }
+  .nav-menu-cta { display: inline-flex; margin-top: 6px; justify-content: center; }
+
+  /* Hero was 805px on a 844px screen — nothing below it was ever visible. */
+  /* Hero owns the first screen: nothing from the next section peeks in.
+     100svh uses the *small* viewport height, so the result holds whether or
+     not the mobile browser chrome is collapsed. */
+  .hero {
+    min-height: 100svh; padding-top: 104px; padding-bottom: 40px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  @supports not (height: 100svh) { .hero { min-height: 100vh; } }
+  .hero-ctas { gap: 12px; }
+
+  .scroll-cue { padding-top: 32px; }
+  /* Tighter display type so the headline stays readable without running to
+     six cramped lines. */
+  .hero-headline { font-size: clamp(30px, 8.2vw, 40px); line-height: 1.12; letter-spacing: -0.02em; }
+  .hero .hero-headline { margin-bottom: 20px; }
+  .hero-sub { font-size: 16px; max-width: 40ch; }
+  /* The tagline is long; let it wrap inside the pill instead of overflowing. */
+  .eyebrow-tag {
+    max-width: 100%; white-space: normal; text-align: center;
+    line-height: 1.45; padding: 8px 16px; border-radius: 18px;
+    margin-bottom: 22px; font-size: 11.5px;
+  }
+  .eyebrow-tag span { line-height: 1.45; }
+  /* The three qualifiers stack rather than breaking mid-phrase. */
+  /* The three qualifiers stack into a cramped block on a phone and repeat
+     what the stat strip says a moment later. */
+  .hero-note { display: none; }
+
+  /* Gantt on mobile: a horizontally-scrolling chart hides half the timeline
+     and reads as empty cells. Each account becomes a self-contained card with
+     its own miniature 90-day track instead. */
+  .gantt { border: 0; background: none; box-shadow: none; border-radius: 0; overflow: visible; }
+  .gantt-inner { min-width: 0; }
+  .gantt-head { display: none; }
+  .g-row {
+    display: block; border-bottom: 0; margin-bottom: 14px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px;
+    padding: 16px 16px 18px; box-shadow: 0 10px 28px -18px rgba(0,0,0,0.18);
+  }
+  .g-row:last-child { margin-bottom: 0; }
+  .g-rlbl { border-right: 0; padding: 0 0 14px; display: block; }
+  .g-rlbl b { font-size: 15px; }
+  .g-rlbl span { margin-top: 3px; display: block; }
+  /* The track: 3 equal month columns, bars keep their real proportions. */
+  .g-bars {
+    height: 34px; border-radius: 8px; overflow: hidden;
+    background-color: var(--surface-ink);
+    background-image: linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+    background-size: 33.333% 100%;
+  }
+  /* Hide the in-bar text via indent (font-size:0 is ignored by the inherited
+     mono stack); the legend above already names both bar types. */
+  .g-bar {
+    top: 0; height: 34px; border-radius: 8px; padding: 0;
+    text-indent: -9999px; overflow: hidden; white-space: nowrap;
+  }
+  /* Per-card scale so the bars read as days, not abstract blocks. */
+  .g-scale {
+    display: flex; justify-content: space-between; margin-top: 7px;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
+    color: var(--ink-4);
+  }
+  .gantt-hint { display: none; }
+
+  .tl-note { font-size: 15.5px; padding-left: 16px; }
+  .faq-question { padding: 18px 18px; gap: 12px; }
+  .faq-q-text { font-size: 15px; }
+  .faq-answer-inner { padding: 0 18px; }
+  .faq-item.open .faq-answer-inner { padding-bottom: 22px; }
+  .faq-answer-inner p { font-size: 13.5px; }
+
+  .pricing-card { padding: 32px 24px; }
+
+  /* Vertical rhythm: generous room to breathe between sections and blocks,
+     with copy set at a comfortable reading size rather than compressed. */
+  section { padding: 72px 0; }
+  .section-headline { font-size: clamp(25px, 6.8vw, 31px); line-height: 1.15; }
+  .section-label { margin-bottom: 14px; }
+  .problem-lede, .subtitle { font-size: 16px; line-height: 1.75; }
+  .problem-lede { margin-top: 22px; }
+
+  /* Numbered blocks: more air above/below each entry. */
+  .prob-grid, .sol-grid { margin-top: 44px; }
+  .prob { padding: 30px 0; }
+  .sol { padding: 30px 0; }
+  .prob p, .sol p { font-size: 15px; line-height: 1.75; }
+  .prob h3, .sol h3 { margin-bottom: 12px; }
+  .sol-num { width: 32px; height: 32px; margin-bottom: 16px; }
+
+
+  .rev-grid { margin-top: 40px; gap: 20px; }
+  /* Route block stacks; the cost sits above the list rather than beside it. */
+  .route { grid-template-columns: 1fr; gap: 28px 0; margin-top: 40px; padding-top: 28px; }
+  .route-head { position: static; }
+  .route-note { max-width: 100%; }
+  .route-list li { grid-template-columns: 34px minmax(0, 1fr); gap: 0 12px; padding: 20px 0; }
+  .route-n { font-size: 19px; }
+  .route-list b { font-size: 16px; }
+  .route-list p { font-size: 14.5px; }
+  .cmp-bridge { margin-top: 40px; padding-top: 28px; }
+  /* Steps on mobile: no room for a day rail beside the title, so the day
+     stacks above it and the chevron keeps its own column on the title row. */
+  .steps { margin-top: 40px; }
+  .step {
+    grid-template-columns: minmax(0, 1fr) 14px;
+    gap: 4px 12px; padding: 15px 14px; margin: 0 -14px;
+  }
+  .step + .step::before { left: 14px; right: 14px; }
+  .step-day { grid-column: 1 / -1; padding-top: 0; font-size: 10px; }
+  .step-head { grid-column: 1; }
+  .step-more { grid-column: 2; margin-top: 6px; }
+  .step .reveal-body { grid-column: 1 / -1; }
+  .step:hover::after, .step:focus-visible::after { top: 10px; bottom: 10px; }
+
+  /* Phase header: tag on its own line above the name, days right-aligned. */
+  .steps-phase {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline; gap: 4px 12px;
+    padding-bottom: 13px; margin-bottom: 10px;
+  }
+  .steps-phase:not(:first-child) { margin-top: 48px; }
+  .steps-phase-tag { grid-column: 1 / -1; }
+  .steps-phase-name { grid-column: 1; font-size: 21px; }
+  .steps-phase-days { grid-column: 2; }
+  .step-head b { font-size: 16px; }
+  .step p { font-size: 14.5px; }
+  .rev-card { padding: 26px 22px; }
+  .rev-card p { font-size: 14px; line-height: 1.7; }
+
+  .pullquote { padding: 64px 0; }
+  .problem-bridge { margin-top: 52px; padding-top: 36px; }
+  .faq-list { margin-top: 40px; }
+  .tl-legend { margin-top: 40px; margin-bottom: 24px; }
+  .tl-note { margin-top: 28px; line-height: 1.75; }
+  .pricing-grid { margin-top: 40px; gap: 20px; }
+
+  /* Footer: was ~900px of mostly air. */
+  .footer { padding: 48px 0 24px; }
+  .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
+  .footer a { line-height: 1.85; font-size: 13.5px; }
+  .footer-contact { margin-top: 18px; gap: 10px; }
+  .footer h5 { margin-bottom: 12px; }
+  .footer-bureau img { height: 52px; }
+  .footer-inner .footer-brand-col,
+  .footer-inner .footer-col-resources,
+  .footer-inner .footer-col-legal { grid-column: 1; grid-row: auto; }
+  /* Stacked footer: cancel the desktop pull-up used to align the badge
+     with the address block, which no longer applies in one column. */
+  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px !important; }
+  /* Two columns on one row: stacked, these two long lines wrapped into a
+     four-line block that read as one run-on sentence. */
+  .footer-bottom {
+    display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+    gap: 0 20px; padding: 20px 24px 0; margin-top: 40px;
+    font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
+  }
+  .footer-bottom span:last-child { text-align: right; }
+}
+
+@media (max-width: 480px) {
+  :root { --pad-v: 48px; --pad-h: 18px; }
+  .g-bar { font-size: 9px; }
+  .rev-card { padding: 24px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+  .fade-in, .stagger-in { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Paper grain texture (decorative, non-interactive) -->
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Section Nav Dots -->
+<div class="section-dots" id="sectionDots">
+  <button class="section-dot active" data-section="hero" aria-label="Hero"></button>
+  <button class="section-dot" data-section="problem" aria-label="The situation"></button>
+  <button class="section-dot" data-section="alternatives" aria-label="Alternatives"></button>
+  <button class="section-dot" data-section="how" aria-label="Solution"></button>
+  <button class="section-dot" data-section="timeline" aria-label="Timeline"></button>
+  <button class="section-dot" data-section="phases" aria-label="Per target account"></button>
+  <button class="section-dot" data-section="reviews" aria-label="Reviews"></button>
+  <button class="section-dot" data-section="pricing" aria-label="Pricing"></button>
+  <button class="section-dot" data-section="faq" aria-label="FAQ"></button>
+</div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Home</a>
+      <a href="#how">How It Works</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-sage nav-menu-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    </div>
+    <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Book" class="btn btn-sage nav-cta">Book a Call <span class="arrow">&rarr;</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-network" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <g class="hero-net-lines">
+        <!-- Cluster A (left) — your existing network -->
+        <path d="M120,150 L280,110"/><path d="M120,150 L200,300"/><path d="M280,110 L400,240"/>
+        <path d="M200,300 L400,240"/><path d="M400,240 L330,430"/><path d="M200,300 L330,430"/>
+        <path d="M120,150 L40,320"/><path d="M40,320 L200,300"/><path d="M330,430 L180,560"/>
+        <path d="M180,560 L60,690"/><path d="M330,430 L260,700"/><path d="M180,560 L260,700"/>
+        <path d="M260,700 L420,790"/><path d="M60,690 L200,820"/><path d="M200,820 L420,790"/>
+        <!-- Bridges: your network → the target account -->
+        <path d="M400,240 L780,180" class="hero-net-bridge"/>
+        <path d="M330,430 L740,520" class="hero-net-bridge"/>
+        <path d="M400,240 L740,520" class="hero-net-bridge"/>
+        <path d="M420,790 L820,740" class="hero-net-bridge"/>
+        <!-- Cluster B (right) — the account you want -->
+        <path d="M780,180 L980,110"/><path d="M780,180 L900,340"/><path d="M980,110 L1140,240"/>
+        <path d="M900,340 L1140,240"/><path d="M1140,240 L1300,170"/><path d="M900,340 L740,520"/>
+        <path d="M1140,240 L1280,420"/><path d="M900,340 L1080,500"/><path d="M1080,500 L1280,420"/>
+        <path d="M740,520 L1080,500"/><path d="M1300,170 L1410,330"/><path d="M1280,420 L1400,560"/>
+        <path d="M1080,500 L1180,680"/><path d="M820,740 L1180,680"/><path d="M1180,680 L1380,760"/>
+        <path d="M740,520 L820,740"/><path d="M1400,560 L1380,760"/>
+      </g>
+      <g class="hero-net-nodes">
+        <circle cx="120" cy="150" r="4"/><circle cx="280" cy="110" r="3"/><circle cx="200" cy="300" r="3.5"/>
+        <circle cx="400" cy="240" r="5.5" class="hero-net-hub"/><circle cx="330" cy="430" r="4"/><circle cx="40" cy="320" r="3"/>
+        <circle cx="180" cy="560" r="3.5"/><circle cx="60" cy="690" r="3"/><circle cx="260" cy="700" r="4"/>
+        <circle cx="420" cy="790" r="4.5" class="hero-net-hub"/><circle cx="200" cy="820" r="3"/>
+        <circle cx="780" cy="180" r="5.5" class="hero-net-hub"/><circle cx="980" cy="110" r="3"/><circle cx="900" cy="340" r="4"/>
+        <circle cx="1140" cy="240" r="5" class="hero-net-hub"/><circle cx="1300" cy="170" r="3"/><circle cx="740" cy="520" r="4.5"/>
+        <circle cx="1280" cy="420" r="3.5"/><circle cx="1080" cy="500" r="4"/><circle cx="1410" cy="330" r="3"/>
+        <circle cx="1400" cy="560" r="3"/><circle cx="1180" cy="680" r="4.5" class="hero-net-hub"/>
+        <circle cx="820" cy="740" r="3.5"/><circle cx="1380" cy="760" r="3"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="eyebrow-tag hero-anim"><span>ABM agent for growing creative agencies</span></div>
+    <h1 class="hero-headline hero-anim">Break into new accounts with <em>existing relationships</em>, pulled straight from your Gmail and calendar.</h1>
+    <p class="hero-sub hero-anim">Use our ABM agent for 90 days to break into the accounts you actually want &mdash; <span class="highlight-mark">without hiring a business development lead or spending weeks on manual research</span>.</p>
+    <div class="hero-ctas hero-anim">
+      <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Start" data-magnetic="0.22" class="btn btn-sage-lg">Start the 90-day trial &mdash; $3,000</a>
+      <a href="#how" data-cursor="See how" data-magnetic="0.18" class="btn btn-ghost hero-cta-secondary">See how it works</a>
+    </div>
+    <p class="hero-note hero-anim"><span class="hero-note-item">Three target accounts</span><span class="sep"> &middot; </span><span class="hero-note-item">one per month</span><span class="sep"> &middot; </span><span class="hero-note-item">No cold list</span></p>
+    <div class="scroll-cue hero-anim"><span class="line"></span> Scroll <span class="line"></span></div>
+  </div>
+</section>
+
+
+<!-- ===== PROBLEM ===== -->
+<section class="section-white" id="problem">
+  <div class="container">
+    <div class="problem-head fade-in">
+      <div class="section-label">The Situation</div>
+      <h2 class="section-headline">You already know someone inside the accounts you want.</h2>
+      <p class="problem-lede">You are sitting on a few thousand real relationships &mdash; past clients, collaborators, people who went client-side. Some now work at companies you would love to win. <strong>Nobody knows which ones</strong>, because nobody has the time to find out.</p>
+    </div>
+
+    <div class="prob-grid">
+      <div class="prob fade-in">
+        <div class="prob-index">
+          <span class="prob-num">01</span>
+        </div>
+        <h3>New business is feast or famine</h3>
+        <p>Work arrives through referral and repeat business, which is great until a quarter goes quiet. There is no reliable way to decide which account to go after next, so nobody decides.</p>
+      </div>
+      <div class="prob fade-in">
+        <div class="prob-index">
+          <span class="prob-num">02</span>
+        </div>
+        <h3>Cold outbound does not suit you</h3>
+        <p>Your work is bought on trust and reputation. A sequence of cold emails from an agency nobody has heard of contradicts the thing you are actually selling &mdash; and the reply rates show it.</p>
+      </div>
+      <div class="prob fade-in">
+        <div class="prob-index">
+          <span class="prob-num">03</span>
+        </div>
+        <h3>Your CRM is not the network</h3>
+        <p>It holds the deals someone remembered to log. It has no idea where any of those people work today, and the relationships that matter most are the ones nobody entered.</p>
+      </div>
+      <div class="prob fade-in">
+        <div class="prob-index">
+          <span class="prob-num">04</span>
+        </div>
+        <h3>Nobody owns it</h3>
+        <p>Business development belongs to a founder who is already delivering work. It gets attention when the pipeline looks thin, which is exactly when it is too late.</p>
+      </div>
+    </div>
+
+    <div class="problem-bridge fade-in">
+      <p>The route into your next big account is probably <em>already in your inbox</em>. You just cannot see it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ALTERNATIVES ===== -->
+<section class="section-sage" id="alternatives">
+  <div class="container">
+    <div class="fade-in" style="max-width:760px;">
+      <div class="section-label">What Agencies Do Instead</div>
+      <h2 class="section-headline">Most agencies hire a <em>business development lead</em>.</h2>
+      <p class="problem-lede">It is the sensible move. You want someone who can work relationships rather than blast a list &mdash; so you hire judgment. <strong>The judgment is real. The economics are not.</strong></p>
+    </div>
+
+    <div class="route">
+      <div class="route-head fade-in">
+        <div class="route-role">Business development lead</div>
+        <div class="route-cost">$6&ndash;12K <small>/ month</small></div>
+        <p class="route-note">Ten to fifteen hours a week, and genuinely good at this.</p>
+      </div>
+
+      <ol class="route-list">
+        <li class="fade-in">
+          <span class="route-n">01</span>
+          <div><b>Three to six months before anything happens</b><span class="reveal-cue" aria-hidden="true"></span>
+          <div class="reveal-body"><div><p>They have to learn your business, your clients and your network before they can open a single door &mdash; and you are paying the full monthly rate from day one of that ramp.</p></div></div></div>
+        </li>
+        <li class="fade-in">
+          <span class="route-n">02</span>
+          <div><b>They work the relationships they can remember</b><span class="reveal-cue" aria-hidden="true"></span>
+          <div class="reveal-body"><div><p>Not the ten years already sitting in your inbox. Whatever they cannot bring to mind never gets worked, and nobody ever finds out which account it would have opened.</p></div></div></div>
+        </li>
+        <li class="fade-in">
+          <span class="route-n">03</span>
+          <div><b>One warm path, hidden in thousands</b><span class="reveal-cue" aria-hidden="true"></span>
+          <div class="reveal-body"><div><p>The one person who can introduce you is somewhere in thousands of relationships. Nobody can hold that in their head or search it by hand, so in practice the path stays buried.</p></div></div></div>
+        </li>
+        <li class="fade-in">
+          <span class="route-n">04</span>
+          <div><b>When they leave, the network leaves too</b><span class="reveal-cue" aria-hidden="true"></span>
+          <div class="reveal-body"><div><p>The map lived in their head, not in your company. When they move on you are back exactly where you started, paying someone new to spend another six months rebuilding it.</p></div></div></div>
+        </li>
+        <li class="fade-in">
+          <span class="route-n">05</span>
+          <div><b>It adds up to $72K&ndash;$144K a year</b><span class="reveal-cue" aria-hidden="true"></span>
+          <div class="reveal-body"><div><p>A full salary, committed long before you know whether any of it works &mdash; because the first real conversation is still two quarters away on the day you sign the contract.</p></div></div></div>
+        </li>
+      </ol>
+    </div>
+
+    <p class="cmp-bridge fade-in">You do not need someone to <em>remember</em> who you know. You need an agent that can read the whole record and work it.</p>
+  </div>
+</section>
+
+<!-- ===== PULL QUOTE ===== -->
+<section class="pullquote" id="quote">
+  <div class="container">
+    <span class="pullquote-mark" aria-hidden="true">&ldquo;</span>
+    <blockquote>VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s <em>already changed how I approach business development.</em></blockquote>
+    <cite>Mark DePace &middot; Co-Founder &amp; CCO, Ghost Robot &mdash; an integrated creative studio for Google, Arhaus &amp; Away</cite>
+  </div>
+</section>
+
+<!-- ===== SOLUTION ===== -->
+<section class="section-white" id="how">
+  <div class="container">
+    <div class="fade-in" style="max-width:760px;">
+      <div class="section-label">The Solution</div>
+      <h2 class="section-headline">An agent that works your network <em>instead of a list</em>.</h2>
+      <p class="problem-lede">It reads your inbox and calendar once, works out which companies you can already reach, and runs <strong>one account at a time</strong> to a real conversation.</p>
+    </div>
+
+    <div class="sol-grid">
+      <div class="sol fade-in">
+        <div class="sol-num">01</div>
+        <h3>It finds the door</h3>
+        <p>Thousands of contacts down to the handful of live relationships that lead somewhere worth going. This is the part no CRM and no lead-gen tool can do, because it starts from goodwill rather than from a filter.</p>
+      </div>
+      <div class="sol fade-in">
+        <div class="sol-num">02</div>
+        <h3>It maps who is behind it</h3>
+        <p>Full employee history for the target account, matched against your contact&rsquo;s time there. Who overlapped them, in which team, with the evidence written down &mdash; not a guess at who might know whom.</p>
+      </div>
+      <div class="sol fade-in">
+        <div class="sol-num">03</div>
+        <h3>It watches for the moment</h3>
+        <p>Daily monitoring of the account and everyone around it. New executives, agency reviews, hiring surges, funding. Signals arrive with the drafted move attached, not as news.</p>
+      </div>
+      <div class="sol fade-in">
+        <div class="sol-num">04</div>
+        <h3>You send. That is all.</h3>
+        <p>Every email is written for you. Your work is to press send and to reply when someone replies. Roughly 45 to 90 minutes a week, and the relationship stays yours throughout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== TIMELINE ===== -->
+<section class="section-sage" id="timeline">
+  <div class="container">
+    <div class="fade-in" style="max-width:800px;">
+      <div class="section-label">Timeline</div>
+      <h2 class="section-headline" style="max-width:26ch;">Over 90 days, we work <em>three accounts</em>.</h2>
+      <p class="problem-lede">One a month. Each takes about 30 days of active work &mdash; the rest is monitoring and waiting on replies, so the next account starts before the last one finishes.</p>
+    </div>
+
+    <div class="tl-legend fade-in">
+      <span><i class="tl-sw solid"></i> Active phase</span>
+      <span><i class="tl-sw faded"></i> Follow-through</span>
+    </div>
+
+    <div class="gantt fade-in">
+     <div class="gantt-inner">
+      <div class="gantt-head">
+        <div class="g-lbl">Target account</div>
+        <div class="g-months">
+          <div>Days 1&ndash;30</div>
+          <div>Days 31&ndash;60</div>
+          <div>Days 61&ndash;90</div>
+        </div>
+      </div>
+
+      <div class="g-row" data-gantt-row>
+        <div class="g-rlbl"><b>Target account 1</b><span>Active days 1&ndash;30</span></div>
+        <div class="g-bars">
+          <div class="g-bar active" style="left:0.6%; width:32.7%;">Analysis &rarr; outreach &rarr; monitoring</div>
+          <div class="g-bar follow" style="left:33.9%; width:65.5%;">Follow-through, introductions, optimization</div>
+        </div>
+          <div class="g-scale" aria-hidden="true"><span>Day 1</span><span>30</span><span>60</span><span>90</span></div>
+      </div>
+
+      <div class="g-row" data-gantt-row>
+        <div class="g-rlbl"><b>Target account 2</b><span>Account work starts day 25</span></div>
+        <div class="g-bars">
+          <div class="g-bar active" style="left:27.8%; width:32.7%;">Analysis &rarr; outreach &rarr; monitoring</div>
+          <div class="g-bar follow" style="left:61.1%; width:38.3%;">Follow-through, introductions, optimization</div>
+        </div>
+          <div class="g-scale" aria-hidden="true"><span>Day 1</span><span>30</span><span>60</span><span>90</span></div>
+      </div>
+
+      <div class="g-row" data-gantt-row>
+        <div class="g-rlbl"><b>Target account 3</b><span>Account work starts day 50</span></div>
+        <div class="g-bars">
+          <div class="g-bar active" style="left:55%; width:32.7%;">Analysis &rarr; outreach &rarr; monitoring</div>
+          <div class="g-bar follow" style="left:88.3%; width:11.1%;"></div>
+        </div>
+          <div class="g-scale" aria-hidden="true"><span>Day 1</span><span>30</span><span>60</span><span>90</span></div>
+      </div>
+     </div>
+    </div>
+    <p class="gantt-hint fade-in">&larr; Swipe to see all 90 days</p>
+
+    <p class="tl-note fade-in">The overlap is deliberate. Around day 25 the first account moves into waiting &mdash; <em>and that gap is when the next one begins.</em></p>
+  </div>
+</section>
+
+<!-- ===== PHASES ===== -->
+<section class="section-white" id="phases">
+  <div class="container">
+    <div class="fade-in" style="max-width:760px;">
+      <div class="section-label">Per Target Account</div>
+      <h2 class="section-headline">Analysis, then <em>outreach</em>.</h2>
+      <p class="problem-lede">Ten days of work before a single email is sent &mdash; then three weeks of running it, with an account monitoring digest of everything moving inside the account and around it.</p>
+    </div>
+
+    <div class="steps fade-in">
+      <div class="steps-phase">
+        <span class="steps-phase-tag">Phase one</span>
+        <span class="steps-phase-name">Analysis</span>
+        <span class="steps-phase-days">Day 1&ndash;10</span>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Days 1&ndash;3</div>
+          <div class="step-head">
+          <b>Workspace</b>
+          <span class="once">one-time</span>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>We scan your inbox and calendar, enrich every relationship, and surface the account contacts that lead to accounts worth winning. Done once at the start and reused across all three accounts.</p></div></div>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Days 4&ndash;5</div>
+          <div class="step-head">
+          <b>Anchor</b>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>We bring you five anchors on a call &mdash; with the number of paths each one opens to a decision maker, and the risks attached to each. You choose one with us.</p></div></div>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Days 6&ndash;8</div>
+          <div class="step-head">
+          <b>Ecosystem</b>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>Who the account sells to, who their clients are, who connects to them well. Plus employee signals &mdash; headcount growth, new hires, which departments expanded over twelve months. This is what sets up the signal monitoring.</p></div></div>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Days 9&ndash;10</div>
+          <div class="step-head">
+          <b>Warm Path</b>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>We map every route from that contact into the account: past work history, ex-colleagues, social engagement, and the evidence behind each connection.</p></div></div>
+      </div>
+
+      <div class="steps-phase">
+        <span class="steps-phase-tag">Phase two</span>
+        <span class="steps-phase-name">Outreach</span>
+        <span class="steps-phase-days">Day 11&ndash;30</span>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Day 11</div>
+          <div class="step-head">
+          <b>Reach out</b>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>One email, drafted for you, asking for introductions to the people we mapped inside the account. You send it. Under five minutes.</p></div></div>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Days 12&ndash;25</div>
+          <div class="step-head">
+          <b>Account monitoring</b>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>Two things run in parallel. We follow the <strong>conversation</strong> &mdash; every reply, meeting and signal of engagement, who responded and how warmly &mdash; and send you read-outs on what to say next and where a thread has stalled. And we watch the <strong>account and its ecosystem</strong> for what moved and what it means, amending the path when reality differs from the map and drafting the warm introduction emails as the introductions land.</p></div></div>
+      </div>
+
+      <div class="step" tabindex="0">
+        <div class="step-day">Days 26&ndash;30</div>
+          <div class="step-head">
+          <b>Follow-through</b>
+        </div>
+        <span class="step-more" aria-hidden="true"></span>
+        <div class="reveal-body"><div><p>The digest continues. We follow up with the account and chase the introductions where it helps. And because this is when waiting starts, account analysis for the second account kicks off in the same window.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="section-sage" id="reviews">
+  <div class="container">
+    <div class="fade-in" style="max-width:760px;">
+      <div class="section-label">How You Stay Across It</div>
+      <h2 class="section-headline" style="max-width:28ch;">Three reviews, and a digest on the days <em>something moves</em>.</h2>
+    </div>
+
+    <div class="rev-grid">
+      <div class="rev-card fade-in">
+        <div class="rev-day">Day 30</div>
+        <h3>First review</h3>
+        <p>Account one in full &mdash; every path worked, who replied, what is still live. Plus account two if it has already started.</p>
+      </div>
+      <div class="rev-card fade-in">
+        <div class="rev-day">Day 60</div>
+        <h3>Second review</h3>
+        <p>Accounts one and two together, and account three if it is underway. This is where the pattern across accounts starts to show.</p>
+      </div>
+      <div class="rev-card fade-in">
+        <div class="rev-day">Day 90</div>
+        <h3>Full review</h3>
+        <p>All three accounts. Where each one stands, what is in reserve, and what changed in your network over the quarter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="section-white" id="pricing">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:720px; margin:0 auto;">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-headline" style="margin:0 auto;">Two ways in.</h2>
+      <p class="subtitle" style="margin-top:14px;">Start with the 90-day trial, then move to the annual plan when it earns it.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card featured fade-in">
+        <div class="pricing-badge">Start here &middot; 90 days</div>
+        <div class="pricing-amount">$3,000</div>
+        <div class="pricing-period">One payment &middot; covers the full 90 days</div>
+        <ul class="pricing-features">
+          <li class="pricing-separator">What you get</li>
+          <li><span class="pricing-check">&#10003;</span> Three target accounts, one per month</li>
+          <li><span class="pricing-check">&#10003;</span> Workspace scan of your inbox and calendar</li>
+          <li><span class="pricing-check">&#10003;</span> Five candidate paths presented per account, chosen with you</li>
+          <li><span class="pricing-check">&#10003;</span> Full warm path, ecosystem and account analysis</li>
+          <li><span class="pricing-check">&#10003;</span> Daily monitoring of the account and its ecosystem, digested through every active phase</li>
+          <li><span class="pricing-check">&#10003;</span> Every email drafted for you</li>
+          <li><span class="pricing-check">&#10003;</span> Monthly progress review, plus a full review on day 90</li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Start" class="btn btn-light" style="width:100%;">Start the 90-day trial &rarr;</a>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-badge">Continue &middot; annual</div>
+        <div class="pricing-amount">$25,000 <span class="pricing-amount-unit">/ year</span></div>
+        <div class="pricing-period">$2,083 per month</div>
+        <ul class="pricing-features">
+          <li class="pricing-separator">What you get</li>
+          <li class="pricing-inherit"><span class="pricing-check">&#10003;</span> <strong>Everything in the 90-day trial, plus:</strong></li>
+          <li><span class="pricing-check">&#10003;</span> Twelve target accounts a year, one per month</li>
+          <li><span class="pricing-check">&#10003;</span> Your relationship map kept current as people move</li>
+          <li><span class="pricing-check">&#10003;</span> Compounding advantage &mdash; each month opens the next</li>
+          <li><span class="pricing-check">&#10003;</span> Accounts and paths banked, never rebuilt from scratch</li>
+          <li><span class="pricing-check">&#10003;</span> Priority on live signals across your whole network</li>
+          <li><span class="pricing-check">&#10003;</span> Quarterly strategy review</li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" class="btn btn-ghost" style="width:100%;">Talk about the annual plan &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section-sage" id="faq">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;">
+      <div class="section-label">Straight Answers</div>
+      <h2 class="section-headline" style="margin:0 auto;">What people ask before starting.</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-question" aria-expanded="true">
+          <span class="faq-num">01</span>
+          <span class="faq-q-text">Do you promise a closed deal in 90 days?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>No, and be wary of anyone who does. Closing belongs to you and runs on the account&rsquo;s timeline, not ours. What we commit to is that by day 90 you are measurably closer to three named accounts &mdash; with real conversations underway inside them. If one of them closes in that window, excellent, and it becomes the case study.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">02</span>
+          <span class="faq-q-text">How much of my time does this take?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Around 45 to 90 minutes a week. A call at the start of each account to choose the account together, then sending emails we have already written and replying when someone replies. The relationship stays yours &mdash; we never send anything on your behalf.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">03</span>
+          <span class="faq-q-text">What if my network does not reach anywhere good?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>We find that out in the first two days and tell you immediately, rather than three weeks in. In practice it is rare &mdash; an agency doing $5&ndash;10M has been talking to people for years. But if the workspace scan comes back thin, saying so is the deliverable.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">04</span>
+          <span class="faq-q-text">Why do you need access to my inbox?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Because that is where the evidence is. Read-only access, connected at the start. Nothing is sent from your account, and the scan is looking for relationship patterns &mdash; who you actually exchange messages with &mdash; not content.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">05</span>
+          <span class="faq-q-text">How is this different from a list of contacts?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>A list gives you strangers who match a filter. This gives you a named person inside a named account, the person you already know who can introduce you, and the documented reason they know each other. The direction is the difference &mdash; everyone else starts with an account and hunts for a way in.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">06</span>
+          <span class="faq-q-text">What happens after 90 days?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Either we stop, or you move onto the annual plan at $25,000 and we keep going at one account a month. The advantage of continuing is that nothing gets rebuilt &mdash; the workspace scan, the maps and the unworked paths all carry forward, so each month starts further along than the last.</p>
+          <p>By month twelve that compounds into something the 90 days cannot show you on its own: twelve accounts mapped, each with a strategic plan behind it, and all twelve live in your pipeline. Any account that was not going anywhere would have been swapped out long before then &mdash; so what is left at the end of the year is twelve accounts worth working, and results you can actually read.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">07</span>
+          <span class="faq-q-text">How is my data protected when I connect my inbox?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Connecting your inbox isn&rsquo;t a small thing. Here&rsquo;s how we manage the risk.</p>
+            <ol class="faq-privacy">
+              <li>
+                <span class="faq-privacy-num">01</span>
+                <div>
+                  <b>We only request read-only access.</b>
+                  <p>Gmail&rsquo;s API splits access into five scopes. We ask for <code>gmail.readonly</code> &mdash; view messages and metadata, change nothing. The scopes that would let us modify, compose, send, or delete are never requested.</p>
+                </div>
+              </li>
+              <li>
+                <span class="faq-privacy-num">02</span>
+                <div>
+                  <b>We extract what we need and destroy the rest.</b>
+                  <p>We keep the name, company and role, last contact date, and a thread summary. Email bodies, attachments and subject lines are destroyed immediately.</p>
+                </div>
+              </li>
+              <li>
+                <span class="faq-privacy-num">03</span>
+                <div>
+                  <b>We refresh data in real time.</b>
+                  <p>Our last-mile check pulls your data fresh at the moment it&rsquo;s needed &mdash; fetch live, review, discard. No copy is retained afterwards.</p>
+                </div>
+              </li>
+              <li>
+                <span class="faq-privacy-num">04</span>
+                <div>
+                  <b>You&rsquo;re always one click from revoking everything.</b>
+                  <p>Remove the connection from your Google Admin console at any time. It takes effect immediately &mdash; no confirmation from us required.</p>
+                </div>
+              </li>
+              <li>
+                <span class="faq-privacy-num">05</span>
+                <div>
+                  <b>You get enterprise-level security.</b>
+                  <p>Every year the application goes through ESOF AppSec, an enterprise-grade security and vulnerability assessment built by TAC Security, a Google trusted partner.</p>
+                </div>
+              </li>
+              <li>
+                <span class="faq-privacy-num">06</span>
+                <div>
+                  <b>Still not sure? Speak to an existing client.</b>
+                  <p>If that isn&rsquo;t enough, we&rsquo;ll put you in touch with an agency already using VeraOps and you can ask them whatever you want. After the introduction, we stay out of it.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta" id="start">
+  <div class="container">
+    <div class="section-label" style="text-align:center;">Next Step</div>
+    <h2 class="cta-headline">Three accounts. Ninety days. <em>Three thousand dollars.</em></h2>
+    <p class="subtitle">Connect your workspace, and we&rsquo;ll tell you which three target accounts your network already has access to.</p>
+    <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" data-magnetic="0.22" class="btn btn-sage-xl">Book a Call &rarr;</a>
+      <a href="#hero" data-cursor="Top" class="btn btn-ghost">&uarr; Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="brand">
+        <img src="assets/logo-mark.png" alt="" class="footer-mark">
+        <span>VeraOps</span>
+      </div>
+      <p class="copy">We help creative agencies break into new accounts through the relationships they already have.</p>
+      <div class="footer-contact">
+        <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
+        <p>+1 (302) 223 4061</p>
+        <p>838 Walker Road, Suite 21-2<br>Dover, DE 19904, US</p>
+      </div>
+    </div>
+    <div class="footer-col-resources">
+      <h5>Resources</h5>
+      <a href="abm-agent.html#hero">Home</a>
+      <a href="abm-agent.html#how">How It Works</a>
+      <a href="abm-agent.html#timeline">Timeline</a>
+      <a href="abm-agent.html#pricing">Pricing</a>
+      <a href="abm-agent.html#faq">FAQ</a>
+    </div>
+    <div class="footer-col-legal">
+      <h5>Legal</h5>
+      <a href="abm-privacy-policy.html">Privacy Policy</a>
+      <a href="abm-terms-of-service.html">Terms of Service</a>
+    </div>
+    <a href="https://thebureau.community" target="_blank" rel="noopener" class="footer-bureau">
+      <img src="assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
+    <span>Account-Based Marketing Agent for Growing Creative Agencies</span>
+  </div>
+</footer>
+
+<script>
+// Scroll Progress
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+
+// Nav shadow
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && nav) {
+  navToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  if (navLinks) navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+      nav.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Custom cursor (dot + label) — hover-capable pointers only
+(function() {
+  if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const dot = document.createElement('div'); dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
+  const label = document.createElement('div'); label.className = 'cursor-label'; label.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(dot); document.body.appendChild(label);
+  document.documentElement.classList.add('cursor-on');
+  let x = window.innerWidth / 2, y = window.innerHeight / 2, dx = x, dy = y;
+  window.addEventListener('mousemove', (e) => { x = e.clientX; y = e.clientY; });
+  function raf() {
+    dx += (x - dx) * 0.2; dy += (y - dy) * 0.2;
+    dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+    label.style.transform = `translate3d(${dx}px, ${dy}px, 0) translate(-50%, calc(-50% + 22px))`;
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  const hoverSel = 'a, button, .btn, [data-cursor], .faq-question';
+  document.querySelectorAll(hoverSel).forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('is-hover');
+      const text = el.getAttribute('data-cursor');
+      if (text) { label.textContent = text; label.classList.add('is-show'); }
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('is-hover');
+      label.classList.remove('is-show');
+    });
+  });
+  window.addEventListener('mousedown', () => dot.classList.add('is-press'));
+  window.addEventListener('mouseup', () => dot.classList.remove('is-press'));
+})();
+
+// Intersection Observer for reveal animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      if (entry.target.classList.contains('stagger-in')) {
+        const parent = entry.target.parentElement;
+        const siblings = Array.from(parent.querySelectorAll('.stagger-in'));
+        entry.target.style.transitionDelay = (siblings.indexOf(entry.target) * 80) + 'ms';
+      }
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in, .stagger-in').forEach(el => observer.observe(el));
+
+// Stagger the reveal of cards that share a grid row.
+document.querySelectorAll('.prob-grid, .sol-grid, .route-list, .rev-grid, .pricing-grid').forEach(grid => {
+  Array.from(grid.querySelectorAll('.fade-in')).forEach((el, i) => {
+    el.style.transitionDelay = (i * 80) + 'ms';
+  });
+});
+
+// Gantt bars grow left-to-right once the row scrolls into view.
+const ganttObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    ganttObserver.unobserve(entry.target);
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('[data-gantt-row]').forEach(row => ganttObserver.observe(row));
+
+// Gold highlight sweep in the hero sub
+const heroSub = document.querySelector('.hero-sub');
+if (heroSub) {
+  const marks = heroSub.querySelectorAll('.highlight-mark');
+  const markObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        marks.forEach((mark, i) => setTimeout(() => mark.classList.add('active'), 400 + i * 600));
+        markObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  markObserver.observe(heroSub);
+}
+
+// Magnetic pull on primary CTAs
+if (!prefersReducedMotion && !(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) {
+  document.querySelectorAll('[data-magnetic]').forEach(el => {
+    const strength = parseFloat(el.getAttribute('data-magnetic')) || 0.2;
+    el.style.transition = 'transform 200ms cubic-bezier(0.2,0.8,0.2,1)';
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width / 2);
+      const my = e.clientY - (r.top + r.height / 2);
+      el.style.transform = 'translate(' + (mx * strength) + 'px,' + (my * strength) + 'px)';
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+}
+
+// FAQ accordion — one open at a time; clicking the open row closes it.
+document.querySelectorAll('.faq-item .faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      const q = i.querySelector('.faq-question');
+      if (q) q.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+// Button ripple
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
+  });
+});
+
+// Smooth scroll with nav offset
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const navHeight = nav.offsetHeight;
+    const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+  });
+});
+
+// Hover-reveal rows: on touch there is no hover, so tapping toggles the row.
+(function() {
+  if (window.matchMedia && window.matchMedia('(hover: hover)').matches) return;
+  document.querySelectorAll('.route-list li, .step').forEach(row => {
+    if (!row.querySelector('.reveal-body')) return;
+    row.setAttribute('tabindex', '0');
+    row.setAttribute('role', 'button');
+    row.setAttribute('aria-expanded', 'false');
+    const toggle = () => {
+      const wasOpen = row.classList.contains('is-open');
+      // One open row at a time, within this row's own group.
+      row.parentElement.querySelectorAll('.is-open').forEach(other => {
+        other.classList.remove('is-open');
+        other.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        row.classList.add('is-open');
+        row.setAttribute('aria-expanded', 'true');
+      }
+    };
+    row.addEventListener('click', toggle);
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+
+// Section dots
+const dots = document.querySelectorAll('.section-dot');
+const sections = Array.from(dots).map(dot => document.getElementById(dot.dataset.section)).filter(Boolean);
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.section);
+    if (!target) return;
+    const navHeight = nav.offsetHeight;
+    const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+  });
+});
+
+function updateDots() {
+  const scrollPos = window.scrollY + window.innerHeight / 3;
+  let activeIndex = 0;
+  sections.forEach((section, i) => {
+    if (section && section.offsetTop <= scrollPos) activeIndex = i;
+  });
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+}
+window.addEventListener('scroll', updateDots);
+updateDots();
+</script>
+
+</body>
+</html>
