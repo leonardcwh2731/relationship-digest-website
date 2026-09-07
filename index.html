@@ -892,22 +892,6 @@ section.hero + section { border-top: 0; }
   color: #fff; background: var(--spark-deep); border-radius: 6px; padding: 5px 9px; white-space: nowrap;
 }
 
-/* Stage 3 — reconnection flow */
-.svc-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-/* Four-step path: force an even 2 + 2 break instead of letting chip widths decide */
-.svc-flow.two-row { row-gap: 10px; }
-.svc-flow.two-row > .svc-flow-arrow:nth-child(6) { flex-basis: 100%; height: 0; overflow: hidden; margin: 0; }
-/* Turn marker: sits at the head of row two, linking back to the chip above */
-.svc-flow.two-row > .svc-flow-turn { order: 0; }
-.svc-flow-step {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
-  padding: 8px 13px; border-radius: 999px; background: var(--paper-2);
-  border: 1px solid var(--hairline); color: var(--ink-4); white-space: nowrap;
-}
-.svc-flow-step.done { color: var(--ink-3); }
-.svc-flow-step.active { background: var(--spark-deep); border-color: var(--spark-deep); color: #fff; }
-.svc-flow-arrow { color: var(--ink-4); font-size: 13px; }
-
 /* Technology — Digest | Snapshot toggle (scoped, separate from global .track-tab) */
 .tech-toggle {
   display: flex; gap: 0; border: 1px solid var(--hairline); border-radius: 999px;
@@ -3006,12 +2990,6 @@ section.hero + section { border-top: 0; }
   .hiw-panel-heading { font-size: 20px; }
   .hiw-panel-body p { font-size: 14px; }
 
-  /* Warm-intro path: shrink the chips so row one still holds three of them
-     rather than wrapping into a stranded third line. */
-  .svc-flow { gap: 6px; }
-  .svc-flow-step { font-size: 10px; padding: 7px 10px; letter-spacing: 0.02em; }
-  .svc-flow-arrow { font-size: 11px; }
-
   /* Revoke steps: tighter gutter, and let the breadcrumb break rather than
      push past the card edge at 320px. */
   .pgfx-steps li { padding-left: 26px; font-size: 12.5px; }
@@ -3439,7 +3417,7 @@ section.hero + section { border-top: 0; }
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3>Service</h3>
-        <p>Warm intros mapping. Custom signals. Handpicked relationships.</p>
+        <p>Custom signals engineering. Handpicked relationships.</p>
         <span class="solution-card-link">See how &rarr;</span>
       </a>
       <a href="#digest" data-cursor="View" class="card solution-card stagger-in" style="text-align:center;">
@@ -3469,40 +3447,19 @@ section.hero + section { border-top: 0; }
         <ul class="step-bullets">
           <li>
             <span class="step-bullet-num">1</span>
-            <p><strong>Warm introduction mapping.</strong> The accounts you want to win are rarely as far away as they look. Someone you already know has worked alongside the people inside them, and that shared history is a door most agencies never think to try. We find those paths and hand them to you, so you <span class="highlight-mark">break into new accounts through relationships you already have</span>.</p>
+            <p><strong>Custom signals engineering.</strong> We reverse engineer the deals that already worked for you and turn what made them land into signals we track on your behalf &mdash; <span class="highlight-mark">built for your agency alone, from your own history</span>.</p>
           </li>
           <li>
             <span class="step-bullet-num">2</span>
-            <p><strong>Custom signals engineering.</strong> Every agency has its own path from a relationship to a deal. We look at the ones that have already worked for you, reverse engineer what made them land, and turn that path into a signal we track on your behalf &mdash; so we surface the relationships that fit it. Custom signals are <span class="highlight-mark">built for your agency alone, from your own history</span>.</p>
-          </li>
-          <li>
-            <span class="step-bullet-num">3</span>
-            <p><strong>Handpicked relationships.</strong> The last step is deliberately manual. A relationship operator on our team reads the shortlist and weighs what an AI agent can&rsquo;t see &mdash; whether the timing is right, the history holds up, or this is genuinely worth a reconnection &mdash; before <span class="highlight-mark">choosing the three most suitable relationships for your digest</span>.</p>
+            <p><strong>Handpicked relationships.</strong> The last step is deliberately manual. An operator on our team weighs what an AI agent can&rsquo;t see &mdash; timing, history, whether it is genuinely worth a reconnection &mdash; before <span class="highlight-mark">choosing the three most suitable relationships for your digest</span>.</p>
           </li>
         </ul>
       </div>
       <div class="symptom-visual">
        <div class="svc-card">
-        <!-- Stage 1 — existing network maps a path into a target account -->
+        <!-- Stage 1 — signals reverse engineered from the agency's own wins -->
         <div class="svc-stage">
-          <div class="svc-stage-head"><span class="svc-stage-tag">01</span><span class="svc-stage-title">Warm intro mapping</span><span class="svc-stage-meta">paths into 42 target accounts</span></div>
-          <div class="svc-flow two-row">
-            <span class="svc-flow-step done">Your contact</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step done">Past company</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step done">Ex-colleague</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-arrow svc-flow-turn">&rarr;</span>
-            <span class="svc-flow-step done">New ideal account</span>
-            <span class="svc-flow-arrow">&rarr;</span>
-            <span class="svc-flow-step active">Decision maker</span>
-          </div>
-        </div>
-
-        <!-- Stage 2 — signals reverse engineered from the agency's own wins -->
-        <div class="svc-stage">
-          <div class="svc-stage-head"><span class="svc-stage-tag">02</span><span class="svc-stage-title">Custom signals</span><span class="svc-stage-meta">built from your own wins</span></div>
+          <div class="svc-stage-head"><span class="svc-stage-tag">01</span><span class="svc-stage-title">Custom signals</span><span class="svc-stage-meta">built from your own wins</span></div>
           <div class="svc-siggroup">
             <div class="svc-siggroup-label">Per-agency, multi-signals setup</div>
             <div class="svc-signals">
@@ -3513,9 +3470,9 @@ section.hero + section { border-top: 0; }
           </div>
         </div>
 
-        <!-- Stage 3 — a human cuts the shortlist down to three -->
+        <!-- Stage 2 — a human cuts the shortlist down to three -->
         <div class="svc-stage">
-          <div class="svc-stage-head"><span class="svc-stage-tag">03</span><span class="svc-stage-title">Handpicked</span><span class="svc-stage-meta">chosen by an operator</span></div>
+          <div class="svc-stage-head"><span class="svc-stage-tag">02</span><span class="svc-stage-title">Handpicked</span><span class="svc-stage-meta">chosen by an operator</span></div>
           <div class="svc-pick-row">
             <div class="svc-pick-avatar">EL</div>
             <div class="svc-pick-meta"><strong>Elena L. &mdash; ex-Creative Dir.</strong><span>Just started a new venture &middot; worked with Maya R.</span></div>
@@ -4579,7 +4536,6 @@ section.hero + section { border-top: 0; }
           <li><span class="pricing-check">&#10003;</span> Tailored tiering strategy, based on ICP</li>
           <li><span class="pricing-check">&#10003;</span> Handpick relationships for daily digest</li>
           <li><span class="pricing-check">&#10003;</span> Custom signals engineering</li>
-          <li><span class="pricing-check">&#10003;</span> Warm introduction mapping</li>
           <li><span class="pricing-check">&#10003;</span> Direct access to our team through Slack</li>
           <li class="pricing-separator"><span>Technology</span></li>
           <li><span class="pricing-check">&#10003;</span> Relationship Digest</li>
