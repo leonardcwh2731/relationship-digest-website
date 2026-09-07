@@ -905,7 +905,7 @@ section.hero + section { border-top: 0; }
 .svc-flow-step.active { background: var(--spark-deep); border-color: var(--spark-deep); color: #fff; }
 .svc-flow-arrow { color: var(--ink-4); font-size: 13px; }
 
-/* Technology — Digest | Recap toggle (scoped, separate from global .track-tab) */
+/* Technology — Digest | Snapshot toggle (scoped, separate from global .track-tab) */
 .tech-toggle {
   display: flex; gap: 0; border: 1px solid var(--hairline); border-radius: 999px;
   background: var(--surface); padding: 4px; max-width: 340px; margin: 44px auto 40px;
@@ -1046,20 +1046,20 @@ section.hero + section { border-top: 0; }
   background: var(--hairline-2);
 }
 
-/* ===== Recap Spotlight — same annotated layout as the Digest ===== */
-/* Recap mockup sections — one contact each */
+/* ===== Snapshot Spotlight — same annotated layout as the Digest ===== */
+/* Snapshot mockup sections — one contact each */
 .digest-full-mockup .recap-sec-head {
   font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
   color: var(--muted); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--card-border);
 }
 .digest-full-mockup .recap-good { color: var(--olive-deep); }
-/* Position left recap annotations (sections 1 & 3) */
+/* Position left snapshot annotations (sections 1 & 3) */
 #recap-spotlight .digest-annotations-left .digest-annotation:nth-child(1) { margin-top: 266px; } /* #1 Meetings booked */
 #recap-spotlight .digest-annotations-left .digest-annotation:nth-child(2) { margin-top: 582px; } /* #3 Still worth a ping */
-/* Position right recap annotations (sections 2 & 4) */
+/* Position right snapshot annotations (sections 2 & 4) */
 #recap-spotlight .digest-annotations-right .digest-annotation:nth-child(1) { margin-top: 586px; } /* #2 You reached out */
 #recap-spotlight .digest-annotations-right .digest-annotation:nth-child(2) { margin-top: 547px; } /* #4 Profile corrected */
-/* Vertical borders on recap sections — lines connect here */
+/* Vertical borders on snapshot sections — lines connect here */
 #recap-sec-meeting { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
 #recap-sec-reached { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
 #recap-sec-ping { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
@@ -1167,13 +1167,31 @@ section.hero + section { border-top: 0; }
   transition: background 150ms ease, border-color 150ms ease;
 }
 .digest-thread-link:hover { background: var(--sage); border-color: var(--olive-deep); }
-/* Digest keeps its actions centred; the recap contact list reads as a column
+/* Digest keeps its actions centred; the snapshot contact list reads as a column
    of records, so those align left. */
 .digest-full-actions { display: flex; gap: 10px; justify-content: center; }
 [data-techview="recap"] .digest-full-actions { justify-content: flex-start; }
 .digest-full-btn { flex: 0 0 auto; padding: 9px 20px; border-radius: var(--radius); font-size: 12.5px; font-weight: 700; text-align: center; border: none; cursor: pointer; white-space: nowrap; }
 .digest-full-btn-dark { background: var(--black); color: var(--white); }
 .digest-full-btn-outline { background: var(--white); color: var(--black); border: 1.5px solid var(--black); }
+/* --- Digest v1.8 footer row (operator 2026-08-31, respaced 2026-09-02) ---
+   v1.8 is v1.7 plus ONE thing: both footer buttons on a single row, sitting
+   TOGETHER AND CENTRED, with no caption above either button and no rule above
+   the row. It REPLACES v1.7's two stacked captioned blocks ("Got more time
+   today?" / "Want the bigger picture?") rather than following them.
+   The gutter is a right margin on the FIRST button only, so it sits BETWEEN
+   the pair rather than around the group — the same construction the
+   "Mark as bad contact" pair uses. */
+.digest-v18-footer { display: flex; justify-content: center; align-items: center; margin-top: 20px; }
+.digest-v18-btn {
+  display: inline-block; white-space: nowrap;
+  font-size: 12px; font-weight: 700; color: var(--text-dark); text-decoration: none;
+  border: 1px solid var(--card-border); border-radius: 6px; padding: 7px 14px;
+  background: var(--white); cursor: pointer; transition: border-color 150ms ease, background 150ms ease;
+}
+.digest-v18-btn:hover { border-color: var(--black); background: var(--sage); }
+.digest-v18-btn + .digest-v18-btn { margin-left: 6px; }
+
 .digest-after-status { font-size: 13px; color: var(--text-mid); margin-bottom: 12px; }
 .digest-after-status strong { color: var(--text-dark); font-weight: 700; }
 .digest-after-actions { display: flex; flex-wrap: nowrap; gap: 6px; }
@@ -1321,10 +1339,10 @@ section.hero + section { border-top: 0; }
   .digest-after-preview { display: none; }
 }
 
-/* ===== Recap v2 — annotated report with stats, flow, banners ===== */
+/* ===== Snapshot v2 — annotated report with stats, flow, banners ===== */
 .recap-spotlight-grid { margin-top: 44px; }
 .recap-mockup { padding: 36px 34px; }
-/* Recap annotations align (centered) to the colored section banners.
+/* Snapshot annotations align (centered) to the colored section banners.
    These override the digest nth-child tops since the columns reuse the
    .digest-annotations-left/right classes. */
 .recap-annos-left, .recap-annos-right { min-height: 2900px; }
@@ -1334,7 +1352,7 @@ section.hero + section { border-top: 0; }
 .recap-annos-right .digest-annotation:nth-child(1) { top: 1173px; }  /* 2 → First Reply */
 .recap-annos-right .digest-annotation:nth-child(2) { top: 2222px; } /* 4 → Pending */
 
-/* Recap header cycler — week → month → quarter, rolling upward */
+/* Snapshot header cycler — week → month → quarter, rolling upward */
 .recap-cycler {
   position: relative; overflow: hidden;
   /* tall enough for the h2 + meta line */
@@ -1355,7 +1373,7 @@ section.hero + section { border-top: 0; }
   .recap-slide { transition: none; }
 }
 
-/* Recap bands carry a vertical accent line where the annotation connector lands,
+/* Snapshot bands carry a vertical accent line where the annotation connector lands,
    mirroring the digest's per-section border lines. */
 #recap-band-meetings, #recap-band-noreply, #recap-band-after {
   position: relative;
@@ -1374,7 +1392,7 @@ section.hero + section { border-top: 0; }
   }
 }
 
-/* Recap is a static mockup — nothing inside it should be clickable. */
+/* Snapshot is a static mockup — nothing inside it should be clickable. */
 .recap-mockup a,
 .recap-mockup button,
 .recap-jump-pill {
@@ -1511,7 +1529,7 @@ section.hero + section { border-top: 0; }
   padding: 12px 16px; border-left: 3px solid var(--olive-deep); background: var(--sage);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
-/* Recap mockup (Weekly + Monthly) — modeled after the real recap email */
+/* Snapshot mockup (Weekly + Monthly) — modeled after the real snapshot email */
 .recap-stats { display: flex; gap: 6px; padding: 12px 0; margin: 0 0 18px; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
 .recap-stat { flex: 1; text-align: center; }
 .recap-stat strong { display: block; font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--ink); }
@@ -1949,7 +1967,7 @@ section.hero + section { border-top: 0; }
 .final-cta .subtitle { margin-bottom: 32px; }
 
 /* ===== FOOTER (from VeraOps Design System) ===== */
-.footer { display: none; background: var(--ink); color: var(--paper); padding: 80px 0 32px; margin-top: 0; }
+.footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; margin-top: 0; position: relative; z-index: 2; }
 .footer-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 32px;
   display: grid;
@@ -1959,9 +1977,11 @@ section.hero + section { border-top: 0; }
 }
 .footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
 .footer-bureau {
-  grid-column: 2 / -1; grid-row: 2;
-  justify-self: end; display: block;
-  margin-top: 32px; text-decoration: none;
+  /* Sits in the Legal column so its left edge lines up with those links,
+     and pulled up so the badge bottom sits level with the address block. */
+  grid-column: 3; grid-row: 2;
+  justify-self: start; align-self: start; display: block;
+  margin-top: -32px; text-decoration: none;
 }
 .footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
 .footer h5 {
@@ -2007,13 +2027,27 @@ section.hero + section { border-top: 0; }
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
 }
 @media (max-width: 768px) {
-  .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 32px; padding: 0 24px; }
+  .footer { padding: 48px 0 24px; }
+  .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
+  .footer a { line-height: 1.85; font-size: 13.5px; }
+  .footer-contact { margin-top: 18px; gap: 10px; }
+  .footer h5 { margin-bottom: 12px; }
+  .footer-bureau img { height: 52px; }
   .footer-inner .footer-brand-col,
   .footer-inner .footer-col-resources,
   .footer-inner .footer-col-compare,
   .footer-inner .footer-col-legal { grid-column: 1; grid-row: auto; }
-  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px; }
-  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 24px 0; }
+  /* Stacked footer: cancel the desktop pull-up used to align the badge
+     with the address block, which no longer applies in one column. */
+  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px !important; }
+  /* Two columns on one row: stacked, these two long lines wrapped into a
+     four-line block that read as one run-on sentence. */
+  .footer-bottom {
+    display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+    gap: 0 20px; padding: 20px 24px 0; margin-top: 40px;
+    font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
+  }
+  .footer-bottom span:last-child { text-align: right; }
 }
 
 /* Sticky Bottom CTA — hidden on mobile */
@@ -3410,7 +3444,7 @@ section.hero + section { border-top: 0; }
           <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/></svg>
         </div>
         <h3>Technology</h3>
-        <p>Relationship Digest. Relationship Recaps. Sent directly to your Gmail.</p>
+        <p>Relationship Digest. Relationship Snapshots. Sent directly to your Gmail.</p>
         <span class="solution-card-link">See how &rarr;</span>
       </a>
     </div>
@@ -3491,7 +3525,7 @@ section.hero + section { border-top: 0; }
   </div>
 </section>
 
-<!-- ===== STEP 3: TECHNOLOGY (Digest | Recap) ===== -->
+<!-- ===== STEP 3: TECHNOLOGY (Digest | Snapshot) ===== -->
 <section class="section-sage blend-sage-to-white" id="digest">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
@@ -3502,7 +3536,7 @@ section.hero + section { border-top: 0; }
 
     <div class="tech-toggle fade-in" role="tablist" aria-label="Technology view switcher">
       <button class="tech-toggle-btn active" data-tech="digest" role="tab" aria-selected="true">Digest</button>
-      <button class="tech-toggle-btn" data-tech="recap" role="tab" aria-selected="false">Recap</button>
+      <button class="tech-toggle-btn" data-tech="recap" role="tab" aria-selected="false">Snapshot</button>
     </div>
 
     <!-- Digest view -->
@@ -3775,6 +3809,14 @@ section.hero + section { border-top: 0; }
               </div>
             </div>
           </div>
+
+          <!-- Digest v1.8: the two-button footer row. One row, both buttons
+               together and centred, no captions and no rule above — this
+               replaces the two stacked captioned blocks v1.7 rendered. -->
+          <div class="digest-v18-footer">
+            <span class="digest-v18-btn">Generate Follow-Up Digest</span>
+            <span class="digest-v18-btn">View Dashboard</span>
+          </div>
         </div>
       </div>
 
@@ -3826,7 +3868,7 @@ section.hero + section { border-top: 0; }
     </div>
     </div>
 
-    <!-- Recap view -->
+    <!-- Snapshot view -->
     <div class="tech-view" data-techview="recap">
     <div class="digest-spotlight recap-spotlight-grid fade-in">
       <!-- Left annotations -->
@@ -4092,6 +4134,13 @@ section.hero + section { border-top: 0; }
           </div>
         </div>
 
+        <!-- Digest v1.8: the same two-button footer row the digest carries —
+             one centred row, no captions, no rule above. -->
+        <div class="digest-v18-footer">
+          <span class="digest-v18-btn">Generate Follow-Up Digest</span>
+          <span class="digest-v18-btn">View Dashboard</span>
+        </div>
+
       </div>
       </div>
 
@@ -4101,7 +4150,7 @@ section.hero + section { border-top: 0; }
           <div class="digest-annotation-num">2</div>
           <div>
             <h4>First Reply</h4>
-            <p>Someone you reached out to who wrote back &mdash; the warmest signal in the recap, worth a fast follow-up before it cools.</p>
+            <p>Someone you reached out to who wrote back &mdash; the warmest signal in the snapshot, worth a fast follow-up before it cools.</p>
           </div>
         </div>
         <div class="digest-annotation">
@@ -4537,7 +4586,7 @@ section.hero + section { border-top: 0; }
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Surfacing of live signals</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Suggested email, tailored to your writing voice</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Sent to your Gmail every morning</li>
-          <li><span class="pricing-check">&#10003;</span> Relationship Recap</li>
+          <li><span class="pricing-check">&#10003;</span> Relationship Snapshot</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Snapshot of your reconnection progress</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Reverse engineer successful reconnection</li>
           <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Follow-up system after initial outreach</li>
@@ -4612,7 +4661,7 @@ section.hero + section { border-top: 0; }
           <span class="faq-toggle" aria-hidden="true"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner"><p>The digest is sent once every weekday and includes three contacts per digest. There is also a weekly recap, a monthly recap, and a quarterly recap.</p></div>
+          <div class="faq-answer-inner"><p>The digest is sent once every weekday and includes three contacts per digest. There is also a weekly snapshot, a monthly snapshot, and a quarterly snapshot.</p></div>
         </div>
       </div>
       <div class="faq-item">
@@ -4896,7 +4945,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Recap cycler — header rolls upward; stats + Sankey cross-fade in sync
+// Snapshot cycler — header rolls upward; stats + Sankey cross-fade in sync
 (function() {
   const cycler = document.getElementById('recapCycler');
   const dataCycler = document.getElementById('recapDataCycler');
@@ -4959,7 +5008,7 @@ function updateDots() {
 window.addEventListener('scroll', updateDots);
 updateDots();
 
-// Technology view switcher (Digest | Recap)
+// Technology view switcher (Digest | Snapshot)
 document.querySelectorAll('.tech-toggle-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const key = btn.dataset.tech;
@@ -5001,7 +5050,7 @@ document.querySelectorAll('.tech-toggle-btn').forEach(btn => {
   }));
 })();
 
-// Recap sub-view switcher (Weekly recap | Monthly snapshot)
+// Snapshot sub-view switcher (Weekly | Monthly)
 document.querySelectorAll('.track-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const key = tab.dataset.track;
@@ -5127,8 +5176,7 @@ document.addEventListener('click', () => {
 });
 </script>
 
-<!-- ===== FOOTER (hidden from live site — restore by removing the comment wrappers) ===== -->
-<!--
+<!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-brand-col">
@@ -5146,6 +5194,10 @@ document.addEventListener('click', () => {
     <div class="footer-col-resources">
       <h5>Resources</h5>
       <a href="#hero">Home</a>
+      <a href="#solution">How It Works</a>
+      <a href="#digest">Technology</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
       <a href="./articles/index.html">Articles</a>
     </div>
     <div class="footer-col-legal">
@@ -5162,8 +5214,6 @@ document.addEventListener('click', () => {
     <span>Designed for ambitious creative agencies</span>
   </div>
 </footer>
--->
-<!-- ===== end hidden FOOTER ===== -->
 
 </body>
 </html>
