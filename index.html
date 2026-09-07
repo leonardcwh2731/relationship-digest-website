@@ -657,17 +657,20 @@ section.hero + section { border-top: 0; }
 
 /* === Compare / Anchoring === */
 .cmp-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px;
-  margin-top: 64px; align-items: start;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
+  margin-top: 56px; align-items: start;
 }
 /* Ours is the only card with a surface and a frame; the alternatives sit
    plain on the section ground so the eye lands on the first column. */
 .cmp-card { display: flex; flex-direction: column; padding: 0 0 8px; }
+/* Our column carries a surface, but its LEFT EDGE must line up with the
+   section heading above it — so the inset is padding, never a negative
+   margin pulling the card out past the container. */
 .cmp-card-ours {
   background: var(--sage); border: 1px solid var(--hairline);
-  padding: 28px 30px 30px; margin: -29px -30px 0;
+  padding: 24px 24px 26px; margin: -24px 0 0;
 }
-.cmp-rule { height: 1px; background: var(--ink); opacity: 0.85; margin-bottom: 26px; }
+.cmp-rule { height: 1px; background: var(--ink); opacity: 0.85; margin-bottom: 20px; }
 .cmp-card-ours .cmp-rule { background: var(--hairline); opacity: 1; }
 .cmp-name {
   font-family: var(--font-sans); font-size: 17px; font-weight: 700;
@@ -681,14 +684,14 @@ section.hero + section { border-top: 0; }
 /* Fixed height so the four label rows below start on ONE baseline across all
    three columns — the term lines differ in length and would otherwise push
    each column's rows to a different height. */
-.cmp-term { font-size: 12.5px; color: var(--ink-4); margin: 9px 0 0; min-height: 2.6em; }
+.cmp-term { font-size: 12.5px; color: var(--ink-4); margin: 8px 0 0; min-height: 2.4em; }
 /* Label/value pairs. The labels align across all three columns because every
    card carries the same four rows in the same order. */
-.cmp-rows { margin: 34px 0 0; }
+.cmp-rows { margin: 26px 0 0; }
 .cmp-rows dt {
   font-family: var(--font-mono); font-size: 9.5px; font-weight: 500;
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
-  margin-top: 30px;
+  margin-top: 22px;
 }
 .cmp-rows dt:first-child { margin-top: 0; }
 .cmp-rows dd {
@@ -1009,18 +1012,18 @@ section.hero + section { border-top: 0; }
    target section's vertical line without cascading into its siblings. */
 .digest-annotations-left, .digest-annotations-right { position: relative; display: block; min-height: 2340px; }
 .digest-annotations-left .digest-annotation, .digest-annotations-right .digest-annotation { position: absolute; left: 0; right: 0; }
-.digest-annotations-left .digest-annotation:nth-child(1) { top: 646px; }   /* #2 → Connection Details */
-.digest-annotations-left .digest-annotation:nth-child(2) { top: 915px; }   /* #4 → Last Email Thread */
-.digest-annotations-left .digest-annotation:nth-child(3) { top: 1259px; }  /* #6 → What They're Up To */
-.digest-annotations-left .digest-annotation:nth-child(4) { top: 1562px; }  /* #8 → Why Reach Out Today */
-.digest-annotations-left .digest-annotation:nth-child(5) { top: 2028px; }  /* #10 → Send Email buttons */
+.digest-annotations-left .digest-annotation:nth-child(1) { top: 635px; }   /* #2 → Connection Details */
+.digest-annotations-left .digest-annotation:nth-child(2) { top: 854px; }   /* #4 → Last Email Thread */
+.digest-annotations-left .digest-annotation:nth-child(3) { top: 1241px; }  /* #6 → What They're Up To */
+.digest-annotations-left .digest-annotation:nth-child(4) { top: 1571px; }  /* #8 → Why Reach Out Today */
+.digest-annotations-left .digest-annotation:nth-child(5) { top: 2066px; }  /* #10 → Send Email buttons */
 
-.digest-annotations-right .digest-annotation:nth-child(1) { top: 357px; }  /* #1 → Outreach Momentum */
-.digest-annotations-right .digest-annotation:nth-child(2) { top: 756px; }  /* #3 → Quick Refresher */
-.digest-annotations-right .digest-annotation:nth-child(3) { top: 1101px; } /* #5 → Shared History */
-.digest-annotations-right .digest-annotation:nth-child(4) { top: 1416px; } /* #7 → In the News */
-.digest-annotations-right .digest-annotation:nth-child(5) { top: 1809px; } /* #9 → Suggested Email */
-.digest-annotations-right .digest-annotation:nth-child(6) { top: 2136px; } /* #11 → After Actions */
+.digest-annotations-right .digest-annotation:nth-child(1) { top: 138px; }  /* #1 → Outreach Momentum */
+.digest-annotations-right .digest-annotation:nth-child(2) { top: 724px; }  /* #3 → Quick Refresher */
+.digest-annotations-right .digest-annotation:nth-child(3) { top: 1043px; } /* #5 → Shared History */
+.digest-annotations-right .digest-annotation:nth-child(4) { top: 1374px; } /* #7 → In the News */
+.digest-annotations-right .digest-annotation:nth-child(5) { top: 1679px; } /* #9 → Suggested Email */
+.digest-annotations-right .digest-annotation:nth-child(6) { top: 2124px; } /* #11 → After Actions */
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
@@ -1047,12 +1050,6 @@ section.hero + section { border-top: 0; }
   color: var(--muted); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--card-border);
 }
 .digest-full-mockup .recap-good { color: var(--olive-deep); }
-/* Position left snapshot annotations (sections 1 & 3) */
-#recap-spotlight .digest-annotations-left .digest-annotation:nth-child(1) { margin-top: 266px; } /* #1 Meetings booked */
-#recap-spotlight .digest-annotations-left .digest-annotation:nth-child(2) { margin-top: 582px; } /* #3 Still worth a ping */
-/* Position right snapshot annotations (sections 2 & 4) */
-#recap-spotlight .digest-annotations-right .digest-annotation:nth-child(1) { margin-top: 586px; } /* #2 You reached out */
-#recap-spotlight .digest-annotations-right .digest-annotation:nth-child(2) { margin-top: 547px; } /* #4 Profile corrected */
 /* Vertical borders on snapshot sections — lines connect here */
 #recap-sec-meeting { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
 #recap-sec-reached { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
@@ -1060,10 +1057,6 @@ section.hero + section { border-top: 0; }
 #recap-sec-corrected { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
 
 @media (max-width: 900px) {
-  #recap-spotlight .digest-annotations-left .digest-annotation:nth-child(1),
-  #recap-spotlight .digest-annotations-left .digest-annotation:nth-child(2),
-  #recap-spotlight .digest-annotations-right .digest-annotation:nth-child(1),
-  #recap-spotlight .digest-annotations-right .digest-annotation:nth-child(2) { margin-top: 0; }
   #recap-sec-meeting, #recap-sec-reached, #recap-sec-ping, #recap-sec-corrected {
     border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0;
   }
@@ -1197,8 +1190,14 @@ section.hero + section { border-top: 0; }
   background: var(--sage); border: 1px solid var(--card-border);
   border-radius: 8px; padding: 14px 16px; margin: 16px 0 0;
 }
-.digest-signals-box .digest-full-section { margin-top: 0; }
-.digest-signals-box .digest-full-section + .digest-full-section { margin-top: 14px; }
+.digest-signals-box .digest-full-section { margin-top: 0; margin-bottom: 0; }
+/* The two feeds need a visible rule between them: stacked bare they read as
+   one long list of links, which is the opposite of what the box is for. */
+.digest-signals-box .digest-full-section + .digest-full-section {
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--card-border);
+}
+.digest-signals-box .digest-full-post { margin-bottom: 9px; }
+.digest-signals-box .digest-full-post:last-child { margin-bottom: 0; }
 
 /* Blinking cursor in the mailto preview: the body is deliberately left
    mid-sentence ("… is a bad contact because ") so the client's cursor lands
@@ -1360,12 +1359,12 @@ section.hero + section { border-top: 0; }
 /* Snapshot annotations align (centered) to the colored section banners.
    These override the digest nth-child tops since the columns reuse the
    .digest-annotations-left/right classes. */
-.recap-annos-left, .recap-annos-right { min-height: 2900px; }
-.recap-annos-left .digest-annotation:nth-child(1) { top: 758px; }   /* 1 → Meetings */
-.recap-annos-left .digest-annotation:nth-child(2) { top: 1731px; }  /* 3 → Followed Up Twice */
-.recap-annos-left .digest-annotation:nth-child(3) { top: 2766px; }  /* 5 → After Actions */
-.recap-annos-right .digest-annotation:nth-child(1) { top: 1173px; }  /* 2 → Replied */
-.recap-annos-right .digest-annotation:nth-child(2) { top: 2222px; } /* 4 → Followed Up Once */
+.recap-annos-left, .recap-annos-right { min-height: 3720px; }
+.recap-annos-left .digest-annotation:nth-child(1) { top: 1535px; }   /* 1 → Meetings */
+.recap-annos-left .digest-annotation:nth-child(2) { top: 2502px; }  /* 3 → Followed Up Twice */
+.recap-annos-left .digest-annotation:nth-child(3) { top: 3522px; }  /* 5 → After Actions */
+.recap-annos-right .digest-annotation:nth-child(1) { top: 1948px; }  /* 2 → Replied */
+.recap-annos-right .digest-annotation:nth-child(2) { top: 3000px; } /* 4 → Followed Up Once */
 
 /* Snapshot header cycler — week → month → quarter, rolling upward */
 .recap-cycler {
@@ -1436,61 +1435,131 @@ section.hero + section { border-top: 0; }
   border: 1px solid var(--card-border); border-radius: 12px;
   padding: 22px 20px; margin-bottom: 24px; background: var(--white);
 }
-/* --- Snapshot analysis: the verdict the period earned, before the numbers --- */
+/* ===== SNAPSHOT: analysis, statistics summary, funnel =====
+   Three blocks in the order the real email sends them:
+   1. the verdict the period earned, 2. the numbers behind it, 3. the funnel. */
+
+/* --- 1. Snapshot analysis --- */
 .recap-analysis {
-  background: var(--sage); border: 1px solid var(--card-border); border-radius: 8px;
-  padding: 14px 16px; margin-bottom: 18px;
+  background: var(--sage); border: 1px solid var(--card-border); border-radius: 10px;
+  padding: 20px 22px; margin-bottom: 20px;
+}
+.recap-analysis-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 12px;
 }
 .recap-analysis-label {
-  font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
-  color: var(--muted); margin-bottom: 6px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted);
 }
-.recap-analysis-verdict {
+.recap-analysis-badge {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--olive-deep); background: var(--white); border: 1px solid var(--card-border);
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+}
+.recap-analysis-headline {
   font-family: var(--font-display); font-size: 17px; font-weight: 700;
-  color: var(--black); line-height: 1.2;
+  line-height: 1.38; color: var(--text-dark); margin: 0 0 16px;
 }
-.recap-analysis-summary { font-size: 12.5px; color: var(--text-mid); margin: 4px 0 0; line-height: 1.5; }
-.recap-analysis-tally {
-  font-size: 12px; color: var(--text-mid); margin-top: 10px;
-  padding-top: 10px; border-top: 1px solid var(--card-border);
+/* Segmented bar: met / replied / still open, summing to the period's cohort. */
+.recap-analysis-bar {
+  display: flex; height: 8px; border-radius: 4px; overflow: hidden;
+  background: var(--card-border); margin-bottom: 9px;
 }
-.recap-analysis-tally strong { color: var(--text-dark); font-weight: 700; }
-.recap-analysis-points { list-style: none; margin: 10px 0 0; padding: 0; }
+.recap-analysis-bar span { display: block; height: 100%; }
+.rb-met { background: #2F6B3A; }
+.rb-replied { background: var(--spark-deep); }
+.rb-open { background: #D7DBE2; }
+.recap-analysis-tally { font-size: 11.5px; color: var(--muted); margin-bottom: 16px; }
+.recap-analysis-tally strong { font-weight: 700; }
+.rt-met strong { color: #2F6B3A; }
+.rt-replied strong { color: var(--spark-deep); }
+.rt-open strong { color: var(--text-mid); }
+.recap-analysis-points { list-style: none; margin: 0 0 14px; padding: 0; }
 .recap-analysis-points li {
-  position: relative; padding-left: 14px; font-size: 12px; line-height: 1.6; color: var(--text-mid);
+  position: relative; padding-left: 16px; font-size: 13px; line-height: 1.55;
+  color: var(--text-mid); margin-bottom: 7px;
 }
+.recap-analysis-points li:last-child { margin-bottom: 0; }
 .recap-analysis-points li::before {
-  content: "\2022"; position: absolute; left: 0; color: var(--muted); font-weight: 700;
+  content: "\2022"; position: absolute; left: 2px; top: -1px;
+  color: var(--spark-deep); font-weight: 700;
 }
-/* Six tiles wrap to two rows of three rather than squeezing onto one line —
-   each carries a rate and its denominator, so they need the width to read. */
-.recap-stats-row {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 14px 8px; margin-bottom: 20px;
+.recap-analysis-closing {
+  font-size: 12.5px; line-height: 1.55; color: var(--text-mid);
+  background: var(--white); border-left: 2px solid var(--card-border);
+  padding: 10px 12px; margin: 0 0 18px; border-radius: 0 6px 6px 0;
 }
-.recap-stat { text-align: center; }
-.recap-stat-label { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; }
-.recap-stat-val { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--black); line-height: 1; }
-.recap-stat-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
-/* --- Reconnection funnel ---
-   The Sankey was RETIRED 2026-07-24; the snapshot's diagram is now a funnel
-   (Suggested to Reached Out to Replies to Meetings), each stage carrying its
-   own rate and denominator. Fixed height so swapping week/month/quarter never
-   shifts the page — the annotations are pinned to absolute pixel offsets. */
+.recap-focus-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted); margin-bottom: 9px;
+}
+.recap-focus-item {
+  background: var(--white); border: 1px solid var(--card-border); border-radius: 8px;
+  padding: 11px 13px; font-size: 12.5px; line-height: 1.5; color: var(--text-mid);
+  margin-bottom: 8px;
+}
+.recap-focus-item:last-child { margin-bottom: 0; }
+.recap-focus-item strong { color: var(--text-dark); font-weight: 700; }
+
+/* --- 2. Statistics summary: two columns, three rows --- */
+.recap-stats-panel {
+  background: var(--sage); border: 1px solid var(--card-border); border-radius: 10px;
+  padding: 20px 22px; margin-bottom: 20px;
+}
+.recap-stats-panel-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted); margin-bottom: 12px;
+}
+/* One white card divided by its own gaps — the 1px background showing through
+   is what draws the grid lines, so the cells cannot drift apart. */
+.recap-stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--card-border); border: 1px solid var(--card-border);
+  border-radius: 10px; overflow: hidden;
+}
+.recap-stat {
+  background: var(--white); text-align: center;
+  padding: 16px 12px 14px; display: flex; flex-direction: column; align-items: center;
+}
+.recap-stat-label {
+  font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); line-height: 1.3; min-height: 2.6em;
+}
+.recap-stat-val {
+  font-family: var(--font-display); font-size: 26px; font-weight: 700;
+  color: var(--black); line-height: 1.05; margin: 4px 0 10px;
+}
+/* The rates sit side by side when a tile carries two, which is what makes the
+   bottom row read as a pair of measures rather than one wrapped sentence. */
+/* A tile is ~150px wide inside the two-column grid, which will not hold two
+   percentage columns side by side — they wrapped into a ragged block. So each
+   rate is ONE line, "33.3% of reached out", and a tile with two measures shows
+   them as two tidy rows. */
+.recap-stat-rates {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-size: 9.5px; color: var(--muted); line-height: 1.4; min-height: 2.8em;
+}
+.rs-rate { display: block; white-space: nowrap; }
+.rs-rate b { color: var(--spark-deep); font-weight: 700; font-size: 10px; margin-right: 3px; }
+
+/* --- 3. Reconnection funnel ---
+   The Sankey was RETIRED 2026-07-24; the diagram is a funnel now. Fixed height
+   so swapping week/month/quarter never shifts the page (the annotations are
+   pinned to absolute pixel offsets). */
 .recap-funnel {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-  height: 330px; align-content: center; padding: 8px 0;
+  height: 300px; align-content: center;
+  border: 1px solid var(--card-border); border-radius: 10px;
+  background: var(--white); padding: 20px 16px;
 }
 .rf-stage { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .rf-label {
   font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--muted); margin-bottom: 10px; line-height: 1.2; min-height: 2.4em;
+  color: var(--muted); margin-bottom: 12px; line-height: 1.2; min-height: 1.2em;
 }
-/* The bar is a fixed-height track with the stage's share drawn inside it, so
-   the four stages are measured against ONE baseline rather than each being
-   scaled to its own box. */
 .rf-bar {
-  width: 100%; height: 132px; display: flex; align-items: flex-end;
+  width: 100%; height: 120px; display: flex; align-items: flex-end;
   justify-content: center; margin-bottom: 12px;
 }
 .rf-bar span {
@@ -1499,11 +1568,16 @@ section.hero + section { border-top: 0; }
   opacity: 0.9; min-height: 6px;
 }
 .rf-val { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--black); line-height: 1; }
-.rf-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 6px; line-height: 1.35; }
+.rf-sub { display: block; font-size: 9.5px; color: var(--muted); margin-top: 7px; line-height: 1.35; min-height: 2.4em; }
 @media (max-width: 620px) {
-  .recap-funnel { height: 260px; gap: 6px; }
-  .rf-bar { height: 96px; }
+  .recap-analysis, .recap-stats-panel { padding: 16px; }
+  .recap-analysis-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .recap-stat { padding: 13px 8px 11px; }
+  .recap-stat-rates { gap: 8px; font-size: 9px; }
+  .recap-funnel { height: 250px; gap: 6px; padding: 16px 10px; }
+  .rf-bar { height: 92px; }
   .rf-val { font-size: 19px; }
+}
 }
 
 /* Jump to a section */
@@ -3675,7 +3749,7 @@ section.hero + section { border-top: 0; }
             <div class="digest-full-section-title">Connection Details <button class="digest-info-btn" data-info="1"><span>i</span><div class="digest-info-popup"><strong>Contact Intelligence</strong><br>Tier level, relationship type, and last contact date so you know exactly where you stand.</div></button></div>
             <div class="digest-full-contact">1. Rachel Moreno, Account Manager, Bolt Communications</div>
             <div class="digest-full-tier">
-              <span>Tier A</span> &middot; <span>Client, Supporting member</span> &middot; <span>Last contacted: About 14 months ago</span>
+              <span>Last contacted: About 14 months ago</span>
             </div>
           </div>
 
@@ -3916,229 +3990,275 @@ section.hero + section { border-top: 0; }
 
         <!-- Statistics summary + flow — swaps in sync with the header cycler -->
         <div class="recap-stats-card">
-          <!-- The snapshot leads with the ANALYSIS, not a bare stat row: a verdict,
-               a one-line summary, the tally and what it means. The six tiles below
-               are the weekly funnel set, each carrying its rate and denominator. -->
-          <div class="recap-data-cycler" id="recapDataCycler">
+        <div class="recap-data-cycler" id="recapDataCycler">
 
-            <div class="recap-data-slide is-active" data-period="week">
-              <div class="recap-analysis">
-                <div class="recap-analysis-label">Snapshot analysis</div>
-                <div class="recap-analysis-verdict">Steady period</div>
-                <p class="recap-analysis-summary">A steady week: three replies and a meeting booked.</p>
-                <div class="recap-analysis-tally"><strong>1</strong> met &middot; <strong>3</strong> replied &middot; <strong>8</strong> still open</div>
-                <ul class="recap-analysis-points">
+          <div class="recap-data-slide is-active" data-period="week">
+
+            <!-- 1 — Snapshot analysis: the verdict this period earned -->
+            <div class="recap-analysis">
+              <div class="recap-analysis-head">
+                <span class="recap-analysis-label">Snapshot analysis</span>
+                <span class="recap-analysis-badge">Steady period</span>
+              </div>
+              <p class="recap-analysis-headline">Fourteen contacts reached and three wrote back, the pipeline is moving.</p>
+              <div class="recap-analysis-bar"><span class="rb-met" style="width:8%"></span><span class="rb-replied" style="width:25%"></span><span class="rb-open" style="width:67%"></span></div>
+              <div class="recap-analysis-tally"><span class="rt-met"><strong>1</strong> met</span> &nbsp;&middot;&nbsp; <span class="rt-replied"><strong>3</strong> replied</span> &nbsp;&middot;&nbsp; <span class="rt-open"><strong>8</strong> still open</span></div>
+              <ul class="recap-analysis-points">
                 <li>Twelve people heard from you, and three wrote back.</li>
                 <li>One conversation reached a booked meeting.</li>
                 <li>Five contacts are still waiting on a follow-up.</li>
-                </ul>
-              </div>
-              <div class="recap-stats-row">
+              </ul>
+              <p class="recap-analysis-closing">A steady week by numbers, and the live threads are where the next meeting comes from.</p>
+              <div class="recap-focus-label">Where to focus next</div>
+                <div class="recap-focus-item"><strong>Kirstin Dorsch</strong> replied and is waiting on your answer.</div>
+                <div class="recap-focus-item"><strong>Grace Lin</strong> two follow-ups with no reply, worth a last touch.</div>
+            </div>
+
+            <!-- 2 — Statistics summary: two columns, three rows -->
+            <div class="recap-stats-panel">
+              <div class="recap-stats-panel-label">Statistics summary</div>
+              <div class="recap-stats-grid">
                 <div class="recap-stat">
                   <span class="recap-stat-label">Suggested</span>
                   <span class="recap-stat-val">14</span>
-                  <span class="recap-stat-sub">in this window</span>
+                  <span class="recap-stat-rates"><span class="rs-rate">in this window</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Reached Out</span>
                   <span class="recap-stat-val">12</span>
-                  <span class="recap-stat-sub">85.7% of suggested</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>85.7%</b>of suggested</span><span class="rs-rate">1 bounced</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">First Follow-Up</span>
                   <span class="recap-stat-val">3</span>
-                  <span class="recap-stat-sub">25% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>25%</b>of reached out</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Second Follow-Up</span>
                   <span class="recap-stat-val">1</span>
-                  <span class="recap-stat-sub">33.3% of first follow-up</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>33.3%</b>of first follow-up</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Replies</span>
                   <span class="recap-stat-val">4</span>
-                  <span class="recap-stat-sub">33.3% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>33.3%</b>of reached out</span><span class="rs-rate"><b>25%</b>of emails sent</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Meetings</span>
                   <span class="recap-stat-val">1</span>
-                  <span class="recap-stat-sub">8.3% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>8.3%</b>of reached out</span><span class="rs-rate"><b>25%</b>of replies</span></span>
                 </div>
               </div>
-            <div class="recap-funnel">
-              <div class="rf-stage">
-                <div class="rf-label">Suggested</div>
-                <div class="rf-bar"><span style="height:100%"></span></div>
-                <div class="rf-val">14</div>
-                
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Reached Out</div>
-                <div class="rf-bar"><span style="height:86%"></span></div>
-                <div class="rf-val">12</div>
-                <span class="rf-sub">85.7% of suggested</span>
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Replies</div>
-                <div class="rf-bar"><span style="height:33%"></span></div>
-                <div class="rf-val">4</div>
-                <span class="rf-sub">33.3% of reached out</span>
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Meetings</div>
-                <div class="rf-bar"><span style="height:12%"></span></div>
-                <div class="rf-val">1</div>
-                <span class="rf-sub">25% of replies</span>
-              </div>
-            </div>
             </div>
 
-            <div class="recap-data-slide" data-period="month">
-              <div class="recap-analysis">
-                <div class="recap-analysis-label">Snapshot analysis</div>
-                <div class="recap-analysis-verdict">Strong month</div>
-                <p class="recap-analysis-summary">A strong month: six replies and two meetings booked.</p>
-                <div class="recap-analysis-tally"><strong>2</strong> met &middot; <strong>6</strong> replied &middot; <strong>19</strong> still open</div>
-                <ul class="recap-analysis-points">
+            <!-- 3 — The reconnection funnel -->
+            <div class="recap-funnel">
+                <div class="rf-stage">
+                  <div class="rf-label">Suggested</div>
+                  <div class="rf-bar"><span style="height:100%"></span></div>
+                  <div class="rf-val">14</div>
+                  <span class="rf-sub"></span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Reached Out</div>
+                  <div class="rf-bar"><span style="height:86%"></span></div>
+                  <div class="rf-val">12</div>
+                  <span class="rf-sub">85.7% of suggested</span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Replies</div>
+                  <div class="rf-bar"><span style="height:33%"></span></div>
+                  <div class="rf-val">4</div>
+                  <span class="rf-sub">33.3% of reached out</span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Meetings</div>
+                  <div class="rf-bar"><span style="height:12%"></span></div>
+                  <div class="rf-val">1</div>
+                  <span class="rf-sub">25% of replies</span>
+                </div>
+            </div>
+          </div>
+
+          <div class="recap-data-slide" data-period="month">
+
+            <!-- 1 — Snapshot analysis: the verdict this period earned -->
+            <div class="recap-analysis">
+              <div class="recap-analysis-head">
+                <span class="recap-analysis-label">Snapshot analysis</span>
+                <span class="recap-analysis-badge">Strong period</span>
+              </div>
+              <p class="recap-analysis-headline">Forty-eight contacts reached and six wrote back, two meetings landed.</p>
+              <div class="recap-analysis-bar"><span class="rb-met" style="width:4%"></span><span class="rb-replied" style="width:12%"></span><span class="rb-open" style="width:84%"></span></div>
+              <div class="recap-analysis-tally"><span class="rt-met"><strong>2</strong> met</span> &nbsp;&middot;&nbsp; <span class="rt-replied"><strong>6</strong> replied</span> &nbsp;&middot;&nbsp; <span class="rt-open"><strong>19</strong> still open</span></div>
+              <ul class="recap-analysis-points">
                 <li>Forty-eight people heard from you, and six wrote back.</li>
                 <li>Two conversations reached a booked meeting.</li>
                 <li>Nineteen contacts are still waiting on a follow-up.</li>
-                </ul>
-              </div>
-              <div class="recap-stats-row">
+              </ul>
+              <p class="recap-analysis-closing">A strong month: the follow-up cadence is doing the work a first email cannot.</p>
+              <div class="recap-focus-label">Where to focus next</div>
+                <div class="recap-focus-item"><strong>Marcus Webb</strong> asked for pricing, still waiting on your reply.</div>
+                <div class="recap-focus-item"><strong>Dana Whitfield</strong> meeting booked, send the recap before it cools.</div>
+            </div>
+
+            <!-- 2 — Statistics summary: two columns, three rows -->
+            <div class="recap-stats-panel">
+              <div class="recap-stats-panel-label">Statistics summary</div>
+              <div class="recap-stats-grid">
                 <div class="recap-stat">
                   <span class="recap-stat-label">Suggested</span>
                   <span class="recap-stat-val">63</span>
-                  <span class="recap-stat-sub">in this window</span>
+                  <span class="recap-stat-rates"><span class="rs-rate">in this window</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Reached Out</span>
                   <span class="recap-stat-val">48</span>
-                  <span class="recap-stat-sub">76.2% of suggested</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>76.2%</b>of suggested</span><span class="rs-rate">3 bounced</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">First Follow-Up</span>
                   <span class="recap-stat-val">14</span>
-                  <span class="recap-stat-sub">29.2% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>29.2%</b>of reached out</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Second Follow-Up</span>
                   <span class="recap-stat-val">5</span>
-                  <span class="recap-stat-sub">35.7% of first follow-up</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>35.7%</b>of first follow-up</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Replies</span>
                   <span class="recap-stat-val">6</span>
-                  <span class="recap-stat-sub">12.5% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>12.5%</b>of reached out</span><span class="rs-rate"><b>9.2%</b>of emails sent</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Meetings</span>
                   <span class="recap-stat-val">2</span>
-                  <span class="recap-stat-sub">4.2% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>4.2%</b>of reached out</span><span class="rs-rate"><b>33.3%</b>of replies</span></span>
                 </div>
               </div>
-            <div class="recap-funnel">
-              <div class="rf-stage">
-                <div class="rf-label">Suggested</div>
-                <div class="rf-bar"><span style="height:100%"></span></div>
-                <div class="rf-val">63</div>
-                
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Reached Out</div>
-                <div class="rf-bar"><span style="height:76%"></span></div>
-                <div class="rf-val">48</div>
-                <span class="rf-sub">76.2% of suggested</span>
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Replies</div>
-                <div class="rf-bar"><span style="height:25%"></span></div>
-                <div class="rf-val">6</div>
-                <span class="rf-sub">12.5% of reached out</span>
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Meetings</div>
-                <div class="rf-bar"><span style="height:12%"></span></div>
-                <div class="rf-val">2</div>
-                <span class="rf-sub">33.3% of replies</span>
-              </div>
-            </div>
             </div>
 
-            <div class="recap-data-slide" data-period="quarter">
-              <div class="recap-analysis">
-                <div class="recap-analysis-label">Snapshot analysis</div>
-                <div class="recap-analysis-verdict">Building momentum</div>
-                <p class="recap-analysis-summary">A building quarter: twelve replies and six meetings booked.</p>
-                <div class="recap-analysis-tally"><strong>6</strong> met &middot; <strong>12</strong> replied &middot; <strong>41</strong> still open</div>
-                <ul class="recap-analysis-points">
+            <!-- 3 — The reconnection funnel -->
+            <div class="recap-funnel">
+                <div class="rf-stage">
+                  <div class="rf-label">Suggested</div>
+                  <div class="rf-bar"><span style="height:100%"></span></div>
+                  <div class="rf-val">63</div>
+                  <span class="rf-sub"></span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Reached Out</div>
+                  <div class="rf-bar"><span style="height:76%"></span></div>
+                  <div class="rf-val">48</div>
+                  <span class="rf-sub">76.2% of suggested</span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Replies</div>
+                  <div class="rf-bar"><span style="height:25%"></span></div>
+                  <div class="rf-val">6</div>
+                  <span class="rf-sub">12.5% of reached out</span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Meetings</div>
+                  <div class="rf-bar"><span style="height:12%"></span></div>
+                  <div class="rf-val">2</div>
+                  <span class="rf-sub">33.3% of replies</span>
+                </div>
+            </div>
+          </div>
+
+          <div class="recap-data-slide" data-period="quarter">
+
+            <!-- 1 — Snapshot analysis: the verdict this period earned -->
+            <div class="recap-analysis">
+              <div class="recap-analysis-head">
+                <span class="recap-analysis-label">Snapshot analysis</span>
+                <span class="recap-analysis-badge">Building momentum</span>
+              </div>
+              <p class="recap-analysis-headline">Eighty-six contacts reached and twelve wrote back, six meetings booked.</p>
+              <div class="recap-analysis-bar"><span class="rb-met" style="width:7%"></span><span class="rb-replied" style="width:14%"></span><span class="rb-open" style="width:79%"></span></div>
+              <div class="recap-analysis-tally"><span class="rt-met"><strong>6</strong> met</span> &nbsp;&middot;&nbsp; <span class="rt-replied"><strong>12</strong> replied</span> &nbsp;&middot;&nbsp; <span class="rt-open"><strong>41</strong> still open</span></div>
+              <ul class="recap-analysis-points">
                 <li>Eighty-six people heard from you, and twelve wrote back.</li>
                 <li>Six conversations reached a booked meeting.</li>
                 <li>Forty-one contacts are still waiting on a follow-up.</li>
-                </ul>
-              </div>
-              <div class="recap-stats-row">
+              </ul>
+              <p class="recap-analysis-closing">A quarter of compounding: the relationships reopened early are the ones closing now.</p>
+              <div class="recap-focus-label">Where to focus next</div>
+                <div class="recap-focus-item"><strong>Priya Menon</strong> proposal sent, decision expected this month.</div>
+                <div class="recap-focus-item"><strong>Sana Okafor</strong> went quiet after the intro call, worth one more angle.</div>
+            </div>
+
+            <!-- 2 — Statistics summary: two columns, three rows -->
+            <div class="recap-stats-panel">
+              <div class="recap-stats-panel-label">Statistics summary</div>
+              <div class="recap-stats-grid">
                 <div class="recap-stat">
                   <span class="recap-stat-label">Suggested</span>
                   <span class="recap-stat-val">198</span>
-                  <span class="recap-stat-sub">in this window</span>
+                  <span class="recap-stat-rates"><span class="rs-rate">in this window</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Reached Out</span>
                   <span class="recap-stat-val">86</span>
-                  <span class="recap-stat-sub">43.4% of suggested</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>43.4%</b>of suggested</span><span class="rs-rate">7 bounced</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">First Follow-Up</span>
                   <span class="recap-stat-val">27</span>
-                  <span class="recap-stat-sub">31.4% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>31.4%</b>of reached out</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Second Follow-Up</span>
                   <span class="recap-stat-val">9</span>
-                  <span class="recap-stat-sub">33.3% of first follow-up</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>33.3%</b>of first follow-up</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Replies</span>
                   <span class="recap-stat-val">12</span>
-                  <span class="recap-stat-sub">14% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>14%</b>of reached out</span><span class="rs-rate"><b>10.5%</b>of emails sent</span></span>
                 </div>
                 <div class="recap-stat">
                   <span class="recap-stat-label">Meetings</span>
                   <span class="recap-stat-val">6</span>
-                  <span class="recap-stat-sub">7% of reached out</span>
+                  <span class="recap-stat-rates"><span class="rs-rate"><b>7%</b>of reached out</span><span class="rs-rate"><b>50%</b>of replies</span></span>
                 </div>
               </div>
-            <div class="recap-funnel">
-              <div class="rf-stage">
-                <div class="rf-label">Suggested</div>
-                <div class="rf-bar"><span style="height:100%"></span></div>
-                <div class="rf-val">198</div>
-                
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Reached Out</div>
-                <div class="rf-bar"><span style="height:43%"></span></div>
-                <div class="rf-val">86</div>
-                <span class="rf-sub">43.4% of suggested</span>
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Replies</div>
-                <div class="rf-bar"><span style="height:22%"></span></div>
-                <div class="rf-val">12</div>
-                <span class="rf-sub">14% of reached out</span>
-              </div>
-              <div class="rf-stage">
-                <div class="rf-label">Meetings</div>
-                <div class="rf-bar"><span style="height:12%"></span></div>
-                <div class="rf-val">6</div>
-                <span class="rf-sub">50% of replies</span>
-              </div>
-            </div>
             </div>
 
+            <!-- 3 — The reconnection funnel -->
+            <div class="recap-funnel">
+                <div class="rf-stage">
+                  <div class="rf-label">Suggested</div>
+                  <div class="rf-bar"><span style="height:100%"></span></div>
+                  <div class="rf-val">198</div>
+                  <span class="rf-sub"></span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Reached Out</div>
+                  <div class="rf-bar"><span style="height:43%"></span></div>
+                  <div class="rf-val">86</div>
+                  <span class="rf-sub">43.4% of suggested</span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Replies</div>
+                  <div class="rf-bar"><span style="height:22%"></span></div>
+                  <div class="rf-val">12</div>
+                  <span class="rf-sub">14% of reached out</span>
+                </div>
+                <div class="rf-stage">
+                  <div class="rf-label">Meetings</div>
+                  <div class="rf-bar"><span style="height:12%"></span></div>
+                  <div class="rf-val">6</div>
+                  <span class="rf-sub">50% of replies</span>
+                </div>
+            </div>
           </div>
+
         </div>
+        </div>
+
 
         <!-- Jump to a section -->
         <div class="recap-jump">
@@ -4517,7 +4637,6 @@ section.hero + section { border-top: 0; }
         <h3>This is not for you if&hellip;</h3>
         <ul>
           <li>Your work is small, high-volume, and one-off, clients rarely return, so reconnecting with one relationship doesn&rsquo;t move the needle.</li>
-          <li>Nobody owns business development, sales is entirely founder-led with no dedicated seller in place.</li>
           <li>Your new business doesn&rsquo;t really run on relationships or referrals, it comes from ads, inbound, or one-off transactions.</li>
           <li>You want software you run yourself, not a partner working the relationships alongside you.</li>
           <li>Your relationships don&rsquo;t run through Gmail, so there&rsquo;s little history for us to scan and resurface.</li>
@@ -5385,7 +5504,7 @@ document.addEventListener('click', () => {
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
-    <span>Designed for ambitious creative agencies</span>
+    <span>Designed for relationship-focused digital, marketing, design, and creative agencies</span>
   </div>
 </footer>
 
