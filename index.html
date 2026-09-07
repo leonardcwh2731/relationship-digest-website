@@ -659,16 +659,28 @@ section.hero + section { border-top: 0; }
 .cmp-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
   margin-top: 56px; align-items: start;
+  /* Every card is inset 25px (24px padding + 1px border) so the three content
+     boxes match. Pulling the grid back by exactly that much puts the first
+     card's TEXT on the section heading's left edge, which is the edge a
+     reader actually sees — the card surface bleeds 25px wider on each side. */
+  margin-left: -25px; margin-right: -25px;
 }
 /* Ours is the only card with a surface and a frame; the alternatives sit
    plain on the section ground so the eye lands on the first column. */
-.cmp-card { display: flex; flex-direction: column; padding: 0 0 8px; }
-/* Our column carries a surface, but its LEFT EDGE must line up with the
-   section heading above it — so the inset is padding, never a negative
-   margin pulling the card out past the container. */
-.cmp-card-ours {
-  background: var(--sage); border: 1px solid var(--hairline);
+/* ⚠️ ALL THREE CARDS CARRY THE SAME PADDING so their CONTENT boxes match.
+   Only the first had an inset before, which left its text column 297px wide
+   against 347px for the other two — the copy wrapped earlier and the card
+   read visibly narrower even though the grid columns were identical.
+   The surface (background + border) is what distinguishes ours, not its
+   width. The left edge still lines up with the section heading because the
+   grid column starts there and the padding is inside it. */
+.cmp-card {
+  display: flex; flex-direction: column;
   padding: 24px 24px 26px; margin: -24px 0 0;
+  border: 1px solid transparent;
+}
+.cmp-card-ours {
+  background: var(--sage); border-color: var(--hairline);
 }
 .cmp-rule { height: 1px; background: var(--ink); opacity: 0.85; margin-bottom: 20px; }
 .cmp-card-ours .cmp-rule { background: var(--hairline); opacity: 1; }
@@ -700,8 +712,8 @@ section.hero + section { border-top: 0; }
 @media (max-width: 1050px) {
   /* Stacked, the negative margin that lets our card bleed past the grid
      gutter would drag it off the left edge, so it is cancelled here. */
-  .cmp-grid { grid-template-columns: 1fr; gap: 28px; }
-  .cmp-card-ours { margin: 0; padding: 22px; }
+  .cmp-grid { grid-template-columns: 1fr; gap: 28px; margin-left: 0; margin-right: 0; }
+  .cmp-card { margin: 0; padding: 20px; }
 }
 
 /* Bridge into the solution */
