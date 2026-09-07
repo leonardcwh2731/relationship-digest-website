@@ -657,41 +657,48 @@ section.hero + section { border-top: 0; }
 
 /* === Compare / Anchoring === */
 .cmp-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-  margin-top: 56px; align-items: stretch;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  margin-top: 48px; align-items: start;
 }
-.cmp-card {
-  background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
-  padding: 28px 24px; display: flex; flex-direction: column;
-  box-shadow: 0 12px 36px -18px rgba(0,0,0,0.16);
+/* Ours is the only card with a surface and a frame; the alternatives sit
+   plain on the section ground so the eye lands on the first column. */
+.cmp-card { display: flex; flex-direction: column; padding: 0 0 8px; }
+.cmp-card-ours {
+  background: var(--sage); border: 1px solid var(--hairline);
+  padding: 22px 26px 22px; margin: -23px -26px 0;
 }
-.cmp-kicker {
-  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
-  margin-bottom: 14px;
+.cmp-rule { height: 1px; background: var(--ink); opacity: 0.85; margin-bottom: 20px; }
+.cmp-card-ours .cmp-rule { background: var(--hairline); opacity: 1; }
+.cmp-name {
+  font-family: var(--font-sans); font-size: 17px; font-weight: 700;
+  letter-spacing: -0.01em; color: var(--ink); margin-bottom: 10px;
 }
 .cmp-price {
-  font-family: var(--font-display); font-size: clamp(21px, 1.9vw, 25px);
-  font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink);
-  margin-bottom: 5px;
+  font-family: var(--font-sans); font-size: clamp(23px, 2.2vw, 28px);
+  font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink);
 }
-.cmp-price small { font-size: 13px; font-weight: 400; opacity: 0.55; letter-spacing: 0; }
-.cmp-who {
-  font-size: 12.5px; line-height: 1.5; color: var(--ink-3); margin-bottom: 16px;
-  padding-bottom: 16px; border-bottom: 1px solid var(--hairline); min-height: 3.4em;
+.cmp-card-ours .cmp-price { color: var(--spark-deep); }
+/* Fixed height so the four label rows below start on ONE baseline across all
+   three columns — the term lines differ in length and would otherwise push
+   each column's rows to a different height. */
+.cmp-term { font-size: 12.5px; color: var(--ink-4); margin: 6px 0 0; min-height: 2.6em; }
+/* Label/value pairs. The labels align across all three columns because every
+   card carries the same four rows in the same order. */
+.cmp-rows { margin: 22px 0 0; }
+.cmp-rows dt {
+  font-family: var(--font-mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4);
+  margin-top: 18px;
 }
-.cmp-card > p { font-size: 14px; line-height: 1.7; color: var(--text-mid); min-height: 11.9em; }
-.cmp-card p em { color: var(--ink); font-style: italic; }
-.cmp-tradeoff {
-  margin-top: auto; padding-top: 18px; border-top: 1px solid var(--hairline);
-  font-size: 12.5px !important; color: var(--ink-3);
-  display: flex; align-items: flex-start; gap: 8px; min-height: 0 !important;
+.cmp-rows dt:first-child { margin-top: 0; }
+.cmp-rows dd {
+  margin: 5px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink);
 }
-.cmp-mark { font-weight: 700; color: #C9756B; min-width: 12px; line-height: 1.55; }
 @media (max-width: 1050px) {
-  .cmp-grid { grid-template-columns: 1fr; gap: 16px; }
-  .cmp-kicker, .cmp-who { min-height: 0; }
-  .cmp-card > p { min-height: 0; }
+  /* Stacked, the negative margin that lets our card bleed past the grid
+     gutter would drag it off the left edge, so it is cancelled here. */
+  .cmp-grid { grid-template-columns: 1fr; gap: 28px; }
+  .cmp-card-ours { margin: 0; padding: 22px; }
 }
 
 /* Bridge into the solution */
@@ -1829,10 +1836,6 @@ section.hero + section { border-top: 0; }
 .pricing-x { color: #e07070; font-weight: 700; min-width: 18px; }
 .pricing-features li.bonus { font-weight: 600; }
 .pricing-features li.excluded { opacity: 0.5; }
-.pricing-features li.pricing-separator { border-bottom: none; justify-content: flex-start; padding: 16px 0 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sage-mid); }
-.pricing-features li.pricing-sub { border-bottom: none; padding: 3px 0 3px 30px; font-size: 14px; opacity: 0.82; }
-.pricing-features li.pricing-sub .pricing-check { color: var(--sage-mid); font-weight: 400; min-width: 12px; font-size: 12px; }
-.pricing-features li.pricing-sub + li:not(.pricing-sub) { padding-top: 12px; }
 .pricing-guarantee { margin-top: 14px; font-size: 13px; font-weight: 500; text-align: center; color: rgba(255,255,255,0.7); }
 .pricing-card:not(.featured) .pricing-guarantee { color: var(--ink-3); }
 
@@ -4530,25 +4533,12 @@ section.hero + section { border-top: 0; }
         <div class="pricing-period"><span class="pricing-billing">Billed quarterly</span> &middot; No setup fee</div>
 
         <ul class="pricing-features">
-          <li class="pricing-separator"><span>Service</span></li>
           <li><span class="pricing-check">&#10003;</span> Reconnection strategy and insights</li>
-          <li><span class="pricing-check">&#10003;</span> Tailored tiering strategy, based on ICP</li>
           <li><span class="pricing-check">&#10003;</span> Handpick relationships for daily digest</li>
           <li><span class="pricing-check">&#10003;</span> Custom signals engineering</li>
           <li><span class="pricing-check">&#10003;</span> Direct access to our team through Slack</li>
-          <li class="pricing-separator"><span>Technology</span></li>
           <li><span class="pricing-check">&#10003;</span> Relationship Digest</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Account scan, cleaning, and enrichment</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Daily momentum tracking</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Relationship intelligence (quick refresher, shared history, referrals received and given)</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Surfacing of live signals</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Suggested email, tailored to your writing voice</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Sent to your Gmail every morning</li>
           <li><span class="pricing-check">&#10003;</span> Relationship Snapshot</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Snapshot of your reconnection progress</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Reverse engineer successful reconnection</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Follow-up system after initial outreach</li>
-          <li class="pricing-sub"><span class="pricing-check">&#8226;</span> Sent to your Gmail every week, month, and quarter</li>
         </ul>
 
         <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-light" style="width:100%; margin-top:8px;">Book a Call &rarr;</a>
@@ -4560,35 +4550,49 @@ section.hero + section { border-top: 0; }
 <!-- ===== HOW WE COMPARE ===== -->
 <section class="section-sage blend-sage-to-white" id="compare">
   <div class="container">
-    <div class="fade-in" style="text-align:center; max-width:800px; margin:0 auto;">
-      <div class="section-label">How We Compare</div>
-      <h2 class="section-headline">What it costs to solve this another way.</h2>
-      <p class="subtitle" style="margin-top:12px;">Every option below works. Each one asks you to give up something else, the strategy, the system, or the months it takes to stand up.</p>
+    <div class="fade-in" style="max-width:800px;">
+      <div class="section-label">The Alternatives</div>
+      <h2 class="section-headline">Your point of reference.</h2>
     </div>
 
     <div class="cmp-grid fade-in">
-      <div class="cmp-card">
-        <div class="cmp-kicker">Strategy without system</div>
-        <div class="cmp-price">$4,000&ndash;$15,000 <small>/ month</small></div>
-        <div class="cmp-who">Fractional business development lead</div>
-        <p>You hire the thinking. A seasoned operator gives you ten to fifteen hours a week, and they are genuinely good at this, but they still work the relationships <em>they</em> can remember. Nothing scans the ten years already sitting in your inbox.</p>
-        <p class="cmp-tradeoff"><span class="cmp-mark"></span> Judgment without engineering capabilities, at two to six times the cost.</p>
+      <div class="cmp-card cmp-card-ours">
+        <div class="cmp-rule"></div>
+        <div class="cmp-name">Relationship Digest</div>
+        <div class="cmp-price">$500</div>
+        <div class="cmp-term">/ month &middot; 6-month term</div>
+        <dl class="cmp-rows">
+          <dt>Setup</dt><dd>None.</dd>
+          <dt>Time to value</dt><dd>First digest in 48 hours.</dd>
+          <dt>What you get</dt><dd>Handpicked contacts and outreach drafts.</dd>
+          <dt>Asks of you</dt><dd>Fifteen minutes a day, in Gmail.</dd>
+        </dl>
       </div>
 
       <div class="cmp-card">
-        <div class="cmp-kicker">System without strategy</div>
-        <div class="cmp-price">$3,000&ndash;$5,750 <small>/ month</small></div>
-        <div class="cmp-who">UserGems, Champify</div>
-        <p>You buy the signal. Job changes and buying intent land in your CRM, and then it is yours to interpret. Built for revenue teams with an ops function to run them, plus an <em>$8,000</em> setup fee before the first notification fires.</p>
-        <p class="cmp-tradeoff"><span class="cmp-mark"></span> Notifications without anyone telling you what matters.</p>
+        <div class="cmp-rule"></div>
+        <div class="cmp-name">Fractional BD lead</div>
+        <div class="cmp-price">$4,000&ndash;$15,000</div>
+        <div class="cmp-term">/ month</div>
+        <dl class="cmp-rows">
+          <dt>Setup</dt><dd>Hiring and ramp.</dd>
+          <dt>Time to value</dt><dd>Months.</dd>
+          <dt>What you get</dt><dd>A person, 10&ndash;15 hours a week.</dd>
+          <dt>Asks of you</dt><dd>Managing them. Pipeline leaves when they leave.</dd>
+        </dl>
       </div>
 
       <div class="cmp-card">
-        <div class="cmp-kicker">System and implementation</div>
-        <div class="cmp-price">$150&ndash;$400 <small>/ user / month</small></div>
-        <div class="cmp-who">Introhive, plus $10,000&ndash;$50,000 in services</div>
-        <p>The closest thing to both halves at once. But it is built for top-100 law firms and Big Four accounting practices, takes <em>90 to 180 days</em> to reach value, and lives in a dashboard, and tools that ask you to open another tab plateau near 30&ndash;40% adoption.</p>
-        <p class="cmp-tradeoff"><span class="cmp-mark"></span> Six figures a year, two quarters of setup, and a dashboard to deal with.</p>
+        <div class="cmp-rule"></div>
+        <div class="cmp-name">Signals Monitoring Tools</div>
+        <div class="cmp-price">$3,000&ndash;$5,750</div>
+        <div class="cmp-term">/ month + &gt;$8,000 setup</div>
+        <dl class="cmp-rows">
+          <dt>Setup</dt><dd>CRM wiring and ops support.</dd>
+          <dt>Time to value</dt><dd>Once the integration is live.</dd>
+          <dt>What you get</dt><dd>Notifications, not interpretation.</dd>
+          <dt>Asks of you</dt><dd>Someone to decide what each alert means.</dd>
+        </dl>
       </div>
     </div>
   </div>
@@ -5142,7 +5146,7 @@ document.addEventListener('click', () => {
         <img src="assets/logo-mark.png" alt="" class="footer-mark">
         <span>VeraOps</span>
       </div>
-      <p class="copy">We help creative agencies recover lost revenue from dormant relationships.</p>
+      <p class="copy">We help digital, marketing, design, and creative agencies turn their existing relationships into the most reliable pipeline.</p>
       <div class="footer-contact">
         <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
         <p>+1 (302) 223 4061</p>
@@ -5152,11 +5156,10 @@ document.addEventListener('click', () => {
     <div class="footer-col-resources">
       <h5>Resources</h5>
       <a href="#hero">Home</a>
-      <a href="#solution">How It Works</a>
-      <a href="#digest">Technology</a>
+      <a href="#solution">Solution</a>
+      <a href="#testimonials">Clients</a>
+      <a href="#privacy">Privacy</a>
       <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="./articles/index.html">Articles</a>
     </div>
     <div class="footer-col-legal">
       <h5>Legal</h5>
