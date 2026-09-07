@@ -1019,23 +1019,24 @@ section.hero + section { border-top: 0; }
   width: 28px; height: 2px; background: var(--hairline-2);
 }
 
-/* Position left annotations to align with digest section borders */
-/* Annotations are absolutely positioned so each connector centers on its
-   target section's vertical line without cascading into its siblings. */
+/* Annotations are absolutely positioned so each connector lands on the MIDDLE
+   of its target section's vertical line without cascading into its siblings.
+   ⚠️ These offsets are MEASURED against the rendered page, never guessed — any
+   structural change to a card drags them off and they must be recomputed. */
 .digest-annotations-left, .digest-annotations-right { position: relative; display: block; min-height: 2340px; }
 .digest-annotations-left .digest-annotation, .digest-annotations-right .digest-annotation { position: absolute; left: 0; right: 0; }
-.digest-annotations-left .digest-annotation:nth-child(1) { top: 635px; }   /* #2 → Connection Details */
-.digest-annotations-left .digest-annotation:nth-child(2) { top: 854px; }   /* #4 → Last Email Thread */
-.digest-annotations-left .digest-annotation:nth-child(3) { top: 1241px; }  /* #6 → What They're Up To */
-.digest-annotations-left .digest-annotation:nth-child(4) { top: 1571px; }  /* #8 → Why Reach Out Today */
-.digest-annotations-left .digest-annotation:nth-child(5) { top: 2066px; }  /* #10 → Send Email buttons */
+.digest-annotations-left .digest-annotation:nth-child(1) { top: 659px; }   /* #2 → Connection Details */
+.digest-annotations-left .digest-annotation:nth-child(2) { top: 927px; }   /* #4 → Last Email Thread */
+.digest-annotations-left .digest-annotation:nth-child(3) { top: 1287px; }  /* #6 → What They're Up To */
+.digest-annotations-left .digest-annotation:nth-child(4) { top: 1624px; }  /* #8 → Why Reach Out Today */
+.digest-annotations-left .digest-annotation:nth-child(5) { top: 2090px; }  /* #10 → Send Email buttons */
 
-.digest-annotations-right .digest-annotation:nth-child(1) { top: 138px; }  /* #1 → Outreach Momentum */
-.digest-annotations-right .digest-annotation:nth-child(2) { top: 724px; }  /* #3 → Quick Refresher */
-.digest-annotations-right .digest-annotation:nth-child(3) { top: 1043px; } /* #5 → Shared History */
-.digest-annotations-right .digest-annotation:nth-child(4) { top: 1374px; } /* #7 → In the News */
-.digest-annotations-right .digest-annotation:nth-child(5) { top: 1679px; } /* #9 → Suggested Email */
-.digest-annotations-right .digest-annotation:nth-child(6) { top: 2124px; } /* #11 → After Actions */
+.digest-annotations-right .digest-annotation:nth-child(1) { top: 363px; }  /* #1 → Outreach Momentum */
+.digest-annotations-right .digest-annotation:nth-child(2) { top: 768px; }  /* #3 → Quick Refresher */
+.digest-annotations-right .digest-annotation:nth-child(3) { top: 1113px; } /* #5 → Shared History */
+.digest-annotations-right .digest-annotation:nth-child(4) { top: 1454px; } /* #7 → In the News */
+.digest-annotations-right .digest-annotation:nth-child(5) { top: 1872px; } /* #9 → Suggested Email */
+.digest-annotations-right .digest-annotation:nth-child(6) { top: 2172px; } /* #11 → After Actions */
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
@@ -1200,7 +1201,7 @@ section.hero + section { border-top: 0; }
    the equivalent step off the card ground. */
 .digest-signals-box {
   background: var(--sage); border: 1px solid var(--card-border);
-  border-radius: 8px; padding: 14px 16px; margin: 16px 0 0;
+  border-radius: 8px; padding: 14px 16px; margin: 16px 0;
 }
 .digest-signals-box .digest-full-section { margin-top: 0; margin-bottom: 0; }
 /* The two feeds need a visible rule between them: stacked bare they read as
@@ -1368,15 +1369,17 @@ section.hero + section { border-top: 0; }
 /* ===== Snapshot v2 — annotated report with stats, flow, banners ===== */
 .recap-spotlight-grid { margin-top: 44px; }
 .recap-mockup { padding: 36px 34px; }
-/* Snapshot annotations align (centered) to the colored section banners.
-   These override the digest nth-child tops since the columns reuse the
-   .digest-annotations-left/right classes. */
-.recap-annos-left, .recap-annos-right { min-height: 3720px; }
-.recap-annos-left .digest-annotation:nth-child(1) { top: 1535px; }   /* 1 → Meetings */
-.recap-annos-left .digest-annotation:nth-child(2) { top: 2502px; }  /* 3 → Followed Up Twice */
-.recap-annos-left .digest-annotation:nth-child(3) { top: 3522px; }  /* 5 → After Actions */
-.recap-annos-right .digest-annotation:nth-child(1) { top: 1948px; }  /* 2 → Replied */
-.recap-annos-right .digest-annotation:nth-child(2) { top: 3000px; } /* 4 → Followed Up Once */
+/* Snapshot annotations: each connector lands on the MIDDLE of its coloured
+   band header. These override the digest nth-child tops, since the columns
+   reuse the .digest-annotations-left/right classes.
+   ⚠️ MEASURED against the rendered page — recompute after any change that
+   alters the mockup's height. */
+.recap-annos-left, .recap-annos-right { min-height: 4020px; }
+.recap-annos-left .digest-annotation:nth-child(1) { top: 1829px; }   /* 1 → Meetings */
+.recap-annos-left .digest-annotation:nth-child(2) { top: 2796px; }  /* 3 → Followed Up Twice */
+.recap-annos-left .digest-annotation:nth-child(3) { top: 3826px; }  /* 5 → After Actions */
+.recap-annos-right .digest-annotation:nth-child(1) { top: 2241px; }  /* 2 → Replied */
+.recap-annos-right .digest-annotation:nth-child(2) { top: 3285px; } /* 4 → Followed Up Once */
 
 /* Snapshot header cycler — week → month → quarter, rolling upward */
 .recap-cycler {
@@ -1556,39 +1559,61 @@ section.hero + section { border-top: 0; }
 .rs-rate b { color: var(--spark-deep); font-weight: 700; font-size: 10px; margin-right: 3px; }
 
 /* --- 3. Reconnection funnel ---
-   The Sankey was RETIRED 2026-07-24; the diagram is a funnel now. Fixed height
-   so swapping week/month/quarter never shifts the page (the annotations are
-   pinned to absolute pixel offsets). */
+   The Sankey was RETIRED 2026-07-24; the diagram is a funnel: a tapering
+   ribbon across four stages, then the panel attributing the replies to the
+   send that earned them. Fixed height so swapping week/month/quarter never
+   shifts the page (the annotations are pinned to absolute pixel offsets). */
 .recap-funnel {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
-  height: 300px; align-content: center;
   border: 1px solid var(--card-border); border-radius: 10px;
-  background: var(--white); padding: 20px 16px;
+  background: var(--white); padding: 20px 18px 18px;
 }
-.rf-stage { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.rf-label {
+.rf-heads, .rf-foots { display: grid; grid-template-columns: repeat(4, 1fr); }
+.rf-col { text-align: center; padding: 0 4px; }
+.rf-head {
   font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--muted); margin-bottom: 12px; line-height: 1.2; min-height: 1.2em;
+  color: var(--muted); margin-bottom: 12px; line-height: 1.2;
 }
-.rf-bar {
-  width: 100%; height: 120px; display: flex; align-items: flex-end;
-  justify-content: center; margin-bottom: 12px;
+/* The ribbon is drawn edge to edge and squashed vertically, so the four
+   stage widths always line up with the label columns above and below it. */
+.rf-shape { display: block; width: 100%; height: 128px; }
+.rf-foots { margin-top: 12px; }
+.rf-num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--black); line-height: 1; }
+.rf-rate { display: block; font-size: 9.5px; color: var(--muted); margin-top: 5px; line-height: 1.35; }
+/* Where the replies came from */
+.rf-src { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--card-border); }
+.rf-src-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 12px;
 }
-.rf-bar span {
-  display: block; width: 100%; border-radius: 5px 5px 0 0;
-  background: linear-gradient(180deg, #9BAF7A, var(--spark-deep));
-  opacity: 0.9; min-height: 6px;
+.rf-src-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 11px; margin-bottom: 6px;
+  background: var(--sage); border-radius: 7px;
 }
-.rf-val { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--black); line-height: 1; }
-.rf-sub { display: block; font-size: 9.5px; color: var(--muted); margin-top: 7px; line-height: 1.35; min-height: 2.4em; }
+.rf-src-name strong { display: block; font-size: 12px; font-weight: 700; color: var(--text-dark); }
+.rf-src-name span { font-size: 10.5px; color: var(--muted); }
+.rf-src-val { text-align: right; white-space: nowrap; }
+.rf-src-val strong { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+.rf-src-val span { font-size: 10.5px; color: var(--muted); margin-left: 4px; }
+.rf-src-val em { font-style: normal; font-size: 10.5px; font-weight: 700; color: var(--spark-deep); margin-left: 8px; }
+.rf-src-val em.rf-dash { color: var(--muted); font-weight: 400; }
+.rf-src-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-top: 10px; padding: 9px 11px; border-radius: 7px;
+  background: var(--sage-deep, #E4EBD4);
+  font-size: 12px; font-weight: 700; color: var(--olive-deep);
+}
+.rf-src-total span { font-weight: 400; color: var(--text-mid); }
 @media (max-width: 620px) {
   .recap-analysis, .recap-stats-panel { padding: 16px; }
   .recap-analysis-head { flex-direction: column; align-items: flex-start; gap: 8px; }
   .recap-stat { padding: 13px 8px 11px; }
   .recap-stat-rates { gap: 8px; font-size: 9px; }
-  .recap-funnel { height: 250px; gap: 6px; padding: 16px 10px; }
-  .rf-bar { height: 92px; }
-  .rf-val { font-size: 19px; }
+  .recap-funnel { padding: 16px 12px; }
+  .rf-shape { height: 96px; }
+  .rf-head { font-size: 9px; }
+  .rf-num { font-size: 17px; }
+  .rf-rate { font-size: 8.5px; }
 }
 }
 
@@ -4065,30 +4090,29 @@ section.hero + section { border-top: 0; }
 
             <!-- 3 — The reconnection funnel -->
             <div class="recap-funnel">
-                <div class="rf-stage">
-                  <div class="rf-label">Suggested</div>
-                  <div class="rf-bar"><span style="height:100%"></span></div>
-                  <div class="rf-val">14</div>
-                  <span class="rf-sub"></span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Reached Out</div>
-                  <div class="rf-bar"><span style="height:86%"></span></div>
-                  <div class="rf-val">12</div>
-                  <span class="rf-sub">85.7% of suggested</span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Replies</div>
-                  <div class="rf-bar"><span style="height:33%"></span></div>
-                  <div class="rf-val">4</div>
-                  <span class="rf-sub">33.3% of reached out</span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Meetings</div>
-                  <div class="rf-bar"><span style="height:12%"></span></div>
-                  <div class="rf-val">1</div>
-                  <span class="rf-sub">25% of replies</span>
-                </div>
+              <div class="rf-heads"><div class="rf-col"><div class="rf-head">Suggested</div></div><div class="rf-col"><div class="rf-head">Reached Out</div></div><div class="rf-col"><div class="rf-head">Replies</div></div><div class="rf-col"><div class="rf-head">Meetings</div></div></div>
+              <svg class="rf-shape" viewBox="0 0 880 190" preserveAspectRatio="none" role="img" aria-label="Reconnection funnel">
+                <defs><linearGradient id="rfg-week" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#B9C3A6"/><stop offset="45%" stop-color="#9BAF7A"/>
+                  <stop offset="100%" stop-color="#C79A3E"/></linearGradient></defs>
+                <path d="M 0.0 0.0 L 171.6 0.0 C 220.0 0.0 220.0 13.6 268.4 13.6 L 391.6 13.6 C 440.0 13.6 440.0 67.9 488.4 67.9 L 611.6 67.9 C 660.0 67.9 660.0 85.5 708.4 85.5 L 880.0 85.5 L 880.0 104.5 L 708.4 104.5 C 660.0 104.5 660.0 122.1 611.6 122.1 L 488.4 122.1 C 440.0 122.1 440.0 176.4 391.6 176.4 L 268.4 176.4 C 220.0 176.4 220.0 190.0 171.6 190.0 L 0.0 190.0 Z" fill="url(#rfg-week)"/>
+                <line x1="220.0" y1="0" x2="220.0" y2="190" stroke="#FFFFFF" stroke-width="2"/><line x1="440.0" y1="0" x2="440.0" y2="190" stroke="#FFFFFF" stroke-width="2"/><line x1="660.0" y1="0" x2="660.0" y2="190" stroke="#FFFFFF" stroke-width="2"/>
+              </svg>
+              <div class="rf-foots"><div class="rf-col"><div class="rf-num">14</div></div><div class="rf-col"><div class="rf-num">12</div><span class="rf-rate">85.7% of suggested</span></div><div class="rf-col"><div class="rf-num">4</div><span class="rf-rate">33.3% of reached out</span><span class="rf-rate">25% of emails sent</span></div><div class="rf-col"><div class="rf-num">1</div><span class="rf-rate">25% of replies</span></div></div>
+              <div class="rf-src">
+                <div class="rf-src-label">Where the replies came from</div>
+              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>Initial Outreach</strong><span>12 sent</span></div>
+                <div class="rf-src-val"><strong>3</strong><span>replies</span><em>25%</em></div>
+              </div>              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>First Follow-Up</strong><span>3 sent</span></div>
+                <div class="rf-src-val"><strong>1</strong><span>replies</span><em>33.3%</em></div>
+              </div>              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>Second Follow-Up</strong><span>1 sent</span></div>
+                <div class="rf-src-val"><strong>0</strong><span>replies</span><em class="rf-dash">&mdash;</em></div>
+              </div>
+                <div class="rf-src-total">Replies <span>4 total</span></div>
+              </div>
             </div>
           </div>
 
@@ -4153,30 +4177,29 @@ section.hero + section { border-top: 0; }
 
             <!-- 3 — The reconnection funnel -->
             <div class="recap-funnel">
-                <div class="rf-stage">
-                  <div class="rf-label">Suggested</div>
-                  <div class="rf-bar"><span style="height:100%"></span></div>
-                  <div class="rf-val">63</div>
-                  <span class="rf-sub"></span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Reached Out</div>
-                  <div class="rf-bar"><span style="height:76%"></span></div>
-                  <div class="rf-val">48</div>
-                  <span class="rf-sub">76.2% of suggested</span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Replies</div>
-                  <div class="rf-bar"><span style="height:25%"></span></div>
-                  <div class="rf-val">6</div>
-                  <span class="rf-sub">12.5% of reached out</span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Meetings</div>
-                  <div class="rf-bar"><span style="height:12%"></span></div>
-                  <div class="rf-val">2</div>
-                  <span class="rf-sub">33.3% of replies</span>
-                </div>
+              <div class="rf-heads"><div class="rf-col"><div class="rf-head">Suggested</div></div><div class="rf-col"><div class="rf-head">Reached Out</div></div><div class="rf-col"><div class="rf-head">Replies</div></div><div class="rf-col"><div class="rf-head">Meetings</div></div></div>
+              <svg class="rf-shape" viewBox="0 0 880 190" preserveAspectRatio="none" role="img" aria-label="Reconnection funnel">
+                <defs><linearGradient id="rfg-month" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#B9C3A6"/><stop offset="45%" stop-color="#9BAF7A"/>
+                  <stop offset="100%" stop-color="#C79A3E"/></linearGradient></defs>
+                <path d="M 0.0 0.0 L 171.6 0.0 C 220.0 0.0 220.0 22.6 268.4 22.6 L 391.6 22.6 C 440.0 22.6 440.0 85.5 488.4 85.5 L 611.6 85.5 C 660.0 85.5 660.0 85.5 708.4 85.5 L 880.0 85.5 L 880.0 104.5 L 708.4 104.5 C 660.0 104.5 660.0 104.5 611.6 104.5 L 488.4 104.5 C 440.0 104.5 440.0 167.4 391.6 167.4 L 268.4 167.4 C 220.0 167.4 220.0 190.0 171.6 190.0 L 0.0 190.0 Z" fill="url(#rfg-month)"/>
+                <line x1="220.0" y1="0" x2="220.0" y2="190" stroke="#FFFFFF" stroke-width="2"/><line x1="440.0" y1="0" x2="440.0" y2="190" stroke="#FFFFFF" stroke-width="2"/><line x1="660.0" y1="0" x2="660.0" y2="190" stroke="#FFFFFF" stroke-width="2"/>
+              </svg>
+              <div class="rf-foots"><div class="rf-col"><div class="rf-num">63</div></div><div class="rf-col"><div class="rf-num">48</div><span class="rf-rate">76.2% of suggested</span></div><div class="rf-col"><div class="rf-num">6</div><span class="rf-rate">12.5% of reached out</span><span class="rf-rate">9.2% of emails sent</span></div><div class="rf-col"><div class="rf-num">2</div><span class="rf-rate">33.3% of replies</span></div></div>
+              <div class="rf-src">
+                <div class="rf-src-label">Where the replies came from</div>
+              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>Initial Outreach</strong><span>48 sent</span></div>
+                <div class="rf-src-val"><strong>4</strong><span>replies</span><em>8.3%</em></div>
+              </div>              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>First Follow-Up</strong><span>14 sent</span></div>
+                <div class="rf-src-val"><strong>2</strong><span>replies</span><em>14.3%</em></div>
+              </div>              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>Second Follow-Up</strong><span>5 sent</span></div>
+                <div class="rf-src-val"><strong>0</strong><span>replies</span><em class="rf-dash">&mdash;</em></div>
+              </div>
+                <div class="rf-src-total">Replies <span>6 total</span></div>
+              </div>
             </div>
           </div>
 
@@ -4241,30 +4264,29 @@ section.hero + section { border-top: 0; }
 
             <!-- 3 — The reconnection funnel -->
             <div class="recap-funnel">
-                <div class="rf-stage">
-                  <div class="rf-label">Suggested</div>
-                  <div class="rf-bar"><span style="height:100%"></span></div>
-                  <div class="rf-val">198</div>
-                  <span class="rf-sub"></span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Reached Out</div>
-                  <div class="rf-bar"><span style="height:43%"></span></div>
-                  <div class="rf-val">86</div>
-                  <span class="rf-sub">43.4% of suggested</span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Replies</div>
-                  <div class="rf-bar"><span style="height:22%"></span></div>
-                  <div class="rf-val">12</div>
-                  <span class="rf-sub">14% of reached out</span>
-                </div>
-                <div class="rf-stage">
-                  <div class="rf-label">Meetings</div>
-                  <div class="rf-bar"><span style="height:12%"></span></div>
-                  <div class="rf-val">6</div>
-                  <span class="rf-sub">50% of replies</span>
-                </div>
+              <div class="rf-heads"><div class="rf-col"><div class="rf-head">Suggested</div></div><div class="rf-col"><div class="rf-head">Reached Out</div></div><div class="rf-col"><div class="rf-head">Replies</div></div><div class="rf-col"><div class="rf-head">Meetings</div></div></div>
+              <svg class="rf-shape" viewBox="0 0 880 190" preserveAspectRatio="none" role="img" aria-label="Reconnection funnel">
+                <defs><linearGradient id="rfg-quarter" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#B9C3A6"/><stop offset="45%" stop-color="#9BAF7A"/>
+                  <stop offset="100%" stop-color="#C79A3E"/></linearGradient></defs>
+                <path d="M 0.0 0.0 L 171.6 0.0 C 220.0 0.0 220.0 53.7 268.4 53.7 L 391.6 53.7 C 440.0 53.7 440.0 85.5 488.4 85.5 L 611.6 85.5 C 660.0 85.5 660.0 85.5 708.4 85.5 L 880.0 85.5 L 880.0 104.5 L 708.4 104.5 C 660.0 104.5 660.0 104.5 611.6 104.5 L 488.4 104.5 C 440.0 104.5 440.0 136.3 391.6 136.3 L 268.4 136.3 C 220.0 136.3 220.0 190.0 171.6 190.0 L 0.0 190.0 Z" fill="url(#rfg-quarter)"/>
+                <line x1="220.0" y1="0" x2="220.0" y2="190" stroke="#FFFFFF" stroke-width="2"/><line x1="440.0" y1="0" x2="440.0" y2="190" stroke="#FFFFFF" stroke-width="2"/><line x1="660.0" y1="0" x2="660.0" y2="190" stroke="#FFFFFF" stroke-width="2"/>
+              </svg>
+              <div class="rf-foots"><div class="rf-col"><div class="rf-num">198</div></div><div class="rf-col"><div class="rf-num">86</div><span class="rf-rate">43.4% of suggested</span></div><div class="rf-col"><div class="rf-num">12</div><span class="rf-rate">14% of reached out</span><span class="rf-rate">10.5% of emails sent</span></div><div class="rf-col"><div class="rf-num">6</div><span class="rf-rate">50% of replies</span></div></div>
+              <div class="rf-src">
+                <div class="rf-src-label">Where the replies came from</div>
+              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>Initial Outreach</strong><span>86 sent</span></div>
+                <div class="rf-src-val"><strong>8</strong><span>replies</span><em>9.3%</em></div>
+              </div>              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>First Follow-Up</strong><span>27 sent</span></div>
+                <div class="rf-src-val"><strong>3</strong><span>replies</span><em>11.1%</em></div>
+              </div>              <div class="rf-src-row">
+                <div class="rf-src-name"><strong>Second Follow-Up</strong><span>9 sent</span></div>
+                <div class="rf-src-val"><strong>1</strong><span>replies</span><em>11.1%</em></div>
+              </div>
+                <div class="rf-src-total">Replies <span>12 total</span></div>
+              </div>
             </div>
           </div>
 
