@@ -90,9 +90,11 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
 
 /* ===== FOOTER ===== */
 .footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; }
-.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; gap: 32px; }
 .footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
-.footer-bureau { grid-column: 2 / -1; grid-row: 2; justify-self: end; display: block; margin-top: 32px; text-decoration: none; }
+/* Sits in the Legal column so its left edge lines up with those links, and
+   pulled up so the badge bottom sits level with the address block. */
+.footer-bureau { grid-column: 3; grid-row: 2; justify-self: start; align-self: start; display: block; margin-top: -32px; text-decoration: none; }
 .footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
 .footer h5 { font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(243,248,234,0.5); margin: 0 0 16px; }
 .footer a { display: block; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2; color: var(--paper); text-decoration: none; opacity: 0.85; transition: color 150ms ease, opacity 150ms ease; }
@@ -145,11 +147,26 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
   .legal-page { padding: 100px 0 56px; }
   .container-narrow { padding: 0 24px; }
   .legal-body h2 { font-size: 24px; }
-  .footer { padding: 56px 0 24px; }
-  .footer-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 24px; }
-  .footer-inner .footer-brand-col { grid-column: 1; grid-row: auto; }
-  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px; }
-  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 24px 0; }
+  .footer { padding: 48px 0 24px; }
+  .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
+  .footer a { line-height: 1.85; font-size: 13.5px; }
+  .footer-contact { margin-top: 18px; gap: 10px; }
+  .footer h5 { margin-bottom: 12px; }
+  .footer-bureau img { height: 52px; }
+  .footer-inner .footer-brand-col,
+  .footer-inner .footer-col-resources,
+  .footer-inner .footer-col-legal { grid-column: 1; grid-row: auto; }
+  /* Stacked footer: cancel the desktop pull-up used to align the badge with
+     the address block, which no longer applies in one column. */
+  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px !important; }
+  /* Two columns on one row: stacked, these two long lines wrapped into a
+     four-line block that read as one run-on sentence. */
+  .footer-bottom {
+    display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+    gap: 0 20px; padding: 20px 24px 0; margin-top: 40px;
+    font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
+  }
+  .footer-bottom span:last-child { text-align: right; }
 }
 </style>
 </head>
@@ -327,7 +344,7 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
         <img src="assets/logo-mark.png" alt="" class="footer-mark">
         <span>VeraOps</span>
       </div>
-      <p class="copy">We help digital and creative agencies recover lost revenue from dormant relationships.</p>
+      <p class="copy">We help digital, marketing, design, and creative agencies turn their existing relationships into the most reliable pipeline.</p>
       <div class="footer-contact">
         <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
         <p>+1 (302) 223 4061</p>
@@ -337,12 +354,10 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
     <div class="footer-col-resources">
       <h5>Resources</h5>
       <a href="index.html#hero">Home</a>
-      <a href="articles/index.html">Articles</a>
-    </div>
-    <div class="footer-col-compare">
-      <h5>Compare</h5>
-      <a href="index.html#faq">Outbound Agencies</a>
-      <a href="index.html#faq">CRM Agencies</a>
+      <a href="index.html#solution">Solution</a>
+      <a href="index.html#testimonials">Clients</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#pricing">Pricing</a>
     </div>
     <div class="footer-col-legal">
       <h5>Legal</h5>
@@ -355,7 +370,7 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
-    <span>Designed for ambitious digital and creative agencies</span>
+    <span>Designed for relationship-focused digital, marketing, design, and creative agencies</span>
   </div>
 </footer>
 
