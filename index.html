@@ -1038,11 +1038,12 @@ section.hero + section { border-top: 0; }
 .digest-annotations-right .digest-annotation:nth-child(5) { top: 1872px; } /* #9 → Suggested Email */
 .digest-annotations-right .digest-annotation:nth-child(6) { top: 2172px; } /* #11 → After Actions */
 
-/* Per-annotation connector nudges. #6 (Live Activity Feed) starts its rule
-   further right; #7 (Live Company News Tracker) starts further left and sits a
-   touch lower so it meets the "In the News" band squarely. */
-.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -20px; width: 20px; }
-.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -36px; width: 36px; top: 20px; }
+/* Per-annotation connector nudges. #6 and #7 point at the "What They're Up To"
+   and "In the News" cards, which are inset further from the annotation columns
+   than the other sections, so the default 28px rule stopped short of them.
+   These lengths are measured so each line actually meets its vertical rule. */
+.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -64px; width: 64px; }
+.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -64px; width: 64px; top: 20px; }
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
@@ -2714,12 +2715,23 @@ section.hero + section { border-top: 0; }
 
 .qualification-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px;
+  /* Row 1 = the two h3s, rows 2-5 = the four list items, shared by both
+     columns via subgrid below. */
+  grid-template-rows: auto repeat(4, auto);
 }
+/* The two columns are subgrids of one shared row track, so "for you" item N and
+   "not for you" item N start on the SAME baseline even when one of them wraps
+   to more lines than the other. Without this each <ul> flows independently and
+   the ticks and crosses drift apart down the page. */
 .qualification-col {
   border-radius: var(--radius); padding: 36px 32px;
+  display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; align-content: start;
 }
 .qualification-col h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-.qualification-col ul { list-style: none; }
+.qualification-col ul {
+  list-style: none;
+  display: grid; grid-row: 2 / -1; grid-template-rows: subgrid; align-content: start;
+}
 .qualification-col ul li {
   font-size: 15px; line-height: 1.7; padding: 8px 0; padding-left: 24px; position: relative;
   color: var(--text-mid);
@@ -3095,9 +3107,14 @@ section.hero + section { border-top: 0; }
   /* Track tab snapshot */
   .hiw-snapshot-frame { max-height: 320px; }
 
-  /* Who This Is For */
-  .qualification-grid { grid-template-columns: 1fr; gap: 20px; }
-  .qualification-col { padding: 28px 24px; }
+  /* Who This Is For — stacked, so the shared subgrid row track is dropped and
+     each column flows on its own again. */
+  .qualification-grid { grid-template-columns: 1fr; grid-template-rows: none; gap: 20px; }
+  .qualification-col {
+    padding: 28px 24px;
+    grid-row: auto; grid-template-rows: none; display: block;
+  }
+  .qualification-col ul { grid-row: auto; grid-template-rows: none; display: block; }
   .qualification-body p { font-size: 15px; }
 
   /* Trust & Security grid */
@@ -4577,7 +4594,7 @@ section.hero + section { border-top: 0; }
       <div class="qualification-col for-you">
         <h3>This is for you if&hellip;</h3>
         <ul>
-          <li>Your <span class="gold-text">per-project deal size</span> is $100K and above, or your best clients come back, so one reconnected relationship pays for itself many times over.</li>
+          <li>Your <span class="gold-text">per-project deal size</span> is $50K and above, or your best clients come back, so one reconnected relationship pays for itself many times over.</li>
           <li>Your agency <span class="gold-text">depends on relationships and referrals</span> for new business and opportunities.</li>
           <li>You want a partner who <span class="gold-text">combines relationship instinct with technical depth</span>, so you reach more opportunities and close more deals.</li>
           <li>You treat <span class="gold-text">Gmail as your main hub</span>, it&rsquo;s where your real relationships and history actually live.</li>
@@ -4811,7 +4828,7 @@ section.hero + section { border-top: 0; }
     </div>
     <div class="pricing-single fade-in">
       <div class="pricing-card featured" style="max-width:440px; margin:32px auto 0;">
-        <div class="pricing-amount" data-price-quarter="$500" data-price-annual="$5,000">$500 <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;">/ month</span></div>
+        <div class="pricing-amount" data-price-quarter="$3,000" data-price-annual="$5,000">$3,000 <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;"></span></div>
         <div class="pricing-period"><span class="pricing-billing">Billed every 6 months</span> &middot; No setup fee</div>
 
         <ul class="pricing-features">
@@ -5341,8 +5358,8 @@ document.querySelectorAll('.tech-toggle-btn').forEach(btn => {
   if (!btns.length || !amount || !unit || !billing) return;
 
   const PLANS = {
-    quarter: { price: amount.dataset.priceQuarter, unit: '/ month', billing: 'Billed every 6 months' },
-    annual:  { price: amount.dataset.priceAnnual,  unit: '/ year',  billing: 'Billed annually' },
+    quarter: { price: amount.dataset.priceQuarter, unit: '', billing: 'Billed every 6 months' },
+    annual:  { price: amount.dataset.priceAnnual,  unit: '', billing: 'Billed annually' },
   };
 
   btns.forEach(btn => btn.addEventListener('click', () => {
