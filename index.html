@@ -1043,11 +1043,12 @@ section.hero + section { border-top: 0; }
    than the other sections, so the default 28px rule stopped short of them.
    These lengths are measured so each line actually meets its vertical rule. */
 /* #6 and #7 point INTO the signals box, whose sections have no -14px pull-out
-   like the other cards, so their rules sit 17px further in. The base 28px
-   connector left a visible hole; these span the full gutter to reach them.
-   #7 also drops 8px to meet the "In the News" rule rather than the gap above. */
-.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -64px; width: 64px; }
-.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -64px; width: 64px; top: 20px; }
+   like the other cards, so their rules sit 17px further in. Both lines still
+   END on their rule (right/left stay at -64px, the full gutter) but start 12px
+   further in, so #6 reads as shifted right and #7 as shifted left.
+   #7 also drops to meet the "In the News" rule rather than the gap above. */
+.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -64px; width: 52px; }
+.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -76px; width: 64px; top: 28px; }
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
@@ -2736,16 +2737,20 @@ section.hero + section { border-top: 0; }
   list-style: none;
   display: grid; grid-row: 2 / -1; grid-template-rows: subgrid; align-content: start;
 }
+/* One gap value drives the spacing for BOTH columns, since they share the row
+   track — so the ticks and crosses stay level while the list closes up. */
+.qualification-grid { row-gap: 18px; }
 /* Subgrid rows are as tall as the taller of the two columns' items, so a short
-   item was followed by a large hole. Pin each item to the TOP of its row and
-   let the row keep only the height it needs. */
-.qualification-col ul li { align-self: start; }
+   item was followed by a large hole. Pin each item to the TOP of its row so the
+   row keeps only the height it needs, and let the row-gap do the spacing —
+   the old 8px block padding compounded it on every row. */
 .qualification-col ul li {
-  font-size: 15px; line-height: 1.7; padding: 8px 0; padding-left: 24px; position: relative;
+  align-self: start;
+  font-size: 15px; line-height: 1.7; padding: 0 0 0 24px; position: relative;
   color: var(--text-mid);
 }
 .qualification-col ul li::before {
-  position: absolute; left: 0; top: 10px; font-weight: 700; font-size: 14px;
+  position: absolute; left: 0; top: 2px; font-weight: 700; font-size: 14px;
 }
 .qualification-col.for-you {
   background: rgba(61,79,30,0.06); border: 1.5px solid rgba(61,79,30,0.15);
