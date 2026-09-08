@@ -1046,13 +1046,13 @@ section.hero + section { border-top: 0; }
    and "In the News" cards, which are inset further from the annotation columns
    than the other sections, so the default 28px rule stopped short of them.
    These lengths are measured so each line actually meets its vertical rule. */
-/* #6 and #7 point INTO the signals box, whose sections have no -14px pull-out
-   like the other cards, so their rules sit 17px further in. Both lines still
-   END on their rule (right/left stay at -64px, the full gutter) but start 12px
-   further in, so #6 reads as shifted right and #7 as shifted left.
-   #7 also drops to meet the "In the News" rule rather than the gap above. */
-.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -66px; width: 66px; }
-.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -66px; width: 66px; top: 28px; }
+/* #6 and #7 point at the signals box, which sits further in than the other
+   cards. Rather than running the line into the box, stop it 28px short so it
+   reads as a pointer with clear air before the panel — the same detached look
+   the other nine connectors have. #7 also drops to sit level with "In the
+   News" rather than the gap above it. */
+.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -36px; width: 36px; }
+.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -36px; width: 36px; top: 28px; }
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
