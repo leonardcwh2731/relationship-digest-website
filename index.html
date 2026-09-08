@@ -1317,6 +1317,11 @@ section.hero + section { border-top: 0; }
 }
 .digest-after-card-title { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
 .digest-after-card-body { font-size: 10.5px; line-height: 1.6; color: var(--text-mid); margin-bottom: 14px; }
+/* The compose preview is a real email, so its To: line and body read from the
+   left like one. Scoped to .compose so the bad-contact confirmation card keeps
+   its centred copy. */
+.digest-after-card.compose .digest-after-card-title,
+.digest-after-card.compose .digest-after-card-body { text-align: left; }
 .digest-after-card-body strong { color: var(--black); font-weight: 700; }
 .digest-after-card-btns { display: flex; gap: 8px; justify-content: center; }
 .digest-after-card-btn {
@@ -3694,7 +3699,7 @@ section.hero + section { border-top: 0; }
 </section>
 
 <!-- ===== STEP 3: TECHNOLOGY (Digest | Snapshot) ===== -->
-<section class="section-sage blend-sage-to-white" id="digest">
+<section class="section-sage blend-sage-to-white" id="digest" style="padding-bottom:calc(var(--pad-v) + 120px);">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="symptom-kicker" style="margin-bottom:14px;">02 &middot; Technology</div>
@@ -3924,7 +3929,7 @@ section.hero + section { border-top: 0; }
                 <button class="digest-after-btn">This is bad because&hellip;</button>
                 <div class="digest-after-preview below" aria-hidden="true">
                   <div class="digest-after-preview-inner">
-                    <div class="digest-after-card">
+                    <div class="digest-after-card compose">
                       <div class="digest-after-card-brand">New message</div>
                       <div class="digest-after-card-rule"></div>
                       <div class="digest-after-card-title">To: relationships@veraops.com</div>
