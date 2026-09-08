@@ -989,6 +989,10 @@ section.hero + section { border-top: 0; }
 .digest-spotlight-center { position: relative; z-index: 1; }
 .digest-annotations {
   display: flex; flex-direction: column; padding: 0; position: relative;
+  /* Above .digest-spotlight-center (z-index 1), whose white mockup card starts
+     36px OUTSIDE the signals box and was painting over the last stretch of the
+     #6/#7 connectors, so they appeared to stop at the card's edge. */
+  z-index: 2;
 }
 .digest-annotations-left { text-align: right; }
 .digest-annotations-right { text-align: left; }
@@ -1047,8 +1051,8 @@ section.hero + section { border-top: 0; }
    END on their rule (right/left stay at -64px, the full gutter) but start 12px
    further in, so #6 reads as shifted right and #7 as shifted left.
    #7 also drops to meet the "In the News" rule rather than the gap above. */
-.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -64px; width: 52px; }
-.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -76px; width: 64px; top: 28px; }
+.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -66px; width: 66px; }
+.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -66px; width: 66px; top: 28px; }
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
