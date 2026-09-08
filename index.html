@@ -1224,10 +1224,12 @@ section.hero + section { border-top: 0; }
    of them share one vertical line. */
 .digest-signals-box #digest-sec-activity { margin-left: -31px; padding-left: 31px; }
 .digest-signals-box #digest-sec-news { margin-right: -31px; padding-right: 31px; }
-/* The two feeds need a visible rule between them: stacked bare they read as
-   one long list of links, which is the opposite of what the box is for. */
+/* The two feeds are separated by spacing alone. There WAS a border-top here,
+   but now that the news rule is pulled out to the shared vertical line, that
+   divider met the top of it and read as a stray horizontal tick beside the
+   rule. The 16px margin + padding still keeps the feeds apart. */
 .digest-signals-box .digest-full-section + .digest-full-section {
-  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--card-border);
+  margin-top: 16px; padding-top: 16px;
 }
 .digest-signals-box .digest-full-post { margin-bottom: 9px; }
 .digest-signals-box .digest-full-post:last-child { margin-bottom: 0; }
