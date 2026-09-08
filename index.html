@@ -1038,6 +1038,12 @@ section.hero + section { border-top: 0; }
 .digest-annotations-right .digest-annotation:nth-child(5) { top: 1872px; } /* #9 → Suggested Email */
 .digest-annotations-right .digest-annotation:nth-child(6) { top: 2172px; } /* #11 → After Actions */
 
+/* Per-annotation connector nudges. #6 (Live Activity Feed) starts its rule
+   further right; #7 (Live Company News Tracker) starts further left and sits a
+   touch lower so it meets the "In the News" band squarely. */
+.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -20px; width: 20px; }
+.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -36px; width: 36px; top: 20px; }
+
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
 #digest-sec-momentum::before { content: ''; position: absolute; right: -15px; top: 0; bottom: 0; width: 3px; border-radius: 3px; background: var(--hairline-2); }
@@ -1370,10 +1376,10 @@ section.hero + section { border-top: 0; }
 .recap-spotlight-grid { margin-top: 44px; }
 .recap-mockup { padding: 36px 34px; }
 /* Snapshot annotations: each connector lands on the MIDDLE of its coloured
-   band header. These override the digest nth-child tops, since the columns
-   reuse the .digest-annotations-left/right classes.
-   ⚠️ MEASURED against the rendered page — recompute after any change that
-   alters the mockup's height. */
+   band header. The tops are NOT hardcoded here — the mockup changes height as
+   the header cycles week → month → quarter, so fixed pixels drifted off their
+   bands. They are measured and set from JS (see "Snapshot annotations" near the
+   cycler); these are only first-paint estimates, overwritten on the first frame. */
 .recap-annos-left, .recap-annos-right { min-height: 3900px; }
 .recap-annos-left .digest-annotation:nth-child(1) { top: 1710px; }   /* 1 → Meetings */
 .recap-annos-left .digest-annotation:nth-child(2) { top: 2677px; }  /* 3 → Followed Up Twice */
@@ -1566,10 +1572,10 @@ section.hero + section { border-top: 0; }
 .recap-funnel {
   border: 1px solid var(--card-border); border-radius: 10px;
   background: var(--white); padding: 14px 10px;
-  /* The chart is drawn for a 600px email column. The mockup's own padding
-     leaves ~448px here, which shrinks its type below legibility — so let the
-     funnel bleed out to the card's edges and claim the width back. */
-  margin-left: -24px; margin-right: -24px;
+  /* Flush inside the stats card, so the funnel is exactly as wide as the
+     statistics summary above it. It used to bleed -24px past the card to buy
+     back type size, but that overlapped the panel around it. */
+  margin-left: 0; margin-right: 0;
 }
 /* The SVG keeps its own viewBox aspect; width:100% scales it to the column. */
 .rf-svg { display: block; width: 100%; height: auto; }
@@ -1582,10 +1588,9 @@ section.hero + section { border-top: 0; }
      out here pushed the page 4px past the viewport. */
   .recap-funnel { padding: 10px 6px; margin-left: 0; margin-right: 0; }
 }
-}
 
 /* Jump to a section */
-.recap-jump { margin-bottom: 28px; }
+.recap-jump { margin-bottom: 52px; }
 .recap-jump-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
 .recap-jump-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .recap-jump-pill {
@@ -3894,13 +3899,6 @@ section.hero + section { border-top: 0; }
             </div>
           </div>
 
-          <!-- Digest v1.8: the two-button footer row. One row, both buttons
-               together and centred, no captions and no rule above — this
-               replaces the two stacked captioned blocks v1.7 rendered. -->
-          <div class="digest-v18-footer">
-            <span class="digest-v18-btn">Generate Follow-Up Digest</span>
-            <span class="digest-v18-btn">View Dashboard</span>
-          </div>
         </div>
       </div>
 
@@ -5224,6 +5222,71 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     i = (i + 1) % slides.length;
   }, INTERVAL);
+})();
+
+// Snapshot annotations: keep each connector on the MIDDLE of its band header.
+//
+// These used to be hardcoded `top` pixels in CSS, which meant they stayed put
+// while the mockup grew and shrank as the header cycled week → month → quarter.
+// Now each annotation is measured against its band on every change, so the five
+// connectors track their headers whatever the period renders at.
+(function () {
+  const grid = document.querySelector('.recap-spotlight-grid');
+  if (!grid) return;
+
+  const left  = grid.querySelector('.recap-annos-left');
+  const right = grid.querySelector('.recap-annos-right');
+  if (!left || !right) return;
+
+  // Annotation → the band header its connector must point at.
+  const PAIRS = [
+    [left,  0, 'recap-band-meetings'],
+    [right, 0, 'recap-band-firstreply'],
+    [left,  1, 'recap-band-noreply'],
+    [right, 1, 'recap-band-pending'],
+    [left,  2, 'recap-band-after'],
+  ];
+
+  // The connector rule is drawn at `top: 12px` inside the annotation, so the
+  // annotation sits 12px above where the line should land.
+  const CONNECTOR_OFFSET = 12;
+
+  // At/below 900px the annotations go static (and are hidden under 768px), so
+  // they must not be given inline tops — that would re-break the mobile layout.
+  const STACKED = window.matchMedia('(max-width: 900px)');
+
+  function place() {
+    if (STACKED.matches) {
+      PAIRS.forEach(([col, idx]) => {
+        const a = col.children[idx];
+        if (a) a.style.top = '';
+      });
+      return;
+    }
+    PAIRS.forEach(([col, idx, bandId]) => {
+      const anno = col.children[idx];
+      const band = document.getElementById(bandId);
+      if (!anno || !band) return;
+      const colTop  = col.getBoundingClientRect().top;
+      const rect    = band.getBoundingClientRect();
+      const middle  = rect.top + rect.height / 2;     // vertical centre of the header
+      anno.style.top = Math.round(middle - colTop - CONNECTOR_OFFSET) + 'px';
+    });
+  }
+
+  const schedule = () => requestAnimationFrame(place);
+
+  // The mockup's height changes whenever the period swaps or anything reflows.
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(schedule);
+    const mockup = grid.querySelector('.recap-mockup');
+    if (mockup) ro.observe(mockup);
+  }
+  window.addEventListener('resize', schedule);
+  if (STACKED.addEventListener) STACKED.addEventListener('change', schedule);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+  window.addEventListener('load', schedule);
+  schedule();
 })();
 
 // Section dots
