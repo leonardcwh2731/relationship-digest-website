@@ -1046,13 +1046,10 @@ section.hero + section { border-top: 0; }
    and "In the News" cards, which are inset further from the annotation columns
    than the other sections, so the default 28px rule stopped short of them.
    These lengths are measured so each line actually meets its vertical rule. */
-/* #6 and #7 point at the signals box, which sits further in than the other
-   cards. Rather than running the line into the box, stop it 28px short so it
-   reads as a pointer with clear air before the panel — the same detached look
-   the other nine connectors have. #7 also drops to sit level with "In the
-   News" rather than the gap above it. */
-.digest-annotations-left .digest-annotation:nth-child(3)::after { right: -36px; width: 36px; }
-.digest-annotations-right .digest-annotation:nth-child(4)::before { left: -36px; width: 36px; top: 28px; }
+/* #6 and #7 carry no overrides: like #9 and every other connector they use the
+   base 28px rule, which runs from the number badge to the white mockup's edge
+   and stops there. Earlier attempts to lengthen them (to reach the rules inside
+   the signals box) or to drop #7 lower both broke that shared alignment. */
 
 /* Vertical borders on digest sections — lines connect here */
 #digest-sec-momentum { position: relative; }
@@ -1220,6 +1217,13 @@ section.hero + section { border-top: 0; }
   border-radius: 8px; padding: 14px 16px; margin: 16px 0;
 }
 .digest-signals-box .digest-full-section { margin-top: 0; margin-bottom: 0; }
+/* The box insets its children by 16px padding + 1px border, which pushed these
+   two sections' connector rules 17px further in than every other section's —
+   so #6 and #7 pointed at a rule sitting inside the green panel while #5 and
+   #2 met theirs out in the gutter. Pull the rules back out by that 17px so all
+   of them share one vertical line. */
+.digest-signals-box #digest-sec-activity { margin-left: -31px; padding-left: 31px; }
+.digest-signals-box #digest-sec-news { margin-right: -31px; padding-right: 31px; }
 /* The two feeds need a visible rule between them: stacked bare they read as
    one long list of links, which is the opposite of what the box is for. */
 .digest-signals-box .digest-full-section + .digest-full-section {
