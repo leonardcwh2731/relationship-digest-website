@@ -1275,17 +1275,23 @@ section.hero + section { border-top: 0; }
   content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px;
 }
 
-/* Opens BELOW its button instead of above */
+/* Opens BELOW its button instead of above. Sits close under the button and
+   runs a tighter card than the upward previews, so its bottom edge stops
+   short of the section rule below the mockup instead of crowding it. */
 .digest-after-preview.below {
-  bottom: auto; top: calc(100% + 10px);
+  bottom: auto; top: calc(100% + 6px);
   transform: translateX(-50%) translateY(-4px);
 }
+.digest-after-preview.below .digest-after-preview-inner { padding: 9px; }
+.digest-after-preview.below .digest-after-card { padding: 14px 14px 12px; }
+.digest-after-preview.below .digest-after-card-rule { margin: 7px auto 10px; }
+.digest-after-preview.below .digest-after-card-body { margin-bottom: 10px; }
 .digest-after-item:hover .digest-after-preview.below,
 .digest-after-item:focus-within .digest-after-preview.below {
   transform: translateX(-50%) translateY(0);
 }
 .digest-after-preview.below::before {
-  top: auto; bottom: 100%; left: 0; right: 0; height: 12px; width: auto;
+  top: auto; bottom: 100%; left: 0; right: 0; height: 8px; width: auto;
 }
 
 /* Side-anchored variant: opens to the LEFT of its button, vertically centred */
@@ -3699,7 +3705,7 @@ section.hero + section { border-top: 0; }
 </section>
 
 <!-- ===== STEP 3: TECHNOLOGY (Digest | Snapshot) ===== -->
-<section class="section-sage blend-sage-to-white" id="digest" style="padding-bottom:calc(var(--pad-v) + 120px);">
+<section class="section-sage blend-sage-to-white" id="digest">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <div class="symptom-kicker" style="margin-bottom:14px;">02 &middot; Technology</div>
