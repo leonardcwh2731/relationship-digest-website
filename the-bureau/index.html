@@ -1034,7 +1034,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
   padding: 7px 13px; font-size: 13px; color: var(--ink-3);
 }
 .gwin-search svg { width: 15px; height: 15px; stroke: var(--ink-3); fill: none; stroke-width: 2; flex-shrink: 0; }
-.gwin-search span { flex: 1; }
+.gwin-search span { flex: 1; text-align: left; }
 .gwin-search-opts { stroke-width: 1.7; }
 /* Right-hand controls of Gmail's header strip. No wordmark, by design. */
 .gwin-tools { display: flex; align-items: center; gap: 13px; flex-shrink: 0; }
@@ -1157,7 +1157,11 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .hero-redesign .hero-sub { font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-3); max-width: 720px; margin: 18px auto 0; text-wrap: pretty; }
 .hero-micro { font-size: var(--fs-small); color: var(--ink-3); margin-top: 26px; max-width: none; line-height: var(--lh-body); white-space: nowrap; }
 /* Inbox list: digest sits as the newest unread mail */
-.inbox-preview { background: var(--surface); border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; text-align: left; }
+.inbox-preview { background: var(--surface); overflow: hidden; text-align: left; }
+/* The hero preview borrows the digest's window chrome, without the
+   per-message toolbar an inbox list has no use for. */
+.gwin-inbox { width: 100%; max-width: 100%; }
+.gwin-inbox .inbox-row:last-child { border-bottom: none; }
 .inbox-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--hairline); font-size: 13.5px; }
 .inbox-row:last-child { border-bottom: none; }
 .inbox-row.unread { background: #fff; }
@@ -1389,11 +1393,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* The Bureau page only: their badge above the eyebrow, and the logo strip
    as its own band so the hero ends on the CTA subtext. */
-.hero-badge { display: inline-block; margin-bottom: 22px; }
-.hero-badge img { height: 46px; width: auto; display: block; }
+.hero-badge { display: inline-block; margin-bottom: 26px; }
+.hero-badge img { height: 84px; width: auto; display: block;
+  /* The badge ships on cream; multiply drops that tile so only the mark
+     and type sit on the white hero. */
+  mix-blend-mode: multiply; }
 .logo-band { padding: 26px 0 34px; border-top: 1px solid var(--hairline); }
 .band-marquee { margin-top: 0; }
-@media (max-width: 600px) { .hero-badge img { height: 38px; } }
+@media (max-width: 600px) { .hero-badge img { height: 58px; } }
 </style>
 </head>
 <body>
@@ -1428,13 +1435,32 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="hero-inner">
     <div class="hero-stack">
       <a class="hero-badge hero-anim" href="https://thebureau.community" target="_blank" rel="noopener">
-        <img src="/assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+        <img src="/assets/BureauBadges_Horiz-01.webp" alt="Proud Member of the Flock &middot; The Bureau">
       </a>
       <p class="hero-eyebrow hero-anim">For members of The Bureau</p>
       <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
       <p class="hero-sub hero-anim">Every weekday, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice that&rsquo;s ready to send.</p>
 
       <div class="hero-anim hero-shot">
+        <div class="gwin gwin-inbox">
+          <div class="gwin-bar">
+            <svg class="gwin-menu" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+            <span class="gwin-brand" aria-hidden="true">
+              <img class="gwin-gmail" src="/assets/brand/gmail.svg" alt="">
+              <span class="gwin-wordmark">Gmail</span>
+            </span>
+            <div class="gwin-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>Search mail</span>
+              <svg class="gwin-search-opts" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="15" cy="7" r="2" fill="#fff"/><circle cx="9" cy="12" r="2" fill="#fff"/><circle cx="16" cy="17" r="2" fill="#fff"/></svg>
+            </div>
+            <div class="gwin-tools">
+              <span class="gwin-status"><span class="gwin-status-dot"></span>Active</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg class="gwin-apps" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor" stroke="none"><circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></g></svg>
+              <span class="gwin-account"><span class="gwin-account-avatar">R</span></span>
+            </div>
+          </div>
         <div class="inbox-preview" aria-label="Inbox preview">
           <div class="inbox-row unread">
             <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1454,6 +1480,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
             <span class="inbox-subj">Invoice 2291 paid <span class="inbox-snip">&ndash; Payment received, thank you</span></span>
             <span class="inbox-time">Yesterday</span>
           </div>
+        </div>
         </div>
       </div>
 

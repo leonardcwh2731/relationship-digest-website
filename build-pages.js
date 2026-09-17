@@ -60,7 +60,7 @@ function generate(src, page) {
     const eyebrowTag = `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`;
     s = s.replace(eyebrowTag,
       `<a class="hero-badge hero-anim" href="https://thebureau.community" target="_blank" rel="noopener">
-        <img src="/assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+        <img src="/assets/BureauBadges_Horiz-01.webp" alt="Proud Member of the Flock &middot; The Bureau">
       </a>\n      ` + eyebrowTag);
 
     // Lift the marquee out of .hero-stack into its own band under the hero.
@@ -88,11 +88,14 @@ function generate(src, page) {
     s = s.replace('</style>', `
 /* The Bureau page only: their badge above the eyebrow, and the logo strip
    as its own band so the hero ends on the CTA subtext. */
-.hero-badge { display: inline-block; margin-bottom: 22px; }
-.hero-badge img { height: 46px; width: auto; display: block; }
+.hero-badge { display: inline-block; margin-bottom: 26px; }
+.hero-badge img { height: 84px; width: auto; display: block;
+  /* The badge ships on cream; multiply drops that tile so only the mark
+     and type sit on the white hero. */
+  mix-blend-mode: multiply; }
 .logo-band { padding: 26px 0 34px; border-top: 1px solid var(--hairline); }
 .band-marquee { margin-top: 0; }
-@media (max-width: 600px) { .hero-badge img { height: 38px; } }
+@media (max-width: 600px) { .hero-badge img { height: 58px; } }
 </style>`);
   }
 
