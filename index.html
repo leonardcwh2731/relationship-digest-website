@@ -83,15 +83,20 @@ html, body { overflow-x: hidden; max-width: 100%; }
 /* The footer is the last thing on the page, so the page itself is dark
    underneath. Without this, the white body shows below it when the
    viewport is taller than the content or the browser overscrolls. */
-html { background: var(--ink); }
-body { background: var(--paper); }
+/* Overscroll should show the colour of whichever end you pull past: white
+   above the hero, dark below the footer. A body background would propagate
+   to the whole canvas and repaint below the footer, so the light colour
+   sits on the content, html paints the top, and the footer extends itself
+   downward with a box-shadow that only ever shows on overscroll. */
+html { background: var(--paper); }
+.hero, section, .legal-page, .legal-body { background-color: var(--paper); }
+.footer { box-shadow: 0 50vh 0 0 var(--ink); }
 body {
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper);
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -140,7 +145,6 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 8px 8px 8px 24px;
 }
 .nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-.nav-mark { width: 24px; height: 24px; border-radius: 5px; display: block; }
 .nav-wordmark {
   font-family: var(--font-display);
   font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em;
@@ -1305,7 +1309,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#hero" class="nav-brand"><img src="assets/logo-mark.png" alt="" class="nav-mark"><span class="nav-wordmark">VeraOps</span></a>
+    <a href="#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
     <div class="nav-links" id="navLinks">
       <a href="#digest">Digest</a>
       <a href="#results">Results</a>
