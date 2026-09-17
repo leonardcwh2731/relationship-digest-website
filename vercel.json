@@ -22,11 +22,31 @@
       ],
       "destination": "https://veraops.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/Frank-Siringo",
+      "destination": "/frank-siringo",
+      "permanent": true
+    },
+    {
+      "source": "/markdepace",
+      "destination": "/mark-depace",
+      "permanent": true
+    },
+    {
+      "source": "/Mark-DePace",
+      "destination": "/mark-depace",
+      "permanent": true
+    },
+    {
+      "source": "/MarkDePace",
+      "destination": "/mark-depace",
+      "permanent": true
     }
   ],
   "headers": [
     {
-      "source": "/(the-bureau|agencyhabits|agency-outsight|surge)",
+      "source": "/(the-bureau|agencyhabits|agency-outsight|surge|frank-siringo|mark-depace)",
       "headers": [
         {
           "key": "X-Robots-Tag",

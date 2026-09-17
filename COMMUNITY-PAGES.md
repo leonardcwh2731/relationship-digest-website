@@ -1,6 +1,7 @@
 # Community landing pages
 
-`/the-bureau`, `/agencyhabits`, `/agency-outsight` and `/surge` are generated
+`/the-bureau`, `/agencyhabits`, `/agency-outsight`, `/surge`, `/frank-siringo`
+and `/mark-depace` are generated
 from `index.html`. They are the main site with one line changed — the eyebrow
 above the headline — so any edit to the main page reaches all of them.
 
@@ -25,7 +26,12 @@ Add one line to `PAGES` in `build-pages.js`:
 
     { dir: 'example', name: 'Example', eyebrow: 'For Example readers only', utm: 'example' },
 
-then add the directory name to the `noindex` header rule in `vercel.json`.
+then add the directory name to the `noindex` header rule in `vercel.json`, and to
+the `git add` line in `.githooks/pre-commit`.
+
+Use a lowercase, hyphenated directory name. Vercel paths are case-sensitive, so
+`/Mark-DePace` and `/mark-depace` are different routes; the capitalised and
+unhyphenated spellings are handled by redirects in `vercel.json`.
 
 ## What the generator changes
 

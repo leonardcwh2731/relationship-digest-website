@@ -21,6 +21,8 @@ const PAGES = [
   { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits' },
   { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight' },
   { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge' },
+  { dir: 'frank-siringo',   name: 'Frank Siringo',   eyebrow: 'For friends of Frank Siringo',     utm: 'frank-siringo' },
+  { dir: 'mark-depace',     name: 'Mark DePace',     eyebrow: 'For friends of Mark DePace',       utm: 'mark-depace' },
 ];
 
 const MAIN_EYEBROW = 'For digital, creative, design and marketing agencies';
