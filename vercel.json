@@ -26,6 +26,15 @@
   ],
   "headers": [
     {
+      "source": "/(the-bureau|agencyhabits|agency-outsight)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -51,5 +60,7 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
