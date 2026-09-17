@@ -89,14 +89,17 @@ html, body { overflow-x: hidden; max-width: 100%; }
    to the whole canvas and repaint below the footer, so the light colour
    sits on the content, html paints the top, and the footer extends itself
    downward with a box-shadow that only ever shows on overscroll. */
-html { background: var(--paper); }
+/* The footer is the last thing on the page, so the canvas behind everything
+   is dark and the content carries the light colour. Overscrolling past the
+   bottom then reveals the footer's own colour, with nothing extra to paint. */
+html { background: var(--ink); }
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
-.footer { position: relative; z-index: 2; }
-/* Paints the area an overscroll bounce reveals, without adding page height. */
-body::after {
-  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 50vh;
-  background: var(--ink); z-index: -1; pointer-events: none;
+/* Keeps an overscroll at the TOP light rather than showing the dark canvas. */
+body::before {
+  content: ""; position: fixed; left: 0; right: 0; top: 0; height: 50vh;
+  background: var(--paper); z-index: -1; pointer-events: none;
 }
+.footer { position: relative; z-index: 2; }
 body {
   font-family: var(--font-sans);
   font-size: 16px;
