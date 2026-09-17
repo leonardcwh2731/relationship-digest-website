@@ -2007,7 +2007,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
     <div class="fade-in" style="text-align:center;">
       <div class="pricing-toggle" role="tablist" aria-label="Billing term">
         <button class="pricing-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true">Monthly</button>
-        <button class="pricing-toggle-btn" data-plan="quarterly" role="tab" aria-selected="false">Quarterly</button>
         <button class="pricing-toggle-btn" data-plan="annual" role="tab" aria-selected="false">Annual</button>
       </div>
     </div>
@@ -2120,7 +2119,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
           <span class="faq-toggle" aria-hidden="true"></span>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-inner"><p>$500 monthly, $1,350 quarterly, or $5,000 yearly. Same service on every term. No setup fee.</p></div>
+          <div class="faq-answer-inner"><p>$500 monthly or $5,000 yearly. Same service on either term. No setup fee.</p></div>
         </div>
       </div>
       <div class="faq-item">
@@ -2412,7 +2411,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Pricing billing-term toggle (Monthly | Quarterly | Annual)
+// Pricing billing-term toggle (Monthly | Annual)
 (function () {
   const btns   = document.querySelectorAll('.pricing-toggle-btn');
   const amount = document.getElementById('priceAmount');
@@ -2422,7 +2421,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
   const PLANS = {
     monthly:   { price: '$500',   unit: '/ month',   line: 'Billed monthly',                              badge: '' },
-    quarterly: { price: '$1,350', unit: '/ quarter', line: '$450/month \u00b7 billed every 3 months',  badge: 'Save $150' },
     annual:    { price: '$5,000', unit: '/ year',    line: '~$417/month \u00b7 billed yearly',              badge: 'Save $1,000' },
   };
 
