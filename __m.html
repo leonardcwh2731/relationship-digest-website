@@ -1117,7 +1117,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
   padding-left: 0; padding-right: 0;
   margin-left: 0; margin-right: 0;
 }
-/* On mobile, drop the frame and show the email the way the Gmail app does */
+.gwin-body /* On mobile, drop the frame and show the email the way the Gmail app does */
 @media (max-width: 768px) {
 .gwin { border: none; border-radius: 0; box-shadow: none; max-width: 100%; }
 .gwin-bar, .gwin-toolbar { display: none; }
@@ -1326,53 +1326,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .digest-prompt-row { flex-wrap: wrap; }
   .digest-prompt-btns { width: 100%; }
   .digest-prompt-btn { flex: 1; }
-}
-
-/* ===== Mobile ===== */
-@media (max-width: 768px) {
-  /* nowrap was forcing these past the viewport on every phone */
-  .hero-micro { white-space: normal; max-width: 100%; }
-  .hero-redesign .hero-headline { white-space: normal; }
-
-  /* Tooltips: anchor to the card, never the viewport edge */
-  .rtip-pop { left: auto; right: 0; transform: none; max-width: min(240px, calc(100vw - 48px)); }
-
-  /* Readability: nothing below 13px on a phone */
-  .result-card-sub, .cmp td, .cmp th, .tcard-role,
-  .digest-momentum-sub, .digest-full-refresher, .priv-block p,
-  .footer-bottom, .gwin-caption { font-size: 13px; line-height: 1.6; }
-  .dm-stat-cap, .digest-full-section-title, .result-card-label { font-size: 10.5px; }
-
-  /* Tap targets: 44px minimum */
-  .digest-full-btn, .digest-after-btn, .pricing-toggle-btn,
-  .digest-prompt-btn, .snap-tab { min-height: 44px; }
-  .nav-links a { min-height: 44px; display: flex; align-items: center; }
-
-  /* The email reads full-bleed once the window chrome is gone */
-  .gwin-body .digest-full-mockup { max-width: 100%; padding: 18px 16px; }
-  .digest-momentum { padding: 16px 14px; }
-  .digest-momentum-stats { grid-template-columns: repeat(3, 1fr); }
-  .dm-stat:nth-child(4), .dm-stat:nth-child(5) { border-top: 1px solid var(--hairline); }
-  .digest-momentum-top { flex-wrap: wrap; gap: 16px; }
-  .digest-momentum-week { border-left: none; padding-left: 0; }
-
-  /* Anchored headings must clear the fixed nav when jumped to */
-  section[id] { scroll-margin-top: 88px; }
-  /* The grey canvas has no purpose once the window chrome is gone */
-  .gwin-body { padding: 14px 0 0; background: transparent; }
-  .gwin-body .digest-full-mockup { border-left: none; border-right: none; border-radius: 0; }
-
-  /* Stacked prompt reads better than a squeezed row */
-  .digest-prompt-row { flex-wrap: wrap; }
-  .digest-prompt-btns { width: 100%; margin-top: 12px; }
-  .digest-prompt-btn { flex: 1; }
-}
-@media (max-width: 420px) {
-  .hero-redesign .hero-headline { font-size: 27px; }
-  .section-headline { font-size: 24px; }
-  .digest-momentum-stats { grid-template-columns: repeat(2, 1fr); }
-  .dm-stat { border-top: 1px solid var(--hairline); }
-  .dm-stat:nth-child(1), .dm-stat:nth-child(2) { border-top: none; }
 }
 </style>
 </head>
@@ -1800,7 +1753,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <section class="section-white" id="how-it-works">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
-      <h2 class="section-headline">A real team behind every reconnection.</h2>
+      <h2 class="section-headline">A real team behind every name you get.</h2>
       <p class="subtitle" style="margin-top:12px;">Our tool finds the relationships, but we handpick those who are worth your time.</p>
     </div>
     <div class="hiw-grid fade-in">
@@ -1902,7 +1855,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
           </svg>
         </div>
         <div class="hiw-step-n">3</div>
-        <h3>We pick the best three.</h3>
+        <h3>A person picks your three.</h3>
         <p>We check the contact profile, timing, and history before they reach you.</p>
       </div>
     </div>
@@ -2523,5 +2476,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   </div>
 </footer>
 
-</body>
+<script>(function(){
+const de=document.documentElement, vw=de.clientWidth, issues=[];
+// anything wider than the viewport that isn't inside a scrolling wrapper
+function clipped(el){let p=el.parentElement;while(p&&p!==document.body){const ov=getComputedStyle(p).overflowX;if(ov==='hidden'||ov==='auto'||ov==='scroll')return true;p=p.parentElement;}return false;}
+document.querySelectorAll('body *').forEach(el=>{
+  const r=el.getBoundingClientRect();
+  if(r.width>0&&r.right>vw+1&&!clipped(el))
+    issues.push('WIDE '+el.tagName+'.'+(el.className||'').toString().split(' ')[0]+' R'+Math.round(r.right));
+});
+// tap targets under 44px
+document.querySelectorAll('a,button').forEach(el=>{
+  const r=el.getBoundingClientRect();
+  if(r.width>0&&r.height>0&&r.height<40)
+    issues.push('SMALL '+(el.textContent||'').trim().slice(0,18)+' h'+Math.round(r.height));
+});
+// text under 13px
+document.querySelectorAll('p,li,span,div,td,th').forEach(el=>{
+  if(!el.children.length&&el.textContent.trim()){
+    const fs=parseFloat(getComputedStyle(el).fontSize);
+    if(fs&&fs<12) issues.push('TINY '+fs+'px "'+el.textContent.trim().slice(0,16)+'"');
+  }
+});
+document.title='M:: vw='+vw+' scrollW='+de.scrollWidth+' :: '+(issues.slice(0,14).join(' | ')||'none');})();</script></body>
 </html>
