@@ -98,7 +98,11 @@ function generate(src, page) {
   /* The badge ships on cream; multiply drops that tile so only the mark
      and type sit on the white hero. */
   mix-blend-mode: multiply; }
-.logo-band { padding: 26px 0 34px; border-top: 1px solid var(--hairline); }
+.logo-band { padding: 52px 0 34px; }
+/* The strip sits in its own section here, so the hero's bottom padding would
+   stack on top of it. Zeroing it keeps the gap identical to the other pages,
+   where the marquee sits inside the hero with a 52px margin. */
+.hero-redesign { padding-bottom: 0; }
 .band-marquee { margin-top: 0; }
 @media (max-width: 600px) { .hero-badge img { height: 72px; } }
 </style>`);
