@@ -35,7 +35,7 @@ function generate(src, page) {
     `<title>VeraOps &middot; ${page.name}</title>`);
 
   s = s.replace(/<meta name="description" content="[^"]*">/,
-    `<meta name="description" content="VeraOps for ${page.name}. Every weekday we send three past relationships worth reconnecting with, plus the context and an email ready to send.">`);
+    `<meta name="description" content="VeraOps for ${page.name}. Every day we send three past relationships worth reconnecting with, plus the context and an email ready to send.">`);
 
   // Shared by link, so keep these out of search results.
   if (!s.includes('name="robots"')) {
