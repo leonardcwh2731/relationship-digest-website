@@ -1127,6 +1127,8 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 }
 /* --- Margin notes beside the digest (max 3, plain text + thin connector) --- */
 .digest-stage { position: relative; width: 100%; margin: 0 auto; }
+/* Separates the section heading from the framed digest below it. */
+#digest .container + .digest-stage { margin-top: 40px; }
 /* --- Hero inbox preview --- */
 @media (max-width: 600px) {
 :root { --pad-h: 16px; }
@@ -1358,9 +1360,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
   /* Anchored headings must clear the fixed nav when jumped to */
   section[id] { scroll-margin-top: 88px; }
-  /* The grey canvas has no purpose once the window chrome is gone */
-  .gwin-body { padding: 14px 0 0; background: transparent; }
-  .gwin-body .digest-full-mockup { border-left: none; border-right: none; border-radius: 0; }
+  /* Keep the email boxed on phones: canvas, card and border all stay, so the
+     digest reads as one packaged object rather than loose text. */
+  .gwin { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; }
+  .gwin-body { padding: 12px 10px 14px; background: #F1F3F4; }
+  .gwin-body .digest-full-mockup {
+    max-width: 100%; padding: 18px 16px;
+    background: #fff; border: 1px solid var(--hairline); border-radius: 8px;
+  }
 
   /* Stacked prompt reads better than a squeezed row */
   .digest-prompt-row { flex-wrap: wrap; }
@@ -1550,7 +1557,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
             <div class="gwin-avatar" aria-hidden="true">R</div>
             <div class="gwin-from-text">
               <div><span class="gwin-sender">Relationships</span> <span class="gwin-addr">&lt;relationships@veraops.com&gt;</span></div>
-              <div class="gwin-to">to me</div>
+              <div class="gwin-to">to James</div>
             </div>
             <div class="gwin-date">Mon, Sep 21, 7:02&nbsp;AM</div>
           </div>
@@ -1914,6 +1921,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:900px; margin:0 auto;">
       <h2 class="section-headline" style="white-space:nowrap;">Reconnection keeps giving way to delivery.</h2>
+      <p class="subtitle" style="margin-top:12px;">The three reasons good relationships go quiet.</p>
     </div>
     <div class="cold-grid fade-in">
       <div class="cold-card">
@@ -1987,6 +1995,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <h2 class="section-headline">Built for agencies that run on relationships.</h2>
+      <p class="subtitle" style="margin-top:12px;">A quick read on whether we&rsquo;re a match.</p>
     </div>
     <div class="fit-grid fade-in">
       <div class="fit-col yes">
