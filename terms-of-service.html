@@ -25,6 +25,9 @@
   --track-label: 0.08em;
 }
 html { scroll-behavior: smooth; }
+/* Nothing may scroll the page sideways at any width. The marquee and the
+   comparison table scroll inside their own wrappers, not the document. */
+html, body { overflow-x: hidden; max-width: 100%; }
 body {
   font-family: var(--font-sans); font-size: 16px; font-weight: 400; line-height: 1.6;
   color: var(--ink); background: var(--paper);

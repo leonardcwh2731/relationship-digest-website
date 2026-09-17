@@ -78,6 +78,9 @@
   --radius: 8px;
 }
 html { scroll-behavior: smooth; }
+/* Nothing may scroll the page sideways at any width. The marquee and the
+   comparison table scroll inside their own wrappers, not the document. */
+html, body { overflow-x: hidden; max-width: 100%; }
 body {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -2005,7 +2008,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   const PLANS = {
     monthly:   { price: '$500',   unit: '/ month',   line: 'Billed monthly',                              badge: '' },
     quarterly: { price: '$1,250', unit: '/ quarter', line: 'About $417/month \u00b7 billed every 3 months', badge: 'Save $250' },
-    annual:    { price: '$5,000', unit: '/ year',    line: 'About $417/month \u00b7 billed yearly',         badge: 'Save $1,000' },
+    annual:    { price: '$4,800', unit: '/ year',    line: '$400/month \u00b7 billed yearly',               badge: 'Save $1,200' },
   };
 
   btns.forEach(btn => btn.addEventListener('click', () => {
