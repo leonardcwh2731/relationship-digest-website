@@ -64,11 +64,25 @@ function generate(src, page) {
       </a>\n      ` + eyebrowTag);
 
     // Lift the marquee out of .hero-stack into its own band under the hero.
-    const m = s.match(/[ \t]*<div class="agency-marquee hero-marquee hero-anim">[\s\S]*?\n[ \t]*<\/div>\n/);
-    if (m) {
-      s = s.replace(m[0], '');
-      s = s.replace('</section>\n\n<!-- ===== 2.',
-        `</section>\n\n<section class="section-white logo-band">\n${m[0].replace('hero-marquee', 'band-marquee')}</section>\n\n<!-- ===== 2.`);
+    // Matched by brace-counting, not a lazy regex: the marquee nests a track
+    // and its figures, so a non-greedy match closes on the wrong </div>.
+    const open = s.indexOf('<div class="agency-marquee hero-marquee hero-anim">');
+    if (open !== -1) {
+      let i = open, depth = 0, end = -1;
+      while (i < s.length) {
+        if (s.startsWith('<div', i)) depth++;
+        else if (s.startsWith('</div>', i)) { depth--; if (depth === 0) { end = i + 6; break; } }
+        i++;
+      }
+      if (end !== -1) {
+        let lineStart = s.lastIndexOf('\n', open) + 1;
+        const block = s.slice(lineStart, end) + '\n';
+        s = s.slice(0, lineStart) + s.slice(end + 1);
+        const digestTag = '<section class="section-white" id="digest">';
+        if (!s.includes(digestTag)) throw new Error('build-pages: digest section anchor not found');
+        s = s.replace(digestTag,
+          `<section class="section-white logo-band">\n${block.replace('hero-marquee', 'band-marquee')}</section>\n\n${digestTag}`);
+      }
     }
 
     s = s.replace('</style>', `
