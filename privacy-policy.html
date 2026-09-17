@@ -28,6 +28,11 @@ html { scroll-behavior: smooth; }
 /* Nothing may scroll the page sideways at any width. The marquee and the
    comparison table scroll inside their own wrappers, not the document. */
 html, body { overflow-x: hidden; max-width: 100%; }
+/* The footer is the last thing on the page, so the page itself is dark
+   underneath. Without this, the white body shows below it when the
+   viewport is taller than the content or the browser overscrolls. */
+html { background: var(--ink); }
+body { background: var(--paper); }
 body {
   font-family: var(--font-sans); font-size: 16px; font-weight: 400; line-height: 1.6;
   color: var(--ink); background: var(--paper);
@@ -113,7 +118,7 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
 .footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
 .footer-contact p { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; color: rgba(243,248,234,0.6); margin: 0; max-width: 36ch; }
 .footer-contact p a { display: inline; opacity: 0.85; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(243,248,234,0.3); }
-.footer-bottom { max-width: 1200px; margin: 56px auto 0; padding: 24px 32px 0; border-top: 1px solid rgba(243,248,234,0.1); font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1; color: rgba(243,248,234,0.4); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.footer-bottom { max-width: 1200px; margin: 36px auto 0; padding: 20px 32px 0; border-top: 1px solid rgba(243,248,234,0.1); font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1; color: rgba(243,248,234,0.4); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
@@ -154,7 +159,7 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
   .legal-page { padding: 100px 0 56px; }
   .container-narrow { padding: 0 24px; }
   .legal-body h2 { font-size: 24px; }
-  .footer { padding: 48px 0 24px; }
+  .footer { padding: 48px 0 20px; }
   .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
   .footer a { line-height: 1.85; font-size: 13.5px; }
   .footer-contact { margin-top: 18px; gap: 10px; }
@@ -170,7 +175,7 @@ hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
      four-line block that read as one run-on sentence. */
   .footer-bottom {
     display: grid; grid-template-columns: 1fr 1fr; align-items: start;
-    gap: 0 20px; padding: 20px 24px 0; margin-top: 40px;
+    gap: 0 20px; padding: 18px 24px 0; margin-top: 28px;
     font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
   }
   .footer-bottom span:last-child { text-align: right; }

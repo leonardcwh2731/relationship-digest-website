@@ -81,6 +81,11 @@ html { scroll-behavior: smooth; }
 /* Nothing may scroll the page sideways at any width. The marquee and the
    comparison table scroll inside their own wrappers, not the document. */
 html, body { overflow-x: hidden; max-width: 100%; }
+/* The footer is the last thing on the page, so the page itself is dark
+   underneath. Without this, the white body shows below it when the
+   viewport is taller than the content or the browser overscrolls. */
+html { background: var(--ink); }
+body { background: var(--paper); }
 body {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -652,7 +657,7 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 .final-cta .cta-headline { margin-bottom: 20px; max-width: 680px; margin-left: auto; margin-right: auto; }
 .final-cta .subtitle { margin-bottom: 32px; }
 /* ===== FOOTER (from VeraOps Design System) ===== */
-.footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; margin-top: 0; position: relative; z-index: 2; }
+.footer { background: var(--ink); color: var(--paper); padding: 80px 0 24px; margin-top: 0; position: relative; z-index: 2; }
 .footer-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 32px;
   display: grid;
@@ -705,14 +710,14 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 }
 .footer-contact p a { display: inline; opacity: 0.85; }
 .footer-bottom {
-  max-width: 1200px; margin: 56px auto 0; padding: 24px 32px 0;
+  max-width: 1200px; margin: 36px auto 0; padding: 20px 32px 0;
   border-top: 1px solid rgba(243, 248, 234, 0.1);
   font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1;
   color: rgba(243, 248, 234, 0.4);
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
 }
 @media (max-width: 768px) {
-.footer { padding: 48px 0 24px; }
+.footer { padding: 48px 0 20px; }
 .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
 .footer a { line-height: 1.85; font-size: 13.5px; }
 .footer-contact { margin-top: 18px; gap: 10px; }
@@ -726,7 +731,7 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
      four-line block that read as one run-on sentence. */
 .footer-bottom {
     display: grid; grid-template-columns: 1fr 1fr; align-items: start;
-    gap: 0 20px; padding: 20px 24px 0; margin-top: 40px;
+    gap: 0 20px; padding: 18px 24px 0; margin-top: 28px;
     font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
   }
 .footer-bottom span:last-child { text-align: right; }
@@ -737,19 +742,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 }
 /* Hero See Sample (no box, text link like audit site) */
 /* Section Nav Dots */
-.section-dots {
-  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
-  z-index: 90; display: flex; flex-direction: column; gap: 12px;
-}
-.section-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.18);
-  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
-  cursor: pointer; border: none; padding: 0;
-}
-.section-dot.active {
-  background: var(--olive-deep); transform: scale(1.5);
-  box-shadow: 0 0 0 4px rgba(61,79,30,0.15);
-}
 /* Mobile Nav Toggle (hamburger) */
 .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
 .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
@@ -759,7 +751,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 .nav-menu-cta { display: none; }
 /* Responsive */
 @media (max-width: 900px) {
-.section-dots { display: none; }
 }
 @media (max-width: 768px) {
 :root { --pad-v: 60px; --pad-h: 24px; }
