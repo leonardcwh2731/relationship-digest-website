@@ -17,7 +17,7 @@ const CAL = 'https://cal.com/leonard-veraops/veraops-discovery';
 
 // Everything that differs between the pages lives here.
 const PAGES = [
-  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: 'For members of The Bureau',        utm: 'the-bureau' },
+  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: 'For members of The Bureau',        utm: 'the-bureau', badge: 'bureau' },
   { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits' },
   { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight' },
   { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge' },
@@ -54,8 +54,37 @@ function generate(src, page) {
   const booking = `${CAL}?utm_source=${page.utm}&amp;utm_medium=landing&amp;utm_campaign=${page.utm}`;
   s = s.split(`href="${CAL}"`).join(`href="${booking}"`);
 
+  // The Bureau page carries their badge above the eyebrow, and moves the logo
+  // strip out of the hero so the hero ends on the CTA's subtext.
+  if (page.badge === 'bureau') {
+    const eyebrowTag = `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`;
+    s = s.replace(eyebrowTag,
+      `<a class="hero-badge hero-anim" href="https://thebureau.community" target="_blank" rel="noopener">
+        <img src="/assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+      </a>\n      ` + eyebrowTag);
+
+    // Lift the marquee out of .hero-stack into its own band under the hero.
+    const m = s.match(/[ \t]*<div class="agency-marquee hero-marquee hero-anim">[\s\S]*?\n[ \t]*<\/div>\n/);
+    if (m) {
+      s = s.replace(m[0], '');
+      s = s.replace('</section>\n\n<!-- ===== 2.',
+        `</section>\n\n<section class="section-white logo-band">\n${m[0].replace('hero-marquee', 'band-marquee')}</section>\n\n<!-- ===== 2.`);
+    }
+
+    s = s.replace('</style>', `
+/* The Bureau page only: their badge above the eyebrow, and the logo strip
+   as its own band so the hero ends on the CTA subtext. */
+.hero-badge { display: inline-block; margin-bottom: 22px; }
+.hero-badge img { height: 46px; width: auto; display: block; }
+.logo-band { padding: 26px 0 34px; border-top: 1px solid var(--hairline); }
+.band-marquee { margin-top: 0; }
+@media (max-width: 600px) { .hero-badge img { height: 38px; } }
+</style>`);
+  }
+
   // These pages live one level down, so same-origin paths must be absolute.
   s = s.replace(/src="assets\//g, 'src="/assets/');
+  s = s.replace(/href="assets\//g, 'href="/assets/');   // <image href> inside inline SVG
   s = s.replace(/src="([a-z0-9-]+\.(?:png|jpe?g))"/g, 'src="/$1"');
   s = s.replace(/href="(privacy-policy|terms-of-service)\.html"/g, 'href="/$1.html"');
 

@@ -1386,6 +1386,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .dm-stat { border-top: 1px solid var(--hairline); }
   .dm-stat:nth-child(1), .dm-stat:nth-child(2) { border-top: none; }
 }
+
+/* The Bureau page only: their badge above the eyebrow, and the logo strip
+   as its own band so the hero ends on the CTA subtext. */
+.hero-badge { display: inline-block; margin-bottom: 22px; }
+.hero-badge img { height: 46px; width: auto; display: block; }
+.logo-band { padding: 26px 0 34px; border-top: 1px solid var(--hairline); }
+.band-marquee { margin-top: 0; }
+@media (max-width: 600px) { .hero-badge img { height: 38px; } }
 </style>
 </head>
 <body>
@@ -1419,6 +1427,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <section class="hero hero-redesign" id="hero">
   <div class="hero-inner">
     <div class="hero-stack">
+      <a class="hero-badge hero-anim" href="https://thebureau.community" target="_blank" rel="noopener">
+        <img src="/assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+      </a>
       <p class="hero-eyebrow hero-anim">For members of The Bureau</p>
       <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
       <p class="hero-sub hero-anim">Every weekday, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice that&rsquo;s ready to send.</p>
@@ -1451,57 +1462,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" data-cursor="Let&rsquo;s talk" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
       </div>
       <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together, free.</p>
-    <div class="agency-marquee hero-marquee hero-anim">
-    <div class="agency-track">
-      <figure class="agency-logo">
-        <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="" loading="lazy">
-      </figure>
-    </div>
   </div>
 
     </div>
@@ -1525,13 +1485,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <div class="gwin-bar">
           <svg class="gwin-menu" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
           <span class="gwin-brand" aria-hidden="true">
-            <svg class="gwin-gmail" viewBox="0 0 24 18">
-              <path d="M2.2 17.3h3.6V8.6L2 5.8v10.2c0 .7.6 1.3 1.3 1.3z" fill="#C5221F"/>
-              <path d="M18.2 17.3h3.6c.7 0 1.3-.6 1.3-1.3V5.8l-4.9 2.8z" fill="#34A853"/>
-              <path d="M18.2 2.1v6.5l4.9-3.7V3.3c0-1.8-2.1-2.9-3.6-1.8z" fill="#FBBC04"/>
-              <path d="M5.8 8.6V2.1L12 6.7l6.2-4.6v6.5L12 13.2z" fill="#EA4335"/>
-              <path d="M.9 3.3v1.6l4.9 3.7V2.1L4.4 1.5C2.9.4.9 1.5.9 3.3z" fill="#4285F4"/>
-            </svg>
+            <img class="gwin-gmail" src="/assets/brand/gmail.svg" alt="">
             <span class="gwin-wordmark">Gmail</span>
           </span>
           <div class="gwin-search">
@@ -1833,23 +1787,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
             <!-- Gmail -->
             <rect x="18" y="18" width="92" height="34" rx="6" fill="#fff" stroke="#E4E6E9"/>
-            <g transform="translate(28,27)">
-              <path d="M1.5 15.5V5.2L8 9.8l6.5-4.6v10.3h3.1c.6 0 1-.4 1-1V3.6c0-1.2-1.4-1.9-2.4-1.2L8 7.7.8 2.4C-.2 1.7-1.6 2.4-1.6 3.6v10.9c0 .6.4 1 1 1z" fill="#EA4335" transform="translate(2,0)"/>
-              <path d="M2 15.5V6.8l6 4.3 6-4.3v8.7z" fill="#fff" opacity="0"/>
-              <path d="M.4 15.5h3.2V7.9L.4 5.6z" fill="#C5221F" transform="translate(2,0)"/>
-              <path d="M16.4 15.5h3.2V5.6l-3.2 2.3z" fill="#34A853" transform="translate(2,0)"/>
-              <path d="M2.4 5.6 10 11.2l7.6-5.6V3.4c0-1.2-1.4-1.9-2.4-1.2L10 6.1 4.8 2.2C3.8 1.5 2.4 2.2 2.4 3.4z" fill="#FBBC04"/>
-            </g>
+            <image href="/assets/brand/gmail.svg" x="28" y="26" width="24" height="18"/>
             <text x="58" y="40" font-family="Inter,sans-serif" font-size="10" fill="#5F6368">Gmail</text>
 
             <!-- Google Calendar -->
             <rect x="18" y="66" width="92" height="34" rx="6" fill="#fff" stroke="#E4E6E9"/>
-            <g transform="translate(28,74)">
-              <rect x="0" y="0" width="18" height="18" rx="2.5" fill="#fff" stroke="#DADCE0" stroke-width="1"/>
-              <rect x="0" y="0" width="18" height="5" rx="2.5" fill="#4285F4"/>
-              <rect x="0" y="3" width="18" height="2.4" fill="#4285F4"/>
-              <text x="9" y="14.6" font-family="Inter,Arial,sans-serif" font-size="9" font-weight="700" fill="#4285F4" text-anchor="middle">31</text>
-            </g>
+            <image href="/assets/brand/gcal.svg" x="28" y="74" width="18" height="18"/>
             <text x="58" y="88" font-family="Inter,sans-serif" font-size="10" fill="#5F6368">Calendar</text>
 
             <path d="M110 35 C136 35 136 59 152 59" fill="none" stroke="#A8C7FA" stroke-width="2"/>
