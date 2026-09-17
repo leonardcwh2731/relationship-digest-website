@@ -805,7 +805,7 @@ body { overflow-x: hidden; }
 .hero { padding-top: 132px; }
 .hero-ctas { flex-direction: row; flex-wrap: nowrap; }
 .hero-sub { font-size: 14px; }
-#how-it-works .section-headline { white-space: normal; }
+#how-it-works .section-headline, #why-cold .section-headline { white-space: normal !important; }
 .hero { min-height: 100vh; padding-bottom: 60px; }
 /* Let the pricing subtitle wrap within the container border on mobile */
 section { padding-bottom: calc(var(--pad-v) + 40px); }
@@ -1799,8 +1799,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <!-- ===== 6. WHY RELATIONSHIPS GO COLD ===== -->
 <section class="section-white" id="why-cold">
   <div class="container">
-    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
-      <h2 class="section-headline">Reconnection keeps giving way to delivery.</h2>
+    <div class="fade-in" style="text-align:center; max-width:900px; margin:0 auto;">
+      <h2 class="section-headline" style="white-space:nowrap;">Reconnection keeps giving way to delivery.</h2>
     </div>
     <div class="cold-grid fade-in">
       <div class="cold-card">
@@ -1888,7 +1888,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <div class="fit-row">Your work is small, one-off and high-volume.</div>
         <div class="fit-row">New business comes mainly from ads or inbound.</div>
         <div class="fit-row">You want software you set up and run yourself.</div>
-        <div class="fit-row">Your email runs on Outlook or your own mail server. We only connect to Gmail.</div>
+        <div class="fit-row">Your email does not run on Gmail.</div>
       </div>
     </div>
   </div>
@@ -1903,7 +1903,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
     </div>
     <div class="priv-grid fade-in">
       <div class="priv-block">
-        <h3>We only get read-only access. That&rsquo;s it.</h3>
+        <h3>We only get read-only access.</h3>
         <p>We request only <code>gmail.readonly</code>, so we can&rsquo;t send, delete or change anything in your inbox.</p>
       </div>
       <div class="priv-block">
