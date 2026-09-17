@@ -334,40 +334,17 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
    structural change to a card drags them off and they must be recomputed. */
 /* #2 → Connection Details */
 /* #4 → Last Email Thread */
-/* #6 → What They're Up To */
 /* #8 → Why Reach Out Today */
 /* #10 → Send Email buttons */
 /* #1 → Outreach Momentum */
 /* #3 → Quick Refresher */
 /* #5 → Shared History */
-/* #7 → In the News */
 /* #9 → Suggested Email */
 /* #11 → After Actions */
-/* Per-annotation connector nudges. #6 and #7 point at the "What They're Up To"
-   and "In the News" cards, which are inset further from the annotation columns
-   than the other sections, so the default 28px rule stopped short of them.
-   These lengths are measured so each line actually meets its vertical rule. */
 /* #6 and #7 carry no overrides: like #9 and every other connector they use the
    base 28px rule, which runs from the number badge to the white mockup's edge
    and stops there. Earlier attempts to lengthen them (to reach the rules inside
    the signals box) or to drop #7 lower both broke that shared alignment. */
-/* Vertical borders on digest sections — lines connect here */
-#digest-sec-momentum { position: relative; }
-#digest-sec-momentum::before { content: ''; position: absolute; right: -15px; top: 0; bottom: 0; width: 3px; border-radius: 3px; background: var(--hairline-2); }
-#digest-sec-contact { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
-#digest-sec-refresher { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
-#digest-sec-thread { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
-#digest-sec-history { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
-#digest-sec-activity { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
-#digest-sec-news { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
-#digest-sec-angle { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
-#digest-sec-draft { border-right: 3px solid var(--hairline-2); padding-right: 14px; margin-right: -14px; }
-#digest-sec-actions { border-left: 3px solid var(--hairline-2); padding-left: 14px; margin-left: -14px; }
-#digest-sec-after { position: relative; padding-right: 14px; margin-right: -14px; }
-#digest-sec-after::after {
-  content: ''; position: absolute; right: 0; top: 24px; bottom: 0; width: 3px;
-  background: var(--hairline-2);
-}
 /* ===== Snapshot Spotlight — same annotated layout as the Digest ===== */
 /* Snapshot mockup sections — one contact each */
 .digest-full-mockup .recap-sec-head {
@@ -377,8 +354,7 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 .digest-full-mockup .recap-good { color: var(--olive-deep); }
 /* Vertical borders on snapshot sections — lines connect here */
 @media (max-width: 900px) {
-#digest-sec-contact, #digest-sec-refresher, #digest-sec-thread, #digest-sec-history, #digest-sec-activity, #digest-sec-news, #digest-sec-angle, #digest-sec-draft, #digest-sec-actions { border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
-#digest-sec-momentum::before { display: none; }
+#digest-sec-contact, #digest-sec-refresher, #digest-sec-thread, #digest-sec-angle, #digest-sec-draft, #digest-sec-actions { border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
 }
 /* Digest Deep-Dive (legacy) */
 .digest-full-mockup {
@@ -434,27 +410,15 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
    read-out that used to head it but deliberately KEPT the box.
    Email renders it as #f7f9fc on #e7ebf0; on the site the sage tokens are
    the equivalent step off the card ground. */
-.digest-signals-box {
-  background: var(--sage); border: 1px solid var(--card-border);
-  border-radius: 8px; padding: 14px 16px; margin: 16px 0;
-}
-.digest-signals-box .digest-full-section { margin-top: 0; margin-bottom: 0; }
 /* The box insets its children by 16px padding + 1px border, which pushed these
    two sections' connector rules 17px further in than every other section's —
    so #6 and #7 pointed at a rule sitting inside the green panel while #5 and
    #2 met theirs out in the gutter. Pull the rules back out by that 17px so all
    of them share one vertical line. */
-.digest-signals-box #digest-sec-activity { margin-left: -31px; padding-left: 31px; }
-.digest-signals-box #digest-sec-news { margin-right: -31px; padding-right: 31px; }
 /* The two feeds are separated by spacing alone. There WAS a border-top here,
    but now that the news rule is pulled out to the shared vertical line, that
    divider met the top of it and read as a stray horizontal tick beside the
    rule. The 16px margin + padding still keeps the feeds apart. */
-.digest-signals-box .digest-full-section + .digest-full-section {
-  margin-top: 16px; padding-top: 16px;
-}
-.digest-signals-box .digest-full-post { margin-bottom: 9px; }
-.digest-signals-box .digest-full-post:last-child { margin-bottom: 0; }
 /* Blinking cursor in the mailto preview: the body is deliberately left
    mid-sentence ("… is a bad contact because ") so the client's cursor lands
    exactly where they type their reason. */
@@ -1112,12 +1076,9 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
    digest sits flush in the 640px column the way the real email does. */
 .gwin-body .digest-full-section { padding-left: 0; border-left: none; }
 /* Connector rails belonged to the numbered callouts, which are gone. */
-.gwin-body .digest-full-section::before, .gwin-body .digest-full-section::after, .gwin-body #digest-sec-momentum::before, .gwin-body #digest-sec-after::after { display: none; }
-.gwin-body .digest-signals-box #digest-sec-activity { margin-left: 0; padding-left: 0; }
-.gwin-body .digest-signals-box #digest-sec-news { margin-right: 0; padding-right: 0; }
-/* The per-section rails anchored the numbered callouts. Inside the email the
+.gwin-body .digest-full-section::before, .gwin-body .digest-full-section::after, .gwin-body #digest-sec-momentum::before, .gwin-body .gwin-body .gwin-body /* The per-section rails anchored the numbered callouts. Inside the email the
    digest reads as plain sections, so every rail and its inset is cleared. */
-.gwin-body #digest-sec-contact, .gwin-body #digest-sec-refresher, .gwin-body #digest-sec-thread, .gwin-body #digest-sec-history, .gwin-body #digest-sec-activity, .gwin-body #digest-sec-news, .gwin-body #digest-sec-angle, .gwin-body #digest-sec-draft, .gwin-body #digest-sec-actions, .gwin-body #digest-sec-after {
+.gwin-body #digest-sec-contact, .gwin-body #digest-sec-refresher, .gwin-body #digest-sec-thread, .gwin-body #digest-sec-history, .gwin-body .gwin-body .gwin-body #digest-sec-angle, .gwin-body #digest-sec-draft, .gwin-body #digest-sec-actions, .gwin-body #digest-sec-after {
   border-left: none; border-right: none;
   padding-left: 0; padding-right: 0;
   margin-left: 0; margin-right: 0;
@@ -1685,35 +1646,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
                tracker share ONE container, which is what separates the signals from
                the narrative above them. The "Signals analysis" read-out that used to
                sit on top is CUT in v1.7 and v1.8; the box itself stays. -->
-          <div class="digest-signals-box">
-            <div class="digest-full-section" id="digest-sec-activity">
-              <div class="digest-full-section-title">What They&rsquo;re Up To</div>
-              <div class="digest-full-post">
-                <span class="post-date">2026-09-16</span>
-                <a href="#">Just wrapped a rebrand for a fintech client, the creative work drove 3x engagement vs. static</a>
-              </div>
-              <div class="digest-full-post">
-                <span class="post-date">2026-09-11</span>
-                <a href="#">Bolt Communications just signed two new consumer brand clients for Q2 campaign rollouts</a>
-              </div>
-            </div>
-
-            <div class="digest-full-section" id="digest-sec-news">
-              <div class="digest-full-section-title">In the News</div>
-              <div class="digest-full-post">
-                <span class="post-date">Sep 15, 2026</span>
-                <a href="#" target="_blank">Bolt Communications named to Adweek&rsquo;s &ldquo;Fastest-Growing Agencies&rdquo; list for 2026 - Adweek</a>
-              </div>
-              <div class="digest-full-post">
-                <span class="post-date">Sep 10, 2026</span>
-                <a href="#" target="_blank">Bolt opens new West Coast office, doubles creative team headcount - Campaign US</a>
-              </div>
-              <div class="digest-full-post">
-                <span class="post-date">Sep 8, 2026</span>
-                <a href="#" target="_blank">Bolt&rsquo;s parent group closes $40M growth round to expand DTC client portfolio - Business Insider</a>
-              </div>
-            </div>
-          </div>
 
           <div class="digest-full-section" id="digest-sec-angle">
             <div class="digest-full-section-title">Why Reach Out Today</div>
