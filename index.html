@@ -59,6 +59,19 @@
   --font-sans:    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:    'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
+  /* Type scale — mirrors the product email: one sans, few sizes, clear
+     label/value hierarchy. Steps are ~1.25x apart. */
+  --fs-hero:    clamp(34px, 3.4vw, 46px);
+  --fs-h2:      clamp(27px, 2.8vw, 34px);
+  --fs-h3:      17px;
+  --fs-lead:    17.5px;   /* section subtitles */
+  --fs-body:    15.5px;   /* PRD asks 17-18px for body; cards sit a step down */
+  --fs-small:   13.5px;
+  --fs-label:   11.5px;   /* uppercase eyebrows, as in the digest */
+  --lh-tight:   1.18;
+  --lh-body:    1.62;
+  --track-label: 0.08em;
+
   --max-w: 1200px;
   --pad-v: 92px;
   --pad-h: 32px;
@@ -205,8 +218,8 @@ a { color: inherit; text-decoration: none; }
 .hero-headline em { color: inherit; font-style: normal; font-weight: 600; }
 .section-headline {
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 38px); font-weight: 500;
-  line-height: 1.1; letter-spacing: -0.025em; color: var(--ink);
+  font-size: var(--fs-h2); font-weight: 600;
+  line-height: var(--lh-tight); letter-spacing: -0.021em; color: var(--ink);
   text-wrap: balance;
 }
 .section-headline em { color: var(--spark-deep); font-style: italic; }
@@ -217,7 +230,7 @@ a { color: inherit; text-decoration: none; }
   text-wrap: balance;
 }
 .cta-headline em { color: var(--spark-deep); font-style: italic; }
-.subtitle { font-size: 18px; line-height: 1.55; color: var(--ink-2); }
+.subtitle { font-size: var(--fs-lead); line-height: 1.58; color: var(--ink-3); text-wrap: pretty; }
 
 /* Sections — paper-and-ink. Sections are separated by hairlines, not blocks. */
 .section-white { background: var(--paper); padding: var(--pad-v) 0; position: relative; }
@@ -2860,7 +2873,7 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
    began and the loop is seamless. */
 .agency-marquee {
   position: relative; overflow: hidden;
-  margin: 52px auto 0;
+  margin: 26px auto 0;
   /* Same width as the fixed nav pill so the two align down the page. */
   width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
   /* Fade the marks in and out at the edges rather than cutting them dead. */
@@ -2881,7 +2894,7 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
   display: flex; align-items: center; justify-content: center;
   height: 112px; flex-shrink: 0;
 }
-.agency-logo img { width: auto; height: auto; object-fit: contain; display: block; }
+.agency-logo img { width: auto; height: auto; object-fit: contain; display: block; filter: grayscale(1); opacity: .58; }
 /* Sizes are per-logo, derived from measured ink coverage rather than bounding
    box, so a dense square and an airy wordmark read at the same visual weight. */
 .agency-logo img.lg-ghost   { height: 41px; }
@@ -3494,11 +3507,10 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
 .hero-grid { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: start; }
 @media (min-width: 1000px) { .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 52px; align-items: center; } }
 .hero-redesign .hero-headline { font-size: clamp(34px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -0.02em; font-weight: 600; max-width: 17ch; }
-.hero-redesign .hero-sub { font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 560px; margin-top: 18px; }
-.hero-micro { font-size: 14px; color: var(--ink-3); margin-top: 14px; max-width: 470px; line-height: 1.55; }
-.hero-seclink { display: inline-block; margin-top: 16px; font-size: 15px; color: var(--spark); text-decoration: none; }
+.hero-redesign .hero-sub { font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-3); max-width: 545px; margin-top: 18px; }
+.hero-micro { font-size: var(--fs-small); color: var(--ink-3); margin-top: 15px; max-width: 460px; line-height: var(--lh-body); }
+.hero-seclink { display: inline-block; margin-top: 16px; font-size: var(--fs-body); font-weight: 500; color: var(--spark); text-decoration: none; }
 .hero-seclink:hover { text-decoration: underline; }
-.hero-trust { margin-top: 30px; font-size: 13.5px; color: var(--ink-3); line-height: 1.6; max-width: 500px; }
 /* Inbox list: digest sits as the newest unread mail */
 .inbox-preview { background: var(--surface); border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
 .inbox-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--hairline); font-size: 13.5px; }
@@ -3515,35 +3527,21 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
 @media (max-width: 600px) { .inbox-sender { width: 92px; } .inbox-snip { display: none; } }
 
 /* --- Proof strip --- */
-.proof-label { text-align: center; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 28px; }
-.proof-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px 40px; }
-.proof-logos img { width: auto; filter: grayscale(1); opacity: .6; }
-.proof-logos img.lg-ghost   { height: 30px; }
-.proof-logos img.lg-bubbly  { height: 62px; }
-.proof-logos img.lg-bx      { height: 27px; }
-.proof-logos img.lg-barrel  { height: 14px; }
-.proof-logos img.lg-outsight{ height: 27px; }
-.proof-logos img.lg-driver  { height: 19px; }
-.proof-logos img.lg-rafferty{ height: 29px; }
-.proof-logos img.lg-paper   { height: 19px; }
-.proof-quote { max-width: 620px; margin: 44px auto 0; display: flex; gap: 18px; align-items: center; }
-.proof-quote img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-.proof-quote blockquote { font-size: 17px; line-height: 1.6; color: var(--ink); }
-.proof-quote cite { display: block; margin-top: 8px; font-style: normal; font-size: 13.5px; color: var(--ink-3); }
-@media (max-width: 600px) { .proof-quote { flex-direction: column; text-align: center; } }
+.section-proof { padding: 40px 0 44px; border-top: 1px solid var(--hairline); }
+.proof-label { text-align: center; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
 
 /* --- Client results panels --- */
 .results-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
 @media (min-width: 900px) { .results-grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
 .result-panel { border: 1px solid var(--hairline); border-radius: 8px; padding: 26px; background: var(--surface); }
-.result-panel-name { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--ink); }
-.result-panel-desc { font-size: 13.5px; color: var(--ink-3); margin-top: 5px; line-height: 1.5; }
+.result-panel-name { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+.result-panel-desc { font-size: var(--fs-small); color: var(--ink-3); margin-top: 6px; line-height: 1.5; }
 .result-cards { margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
 .result-card { border-top: 1px solid var(--hairline); padding-top: 16px; }
 .result-card:first-child { border-top: none; padding-top: 0; }
-.result-card-label { display: flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 7px; }
-.result-card-num { font-family: var(--font-display); font-size: 25px; font-weight: 600; color: var(--ink); line-height: 1.2; letter-spacing: -0.01em; }
-.result-card-sub { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; margin-top: 6px; }
+.result-card-label { display: flex; align-items: center; gap: 6px; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+.result-card-num { font-size: 21px; font-weight: 600; color: var(--ink); line-height: 1.3; letter-spacing: -0.015em; }
+.result-card-sub { font-size: var(--fs-small); color: var(--ink-3); line-height: var(--lh-body); margin-top: 7px; }
 /* "what this means" tooltip */
 .rtip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ink-4); color: var(--ink-3); font-size: 9px; font-weight: 700; cursor: help; text-transform: none; letter-spacing: 0; }
 .rtip-pop { position: absolute; bottom: calc(100% + 8px); left: 0; width: max-content; max-width: min(216px, 68vw); background: var(--ink); color: #fff; font-size: 12px; font-weight: 400; line-height: 1.5; letter-spacing: 0; text-transform: none; padding: 9px 11px; border-radius: 6px; opacity: 0; visibility: hidden; transition: opacity .16s ease; z-index: 30; text-align: left; }
@@ -3554,54 +3552,54 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
 .cold-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
 @media (min-width: 820px) { .cold-grid { grid-template-columns: repeat(3, 1fr); } }
 .cold-card { border: 1px solid var(--hairline); border-radius: 8px; padding: 24px; background: var(--surface); }
-.cold-card h3 { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 9px; }
-.cold-card p { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
-.cold-ill { margin-bottom: 16px; }
-.cold-ill svg { width: 100%; height: 74px; }
-.cold-closing { text-align: center; margin-top: 34px; font-size: 16.5px; color: var(--ink-2); }
+.cold-card h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
+.cold-card p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
+.cold-ill { margin-bottom: 18px; padding: 14px; background: var(--surface-ink); border: 1px solid var(--hairline); border-radius: 6px; }
+.cold-ill svg { display: block; width: 100%; height: 74px; }
+.cold-closing { text-align: center; margin-top: 36px; font-size: var(--fs-lead); color: var(--ink-2); }
 
 /* --- Pricing (3-term toggle) --- */
-.price-line { font-size: 14px; color: var(--ink-3); margin-top: 8px; }
+.price-line { font-size: var(--fs-small); color: var(--ink-3); margin-top: 9px; }
 .price-badge { display: inline-block; margin-top: 12px; background: var(--spark-paper); color: var(--spark-deep); font-size: 12.5px; font-weight: 600; padding: 5px 11px; border-radius: 999px; }
 .price-badge:empty { display: none; }
 .freefirst { max-width: 440px; margin: 22px auto 0; border: 1px solid var(--hairline); border-left: 3px solid var(--spark); border-radius: 8px; padding: 18px 20px; background: var(--spark-paper); }
-.freefirst strong { display: block; font-size: 15px; color: var(--ink); margin-bottom: 6px; }
-.freefirst p { font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.freefirst strong { display: block; font-size: var(--fs-body); font-weight: 600; color: var(--ink); margin-bottom: 7px; }
+.freefirst p { font-size: var(--fs-small); line-height: var(--lh-body); color: var(--ink-2); }
 
 /* --- Comparison table (adds Build-it-yourself-with-AI column) --- */
 .cmp-wrap { overflow-x: auto; overflow-y: hidden; margin-top: 40px; width: 100%; max-width: 100%; min-width: 0; -webkit-overflow-scrolling: touch; }
 .cmp { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 14.5px; }
-.cmp th, .cmp td { border: 1px solid var(--hairline); padding: 15px 16px; text-align: left; vertical-align: top; line-height: 1.55; }
-.cmp thead th { background: var(--paper-2); font-weight: 600; color: var(--ink); font-size: 14px; }
-.cmp tbody th { background: var(--surface-ink); font-weight: 500; color: var(--ink-3); width: 120px; font-size: 13.5px; }
+.cmp th, .cmp td { border: 1px solid var(--hairline); padding: 14px 16px; text-align: left; vertical-align: top; line-height: var(--lh-body); color: var(--ink-3); }
+.cmp thead th { background: var(--paper-2); font-weight: 600; color: var(--ink); font-size: var(--fs-small); letter-spacing: -0.005em; }
+.cmp tbody th { background: var(--surface-ink); font-weight: 600; color: var(--ink-3); width: 124px; font-size: var(--fs-label); letter-spacing: var(--track-label); text-transform: uppercase; }
 .cmp .cmp-us { background: #fff; color: var(--ink); font-weight: 500; }
 .cmp thead .cmp-us { background: var(--spark-paper); color: var(--spark-deep); }
-.cmp-note { font-size: 14.5px; color: var(--ink-2); line-height: 1.65; margin-top: 22px; max-width: 760px; }
+.cmp-note { font-size: var(--fs-small); color: var(--ink-3); line-height: var(--lh-body); margin-top: 24px; max-width: 720px; }
 
 /* --- Testimonials: static 4-card grid (no carousel, no duplicate) --- */
 .tgrid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 40px; }
 @media (min-width: 760px) { .tgrid { grid-template-columns: 1fr 1fr; } }
 .tcard { border: 1px solid var(--hairline); border-radius: 8px; padding: 24px; background: var(--surface); }
-.tcard blockquote { font-size: 15.5px; line-height: 1.65; color: var(--ink); }
+.tcard blockquote { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2); }
 .tcard-person { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
 .tcard-person img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
-.tcard-name { font-size: 14px; font-weight: 600; color: var(--ink); }
-.tcard-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; line-height: 1.4; }
+.tcard-name { font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
+.tcard-role { font-size: 12.5px; color: var(--ink-4); margin-top: 3px; line-height: 1.45; }
 
 /* --- Who this is for: fit / not a fit --- */
 .fit-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 40px; border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
 @media (min-width: 820px) { .fit-grid { grid-template-columns: 1fr 1fr; } }
-.fit-col-head { padding: 14px 20px; font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--paper-2); color: var(--ink-3); }
+.fit-col-head { padding: 13px 20px; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; background: var(--paper-2); color: var(--ink-3); }
 .fit-col.no .fit-col-head { color: var(--ink-4); }
-.fit-row { padding: 15px 20px; border-top: 1px solid var(--hairline); font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.fit-row { padding: 15px 20px; border-top: 1px solid var(--hairline); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2); }
 @media (min-width: 820px) { .fit-col.no { border-left: 1px solid var(--hairline); } }
 
 /* --- Privacy: 2x2 grid --- */
 .priv-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
 @media (min-width: 820px) { .priv-grid { grid-template-columns: 1fr 1fr; } }
 .priv-block { border: 1px solid var(--hairline); border-radius: 8px; padding: 24px; background: var(--surface); }
-.priv-block h3 { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 9px; }
-.priv-block p { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.priv-block h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
+.priv-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
 .priv-block code { font-family: var(--font-mono); font-size: 13px; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
 .priv-expander { margin-top: 26px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--surface); }
 .priv-expander summary { padding: 15px 20px; cursor: pointer; font-size: 14.5px; color: var(--spark); list-style: none; }
@@ -3615,12 +3613,12 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
 .hiw-grid { display: grid; grid-template-columns: 1fr; gap: 26px; margin-top: 44px; }
 @media (min-width: 900px) { .hiw-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; } }
 .hiw-step-n { width: 27px; height: 27px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
-.hiw-step h3 { font-family: var(--font-display); font-size: 17.5px; font-weight: 600; color: var(--ink); margin-bottom: 9px; }
-.hiw-step p { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.hiw-step h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
+.hiw-step p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
 .hiw-visual { border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; margin-bottom: 16px; background: var(--surface-ink); }
 .hiw-visual svg { display: block; width: 100%; height: 118px; }
 .hiw-visual img { display: block; width: 100%; height: 118px; object-fit: cover; object-position: center 28%; }
-.hiw-under { text-align: center; max-width: 720px; margin: 40px auto 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+.hiw-under { text-align: center; max-width: 700px; margin: 44px auto 0; font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-2); }
 
 /* --- Snapshots (secondary block under the digest) --- */
 .snap-block { max-width: 640px; margin: 64px auto 0; }
@@ -3708,7 +3706,6 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
         </div>
         <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together. Free.</p>
         <a href="#digest" class="hero-seclink hero-anim">See a sample digest &darr;</a>
-        <p class="hero-trust hero-anim">Used by Ghost Robot, Team Bubbly, Driver Digital, Agency Outsight and others.</p>
       </div>
       <div class="hero-anim">
         <div class="inbox-preview" aria-label="Inbox preview">
@@ -3732,6 +3729,66 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. PROOF STRIP ===== -->
+<section class="section-white section-proof" id="proof">
+  <div class="container">
+    <div class="proof-label fade-in">Agencies already running it</div>
+  </div>
+
+  <div class="agency-marquee fade-in">
+    <div class="agency-track">
+      <figure class="agency-logo">
+        <img class="lg-ghost" src="assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bubbly" src="assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bx" src="assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-barrel" src="assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-outsight" src="assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-driver" src="assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-rafferty" src="assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-paper" src="assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-ghost" src="assets/agency-logos/ghost-robot.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bubbly" src="assets/agency-logos/team-bubbly-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bx" src="assets/agency-logos/bx-studio-clean.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-barrel" src="assets/agency-logos/barrel-holdings-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-outsight" src="assets/agency-logos/agency-outsight-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-driver" src="assets/agency-logos/driver-digital-clean.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-rafferty" src="assets/agency-logos/rafferty-weiss.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-paper" src="assets/agency-logos/paperwhite-studio-v2.png" alt="" loading="lazy">
+      </figure>
     </div>
   </div>
 </section>
@@ -3923,11 +3980,6 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
 
         </div>
 
-          <!-- Contacts 2 and 3, collapsed to one-line rows -->
-          <div class="digest-more-contacts">
-            <div class="digest-more-row"><strong>Daniel Okafor</strong> &middot; Brightwave Studios &middot; Just landed a national rebrand</div>
-            <div class="digest-more-row"><strong>Priya Menon</strong> &middot; Northbeam Media &middot; Moved to a new role in March</div>
-          </div>
         </div>
       </div>
       <p class="gwin-caption">Sample digest. Names and companies are fictional.</p>
@@ -3938,82 +3990,6 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
     </div>
   </div>
 
-  <div class="container">
-    <!-- Snapshots: small secondary block -->
-    <div class="snap-block fade-in">
-      <div class="snap-head">And every Friday, a snapshot of what moved.</div>
-      <div class="snap-tabs" role="tablist" aria-label="Snapshot period">
-        <button class="snap-tab active" data-snap="week" role="tab" aria-selected="true">Weekly</button>
-        <button class="snap-tab" data-snap="month" role="tab" aria-selected="false">Monthly</button>
-        <button class="snap-tab" data-snap="quarter" role="tab" aria-selected="false">Quarterly</button>
-      </div>
-      <div class="snap-card">
-        <div class="snap-panel active" data-snappanel="week">
-          <div class="snap-nums">
-            <div><div class="snap-num">12</div><div class="snap-cap">Reached out</div></div>
-            <div><div class="snap-num">3</div><div class="snap-cap">Replied</div></div>
-            <div><div class="snap-num">1</div><div class="snap-cap">Meetings</div></div>
-            <div><div class="snap-num">8</div><div class="snap-cap">Still open</div></div>
-          </div>
-          <div class="snap-focus">
-            <div class="snap-focus-label">Where to focus next</div>
-            <div class="snap-focus-item"><strong>Kirstin Dorsch</strong> replied and is waiting on your answer.</div>
-            <div class="snap-focus-item"><strong>Grace Lin</strong> &mdash; two follow-ups with no reply, worth a last touch.</div>
-          </div>
-        </div>
-        <div class="snap-panel" data-snappanel="month" hidden>
-          <div class="snap-nums">
-            <div><div class="snap-num">63</div><div class="snap-cap">Reached out</div></div>
-            <div><div class="snap-num">14</div><div class="snap-cap">Replied</div></div>
-            <div><div class="snap-num">6</div><div class="snap-cap">Meetings</div></div>
-            <div><div class="snap-num">31</div><div class="snap-cap">Still open</div></div>
-          </div>
-          <div class="snap-focus">
-            <div class="snap-focus-label">Where to focus next</div>
-            <div class="snap-focus-item"><strong>Marcus Webb</strong> opened twice but hasn&rsquo;t replied.</div>
-            <div class="snap-focus-item"><strong>Ana Reyes</strong> asked for timing in Q4, worth a nudge.</div>
-          </div>
-        </div>
-        <div class="snap-panel" data-snappanel="quarter" hidden>
-          <div class="snap-nums">
-            <div><div class="snap-num">198</div><div class="snap-cap">Reached out</div></div>
-            <div><div class="snap-num">41</div><div class="snap-cap">Replied</div></div>
-            <div><div class="snap-num">17</div><div class="snap-cap">Meetings</div></div>
-            <div><div class="snap-num">94</div><div class="snap-cap">Still open</div></div>
-          </div>
-          <div class="snap-focus">
-            <div class="snap-focus-label">Where to focus next</div>
-            <div class="snap-focus-item">Former clients reply about twice as often as cold collaborators.</div>
-            <div class="snap-focus-item">Tuesday mornings are pulling your best response rate.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 3. PROOF STRIP ===== -->
-<section class="section-white" id="proof">
-  <div class="container">
-    <div class="proof-label fade-in">Agencies already running it</div>
-    <div class="proof-logos fade-in">
-      <img class="lg-ghost" src="assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
-      <img class="lg-bubbly" src="assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
-      <img class="lg-bx" src="assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
-      <img class="lg-barrel" src="assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
-      <img class="lg-outsight" src="assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
-      <img class="lg-driver" src="assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
-      <img class="lg-rafferty" src="assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
-      <img class="lg-paper" src="assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
-    </div>
-    <div class="proof-quote fade-in">
-      <img src="mark-depace.png" alt="Mark DePace">
-      <div>
-        <blockquote>&ldquo;It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
-        <cite>Mark DePace, Co-founder &amp; CCO, Ghost Robot</cite>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ===== 4. CLIENT RESULTS ===== -->
@@ -4129,7 +4105,18 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
       </div>
       <div class="hiw-step">
         <div class="hiw-visual">
-          <img src="assets/leonard-chin.jpeg" alt="Leonard Chin, founder of VeraOps" loading="lazy">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+            <rect x="20" y="16" width="280" height="86" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <circle cx="54" cy="46" r="11" fill="#E8F0FE" stroke="#A8C7FA"/>
+            <path d="M43 64a11 11 0 0 1 22 0" fill="#E8F0FE" stroke="#A8C7FA"/>
+            <rect x="76" y="36" width="84" height="7" rx="3.5" fill="#D2D5D9"/>
+            <rect x="76" y="50" width="124" height="6" rx="3" fill="#E4E6E9"/>
+            <line x1="36" y1="76" x2="284" y2="76" stroke="#E4E6E9"/>
+            <rect x="36" y="85" width="56" height="7" rx="3.5" fill="#1A73E8" opacity=".45"/>
+            <rect x="100" y="85" width="56" height="7" rx="3.5" fill="#E4E6E9"/>
+            <rect x="164" y="85" width="56" height="7" rx="3.5" fill="#E4E6E9"/>
+          </svg>
         </div>
         <div class="hiw-step-n">3</div>
         <h3>A person picks your three.</h3>
@@ -4140,9 +4127,7 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
   </div>
 </section>
 
-<section class="pullquote-redesign section-sage">
-  <p>Relationships should never be handed over entirely to AI.</p>
-</section>
+
 
 <!-- ===== 6. WHY RELATIONSHIPS GO COLD ===== -->
 <section class="section-white" id="why-cold">
@@ -4154,14 +4139,21 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
       <div class="cold-card">
         <div class="cold-ill">
           <svg viewBox="0 0 260 74" aria-hidden="true">
-            <rect x="0" y="6" width="260" height="20" rx="4" fill="#fff" stroke="#E4E6E9"/>
-            <rect x="12" y="13" width="70" height="6" rx="3" fill="#D2D5D9"/>
-            <rect x="92" y="13" width="120" height="6" rx="3" fill="#E4E6E9"/>
-            <rect x="0" y="32" width="260" height="20" rx="4" fill="#fff" stroke="#E4E6E9"/>
-            <rect x="12" y="39" width="56" height="6" rx="3" fill="#D2D5D9"/>
-            <rect x="78" y="39" width="134" height="6" rx="3" fill="#E4E6E9"/>
-            <rect x="0" y="58" width="260" height="16" rx="4" fill="#FAFAF8" stroke="#E4E6E9"/>
-            <rect x="12" y="63" width="48" height="6" rx="3" fill="#E4E6E9"/>
+            <rect x="0" y="4" width="260" height="66" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="0" y="4" width="260" height="15" rx="4" fill="#F6F6F4"/>
+            <line x1="0" y1="19" x2="260" y2="19" stroke="#E4E6E9"/>
+            <rect x="12" y="9" width="34" height="5" rx="2.5" fill="#D2D5D9"/>
+            <g fill="#EDEEF0">
+              <rect x="12" y="27" width="26" height="14" rx="2"/><rect x="46" y="27" width="26" height="14" rx="2"/>
+              <rect x="80" y="27" width="26" height="14" rx="2"/><rect x="114" y="27" width="26" height="14" rx="2"/>
+              <rect x="148" y="27" width="26" height="14" rx="2"/>
+              <rect x="12" y="47" width="26" height="14" rx="2"/><rect x="46" y="47" width="26" height="14" rx="2"/>
+              <rect x="80" y="47" width="26" height="14" rx="2"/>
+            </g>
+            <rect x="182" y="27" width="26" height="14" rx="2" fill="#1A73E8" opacity=".5"/>
+            <rect x="216" y="27" width="26" height="14" rx="2" fill="#1A73E8" opacity=".5"/>
+            <rect x="114" y="47" width="26" height="14" rx="2" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+            <rect x="148" y="47" width="94" height="14" rx="2" fill="#fff" stroke="#E4E6E9"/>
           </svg>
         </div>
         <h3>Delivery came first.</h3>
@@ -4170,15 +4162,21 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
       <div class="cold-card">
         <div class="cold-ill">
           <svg viewBox="0 0 260 74" aria-hidden="true">
-            <rect x="0" y="2" width="260" height="14" rx="3" fill="#fff" stroke="#E4E6E9"/>
-            <rect x="0" y="20" width="260" height="14" rx="3" fill="#fff" stroke="#E4E6E9"/>
-            <rect x="0" y="38" width="260" height="14" rx="3" fill="#fff" stroke="#E4E6E9"/>
-            <rect x="0" y="56" width="260" height="14" rx="3" fill="#F6F6F4" stroke="#D2D5D9"/>
-            <rect x="10" y="61" width="90" height="5" rx="2.5" fill="#9AA0A6"/>
-            <rect x="110" y="61" width="60" height="5" rx="2.5" fill="#D2D5D9"/>
-            <rect x="10" y="7" width="70" height="5" rx="2.5" fill="#E4E6E9"/>
-            <rect x="10" y="25" width="86" height="5" rx="2.5" fill="#E4E6E9"/>
-            <rect x="10" y="43" width="58" height="5" rx="2.5" fill="#E4E6E9"/>
+            <g fill="#fff" stroke="#E4E6E9">
+              <rect x="0" y="2" width="260" height="13" rx="3"/>
+              <rect x="0" y="18" width="260" height="13" rx="3"/>
+              <rect x="0" y="34" width="260" height="13" rx="3"/>
+              <rect x="0" y="50" width="260" height="13" rx="3"/>
+            </g>
+            <g fill="#E4E6E9">
+              <rect x="10" y="6.5" width="62" height="4" rx="2"/><rect x="82" y="6.5" width="104" height="4" rx="2"/>
+              <rect x="10" y="22.5" width="54" height="4" rx="2"/><rect x="74" y="22.5" width="120" height="4" rx="2"/>
+              <rect x="10" y="38.5" width="70" height="4" rx="2"/><rect x="90" y="38.5" width="88" height="4" rx="2"/>
+              <rect x="10" y="54.5" width="58" height="4" rx="2"/><rect x="78" y="54.5" width="96" height="4" rx="2"/>
+            </g>
+            <rect x="0" y="64" width="260" height="10" rx="3" fill="#F1F3F4" stroke="#D2D5D9"/>
+            <rect x="10" y="67" width="76" height="4" rx="2" fill="#9AA0A6"/>
+            <rect x="96" y="67" width="52" height="4" rx="2" fill="#C4C7CA"/>
           </svg>
         </div>
         <h3>Now they&rsquo;re buried.</h3>
@@ -4188,17 +4186,22 @@ html.js-on .stagger-in.visible { opacity: 1; transform: translateY(0); }
         <div class="cold-ill">
           <svg viewBox="0 0 260 74" aria-hidden="true">
             <rect x="0" y="4" width="260" height="66" rx="4" fill="#fff" stroke="#E4E6E9"/>
-            <line x1="0" y1="22" x2="260" y2="22" stroke="#E4E6E9"/>
-            <line x1="0" y1="40" x2="260" y2="40" stroke="#E4E6E9"/>
-            <line x1="0" y1="56" x2="260" y2="56" stroke="#E4E6E9"/>
+            <rect x="0" y="4" width="260" height="14" rx="4" fill="#F6F6F4"/>
+            <line x1="0" y1="18" x2="260" y2="18" stroke="#E4E6E9"/>
             <line x1="86" y1="4" x2="86" y2="70" stroke="#E4E6E9"/>
             <line x1="172" y1="4" x2="172" y2="70" stroke="#E4E6E9"/>
-            <rect x="8" y="10" width="54" height="6" rx="3" fill="#D2D5D9"/>
-            <rect x="94" y="10" width="54" height="6" rx="3" fill="#D2D5D9"/>
-            <rect x="180" y="10" width="44" height="6" rx="3" fill="#D2D5D9"/>
-            <rect x="8" y="28" width="46" height="5" rx="2.5" fill="#E4E6E9"/>
-            <rect x="94" y="28" width="40" height="5" rx="2.5" fill="#E4E6E9"/>
-            <rect x="8" y="46" width="52" height="5" rx="2.5" fill="#E4E6E9"/>
+            <line x1="0" y1="35" x2="260" y2="35" stroke="#E4E6E9"/>
+            <line x1="0" y1="52" x2="260" y2="52" stroke="#E4E6E9"/>
+            <g fill="#D2D5D9">
+              <rect x="9" y="9" width="46" height="4.5" rx="2.25"/><rect x="95" y="9" width="46" height="4.5" rx="2.25"/>
+              <rect x="181" y="9" width="40" height="4.5" rx="2.25"/>
+            </g>
+            <g fill="#E4E6E9">
+              <rect x="9" y="24" width="52" height="4.5" rx="2.25"/><rect x="95" y="24" width="38" height="4.5" rx="2.25"/>
+              <rect x="181" y="24" width="30" height="4.5" rx="2.25"/>
+              <rect x="9" y="41" width="44" height="4.5" rx="2.25"/><rect x="95" y="41" width="30" height="4.5" rx="2.25"/>
+            </g>
+            <rect x="9" y="58" width="36" height="4.5" rx="2.25" fill="#EDEEF0"/>
           </svg>
         </div>
         <h3>Spreadsheets don&rsquo;t stick.</h3>
@@ -4768,22 +4771,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   }));
 })();
 
-// Snapshot tabs (Weekly | Monthly | Quarterly)
-(function () {
-  const tabs = document.querySelectorAll('.snap-tab');
-  if (!tabs.length) return;
-  tabs.forEach(tab => tab.addEventListener('click', () => {
-    const key = tab.dataset.snap;
-    tabs.forEach(t => {
-      const on = t === tab;
-      t.classList.toggle('active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
-    document.querySelectorAll('.snap-panel').forEach(panel => {
-      panel.hidden = panel.dataset.snappanel !== key;
-    });
-  }));
-})();
 
 </script>
 
@@ -4795,7 +4782,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         <img src="assets/logo-mark.png" alt="" class="footer-mark">
         <span>VeraOps</span>
       </div>
-      <p class="copy">We help creative, design and marketing agencies turn past relationships into new business.</p>
+      <p class="copy">We turn existing relationships into the most reliable pipeline for digital, marketing, design, and creative agencies.</p>
       <div class="footer-contact">
         <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
         <p>+1 (302) 223 4061</p>
