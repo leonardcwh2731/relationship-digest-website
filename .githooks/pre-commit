@@ -1,0 +1,6 @@
+#!/bin/sh
+# The community pages are generated from index.html. Regenerate them before
+# every commit so they can never fall behind the main page.
+node build-pages.js || exit 1
+git add the-bureau/index.html agencyhabits/index.html agency-outsight/index.html surge/index.html 2>/dev/null
+exit 0
