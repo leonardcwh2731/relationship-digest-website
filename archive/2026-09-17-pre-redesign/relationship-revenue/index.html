@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relationship Revenue — VeraOps</title>
+<meta name="description" content="A six-phase relationship engineering service for project-based agencies. Built on Relationship Digest. Connected to your CRM. Designed to turn dormant relationships into active, predictable pipeline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+  --sage: #F3F8EA;
+  --sage-mid: #D6E8B8;
+  --sage-gradient: #E8F0DA;
+  --sage-gradient-light: #F0F5E6;
+  --olive-deep: #3D4F1E;
+  --hover-dark: #2E3B17;
+  --digest-bg: #1E2B14;
+  --muted: #666666;
+  --text-dark: #333;
+  --text-mid: #444;
+  --text-soft: #555;
+  --card-border: #EBEBEB;
+  --card-border-green: #DDE8C8;
+  --scan-line: #B8CC88;
+  --max-w: 1100px;
+  --pad-v: 120px;
+  --pad-h: 40px;
+  --radius: 6px;
+  --phase-revive: #534AB7;
+  --phase-research: #0F6E56;
+  --phase-reconnect: #993C1D;
+  --phase-reinvest: #185FA5;
+  --phase-refresh: #3B6D11;
+  --phase-review: #854F0B;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* Scroll Progress */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--olive-deep); z-index: 200; width: 0%;
+  transition: width 50ms linear;
+}
+
+/* Container */
+.container {
+  width: 100%; max-width: var(--max-w);
+  margin: 0 auto; padding: 0 var(--pad-h);
+}
+
+/* Navigation */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--sage); transition: box-shadow 200ms ease;
+}
+.nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.08); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between; padding: 20px 0;
+}
+.nav-wordmark { font-size: 28px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--text-mid); transition: color 150ms ease; }
+.nav-links a:hover { color: var(--black); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer; font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700; border-radius: var(--radius);
+  transition: background 150ms ease, border-color 150ms ease, transform 100ms ease;
+  position: relative; overflow: hidden;
+}
+.btn-sage { background: var(--olive-deep); color: #FFFFFF !important; padding: 10px 22px; font-size: 14px; }
+.btn-sage:hover { background: var(--hover-dark); color: #FFFFFF !important; }
+.btn-sage-lg { background: var(--olive-deep); color: var(--white); padding: 13px 26px; font-size: 16px; }
+.btn-sage-lg:hover { background: var(--hover-dark); }
+.btn-sage-xl { background: var(--olive-deep); color: var(--white); padding: 16px 36px; font-size: 16px; }
+.btn-sage-xl:hover { background: var(--hover-dark); }
+.btn-ghost { background: transparent; border: 1.5px solid rgba(0,0,0,0.25); color: var(--black); padding: 13px 26px; font-size: 16px; }
+.btn-ghost:hover { border-color: var(--black); }
+.btn-light { background: var(--sage); color: var(--black); padding: 16px 36px; font-size: 16px; }
+.btn-light:hover { background: var(--sage-mid); }
+.btn .ripple {
+  position: absolute; border-radius: 50%; background: rgba(255,255,255,0.3);
+  transform: scale(0); animation: ripple-anim 600ms ease forwards; pointer-events: none;
+}
+@keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+
+/* Section Label */
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--olive-deep); margin-bottom: 16px;
+}
+
+/* Typography */
+.hero-headline {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 5vw, 56px); font-weight: 700;
+  line-height: 1.15; letter-spacing: -0.02em; color: var(--black);
+}
+.section-headline {
+  font-size: clamp(26px, 3.5vw, 34px); font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.02em; color: var(--black);
+}
+.cta-headline {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(30px, 4vw, 46px); font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.02em;
+}
+.subtitle { font-size: 17px; line-height: 1.65; color: var(--text-soft); }
+
+/* Sections */
+.section-white { background: var(--white); padding: var(--pad-v) 0; position: relative; }
+.section-sage { background: var(--sage); padding: var(--pad-v) 0; position: relative; }
+.section-dark { background: var(--digest-bg); padding: var(--pad-v) 0; color: var(--white); position: relative; }
+
+/* Section blends */
+.blend-sage-to-white::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--white)); pointer-events: none;
+}
+.blend-white-to-sage::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--sage)); pointer-events: none;
+}
+.blend-sage-to-dark::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--digest-bg)); pointer-events: none;
+}
+.blend-dark-to-white::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--white)); pointer-events: none;
+}
+.blend-white-to-dark::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--digest-bg)); pointer-events: none;
+}
+.blend-dark-to-sage::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--sage)); pointer-events: none;
+}
+
+/* Cards */
+.card {
+  border: 1.5px solid var(--card-border); border-radius: 16px;
+  padding: 36px 32px; background: var(--white);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.card:hover { box-shadow: none; transform: none; }
+
+/* Animations */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 300ms ease, transform 300ms ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.stagger-in { opacity: 0; transform: translateY(30px); transition: opacity 500ms ease, transform 500ms ease; }
+.stagger-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Highlight mark */
+.highlight-mark {
+  background-size: 0% 100%;
+  background-image: linear-gradient(120deg, rgba(184,204,136,0.4) 0%, rgba(184,204,136,0.4) 100%);
+  background-repeat: no-repeat;
+  transition: background-size 0.8s ease;
+  border-radius: 2px; padding: 1px 2px; margin: -1px -2px;
+}
+.highlight-mark.active { background-size: 100% 100%; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; padding-top: 140px; padding-bottom: var(--pad-v);
+  display: flex; align-items: center;
+  background: linear-gradient(180deg, var(--sage) 0%, var(--sage-gradient) 50%, var(--sage-gradient-light) 75%, var(--white) 100%);
+}
+.hero-grid { display: grid; grid-template-columns: 1fr; gap: 0; align-items: center; justify-items: center; text-align: center; }
+.hero-content { max-width: 1100px; }
+.hero-content .subtitle { margin: 20px 0 12px; font-size: 17px; }
+.hero-ctas { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 32px; }
+
+/* ===== PROBLEM ===== */
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 0; }
+.problem-grid .card { text-align: center; padding: 32px 16px; border: none; background: none; box-shadow: none; }
+.problem-grid .card:hover { box-shadow: none; transform: none; }
+.problem-grid .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.problem-grid .card p { font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+
+/* ===== SYSTEM PHASE CARDS ===== */
+.system-phases-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px;
+}
+.system-phase-card {
+  display: block; border: none; border-radius: 0;
+  padding: 24px 0; background: none; text-decoration: none;
+  transition: opacity 200ms ease; position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.06); cursor: pointer;
+}
+.system-phase-card:hover { box-shadow: none; transform: none; opacity: 0.7; }
+.system-phase-card::before { display: none; }
+.system-phase-card::after {
+  content: 'Explore \2192'; position: relative; display: block; margin-top: 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.03em; color: var(--muted); transition: color 200ms ease;
+}
+.system-phase-card:hover::after { color: var(--olive-deep); }
+.system-phase-card .phase-badge { display: none; }
+.system-phase-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; color: var(--black); }
+.system-phase-card .phase-num { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 4px; }
+.system-phase-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; margin: 0; padding-right: 24px; }
+
+/* ===== PHASE DETAIL SECTIONS ===== */
+.phase-detail { padding: 80px 0; position: relative; }
+.phase-detail:nth-child(odd) { background: var(--white); }
+.phase-detail:nth-child(even) { background: var(--sage); }
+.phase-detail-inner { display: grid; grid-template-columns: 1fr; gap: 56px; align-items: start; }
+.phase-detail-badge {
+  display: inline-block; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em; padding: 0; border-radius: 0; color: var(--muted); margin-bottom: 8px;
+  background: none; text-transform: uppercase;
+}
+.phase-detail h3 { font-size: clamp(24px, 3vw, 30px); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
+.phase-detail p { font-size: 16px; line-height: 1.7; color: var(--text-mid); margin-bottom: 16px; }
+.phase-detail ul { list-style: none; margin: 0; }
+.phase-detail ul li {
+  font-size: 15px; color: var(--text-mid); padding: 8px 0;
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.6;
+}
+.phase-detail-check { min-width: 18px; font-weight: 700; color: var(--olive-deep); }
+.phase-outcome {
+  font-size: 12px; color: var(--text-mid); line-height: 1.5; margin: 32px auto 0; padding: 14px 24px;
+  background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
+  max-width: 500px; text-align: center; font-style: normal;
+}
+.phase-detail:nth-child(even) .phase-outcome { background: var(--white); }
+.phase-detail:nth-child(odd) .phase-outcome { background: rgba(0,0,0,0.015); }
+/* Flow grid with arrows */
+.flow-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;
+  counter-reset: flow;
+}
+.flow-step {
+  position: relative; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
+  padding: 24px 20px; background: var(--white); text-align: center;
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.flow-step:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); transform: translateY(-1px); }
+.flow-step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.flow-step p { font-size: 13px; color: var(--text-mid); line-height: 1.5; margin: 0; }
+/* Row 1: Scrape → Enrich → Extract (arrows pointing right) */
+.flow-step:nth-child(1)::after,
+.flow-step:nth-child(2)::after {
+  content: '\2192'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: var(--muted); z-index: 1;
+}
+.flow-step:nth-child(3)::after {
+  content: '\2193'; position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
+  font-size: 14px; color: var(--muted); z-index: 1;
+}
+/* Row 2: Group ← Audit ← Tier */
+.flow-step:nth-child(4)::after { display: none; }
+.flow-step:nth-child(5)::after {
+  content: '\2190'; position: absolute; left: -14px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: var(--muted); z-index: 1;
+}
+.flow-step:nth-child(6)::after {
+  content: '\2190'; position: absolute; left: -14px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: var(--muted); z-index: 1;
+}
+.flow-grid { row-gap: 28px; }
+.phase-detail:nth-child(odd) .flow-step { background: rgba(0,0,0,0.015); border-color: rgba(0,0,0,0.04); }
+
+/* Signal/Campaign Grid */
+.signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+.signal-card {
+  border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; padding: 28px 24px;
+  background: var(--white); transition: box-shadow 200ms ease, transform 200ms ease;
+}
+.signal-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.05); transform: translateY(-1px); }
+.signal-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--black); }
+.signal-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; margin: 0; }
+.signal-card.full-width { grid-column: 1 / -1; }
+.phase-detail:nth-child(even) .signal-card { background: var(--white); }
+.phase-detail:nth-child(odd) .signal-card { background: rgba(0,0,0,0.015); border-color: rgba(0,0,0,0.04); }
+
+.phase-card::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+  border-radius: 12px 0 0 12px;
+}
+.phase-card[data-phase="01"]::before { background: var(--phase-revive); }
+.phase-card[data-phase="02"]::before { background: var(--phase-research); }
+.phase-card[data-phase="03"]::before { background: var(--phase-reconnect); }
+.phase-card[data-phase="04"]::before { background: var(--phase-reinvest); }
+.phase-card[data-phase="05"]::before { background: var(--phase-refresh); }
+.phase-card[data-phase="06"]::before { background: var(--phase-review); }
+.phase-badge {
+  display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; color: var(--white);
+}
+.phase-badge.revive { background: var(--phase-revive); }
+.phase-badge.research { background: var(--phase-research); }
+.phase-badge.reconnect { background: var(--phase-reconnect); }
+.phase-badge.reinvest { background: var(--phase-reinvest); }
+.phase-badge.refresh { background: var(--phase-refresh); }
+.phase-badge.review { background: var(--phase-review); }
+.phase-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 0; }
+
+/* ===== PHASE ACCORDION ===== */
+.accordion { max-width: 800px; margin: 40px auto 0; }
+.accordion-item { border-bottom: 1.5px solid var(--card-border); }
+.accordion-header {
+  display: flex; align-items: center; gap: 16px; padding: 24px 0;
+  cursor: pointer; user-select: none; width: 100%;
+  background: none; border: none; font-family: inherit; text-align: left;
+}
+.accordion-phase-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; min-width: 36px; border-radius: 50%;
+  font-size: 13px; font-weight: 700; color: var(--white);
+}
+.accordion-phase-num.revive { background: var(--phase-revive); }
+.accordion-phase-num.research { background: var(--phase-research); }
+.accordion-phase-num.reconnect { background: var(--phase-reconnect); }
+.accordion-phase-num.reinvest { background: var(--phase-reinvest); }
+.accordion-phase-num.refresh { background: var(--phase-refresh); }
+.accordion-phase-num.review { background: var(--phase-review); }
+.accordion-title { flex: 1; font-size: 18px; font-weight: 700; color: var(--black); }
+.accordion-toggle {
+  width: 24px; height: 24px; min-width: 24px; display: flex;
+  align-items: center; justify-content: center; transition: transform 200ms ease;
+}
+.accordion-item.open .accordion-toggle { transform: rotate(45deg); }
+.accordion-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 400ms ease, padding 300ms ease;
+}
+.accordion-item.open .accordion-body { max-height: 800px; padding-bottom: 24px; }
+.accordion-body-inner { padding-left: 52px; }
+.accordion-body-inner p { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; }
+.accordion-body-inner ul { list-style: none; margin: 0; }
+.accordion-body-inner ul li {
+  font-size: 14px; color: var(--text-mid); padding: 6px 0;
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.6;
+}
+.accordion-body-inner ul li::before { content: ''; display: none; }
+.acc-check { min-width: 18px; font-weight: 700; color: var(--olive-deep); }
+
+/* ===== COMPARISON TABLE ===== */
+.comparison-wrapper { margin-top: 40px; overflow-x: auto; }
+.comparison-table {
+  width: 100%; border-collapse: collapse; font-size: 15px;
+}
+.comparison-table th {
+  padding: 20px 24px; text-align: left; font-weight: 700; font-size: 16px;
+  border-bottom: 2px solid var(--card-border); background: var(--white);
+}
+.comparison-table th:last-child {
+  background: var(--olive-deep); color: var(--white); border-radius: 12px 12px 0 0;
+}
+.comparison-table td {
+  padding: 14px 24px; border-bottom: 1px solid var(--card-border);
+  vertical-align: middle;
+}
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table td:first-child { font-weight: 600; color: var(--text-dark); min-width: 200px; }
+.comparison-table td:nth-child(2) { text-align: center; color: var(--text-mid); }
+.comparison-table td:last-child {
+  text-align: center; font-weight: 600; background: rgba(61,79,30,0.06);
+}
+.comp-check { color: var(--olive-deep); font-weight: 700; font-size: 18px; }
+.comp-dash { color: #CCC; font-size: 18px; }
+
+.diff-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 40px; }
+.diff-card {
+  border: 1.5px solid var(--card-border); border-radius: 12px; padding: 24px 20px;
+  background: var(--white);
+}
+.diff-card .diff-from { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.diff-card .diff-arrow { font-size: 16px; color: var(--olive-deep); margin-bottom: 4px; }
+.diff-card .diff-to { font-size: 15px; font-weight: 700; color: var(--olive-deep); }
+
+/* ===== WHO IT'S FOR ===== */
+.who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+.who-card {
+  border-radius: 16px; padding: 36px 32px;
+}
+.who-card.for-you {
+  background: none; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
+}
+.who-card.not-for-you {
+  background: none; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
+}
+.who-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+.who-card ul { list-style: none; }
+.who-card ul li {
+  font-size: 15px; padding: 8px 0; display: flex; align-items: flex-start; gap: 10px;
+  line-height: 1.6; color: var(--text-mid);
+}
+.who-icon-check { min-width: 20px; color: var(--muted); font-weight: 400; }
+.who-icon-x { min-width: 20px; color: var(--muted); font-weight: 400; }
+
+/* ===== SOCIAL PROOF ===== */
+.stat-callout {
+  text-align: center; margin-bottom: 48px;
+}
+.stat-callout-value {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(36px, 5vw, 56px); font-weight: 700; color: var(--white);
+  margin-bottom: 8px;
+}
+.stat-callout-label { font-size: 16px; color: rgba(255,255,255,0.7); }
+.testimonial-grid { display: flex; justify-content: center; gap: 48px; margin-top: 48px; }
+.testimonial-card {
+  background: rgba(243,248,234,0.08); border: 1px solid rgba(243,248,234,0.12);
+  border-radius: 16px; padding: 32px 28px; max-width: 400px; flex: 1;
+}
+.testimonial-quote { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.85); font-style: italic; margin-bottom: 20px; }
+.testimonial-author { display: flex; align-items: center; gap: 14px; }
+.testimonial-avatar {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--olive-deep);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 18px; color: var(--white);
+}
+.testimonial-name { font-size: 15px; font-weight: 700; color: var(--white); }
+.testimonial-role { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.proof-link { text-align: center; margin-top: 40px; }
+.proof-link a { font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: underline; transition: color 150ms ease; }
+.proof-link a:hover { color: var(--white); }
+
+/* ===== PRICING ===== */
+.pricing-card {
+  max-width: 500px; margin: 40px auto 0;
+  border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 48px 40px;
+  background: var(--white); text-align: center; position: relative;
+}
+.pricing-card::before { display: none; }
+.pricing-label { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-mid); }
+.pricing-amount {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px, 4vw, 46px); font-weight: 700; letter-spacing: -0.02em;
+  color: var(--olive-deep); margin-bottom: 8px;
+}
+.pricing-period { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+.pricing-features { text-align: left; list-style: none; margin-bottom: 32px; }
+.pricing-features li {
+  font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.pricing-features li:last-child { border-bottom: none; }
+.pricing-check { color: var(--muted); font-weight: 400; min-width: 18px; }
+.pricing-addons { margin-top: 20px; padding-top: 20px; border-top: 1.5px solid var(--card-border); }
+.pricing-addons-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 12px; }
+.pricing-addons ul { list-style: none; }
+.pricing-addons ul li { font-size: 14px; color: var(--text-mid); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+
+/* ===== FAQ ===== */
+.faq-list { max-width: 720px; margin: 40px auto 0; }
+.faq-item { border-bottom: 1px solid var(--card-border); padding: 24px 0; }
+.faq-question {
+  font-size: 17px; font-weight: 700; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; user-select: none;
+}
+.faq-toggle {
+  width: 24px; height: 24px; min-width: 24px;
+  display: flex; align-items: center; justify-content: center; transition: transform 200ms ease;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 300ms ease, padding 300ms ease; }
+.faq-item.open .faq-answer { max-height: 500px; padding-top: 16px; }
+.faq-answer p { font-size: 15px; color: var(--text-mid); line-height: 1.7; }
+
+/* ===== FINAL CTA ===== */
+.final-cta {
+  text-align: center; padding: var(--pad-v) 0; background: var(--white);
+}
+.final-cta .cta-headline { margin-bottom: 20px; max-width: 680px; margin-left: auto; margin-right: auto; }
+.final-cta .subtitle { margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+/* ===== STICKY BOTTOM CTA ===== */
+.sticky-bottom-cta {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+  background: var(--olive-deep); border-top: none;
+  padding: 14px 0; transform: translateY(100%); transition: transform 300ms ease;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+}
+.sticky-bottom-cta.visible { transform: translateY(0); }
+.sticky-bottom-cta .container {
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+}
+.sticky-bottom-cta p { font-size: 13px; font-weight: 600; color: var(--white); }
+.sticky-bottom-cta .btn-close {
+  position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; font-size: 18px; color: var(--white);
+  padding: 8px;
+}
+
+/* Section Nav Dots */
+.section-dots {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 90; display: flex; flex-direction: column; gap: 12px;
+}
+.section-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.18);
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  cursor: pointer; border: none; padding: 0;
+}
+.section-dot.active {
+  background: var(--olive-deep); transform: scale(1.5);
+  box-shadow: 0 0 0 4px rgba(61,79,30,0.15);
+}
+
+/* Mobile Nav Toggle */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle svg { width: 24px; height: 24px; stroke: var(--black); fill: none; stroke-width: 2; }
+
+/* Utility */
+.mobile-break { display: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .problem-grid { grid-template-columns: 1fr 1fr; }
+  .section-dots { display: none; }
+  .who-grid { grid-template-columns: 1fr; }
+  .system-phases-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root { --pad-v: 60px; --pad-h: 24px; }
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--sage); flex-direction: column; padding: 16px 24px 24px;
+    gap: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-content { max-width: 100%; }
+  .hero-headline { font-size: clamp(32px, 8vw, 56px); }
+  .problem-grid { grid-template-columns: 1fr; }
+  .who-grid { grid-template-columns: 1fr; }
+  .phase-detail { padding: 48px 0; }
+  .system-phases-grid { grid-template-columns: 1fr; }
+  .sticky-bottom-cta { display: none !important; }
+  .hero { min-height: auto; padding-bottom: 60px; }
+  .mobile-break { display: block; }
+  .signal-grid { grid-template-columns: 1fr; }
+  .flow-grid { grid-template-columns: 1fr; }
+  .flow-step::after { display: none; }
+}
+
+@media (max-width: 480px) {
+  :root { --pad-v: 40px; --pad-h: 18px; }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn { width: 100%; }
+  .card { padding: 24px 20px; }
+  .pricing-card { padding: 28px 20px; }
+  .who-card { padding: 24px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .fade-in, .stagger-in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Section Nav Dots -->
+<nav class="section-dots" aria-label="Section navigation">
+  <button class="section-dot active" data-section="hero" aria-label="Hero section"></button>
+  <button class="section-dot" data-section="problem" aria-label="Problem section"></button>
+  <button class="section-dot" data-section="system" aria-label="System section"></button>
+  <button class="section-dot" data-section="who" aria-label="Who section"></button>
+  <button class="section-dot" data-section="pricing" aria-label="Pricing section"></button>
+  <button class="section-dot" data-section="faq" aria-label="FAQ section"></button>
+</nav>
+
+<!-- Navigation -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-wordmark" aria-label="VeraOps home">VeraOps</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <ul class="nav-links" id="navLinks" role="menubar">
+        <li role="none"><a href="#system" role="menuitem">The System</a></li>
+        <li role="none"><a href="#who" role="menuitem">Who It's For</a></li>
+        <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
+        <li role="none"><a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-sage" role="menuitem">Book a Discovery Call</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="section-label">Existing relationship engineering for $2M-$10M ARR agency owners</div>
+        <h1 class="hero-headline fade-in">Engineer deals with an <span class="highlight-mark">interconnected existing relationship system</span>&hellip; without manually pulling data from multiple sources.</h1>
+        <p class="subtitle fade-in" style="font-size: 20px; font-weight: 500; color: var(--text-dark); font-style: italic;">Build better systems and scale your agency.</p>
+        <div class="hero-ctas fade-in">
+          <a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-sage-lg">Book a Discovery Call &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE PROBLEM ===== -->
+<section class="section-white" id="problem">
+  <div class="container">
+    <div class="section-label fade-in" style="text-align: center;">The Problem</div>
+    <h2 class="section-headline fade-in" style="text-align: center;">What's holding your agency back from scaling.</h2>
+    <p class="subtitle fade-in" style="text-align: center; margin: 16px auto 48px;">Not more relationships. Not more headcounts. Not more cash.</p>
+    <div class="problem-grid">
+      <div class="card stagger-in">
+        <h3>Your tools aren't talking to each other</h3>
+        <p>Most of the time, your tools work in silos with no data feeding into each other. When things aren't pieced together, you can't see the bigger picture &hellip; and you can't make better decisions from there.</p>
+      </div>
+      <div class="card stagger-in">
+        <h3>No proper system to engineer relationship-driven deals</h3>
+        <p>Relationships drive your highest-converting deals, but there's no way to reverse engineer what's working without a system. You can't replicate success &hellip; and you can't remove yourself from the process.</p>
+      </div>
+      <div class="card stagger-in">
+        <h3>CRMs are almost always an afterthought</h3>
+        <p>Your CRM should be your single source of truth &hellip; especially when you're ready to delegate. But it's often left untouched when things get busy, and nobody goes back to update it, let alone refresh the entire database with the latest data about your contacts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE SYSTEM ===== -->
+<section class="section-sage" id="system">
+  <div class="container">
+    <div class="section-label fade-in" style="text-align: center;">The System</div>
+    <h2 class="section-headline fade-in" style="text-align: center;">Turn chaos into stability.</h2>
+    <p class="subtitle fade-in" style="max-width: 720px; margin: 16px auto 0; text-align: center;">Pull all your scattered tools, complicated AI workflows, and low-quality data together&hellip; and turn them into a scalable and interconnected system.</p>
+    <div class="system-phases-grid fade-in">
+      <a href="#phase-revive" class="system-phase-card">
+        <div class="phase-num">Phase 01</div>
+        <h3>Revive</h3>
+        <p>Full relationship audit and database build from inbox, calendar, CRM, and meeting recorder.</p>
+      </a>
+      <a href="#phase-research" class="system-phase-card">
+        <div class="phase-num">Phase 02</div>
+        <h3>Research</h3>
+        <p>Continuous signal tracking across your entire contact network, surfaced in real time.</p>
+      </a>
+      <a href="#phase-reconnect" class="system-phase-card">
+        <div class="phase-num">Phase 03</div>
+        <h3>Reconnect</h3>
+        <p>Done-for-you activation sequences and daily relationship digest to drive conversations.</p>
+      </a>
+      <a href="#phase-reinvest" class="system-phase-card">
+        <div class="phase-num">Phase 04</div>
+        <h3>Reinvest</h3>
+        <p>Every action from every phase pushed into your CRM in real time, enriched by AI.</p>
+      </a>
+      <a href="#phase-refresh" class="system-phase-card">
+        <div class="phase-num">Phase 05</div>
+        <h3>Refresh</h3>
+        <p>Weekly and monthly data refresh cycles to keep your relationship database current.</p>
+      </a>
+      <a href="#phase-review" class="system-phase-card">
+        <div class="phase-num">Phase 06</div>
+        <h3>Review</h3>
+        <p>Bi-weekly strategy calls, Slack access, snapshot reports, and strategic advisory.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PHASE DETAILS ===== -->
+<div id="phase-details">
+
+<!-- Phase 01: Revive -->
+<section class="phase-detail" id="phase-revive">
+  <div class="container">
+    <div class="phase-detail-inner">
+      <div class="fade-in">
+        <span class="phase-detail-badge">Phase 01</span>
+        <h3>Revive</h3>
+        <p>Most agencies have more relationship data than they realize. It's scattered across Gmail, Google Calendar, CRM, and meeting recordings. Revive pulls data from every single tool in your relationship operations, puts it together, and analyzes it with AI.</p>
+        <div class="flow-grid">
+          <div class="flow-step">
+            <h4>Scrape</h4>
+            <p>Pull every contact from inbox, calendar, CRM, and meeting recorder into one dataset.</p>
+          </div>
+          <div class="flow-step">
+            <h4>Enrich</h4>
+            <p>Append current job titles, company details, email addresses, and LinkedIn profiles.</p>
+          </div>
+          <div class="flow-step">
+            <h4>Extract</h4>
+            <p>Pull relationship context&hellip; shared history, referrals, introductions, and connection depth.</p>
+          </div>
+          <div class="flow-step">
+            <h4>Group</h4>
+            <p>Prepare for Phase 03&hellip; organize into six activation groups ready for targeted outreach.</p>
+          </div>
+          <div class="flow-step">
+            <h4>Audit</h4>
+            <p>Surface blind spots, dormant high-value contacts, and network gaps.</p>
+          </div>
+          <div class="flow-step">
+            <h4>Tier</h4>
+            <p>Score every contact by relationship strength, revenue potential, and recency.</p>
+          </div>
+        </div>
+        <p class="phase-outcome"><strong>Outcome:</strong> A clean, enriched, and well-categorized contact database built from every tool in your relationship operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 02: Research -->
+<section class="phase-detail" id="phase-research">
+  <div class="container">
+    <div class="phase-detail-inner">
+      <div class="fade-in">
+        <span class="phase-detail-badge">Phase 02</span>
+        <h3>Research</h3>
+        <p>Relationship Digest gives you standard signals. Relationship Revenue layers in custom signals built specifically for your agency, your ICP, and your growth goals. These signals evolve over time, based on what's working.</p>
+        <div class="signal-grid">
+          <div class="signal-card">
+            <h4>Web Intent</h4>
+            <p>We sync your website visitors with your existing relationships and feed them into Relationship Digest and the activation sequences&hellip; resurfacing the best contacts with the best signals.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Social Signals</h4>
+            <p>LinkedIn posts, mentions, job changes, promotions, new ventures&hellip; anything happening on social media, we capture it and push it into the system.</p>
+          </div>
+          <div class="signal-card">
+            <h4>News Signals</h4>
+            <p>Fundraising, product launches, M&amp;A, executive changes, hiring, partnerships, regulatory shifts, and more. 60+ signal categories monitored continuously.</p>
+          </div>
+        </div>
+        <p class="phase-outcome"><strong>Outcome:</strong> See how each relationship evolves&hellip; where it came from, how you've engaged, and what signals matter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 03: Reconnect -->
+<section class="phase-detail" id="phase-reconnect">
+  <div class="container">
+    <div class="phase-detail-inner">
+      <div class="fade-in">
+        <span class="phase-detail-badge">Phase 03</span>
+        <h3>Reconnect</h3>
+        <p>Turning intelligence into action&hellip; structured activation sequences run every quarter to ensure the most important contacts get the attention they deserve, while layering an ongoing outreach habit via Relationship Digest.</p>
+
+        <p style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin-bottom: 12px;">Quarterly Activation Sequences</p>
+        <div class="signal-grid">
+          <div class="signal-card">
+            <h4>Referrer Activation</h4>
+            <p>Re-engage your strongest advocates and referral sources.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Agency Partner Activation</h4>
+            <p>Reconnect with complementary agencies for mutual referrals.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Bridge Activation</h4>
+            <p>Reach connectors who may be able to introduce you to people that can help you fulfill your goals.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Job Changer Activation</h4>
+            <p>New role, new budget, new vendor list &hellip; move fast.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Past Client Activation</h4>
+            <p>Restart dormant client relationships on warm footing.</p>
+          </div>
+          <div class="signal-card">
+            <h4>New Relationship Activation</h4>
+            <p>Turn idle CRM contacts into real conversations.</p>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin: 32px 0 12px;">Ongoing Daily Outreach</p>
+        <div class="signal-grid">
+          <div class="signal-card full-width">
+            <h4>Relationship Digest</h4>
+            <p>Three contacts surfaced every weekday with context, signals, and voice-matched draft emails. The campaigns activate the backlog &hellip; the digest keeps your network warm, permanently.</p>
+          </div>
+        </div>
+        <p class="phase-outcome"><strong>Outcome:</strong> Turning dormant relationships into active conversations with the most important contacts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 04: Reinvest -->
+<section class="phase-detail" id="phase-reinvest">
+  <div class="container">
+    <div class="phase-detail-inner">
+      <div class="fade-in">
+        <span class="phase-detail-badge">Phase 04</span>
+        <h3>Reinvest</h3>
+        <p>These are the non-urgent things most agencies skip because they don't give an immediate return. We layer AI-powered enrichment on top of your data so it actually makes sense for you to make better decisions.</p>
+        <div class="signal-grid" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="signal-card">
+            <h4>AI-Powered Enrichment</h4>
+            <p>We use the foundational data from Phases 1, 2, and 3 to enrich for much more useful data using AI&hellip; which events have the best ROI, which podcasts to appear on, who can make introductions, and where to focus next.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Integrations &amp; Automation</h4>
+            <p>Phases 1, 2, and 3 all feed into your CRM automatically&hellip; signals, campaigns, replies, meeting transcripts, activation results. Pipeline stage updates, deal creation, activity logging, and data powering newsletters and targeted emails.</p>
+          </div>
+        </div>
+        <p class="phase-outcome"><strong>Outcome:</strong> Your CRM becomes a living record of relationship momentum which reflects what's actually happening across every tool and conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 05: Refresh -->
+<section class="phase-detail" id="phase-refresh">
+  <div class="container">
+    <div class="phase-detail-inner">
+      <div class="fade-in">
+        <span class="phase-detail-badge">Phase 05</span>
+        <h3>Refresh</h3>
+        <p>Two types of refresh keep the entire system current without manual effort.</p>
+
+        <p style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin-bottom: 12px;">Channel</p>
+        <div class="signal-grid">
+          <div class="signal-card">
+            <h4>Inbox</h4>
+            <p>Weekly re-scan for new contacts and interactions &hellip; pushed to CRM automatically.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Calendar</h4>
+            <p>Weekly re-scan for new meetings and attendees &hellip; metadata updated against contact records.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Meeting Recorder</h4>
+            <p>New transcripts, summaries, and action items captured and stored against the relevant contact.</p>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin: 32px 0 12px;">Data</p>
+        <div class="signal-grid">
+          <div class="signal-card">
+            <h4>Contact &amp; Company</h4>
+            <p>Monthly refresh of names, titles, companies, industry, and website data across your entire database.</p>
+          </div>
+          <div class="signal-card">
+            <h4>Email</h4>
+            <p>Monthly verification against LinkedIn profiles and company domains &hellip; reducing bounce rates across all outreach.</p>
+          </div>
+          <div class="signal-card">
+            <h4>AI-Powered Enrichment</h4>
+            <p>Deeper contact intelligence, seniority inference, and richer company data&hellip; layered on top of standard enrichment.</p>
+          </div>
+        </div>
+        <p class="phase-outcome"><strong>Outcome:</strong> Data stays current on a periodic basis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phase 06: Review -->
+<section class="phase-detail" id="phase-review">
+  <div class="container">
+    <div class="phase-detail-inner">
+      <div class="fade-in">
+        <span class="phase-detail-badge">Phase 06</span>
+        <h3>Review</h3>
+        <p>The feedback loop that makes the system smarter over time.</p>
+
+        <div class="signal-grid">
+          <div class="signal-card">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin-bottom: 8px;">Synchronous</p>
+            <h4>Bi-Weekly Strategy Call</h4>
+            <p>A structured call every two weeks to review performance, calibrate the system, and make sure you're on the right path.</p>
+          </div>
+          <div class="signal-card">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin-bottom: 8px;">Asynchronous</p>
+            <h4>Dedicated Slack Channel</h4>
+            <p>Real-time async communication for quick questions, signal flags, campaign approvals, and ongoing feedback.</p>
+          </div>
+          <div class="signal-card">
+            <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--olive-deep); margin-bottom: 8px;">Asynchronous</p>
+            <h4>Snapshots</h4>
+            <p>Post-campaign reports, weekly digest summaries, monthly digest reviews, and monthly CRM health reports&hellip; all delivered to your inbox.</p>
+          </div>
+        </div>
+        <p class="phase-outcome"><strong>Outcome:</strong> Ensure the system is well-governed, going in the right direction, and everything we're doing is accountable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ===== OUTCOMES ===== -->
+<section class="section-white" id="outcomes">
+  <div class="container">
+    <div class="section-label fade-in" style="text-align: center;">Expected Outcomes</div>
+    <h2 class="section-headline fade-in" style="text-align: center;">What this means for your agency.</h2>
+    <div class="signal-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 48px;">
+      <div class="signal-card" style="text-align: center;">
+        <div style="font-size: 28px; margin-bottom: 12px;">&#8595;</div>
+        <h4>Lower headcount needed</h4>
+        <p>A system that runs without needing more people to manage it. Do more with the team you already have.</p>
+      </div>
+      <div class="signal-card" style="text-align: center;">
+        <div style="font-size: 28px; margin-bottom: 12px;">&#9201;</div>
+        <h4>Less time wasted on data</h4>
+        <p>Stop troubleshooting broken data and syncing information across platforms manually. It's all connected.</p>
+      </div>
+      <div class="signal-card" style="text-align: center;">
+        <div style="font-size: 28px; margin-bottom: 12px;">&#8599;</div>
+        <h4>More opportunities and deal flow</h4>
+        <p>Surface dormant relationships, act on the right signals, and open doors that would have stayed closed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO THIS IS FOR ===== -->
+<section class="section-sage" id="who">
+  <div class="container">
+    <div class="section-label fade-in" style="text-align: center;">Who This Is For</div>
+    <h2 class="section-headline fade-in" style="text-align: center;">Is Relationship Revenue right for your agency?</h2>
+    <div class="who-grid">
+      <div class="who-card for-you stagger-in">
+        <h3>This is for you if...</h3>
+        <ul>
+          <li><span class="who-icon-check">&check;</span> <span>You want to scale your agency from $2M to $10M, $10M to $20M, or beyond</span></li>
+          <li><span class="who-icon-check">&check;</span> <span>You're willing to approach relationships and business development in a new way, powered by AI and advanced technology</span></li>
+          <li><span class="who-icon-check">&check;</span> <span>You see the value in systems and are willing to invest a portion of your budget into infrastructure that compounds over time</span></li>
+        </ul>
+      </div>
+      <div class="who-card not-for-you stagger-in">
+        <h3>This is not for you if...</h3>
+        <ul>
+          <li><span class="who-icon-x">&times;</span> <span>You're intentional about keeping your agency below $2M</span></li>
+          <li><span class="who-icon-x">&times;</span> <span>You're unwilling to let go of your old systems</span></li>
+          <li><span class="who-icon-x">&times;</span> <span>You can't see the value in having good systems</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PRICING ===== -->
+<section class="section-white" id="pricing">
+  <div class="container">
+    <div class="section-label fade-in" style="text-align: center;">Investment</div>
+    <h2 class="section-headline fade-in" style="text-align: center;">Transparent pricing. No hidden fees.</h2>
+
+    <div class="signal-grid fade-in" style="grid-template-columns: repeat(3, 1fr); margin-top: 48px; align-items: stretch;">
+      <div class="pricing-card" style="max-width: none; margin: 0; display: flex; flex-direction: column;">
+        <div class="pricing-label">Trial</div>
+        <div style="font-size: 18px; color: var(--muted); text-decoration: line-through; margin-bottom: 4px;">$5,000/mo</div>
+        <div class="pricing-amount">$2,500</div>
+        <p class="pricing-period">per month</p>
+        <ul class="pricing-features">
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 01: Revive</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 02: Research</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 03: Reconnect</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 04: Reinvest</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 05: Refresh</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 06: Review</span></li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-sage-xl" style="width: 100%; margin-top: auto; white-space: nowrap;">Book a Discovery Call &rarr;</a>
+      </div>
+
+      <div class="pricing-card" style="max-width: none; margin: 0; display: flex; flex-direction: column;">
+        <div class="pricing-label">Trial</div>
+        <div style="font-size: 18px; color: var(--muted); text-decoration: line-through; margin-bottom: 4px;">$15,000/qtr</div>
+        <div class="pricing-amount">$7,000</div>
+        <p class="pricing-period">per quarter</p>
+        <ul class="pricing-features">
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 01: Revive</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 02: Research</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 03: Reconnect</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 04: Reinvest</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 05: Refresh</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 06: Review</span></li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-sage-xl" style="width: 100%; margin-top: auto; white-space: nowrap;">Book a Discovery Call &rarr;</a>
+      </div>
+
+      <div class="pricing-card" style="max-width: none; margin: 0; display: flex; flex-direction: column;">
+        <div class="pricing-label">Annual</div>
+        <div style="height: 26px;"></div>
+        <div class="pricing-amount">$60,000</div>
+        <p class="pricing-period">per year</p>
+        <ul class="pricing-features">
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 01: Revive</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 02: Research</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 03: Reconnect</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 04: Reinvest</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 05: Refresh</span></li>
+          <li><span class="pricing-check">&mdash;</span> <span>Phase 06: Review</span></li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-sage-xl" style="width: 100%; margin-top: auto; white-space: nowrap;">Book a Discovery Call &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section-sage" id="faq">
+  <div class="container">
+    <div class="section-label fade-in" style="text-align: center;">FAQ</div>
+    <h2 class="section-headline fade-in" style="text-align: center;">Questions we get asked.</h2>
+    <div class="faq-list">
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>How is this different from Relationship Digest?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>Relationship Digest is a daily email that surfaces who you should reach out to and why. Relationship Revenue takes that intelligence and builds a complete system around it: CRM integration, done-for-you activation sequences, meeting transcription, data enrichment, and strategic advisory. Digest tells you who to talk to. Revenue makes sure those conversations turn into pipeline.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>Do I need a CRM?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>Not necessarily. If you already have a CRM (HubSpot, Pipedrive, etc.), we'll integrate directly with it. If you don't, we can help you set one up as part of Phase 04. The system is designed to make your CRM actually useful, not to add another tool you won't use.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>What about my existing meeting recorder?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>If you already use a meeting recorder (Otter, Fathom, Fireflies, etc.), we can work with your existing tool. If you don't have one, meeting intelligence is included in Phase 03. We'll handle the transcription, summarization, and action item extraction so everything feeds back into your CRM and relationship system.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>How long before I see results?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>This is a long-term system built to scale your agency. Early wins come within the first month as activation sequences start generating conversations. But the real value compounds over time. As you grow, you won't have to worry about a broken system, waste time checking scattered tools, or scramble to piece things together. Everything is already connected, enriched, and running. It's not a quick fix &mdash; it's taking your relationship operations to the next level so scaling feels effortless.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>What if I have other tools besides inbox, calendar, meeting recorder, and CRM?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>We're more than happy to help you connect them all together. The goal isn't about which specific tools we integrate &mdash; it's about making your existing relationship operations streamlined and interconnected. If you have tools that hold relationship data, we'll find a way to bring them into the system.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>Is my inbox data safe?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. We use read-only Gmail API access &mdash; we can never send, delete, or modify your emails. We use Google OAuth 2.0 with granular scopes, and your data is processed in encrypted environments. We extract relationship metadata (who, when, how often), not email content. You can revoke access at any time from your Google account settings.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)">
+          <span>What agencies is this built for?</span>
+          <span class="faq-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="8" y1="2" x2="8" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </div>
+        <div class="faq-answer">
+          <p>Relationship Revenue is designed for project-based agencies where revenue depends on relationships: video production companies, creative agencies, digital agencies, PR firms, consulting practices, and similar service businesses. If your business grows through repeat clients, referrals, and network relationships rather than paid advertising, this system is built for you.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta" id="final-cta">
+  <div class="container">
+    <h2 class="cta-headline fade-in">Ready to transform your existing relationship operations into an interconnected system?</h2>
+    <p class="subtitle fade-in">Book a discovery call. We'll walk through your current setup, assess fit, and show you exactly how the system would work for your agency.</p>
+    <a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-sage-xl fade-in">Book a Discovery Call &rarr;</a>
+  </div>
+</section>
+
+<!-- ===== STICKY BOTTOM CTA ===== -->
+<div class="sticky-bottom-cta" id="stickyBottomCta">
+  <div class="container">
+    <p>Ready to transform your existing relationship operations into an interconnected system?</p>
+    <a href="https://cal.com/leonard-veraops/relationship-revenue" class="btn btn-light" style="padding: 10px 20px; font-size: 13px;">Book a Discovery Call &rarr;</a>
+    <button class="btn-close" id="stickyClose" aria-label="Close">&times;</button>
+  </div>
+</div>
+
+<script>
+// Scroll progress bar
+const scrollProgress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  scrollProgress.style.width = scrollPercent + '%';
+});
+
+// Navigation scroll shadow
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Mobile menu toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', isOpen);
+});
+// Close mobile menu on link click
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(i => {
+    i.classList.remove('open');
+    const q = i.querySelector('.faq-question');
+    if (q) q.setAttribute('aria-expanded', 'false');
+  });
+  // Open clicked if was closed
+  if (!isOpen) {
+    item.classList.add('open');
+    el.setAttribute('aria-expanded', 'true');
+  }
+}
+
+// FAQ keyboard support
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFaq(q); }
+  });
+});
+
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const navHeight = nav.offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+  });
+});
+
+// Fade-in animations on scroll (IntersectionObserver)
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      const delay = entry.target.classList.contains('stagger-in')
+        ? index * 80 : 0;
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in, .stagger-in').forEach(el => fadeObserver.observe(el));
+
+// Highlight mark animation
+const markObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('active'), 400);
+      markObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.highlight-mark').forEach(el => markObserver.observe(el));
+
+// Section nav dots
+const dots = document.querySelectorAll('.section-dot');
+const sections = Array.from(dots).map(dot => document.getElementById(dot.dataset.section)).filter(Boolean);
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.section);
+    if (target) {
+      const navHeight = nav.offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+  });
+});
+
+function updateDots() {
+  const scrollPos = window.scrollY + window.innerHeight / 3;
+  let activeIndex = 0;
+  sections.forEach((section, i) => {
+    if (section && section.offsetTop <= scrollPos) activeIndex = i;
+  });
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+}
+window.addEventListener('scroll', updateDots);
+updateDots();
+
+// Sticky bottom CTA
+const stickyBottomCta = document.getElementById('stickyBottomCta');
+const stickyClose = document.getElementById('stickyClose');
+let stickyClosed = false;
+
+window.addEventListener('scroll', () => {
+  if (stickyClosed) return;
+  stickyBottomCta.classList.toggle('visible', window.scrollY > 600);
+});
+
+stickyClose.addEventListener('click', () => {
+  stickyBottomCta.classList.remove('visible');
+  stickyClosed = true;
+});
+
+// Button ripple effect
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+</script>
+</body>
+</html>
