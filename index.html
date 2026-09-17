@@ -171,10 +171,12 @@ a { color: inherit; text-decoration: none; }
 /* Typography */
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(40px, 5.6vw, 72px); font-weight: 500;
-  line-height: 1.05; letter-spacing: -0.03em; color: var(--ink);
-  text-wrap: balance;
-  overflow-wrap: break-word;
+  /* Sized to hold "Your next project is already in your inbox." on one line
+     from ~1120px up; below that the phone rule lets it wrap. */
+  font-size: clamp(28px, 3.9vw, 52px); font-weight: 600;
+  line-height: 1.1; letter-spacing: -0.024em; color: var(--ink);
+  white-space: nowrap;
+  overflow-wrap: normal;
 }
 .hero-headline em { color: inherit; font-style: normal; font-weight: 600; }
 .section-headline {
@@ -215,8 +217,8 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 /* Subtle networking background — two clusters branching into each other.
    Kept very faint and faded toward the center so it never competes with the copy. */
 /* Eyebrow pill (design-system) */
-.hero .hero-headline { max-width: 1340px; margin: 0 auto 24px; }
-.hero-ctas { display: inline-flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 0; }
+.hero .hero-headline { max-width: 100%; margin: 0 auto; }
+.hero-ctas { display: inline-flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 52px; }
 .hero-ctas .btn { padding-top: 10px; padding-bottom: 10px; }
 /* Scroll cue — below the buttons */
 /* Hero entrance animation */
@@ -374,10 +376,10 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 /* Green delta under each figure. Stats with no change keep an empty row so
    every caption still sits on the same baseline. */
 .digest-full-section { margin-bottom: 16px; }
-.digest-full-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
-.digest-full-contact { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+.digest-full-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 9px; }
+.digest-full-contact { font-weight: 700; font-size: 16px; margin-bottom: 5px; color: var(--ink); letter-spacing: -0.01em; }
 .digest-full-tier { display: flex; gap: 8px; font-size: 11px; color: var(--muted); margin-bottom: 16px; }
-.digest-full-refresher { font-size: 13px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; }
+.digest-full-refresher { font-size: 14px; color: var(--ink-2); line-height: 1.7; margin-bottom: 16px; }
 .digest-full-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
 .digest-full-pill { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; background: var(--sage); color: var(--olive-deep); }
 .digest-full-post { font-size: 13px; margin-bottom: 8px; color: var(--text-mid); }
@@ -442,10 +444,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 /* Blinking cursor in the mailto preview: the body is deliberately left
    mid-sentence ("… is a bad contact because ") so the client's cursor lands
    exactly where they type their reason. */
-.digest-after-caret {
-  display: inline-block; width: 1px; height: 1em; vertical-align: -0.15em;
-  background: var(--text-dark); animation: digestCaret 1.1s step-end infinite;
-}
 @keyframes digestCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .digest-after-actions { display: flex; flex-wrap: nowrap; gap: 6px; }
 .digest-after-btn {
@@ -462,100 +460,20 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 .digest-after-item .digest-after-btn { width: 100%; }
 /* Lift the hovered item above sibling sections/annotations so its popup is never covered */
 .digest-after-item:hover, .digest-after-item:focus-within { z-index: 60; }
-.digest-after-preview {
-  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(4px);
-  width: 300px; max-width: 84vw; z-index: 40;
-  opacity: 0; visibility: hidden; pointer-events: none;
-  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
-}
-.digest-after-item:hover .digest-after-preview, .digest-after-item:focus-within .digest-after-preview {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-}
-/* Hover bridge so the gap between button and card doesn't close it */
-.digest-after-preview::before {
-  content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px;
-}
+.digest-after-item:hover /* Hover bridge so the gap between button and card doesn't close it */
 /* Opens BELOW its button instead of above. Sits close under the button and
    runs a tighter card than the upward previews, so its bottom edge stops
    short of the section rule below the mockup instead of crowding it. */
-.digest-after-preview.below {
-  bottom: auto; top: calc(100% + 6px);
-  transform: translateX(-50%) translateY(-4px);
-}
-.digest-after-preview.below .digest-after-preview-inner { padding: 9px; }
-.digest-after-preview.below .digest-after-card { padding: 14px 14px 12px; }
-.digest-after-preview.below .digest-after-card-rule { margin: 7px auto 10px; }
-.digest-after-preview.below .digest-after-card-body { margin-bottom: 10px; }
-.digest-after-item:hover .digest-after-preview.below, .digest-after-item:focus-within .digest-after-preview.below {
-  transform: translateX(-50%) translateY(0);
-}
-.digest-after-preview.below::before {
-  top: auto; bottom: 100%; left: 0; right: 0; height: 8px; width: auto;
-}
-/* Side-anchored variant: opens to the LEFT of its button, vertically centred */
-.digest-after-preview.side-left {
-  bottom: auto; top: 50%; left: auto; right: calc(100% + 12px);
-  transform: translateY(-50%) translateX(4px);
-}
-.digest-after-item:hover .digest-after-preview.side-left, .digest-after-item:focus-within .digest-after-preview.side-left {
-  transform: translateY(-50%) translateX(0);
-}
-.digest-after-preview.side-left::before {
-  top: 0; bottom: 0; left: auto; right: -12px; width: 12px; height: auto;
-}
-.digest-after-preview-inner {
-  background: #F1F5E4; border-radius: 12px; padding: 12px;
-  box-shadow: 0 12px 34px rgba(0,0,0,0.18); border: 1px solid var(--card-border);
-}
-.digest-after-card {
-  background: var(--white); border-radius: 10px; padding: 18px 16px 16px;
-  text-align: center;
-}
-.digest-after-card-brand {
-  font-family: var(--font-display); font-size: 16px; font-weight: 600;
-  letter-spacing: 0.01em; color: var(--black); line-height: 1;
-}
-.digest-after-card-rule {
-  width: 34px; height: 1px; background: var(--card-border); margin: 8px auto 12px;
-}
-.digest-after-card-title { font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
-.digest-after-card-body { font-size: 10.5px; line-height: 1.6; color: var(--text-mid); margin-bottom: 14px; }
-/* The compose preview is a real email, so its To: line and body read from the
+.digest-after-item:hover /* Side-anchored variant: opens to the LEFT of its button, vertically centred */
+.digest-after-item:hover /* The compose preview is a real email, so its To: line and body read from the
    left like one. Scoped to .compose so the bad-contact confirmation card keeps
    its centred copy. */
-.digest-after-card.compose .digest-after-card-title, .digest-after-card.compose .digest-after-card-body { text-align: left; }
-.digest-after-card-body strong { color: var(--black); font-weight: 700; }
-.digest-after-card-btns { display: flex; gap: 8px; justify-content: center; }
-.digest-after-card-btn {
-  font-size: 10px; font-weight: 700; padding: 7px 12px; border-radius: 7px;
-  border: 1.5px solid var(--black); background: var(--white); color: var(--black);
-  white-space: nowrap;
-}
-.digest-after-card-btn.solid { background: var(--black); color: var(--white); }
 /* Wrong-LinkedIn variant: taller, left-aligned, three numbered steps.
    Opens to the RIGHT of its button, vertically centred on it, rather than
    above like the two short cards. Kept compact so it stays in the viewport. */
-.digest-after-preview.wide {
-  width: 300px;
-  bottom: auto; top: 50%; left: calc(100% + 12px);
-  transform: translateY(-50%) translateX(-4px);
-}
-.digest-after-item:hover .digest-after-preview.wide, .digest-after-item:focus-within .digest-after-preview.wide {
-  transform: translateY(-50%) translateX(0);
-}
-/* Hover bridge sits on the card's left edge for the side-anchored variant */
-.digest-after-preview.wide::before {
-  top: 0; bottom: 0; left: -12px; right: auto; width: 12px; height: auto;
-}
-.digest-after-preview.wide .digest-after-preview-inner { padding: 10px; }
-.digest-after-preview.wide .digest-after-card { text-align: center; padding: 14px 12px 12px; }
-.digest-after-preview.wide .digest-after-card-rule { margin: 6px auto 9px; }
-.digest-after-preview.wide .digest-after-card-title { margin-bottom: 2px; }
-.digest-after-preview.wide .digest-after-card-btns .digest-after-card-btn { flex: 1; }
-.digest-after-card-btn.disabled { background: #A9A9A9; border-color: #A9A9A9; color: var(--white); }
+.digest-after-item:hover /* Hover bridge sits on the card's left edge for the side-anchored variant */
 /* Don't let the previews fight the mobile tooltips / narrow viewports */
 @media (max-width: 760px) {
-.digest-after-preview { display: none; }
 }
 /* ===== Snapshot v2 — annotated report with stats, flow, banners ===== */
 /* Snapshot annotations: each connector lands on the MIDDLE of its coloured
@@ -883,7 +801,6 @@ body { overflow-x: hidden; }
 .nav-links a.nav-menu-cta:hover { background: var(--ink-2); color: var(--paper); }
 .hero { padding-top: 132px; }
 .hero-ctas { flex-direction: row; flex-wrap: nowrap; }
-.hero-headline { font-size: clamp(36px, 9vw, 60px); }
 .hero-sub { font-size: 14px; }
 #how-it-works .section-headline { white-space: normal; }
 .hero { min-height: 100vh; padding-bottom: 60px; }
@@ -1126,7 +1043,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
    ========================================================================== */
 /* --- Gmail window frame (reused wherever the product appears) --- */
 .gwin {
-  max-width: 860px; margin: 0 auto;
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px); margin: 0 auto;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: 8px;
@@ -1170,10 +1087,23 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 .gwin-addr, .gwin-to { color: var(--ink-3); }
 .gwin-date { font-size: 12px; color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
 /* Body renders the digest at real email width (~640px) */
-.gwin-body { padding: 18px 22px 26px; }
+.gwin-body { padding: 34px 32px 40px; background: #F1F3F4; }
+@media (max-width: 768px) { .gwin-body { padding: 16px 12px 20px; } }
+/* The real email is a white card centred on Gmail's grey canvas at ~640px. */
 .gwin-body .digest-full-mockup {
-  max-width: 640px; margin: 0 auto;
-  border: none; border-radius: 0; box-shadow: none; padding: 0; background: transparent;
+  max-width: 660px; margin: 0 auto;
+  background: #fff; border: 1px solid var(--hairline); border-radius: 8px;
+  box-shadow: none; padding: 30px 28px; text-align: left;
+}
+@media (max-width: 768px) { .gwin-body .digest-full-mockup { padding: 22px 18px; } }
+/* Subject headline inside the email, as the client receives it. */
+.digest-email-title {
+  font-size: 20px; font-weight: 700; line-height: 1.3; color: var(--ink);
+  letter-spacing: -0.015em; margin-bottom: 6px;
+}
+.digest-email-meta {
+  font-size: 13px; color: var(--ink-3); padding-bottom: 18px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
 }
 /* Inside the email the section rails add a left inset; drop it so the
    digest sits flush in the 640px column the way the real email does. */
@@ -1189,11 +1119,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
   padding-left: 0; padding-right: 0;
   margin-left: 0; margin-right: 0;
 }
-.gwin-body .gwin-caption {
-  text-align: center; font-size: 13px; color: var(--ink-3);
-  margin-top: 14px;
-}
-/* On mobile, drop the frame and show the email the way the Gmail app does */
+.gwin-body /* On mobile, drop the frame and show the email the way the Gmail app does */
 @media (max-width: 768px) {
 .gwin { border: none; border-radius: 0; box-shadow: none; max-width: 100%; }
 .gwin-bar, .gwin-toolbar { display: none; }
@@ -1202,22 +1128,8 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 .gwin-subject { font-size: 18px; }
 }
 /* --- Margin notes beside the digest (max 3, plain text + thin connector) --- */
-.digest-stage { position: relative; max-width: var(--max-w); margin: 0 auto; }
-.mnotes { display: none; }
-@media (min-width: 1180px) {
-.digest-stage { display: grid; grid-template-columns: 1fr minmax(0,860px) 1fr; gap: 0; align-items: start; }
-.mnotes { display: block; padding-top: 150px; }
-.mnote { position: relative; margin-bottom: 78px; font-size: 13.5px; line-height: 1.55; color: var(--ink-3); max-width: 190px; }
-.mnotes-left { justify-self: end; padding-right: 34px; text-align: right; }
-.mnotes-right { justify-self: start; padding-left: 34px; }
-.mnote::after {
-    content: ""; position: absolute; top: 9px; width: 24px;
-    border-top: 1px solid var(--hairline-2);
-  }
-.mnotes-left .mnote::after { right: -30px; }
-.mnotes-right .mnote::after { left: -30px; }
-}
-/* --- Hero inbox preview (right side of hero) --- */
+.digest-stage { position: relative; width: 100%; margin: 0 auto; }
+/* --- Hero inbox preview --- */
 @media (max-width: 600px) {
 :root { --pad-h: 16px; }
 .cmp { min-width: 560px; font-size: 13.5px; }
@@ -1227,18 +1139,20 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .hero-redesign .hero-headline { font-size: 30px; }
 .hero-redesign .hero-sub { font-size: 16.5px; }
 }
-.hero-redesign .hero-inner { max-width: var(--max-w); text-align: left; padding: 0 var(--pad-h); }
-.hero-grid { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: start; }
+.hero-redesign .hero-inner { max-width: var(--max-w); text-align: center; padding: 0 var(--pad-h); }
+.hero-stack { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.hero-eyebrow {
+  font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px;
+}
+.hero-shot { width: 100%; max-width: 860px; margin: 38px 0 0; }
 @media (min-width: 1000px) {
 .hero-grid { grid-template-columns: 1.15fr 1fr; gap: 52px; align-items: center; }
 }
-.hero-redesign .hero-headline { font-size: clamp(34px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -0.02em; font-weight: 600; max-width: 17ch; }
-.hero-redesign .hero-sub { font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-3); max-width: 545px; margin-top: 18px; }
-.hero-micro { font-size: var(--fs-small); color: var(--ink-3); margin-top: 15px; max-width: 460px; line-height: var(--lh-body); }
-.hero-seclink { display: inline-block; margin-top: 16px; font-size: var(--fs-body); font-weight: 500; color: var(--spark); text-decoration: none; }
-.hero-seclink:hover { text-decoration: underline; }
+.hero-redesign .hero-sub { font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-3); max-width: 720px; margin: 18px auto 0; text-wrap: pretty; }
+.hero-micro { font-size: var(--fs-small); color: var(--ink-3); margin-top: 16px; max-width: none; line-height: var(--lh-body); white-space: nowrap; }
 /* Inbox list: digest sits as the newest unread mail */
-.inbox-preview { background: var(--surface); border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
+.inbox-preview { background: var(--surface); border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; text-align: left; }
 .inbox-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--hairline); font-size: 13.5px; }
 .inbox-row:last-child { border-bottom: none; }
 .inbox-row.unread { background: #fff; }
@@ -1255,8 +1169,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .inbox-snip { display: none; }
 }
 /* --- Proof strip --- */
-.section-proof { padding: 40px 0 44px; border-top: 1px solid var(--hairline); }
-.proof-label { text-align: center; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.hero-marquee { margin-top: 52px; }
 /* --- Client results panels --- */
 .results-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
 @media (min-width: 900px) {
@@ -1275,7 +1188,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .rtip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ink-4); color: var(--ink-3); font-size: 9px; font-weight: 700; cursor: help; text-transform: none; letter-spacing: 0; }
 .rtip-pop { position: absolute; bottom: calc(100% + 8px); left: 0; width: max-content; max-width: min(216px, 68vw); background: var(--ink); color: #fff; font-size: 12px; font-weight: 400; line-height: 1.5; letter-spacing: 0; text-transform: none; padding: 9px 11px; border-radius: 6px; opacity: 0; visibility: hidden; transition: opacity .16s ease; z-index: 30; text-align: left; }
 .rtip:hover .rtip-pop, .rtip:focus .rtip-pop { opacity: 1; visibility: visible; }
-.results-footnote { text-align: center; font-size: 13px; color: var(--ink-3); margin-top: 26px; }
 /* --- Three plain cards (why relationships go cold) --- */
 .cold-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
 @media (min-width: 820px) {
@@ -1286,7 +1198,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .cold-card p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
 .cold-ill { margin-bottom: 18px; padding: 14px; background: var(--surface-ink); border: 1px solid var(--hairline); border-radius: 6px; }
 .cold-ill svg { display: block; width: 100%; height: 74px; }
-.cold-closing { text-align: center; margin-top: 36px; font-size: var(--fs-lead); color: var(--ink-2); }
 /* --- Pricing (3-term toggle) --- */
 .price-line { font-size: var(--fs-small); color: var(--ink-3); margin-top: 9px; }
 .price-badge { display: inline-block; margin-top: 12px; background: var(--spark-paper); color: var(--spark-deep); font-size: 12.5px; font-weight: 600; padding: 5px 11px; border-radius: 999px; }
@@ -1302,7 +1213,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .cmp tbody th { background: var(--surface-ink); font-weight: 600; color: var(--ink-3); width: 124px; font-size: var(--fs-label); letter-spacing: var(--track-label); text-transform: uppercase; }
 .cmp .cmp-us { background: #fff; color: var(--ink); font-weight: 500; }
 .cmp thead .cmp-us { background: var(--spark-paper); color: var(--spark-deep); }
-.cmp-note { font-size: var(--fs-small); color: var(--ink-3); line-height: var(--lh-body); margin-top: 24px; max-width: 720px; }
 /* --- Testimonials: static 4-card grid (no carousel, no duplicate) --- */
 .tgrid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 40px; }
 @media (min-width: 760px) {
@@ -1352,15 +1262,45 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .hiw-visual { border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; margin-bottom: 16px; background: var(--surface-ink); }
 .hiw-visual svg { display: block; width: 100%; height: 118px; }
 .hiw-visual img { display: block; width: 100%; height: 118px; object-fit: cover; object-position: center 28%; }
-.hiw-under { text-align: center; max-width: 700px; margin: 44px auto 0; font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-2); }
 /* --- Snapshots (secondary block under the digest) --- */
 /* --- Pull quote --- */
-/* Momentum reduced to one line */
-.digest-momentum-line {
-  font-size: 13.5px; color: var(--ink-2); background: var(--surface-ink);
-  border: 1px solid var(--hairline); border-radius: 8px;
-  padding: 11px 14px; margin-bottom: 20px; text-align: center;
+/* Momentum panel */
+
+/* Momentum panel — mirrors the real digest email */
+.digest-momentum {
+  background: #F8F9FA; border: 1px solid var(--hairline); border-radius: 8px;
+  padding: 20px 20px 18px; margin-bottom: 28px;
 }
+.digest-momentum-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
+.digest-momentum-headline { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 5px; letter-spacing: -0.01em; }
+.digest-momentum-sub { font-size: 12px; color: var(--text-mid); line-height: 1.55; margin-bottom: 16px; }
+.digest-momentum-top { display: flex; align-items: flex-start; gap: 26px; margin-bottom: 16px; }
+.digest-momentum-streak { flex: 0 0 auto; }
+.digest-momentum-streak-num { font-size: 40px; font-weight: 700; line-height: 1; color: var(--ink); letter-spacing: -0.03em; }
+.digest-momentum-streak-cap { font-size: 9px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; }
+.digest-momentum-week { flex: 1; border-left: 1px solid var(--hairline); padding-left: 22px; }
+.digest-momentum-week-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+.digest-momentum-week-meta { font-size: 12px; color: var(--text-mid); }
+.digest-momentum-week-meta strong { color: var(--black); }
+.digest-momentum-dots { display: flex; gap: 6px; margin-bottom: 10px; }
+.dm-dot { width: 26px; height: 26px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--ink-4); background: var(--paper-2); border: 1px solid var(--card-border); }
+.dm-dot-empty { background: transparent; border-style: dashed; }
+.dm-dot-on { background: #1E8E3E; border-color: #1E8E3E; color: #fff; }
+.digest-momentum-stats { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
+.dm-stat { text-align: center; padding: 11px 6px; border-left: 1px solid var(--hairline); }
+.dm-stat:first-child { border-left: none; }
+.dm-stat:last-child { border-right: none; }
+.dm-stat-num { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.15; }
+.dm-stat-delta { font-size: 9.5px; font-weight: 700; color: #1E8E3E; line-height: 1; margin-top: 4px; }
+.dm-stat-delta-none { visibility: hidden; }
+.dm-stat-cap { font-size: 8.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; line-height: 1.3; }
+.digest-momentum-notes { list-style: none; margin: 16px 0 0; padding: 0; }
+.digest-momentum-notes li { position: relative; padding-left: 16px; font-size: 12px; color: var(--text-mid); line-height: 1.55; margin-bottom: 8px; }
+.digest-momentum-notes li:last-child { margin-bottom: 0; }
+.digest-momentum-notes li::before { content: ''; position: absolute; left: 0; top: 7px; width: 4px; height: 4px; border-radius: 50%; background: #2E7D32; }
+.digest-momentum-notes strong { color: var(--black); font-weight: 700; }
+.digest-momentum-foot { font-size: 12px; color: var(--ink-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hairline); }
+.digest-momentum-foot strong { color: var(--black); }
 </style>
 </head>
 <body>
@@ -1405,22 +1345,17 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <!-- ===== HERO ===== -->
 <section class="hero hero-redesign" id="hero">
   <div class="hero-inner">
-    <div class="hero-grid">
-      <div>
-        <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
-        <p class="hero-sub hero-anim">For creative, design and marketing agencies. Every weekday, we send you three past clients and collaborators worth reconnecting with... plus the context, and an email written in your voice that&rsquo;s ready to send.</p>
-        <div class="hero-ctas hero-anim" style="justify-content:flex-start;">
-          <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
-        </div>
-        <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together. Free.</p>
-        <a href="#digest" class="hero-seclink hero-anim">See a sample digest &darr;</a>
-      </div>
-      <div class="hero-anim">
+    <div class="hero-stack">
+      <p class="hero-eyebrow hero-anim">For digital, creative, design and marketing agencies</p>
+      <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
+      <p class="hero-sub hero-anim">Every weekday, we send you three past clients and collaborators worth reconnecting with... plus the context, and an email written in your voice that&rsquo;s ready to send.</p>
+
+      <div class="hero-anim hero-shot">
         <div class="inbox-preview" aria-label="Inbox preview">
           <div class="inbox-row unread">
             <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span class="inbox-sender">Relationship Digest</span>
-            <span class="inbox-subj">Your warm connections to spark today <span class="inbox-snip">&ndash; 3 people worth a hello this morning</span></span>
+            <span class="inbox-sender">Relationships</span>
+            <span class="inbox-subj">Relationship Digest | Monday, September 21, 2026 <span class="inbox-snip">&ndash; Your warm connections to spark today.</span></span>
             <span class="inbox-time">7:02 AM</span>
           </div>
           <div class="inbox-row read">
@@ -1437,17 +1372,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ===== 3. PROOF STRIP ===== -->
-<section class="section-white section-proof" id="proof">
-  <div class="container">
-    <div class="proof-label fade-in">Agencies already running it</div>
-  </div>
 
-  <div class="agency-marquee fade-in">
+      <div class="hero-ctas hero-anim">
+        <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Let&rsquo;s talk" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
+      </div>
+      <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together, free.</p>
+    <div class="agency-marquee hero-marquee hero-anim">
     <div class="agency-track">
       <figure class="agency-logo">
         <img class="lg-ghost" src="assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
@@ -1499,6 +1430,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
       </figure>
     </div>
   </div>
+
+    </div>
+  </div>
 </section>
 
 <section class="section-white" id="digest">
@@ -1511,10 +1445,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
   <div class="digest-stage fade-in">
     <!-- Margin notes: plain text, thin connector lines, three max -->
-    <div class="mnotes mnotes-left" aria-hidden="true">
-      <div class="mnote" style="margin-top:96px;">Picked by a person on our team, not just AI.</div>
-      <div class="mnote" style="margin-top:300px;">Written in your voice. Edit it, and the next one gets closer.</div>
-    </div>
 
     <div>
       <!-- Gmail window: no logo, no left rail -->
@@ -1529,7 +1459,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
         </div>
         <div class="gwin-head">
-          <div class="gwin-subject">Your warm connections to spark today</div>
+          <div class="gwin-subject">Relationship Digest | Monday, September 21, 2026</div>
           <div class="gwin-from">
             <div class="gwin-avatar" aria-hidden="true">RD</div>
             <div class="gwin-from-text">
@@ -1540,10 +1470,52 @@ html, body { overflow-x: hidden; max-width: 100%; }
           </div>
         </div>
         <div class="gwin-body">
-        <div class="digest-full-mockup" style="margin:0;">
+        <div class="digest-full-mockup">
+          <div class="digest-email-title">Your warm connections to spark today</div>
+          <div class="digest-email-meta">Monday, September 21, 2026 &nbsp;|&nbsp; 3 connections</div>
 
-          <div class="digest-momentum-line" id="digest-sec-momentum">
-            &#128293; 12-day streak &middot; 3 connections today &middot; 512 warm contacts left
+          <div class="digest-momentum" id="digest-sec-momentum">
+            <div>
+              <div class="digest-momentum-label">Your Momentum</div>
+              <div class="digest-momentum-headline">James, you&rsquo;re on a 12-day roll.</div>
+              <div class="digest-momentum-sub">Momentum like this is exactly how quiet relationships turn into live ones. Reach out today to keep it going &mdash; miss two days running and the streak resets.</div>
+            </div>
+
+            <div class="digest-momentum-top">
+              <div class="digest-momentum-streak">
+                <div class="digest-momentum-streak-num">12</div>
+                <div class="digest-momentum-streak-cap">Day Streak</div>
+              </div>
+              <div class="digest-momentum-week">
+                <div class="digest-momentum-week-label">Last 7 Days</div>
+                <div class="digest-momentum-dots">
+                  <span class="dm-dot dm-dot-on">W</span>
+                  <span class="dm-dot dm-dot-on">T</span>
+                  <span class="dm-dot dm-dot-on">F</span>
+                  <span class="dm-dot dm-dot-empty">S</span>
+                  <span class="dm-dot dm-dot-empty">S</span>
+                  <span class="dm-dot dm-dot-on">M</span>
+                  <span class="dm-dot dm-dot-on">T</span>
+                </div>
+                <div class="digest-momentum-week-meta">Best streak: <strong>12 days</strong> &middot; <strong>57</strong> total outreach days</div>
+              </div>
+            </div>
+
+            <div class="digest-momentum-stats">
+              <div class="dm-stat"><div class="dm-stat-num">248</div><div class="dm-stat-delta">&#9650;+3</div><div class="dm-stat-cap">Reached Out</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">41</div><div class="dm-stat-delta">&#9650;+1</div><div class="dm-stat-cap">Replied</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">17%</div><div class="dm-stat-delta">&#9650;+0.2 pts</div><div class="dm-stat-cap">Response Rate</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">11</div><div class="dm-stat-delta">&#9650;+1</div><div class="dm-stat-cap">Meetings</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">4%</div><div class="dm-stat-delta">&#9650;+0.4 pts</div><div class="dm-stat-cap">Meeting Rate</div></div>
+            </div>
+
+            <ul class="digest-momentum-notes">
+              <li>You reached out to 2 people: <strong>Daniel Okafor</strong> (Brightwave Studios) and <strong>Priya Menon</strong> (Northbeam Media).</li>
+              <li>With <strong>Daniel</strong> (Brightwave Studios), you reconnected after seeing his studio land a national rebrand.</li>
+              <li>With <strong>Priya</strong> (Northbeam Media), you reopened the thread on her new role.</li>
+            </ul>
+
+            <div class="digest-momentum-foot"><strong>512</strong> warm contacts still to reconnect with &middot; <strong>89</strong> digests so far</div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-contact">
@@ -1637,12 +1609,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
           </div>
 
           <div class="digest-full-actions" id="digest-sec-actions">
-            <button class="digest-full-btn digest-full-btn-dark">Send email</button>
+            <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
             <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
           </div>
 
           <div class="digest-full-section" id="digest-sec-after" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--card-border);">
-            <div class="digest-full-section-title">Wrong person?</div>
+            <div class="digest-full-section-title">After Actions</div>
             <!-- v1.7/v1.8 after actions: exactly TWO buttons, side by side. The
                  "Mark as important / normal" toggle, the "currently marked" status
                  line and the "Wrong LinkedIn" button were all removed from the
@@ -1651,37 +1623,10 @@ html, body { overflow-x: hidden; max-width: 100%; }
             <div class="digest-after-actions">
               <div class="digest-after-item">
                 <button class="digest-after-btn danger">Mark as bad contact</button>
-                <div class="digest-after-preview below" aria-hidden="true">
-                  <div class="digest-after-preview-inner">
-                    <div class="digest-after-card">
-                      <div class="digest-after-card-brand">VeraOps</div>
-                      <div class="digest-after-card-rule"></div>
-                      <div class="digest-after-card-title">Marked as Bad contact</div>
-                      <div class="digest-after-card-body"><strong>Rachel Moreno</strong> has been marked as a bad contact and will not appear in your future digests.</div>
-                      <div class="digest-after-card-btns">
-                        <span class="digest-after-card-btn">Close tab</span>
-                        <span class="digest-after-card-btn solid">Undo</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div class="digest-after-item">
-                <button class="digest-after-btn">Tell us why</button>
-                <div class="digest-after-preview below" aria-hidden="true">
-                  <div class="digest-after-preview-inner">
-                    <div class="digest-after-card compose">
-                      <div class="digest-after-card-brand">New message</div>
-                      <div class="digest-after-card-rule"></div>
-                      <div class="digest-after-card-title">To: relationships@veraops.com</div>
-                      <div class="digest-after-card-body">Hey Team,<br><br>Rachel Moreno is a bad contact because <span class="digest-after-caret"></span></div>
-                      <div class="digest-after-card-btns">
-                        <span class="digest-after-card-btn solid">Send</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <button class="digest-after-btn">This is bad because&hellip;</button>
               </div>
             </div>
           </div>
@@ -1690,12 +1635,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
         </div>
       </div>
-      <p class="gwin-caption">Sample digest. Names and companies are fictional.</p>
     </div>
 
-    <div class="mnotes mnotes-right" aria-hidden="true">
-      <div class="mnote" style="margin-top:560px;">One click. Sends from your Gmail.</div>
-    </div>
   </div>
 
 </section>
@@ -1751,7 +1692,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         </div>
       </div>
     </div>
-    <p class="results-footnote fade-in">Client names withheld. Figures from VeraOps tracking as of Sep 2026.</p>
   </div>
 </section>
 
@@ -1831,7 +1771,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <p>Every weekday, someone on our team checks timing and history before a name reaches you. Then your digest arrives.</p>
       </div>
     </div>
-    <p class="hiw-under fade-in">Edit a draft, and the next one sounds more like you. Flag a wrong contact, and they&rsquo;re gone for good. Every reply, follow-up and meeting shows up in your snapshots.</p>
   </div>
 </section>
 
@@ -1914,7 +1853,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <p>You start a tracker. A few weeks in, nobody knows who&rsquo;s been contacted, who replied, or who&rsquo;s due a follow-up.</p>
       </div>
     </div>
-    <p class="cold-closing fade-in">We do the digging, and keep the list moving, so all you do is hit send.</p>
   </div>
 </section>
 
@@ -2003,7 +1941,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
     </details>
 
     <div class="fade-in" style="text-align:center; margin-top:34px;">
-      <p class="subtitle" style="margin-bottom:16px;">Want to hear it from a client? We&rsquo;ll introduce you to one, then step out of the conversation.</p>
+      <p class="subtitle" style="margin-bottom:16px;">Want to hear it from a client? We&rsquo;ll connect you with one of them.</p>
       <a href="mailto:relationships@veraops.com?subject=Re%3A%20Inbox%20connection&body=Hi%20The%20VeraOps%20Team%2C%0A%0AI%27m%20considering%20Relationship%20Digest%20and%20would%20like%20to%20speak%20with%20an%20active%20user%20regarding%20the%20connection%20of%20my%20inbox.%0A%0ACould%20you%20arrange%20a%20quick%20conversation%3F%0A%0AThanks" class="btn btn-sage-lg" style="width:auto;">Ask for an intro &rarr;</a>
     </div>
   </div>
@@ -2069,7 +2007,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         </tbody>
       </table>
     </div>
-    <p class="cmp-note fade-in">Claude and ChatGPT are a great place to start. But they don&rsquo;t know how agencies win work, so the quietly valuable relationships slip past. Keeping a DIY version running is a job in itself.</p>
   </div>
 </section>
 
