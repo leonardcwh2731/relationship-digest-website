@@ -1223,38 +1223,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dm-stat-delta-none { visibility: hidden; }
 .dm-stat-cap { font-size: 8.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; line-height: 1.3; }
 
-/* "Before we dive in" — the one-tap opt-in that opens the real digest. */
-.digest-prompt {
-  background: #F6F8FC; border: 1px solid var(--hairline); border-radius: 8px;
-  padding: 16px 18px; margin-bottom: 24px;
-}
-.digest-prompt-label {
-  font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em;
-  text-transform: uppercase; color: var(--ink-4); margin-bottom: 12px;
-}
-.digest-prompt-row { display: flex; align-items: center; gap: 13px; }
-.digest-prompt-avatar {
-  width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
-  background: #D9DEE6; color: var(--ink-3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 600; letter-spacing: .3px;
-}
-.digest-prompt-body { flex: 1; min-width: 0; }
-.digest-prompt-q { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.35; }
-.digest-prompt-arrow { color: var(--spark); font-weight: 400; }
-.digest-prompt-role { font-size: 13px; color: var(--ink-3); margin-top: 3px; }
-.digest-prompt-btns { display: flex; gap: 8px; flex-shrink: 0; }
-.digest-prompt-btn {
-  font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
-  padding: 8px 18px; border-radius: 6px;
-  background: #fff; color: var(--ink); border: 1px solid var(--hairline-2);
-}
-.digest-prompt-btn.yes { background: var(--ink); color: #fff; border-color: var(--ink); }
 @media (max-width: 600px) {
-  .digest-prompt-row { flex-wrap: wrap; }
-  .digest-prompt-btns { width: 100%; }
-  .digest-prompt-btn { flex: 1; }
-}
+      }
 
 /* ===== Mobile ===== */
 @media (max-width: 768px) {
@@ -1289,12 +1259,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
     max-width: 100%; padding: 18px 16px;
     background: #fff; border: 1px solid var(--hairline); border-radius: 8px;
   }
-
-  /* Stacked prompt reads better than a squeezed row */
-  .digest-prompt-row { flex-wrap: wrap; }
-  .digest-prompt-btns { width: 100%; margin-top: 12px; }
-  .digest-prompt-btn { flex: 1; }
-}
+      }
 @media (max-width: 420px) {
   .hero-redesign .hero-headline { font-size: 27px; }
   .section-headline { font-size: 24px; }
@@ -1525,20 +1490,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         </div>
         <div class="gwin-body">
         <div class="digest-full-mockup">
-          <div class="digest-prompt">
-            <div class="digest-prompt-label">Before we dive in</div>
-            <div class="digest-prompt-row">
-              <div class="digest-prompt-avatar" aria-hidden="true">AM</div>
-              <div class="digest-prompt-body">
-                <div class="digest-prompt-q">Would you want to stay connected with Alan Mercer <span class="digest-prompt-arrow">&#8599;</span></div>
-                <div class="digest-prompt-role">CEO, Lexford Global Services</div>
-              </div>
-              <div class="digest-prompt-btns">
-                <button class="digest-prompt-btn yes">Yes</button>
-                <button class="digest-prompt-btn">No</button>
-              </div>
-            </div>
-          </div>
 
           <div class="digest-email-title">Your warm connections to spark today</div>
           <div class="digest-email-meta">Monday, September 21, 2026 &nbsp;|&nbsp; 3 connections</div>
