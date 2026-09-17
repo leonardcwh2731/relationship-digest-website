@@ -1298,13 +1298,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dm-stat-delta { font-size: 9.5px; font-weight: 700; color: #1E8E3E; line-height: 1; margin-top: 4px; }
 .dm-stat-delta-none { visibility: hidden; }
 .dm-stat-cap { font-size: 8.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; line-height: 1.3; }
-.digest-momentum-notes { list-style: none; margin: 16px 0 0; padding: 0; }
-.digest-momentum-notes li { position: relative; padding-left: 16px; font-size: 12px; color: var(--text-mid); line-height: 1.55; margin-bottom: 8px; }
-.digest-momentum-notes li:last-child { margin-bottom: 0; }
-.digest-momentum-notes li::before { content: ''; position: absolute; left: 0; top: 7px; width: 4px; height: 4px; border-radius: 50%; background: #2E7D32; }
-.digest-momentum-notes strong { color: var(--black); font-weight: 700; }
-.digest-momentum-foot { font-size: 12px; color: var(--ink-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hairline); }
-.digest-momentum-foot strong { color: var(--black); }
 
 /* "Before we dive in" — the one-tap opt-in that opens the real digest. */
 .digest-prompt {
@@ -1394,13 +1387,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
 /* The Bureau page only: their badge above the eyebrow, and the logo strip
    as its own band so the hero ends on the CTA subtext. */
 .hero-badge { display: inline-block; margin-bottom: 26px; }
-.hero-badge img { height: 84px; width: auto; display: block;
+.hero-badge img { height: 104px; width: auto; display: block;
   /* The badge ships on cream; multiply drops that tile so only the mark
      and type sit on the white hero. */
   mix-blend-mode: multiply; }
 .logo-band { padding: 26px 0 34px; border-top: 1px solid var(--hairline); }
 .band-marquee { margin-top: 0; }
-@media (max-width: 600px) { .hero-badge img { height: 58px; } }
+@media (max-width: 600px) { .hero-badge img { height: 72px; } }
 </style>
 </head>
 <body>
@@ -1434,9 +1427,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <section class="hero hero-redesign" id="hero">
   <div class="hero-inner">
     <div class="hero-stack">
-      <a class="hero-badge hero-anim" href="https://thebureau.community" target="_blank" rel="noopener">
+      <div class="hero-badge hero-anim">
         <img src="/assets/BureauBadges_Horiz-01.webp" alt="Proud Member of the Flock &middot; The Bureau">
-      </a>
+      </div>
       <p class="hero-eyebrow hero-anim">For members of The Bureau</p>
       <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
       <p class="hero-sub hero-anim">Every weekday, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice that&rsquo;s ready to send.</p>
@@ -1666,14 +1659,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
               <div class="dm-stat"><div class="dm-stat-num">11</div><div class="dm-stat-delta">&#9650;+1</div><div class="dm-stat-cap">Meetings</div></div>
               <div class="dm-stat"><div class="dm-stat-num">4%</div><div class="dm-stat-delta">&#9650;+0.4 pts</div><div class="dm-stat-cap">Meeting Rate</div></div>
             </div>
-
-            <ul class="digest-momentum-notes">
-              <li>You reached out to 2 people: <strong>Daniel Okafor</strong> (Brightwave Studios) and <strong>Priya Menon</strong> (Northbeam Media).</li>
-              <li>With <strong>Daniel</strong> (Brightwave Studios), you reconnected after seeing his studio land a national rebrand.</li>
-              <li>With <strong>Priya</strong> (Northbeam Media), you reopened the thread on her new role.</li>
-            </ul>
-
-            <div class="digest-momentum-foot"><strong>512</strong> warm contacts still to reconnect with &middot; <strong>89</strong> digests so far</div>
           </div>
 
           <div class="digest-full-section" id="digest-sec-contact">
