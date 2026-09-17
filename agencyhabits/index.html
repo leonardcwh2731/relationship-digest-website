@@ -348,7 +348,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 /* #3 → Quick Refresher */
 /* #5 → Shared History */
 /* #9 → Suggested Email */
-/* #11 → After Actions */
 /* #6 and #7 carry no overrides: like #9 and every other connector they use the
    base 28px rule, which runs from the number badge to the white mockup's edge
    and stops there. Earlier attempts to lengthen them (to reach the rules inside
@@ -403,14 +402,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 .digest-full-btn { flex: 0 0 auto; padding: 9px 20px; border-radius: var(--radius); font-size: 12.5px; font-weight: 700; text-align: center; border: none; cursor: pointer; white-space: nowrap; }
 .digest-full-btn-dark { background: var(--black); color: var(--white); }
 .digest-full-btn-outline { background: var(--white); color: var(--black); border: 1.5px solid var(--black); }
-/* --- Digest v1.8 footer row (operator 2026-08-31, respaced 2026-09-02) ---
-   v1.8 is v1.7 plus ONE thing: both footer buttons on a single row, sitting
-   TOGETHER AND CENTRED, with no caption above either button and no rule above
-   the row. It REPLACES v1.7's two stacked captioned blocks ("Got more time
-   today?" / "Want the bigger picture?") rather than following them.
-   The gutter is a right margin on the FIRST button only, so it sits BETWEEN
-   the pair rather than around the group — the same construction the
-   "Mark as bad contact" pair uses. */
 /* --- Signals box (digest v1.7 / v1.8) ---
    The live activity feed and the company news tracker sit inside ONE
    container. The box is what visually separates the signals from the
@@ -431,36 +422,8 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
    mid-sentence ("… is a bad contact because ") so the client's cursor lands
    exactly where they type their reason. */
 @keyframes digestCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-.digest-after-actions { display: flex; flex-wrap: nowrap; gap: 6px; }
-.digest-after-btn {
-  flex: 1 1 auto; min-width: 0; text-align: center; line-height: 1.2;
-  padding: 9px 8px; border-radius: 8px; font-size: 11.5px; font-weight: 700;
-  background: var(--white); color: var(--black); border: 1.5px solid var(--card-border);
-  cursor: pointer; transition: border-color 150ms ease, background 150ms ease;
-}
-.digest-after-btn:hover { border-color: var(--black); }
-.digest-after-btn.danger { color: #D14343; border-color: rgba(209,67,67,0.4); }
-.digest-after-btn.danger:hover { border-color: #D14343; background: rgba(209,67,67,0.05); }
 /* --- After-action hover previews: the confirmation page each button leads to --- */
-.digest-after-item { position: relative; flex: 1 1 auto; min-width: 0; display: flex; }
-.digest-after-item .digest-after-btn { width: 100%; }
 /* Lift the hovered item above sibling sections/annotations so its popup is never covered */
-.digest-after-item:hover, .digest-after-item:focus-within { z-index: 60; }
-.digest-after-item:hover /* Hover bridge so the gap between button and card doesn't close it */
-/* Opens BELOW its button instead of above. Sits close under the button and
-   runs a tighter card than the upward previews, so its bottom edge stops
-   short of the section rule below the mockup instead of crowding it. */
-.digest-after-item:hover /* Side-anchored variant: opens to the LEFT of its button, vertically centred */
-.digest-after-item:hover /* The compose preview is a real email, so its To: line and body read from the
-   left like one. Scoped to .compose so the bad-contact confirmation card keeps
-   its centred copy. */
-/* Wrong-LinkedIn variant: taller, left-aligned, three numbered steps.
-   Opens to the RIGHT of its button, vertically centred on it, rather than
-   above like the two short cards. Kept compact so it stays in the viewport. */
-.digest-after-item:hover /* Hover bridge sits on the card's left edge for the side-anchored variant */
-/* Don't let the previews fight the mobile tooltips / narrow viewports */
-@media (max-width: 760px) {
-}
 /* ===== Snapshot v2 — annotated report with stats, flow, banners ===== */
 /* Snapshot annotations: each connector lands on the MIDDLE of its coloured
    band header. The tops are NOT hardcoded here — the mockup changes height as
@@ -469,7 +432,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
    cycler); these are only first-paint estimates, overwritten on the first frame. */
 /* 1 → Meetings */
 /* 3 → Followed Up Twice */
-/* 5 → After Actions */
 /* 2 → Replied */
 /* 4 → Followed Up Once */
 /* Snapshot header cycler — week → month → quarter, rolling upward */
@@ -1084,12 +1046,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 /* Connector rails belonged to the numbered callouts, which are gone. */
 .gwin-body .digest-full-section::before, .gwin-body .digest-full-section::after, .gwin-body #digest-sec-momentum::before, .gwin-body .gwin-body .gwin-body /* The per-section rails anchored the numbered callouts. Inside the email the
    digest reads as plain sections, so every rail and its inset is cleared. */
-.gwin-body #digest-sec-contact, .gwin-body #digest-sec-refresher, .gwin-body #digest-sec-thread, .gwin-body #digest-sec-history, .gwin-body .gwin-body .gwin-body #digest-sec-angle, .gwin-body #digest-sec-draft, .gwin-body #digest-sec-actions, .gwin-body #digest-sec-after {
-  border-left: none; border-right: none;
-  padding-left: 0; padding-right: 0;
-  margin-left: 0; margin-right: 0;
-}
-/* On mobile, drop the frame and show the email the way the Gmail app does */
+.gwin-body #digest-sec-contact, .gwin-body #digest-sec-refresher, .gwin-body #digest-sec-thread, .gwin-body #digest-sec-history, .gwin-body .gwin-body .gwin-body #digest-sec-angle, .gwin-body #digest-sec-draft, .gwin-body #digest-sec-actions, .gwin-body /* On mobile, drop the frame and show the email the way the Gmail app does */
 @media (max-width: 768px) {
 .gwin { border: none; border-radius: 0; box-shadow: none; max-width: 100%; }
 .gwin-bar, .gwin-toolbar { display: none; }
@@ -1312,9 +1269,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .result-card-sub, .cmp td, .cmp th,   .dm-stat-cap, .digest-full-section-title, .result-card-label { font-size: 10.5px; }
 
   /* Tap targets: 44px minimum */
-  .digest-full-btn, .digest-after-btn, .pricing-toggle-btn,
-  .digest-prompt-btn, .snap-tab { min-height: 44px; }
-  .nav-links a { min-height: 44px; display: flex; align-items: center; }
+  .digest-full-btn,   .nav-links a { min-height: 44px; display: flex; align-items: center; }
 
   /* The email reads full-bleed once the window chrome is gone */
   .gwin-body .digest-full-mockup { max-width: 100%; padding: 18px 16px; }
@@ -1665,23 +1620,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
             <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
           </div>
 
-          <div class="digest-full-section" id="digest-sec-after" style="margin-top:24px; padding-top:20px; border-top:1px solid var(--card-border);">
-            <div class="digest-full-section-title">After Actions</div>
-            <!-- v1.7/v1.8 after actions: exactly TWO buttons, side by side. The
-                 "Mark as important / normal" toggle, the "currently marked" status
-                 line and the "Wrong LinkedIn" button were all removed from the
-                 client digest on 2026-08-08 — the routes stay live for the
-                 dashboard, but the client no longer sees them. -->
-            <div class="digest-after-actions">
-              <div class="digest-after-item">
-                <button class="digest-after-btn danger">Mark as bad contact</button>
-              </div>
-
-              <div class="digest-after-item">
-                <button class="digest-after-btn">This is bad because&hellip;</button>
-              </div>
-            </div>
-          </div>
 
         </div>
 

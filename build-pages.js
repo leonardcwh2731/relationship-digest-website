@@ -17,7 +17,7 @@ const CAL = 'https://cal.com/leonard-veraops/veraops-discovery';
 
 // Everything that differs between the pages lives here.
 const PAGES = [
-  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: 'For members of The Bureau',        utm: 'the-bureau', badge: 'bureau' },
+  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: null,                               utm: 'the-bureau', badge: 'bureau' },
   { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits' },
   { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight' },
   { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge' },
@@ -43,12 +43,15 @@ function generate(src, page) {
       '<meta name="robots" content="noindex, nofollow">\n<link rel="preconnect"');
   }
 
-  // The one line of copy that differs.
+  // The one line of copy that differs. A null eyebrow drops the line entirely,
+  // for pages whose badge already names the audience.
   const eyebrow = `<p class="hero-eyebrow hero-anim">${MAIN_EYEBROW}</p>`;
   if (!s.includes(eyebrow)) {
     throw new Error(`index.html: hero eyebrow not found — update MAIN_EYEBROW in build-pages.js`);
   }
-  s = s.replace(eyebrow, `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`);
+  s = page.eyebrow
+    ? s.replace(eyebrow, `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`)
+    : s.replace(new RegExp('[ \\t]*' + eyebrow.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\n'), '');
 
   // Tag bookings so the calendar shows which community they came from.
   const booking = `${CAL}?utm_source=${page.utm}&amp;utm_medium=landing&amp;utm_campaign=${page.utm}`;
@@ -57,11 +60,13 @@ function generate(src, page) {
   // The Bureau page carries their badge above the eyebrow, and moves the logo
   // strip out of the hero so the hero ends on the CTA's subtext.
   if (page.badge === 'bureau') {
-    const eyebrowTag = `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`;
-    s = s.replace(eyebrowTag,
+    const anchorTag = page.eyebrow
+      ? `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`
+      : '<h1 class="hero-headline hero-anim">';
+    s = s.replace(anchorTag,
       `<div class="hero-badge hero-anim">
         <img src="/assets/BureauBadges_Horiz-01.webp" alt="Proud Member of the Flock &middot; The Bureau">
-      </div>\n      ` + eyebrowTag);
+      </div>\n      ` + anchorTag);
 
     // Lift the marquee out of .hero-stack into its own band under the hero.
     // Matched by brace-counting, not a lazy regex: the marquee nests a track
