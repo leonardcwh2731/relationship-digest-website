@@ -90,7 +90,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
    downward with a box-shadow that only ever shows on overscroll. */
 html { background: var(--paper); }
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
-.footer { box-shadow: 0 300px 0 0 var(--ink); }
+.footer { position: relative; z-index: 2; }
+/* Paints the area an overscroll bounce reveals, without adding page height. */
+body::after {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 50vh;
+  background: var(--ink); z-index: -1; pointer-events: none;
+}
 body {
   font-family: var(--font-sans);
   font-size: 16px;
