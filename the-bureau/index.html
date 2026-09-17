@@ -1149,6 +1149,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .results-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
 }
 .result-panel { border: 1px solid var(--hairline); border-radius: 8px; padding: 26px; background: var(--surface); }
+.result-quote {
+  font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.result-person { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--hairline); }
+.result-person img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.result-person-name { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.result-person-role { font-size: 12.5px; color: var(--ink-3); margin-top: 3px; line-height: 1.45; }
 .result-panel-name { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
 .result-panel-desc { font-size: var(--fs-small); color: var(--ink-3); margin-top: 6px; line-height: 1.5; }
 .result-cards { margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
@@ -1189,16 +1197,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .cmp .cmp-us { background: #fff; color: var(--ink); font-weight: 500; }
 .cmp thead .cmp-us { background: var(--spark-paper); color: var(--spark-deep); }
 /* --- Testimonials: static 4-card grid (no carousel, no duplicate) --- */
-.tgrid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 40px; }
 @media (min-width: 760px) {
-.tgrid { grid-template-columns: 1fr 1fr; }
 }
-.tcard { border: 1px solid var(--hairline); border-radius: 8px; padding: 24px; background: var(--surface); }
-.tcard blockquote { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2); }
-.tcard-person { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
-.tcard-person img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
-.tcard-name { font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
-.tcard-role { font-size: 12.5px; color: var(--ink-4); margin-top: 3px; line-height: 1.45; }
 /* --- Who this is for: fit / not a fit --- */
 .fit-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 40px; border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
 @media (min-width: 820px) {
@@ -1306,10 +1306,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .rtip-pop { left: auto; right: 0; transform: none; max-width: min(240px, calc(100vw - 48px)); }
 
   /* Readability: nothing below 13px on a phone */
-  .result-card-sub, .cmp td, .cmp th, .tcard-role,
-  .digest-momentum-sub, .digest-full-refresher, .priv-block p,
-  .footer-bottom, .gwin-caption { font-size: 13px; line-height: 1.6; }
-  .dm-stat-cap, .digest-full-section-title, .result-card-label { font-size: 10.5px; }
+  .result-card-sub, .cmp td, .cmp th,   .dm-stat-cap, .digest-full-section-title, .result-card-label { font-size: 10.5px; }
 
   /* Tap targets: 44px minimum */
   .digest-full-btn, .digest-after-btn, .pricing-toggle-btn,
@@ -1715,12 +1712,18 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
       <h2 class="section-headline">They didn&rsquo;t just read the digest. They actually took action.</h2>
-      <p class="subtitle" style="margin-top:12px;">What two long-time clients do with their digest.</p>
+      <p class="subtitle" style="margin-top:12px;">What two long-time clients say, and what they actually do with their digest.</p>
     </div>
     <div class="results-grid fade-in">
       <div class="result-panel">
-        <div class="result-panel-name">Client F</div>
-        <div class="result-panel-desc">Video production agency &middot; 15 years in business</div>
+        <blockquote class="result-quote">&ldquo;VeraOps gave me an easy way to get back in touch with people I&rsquo;d worked with and respected but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.&rdquo;</blockquote>
+        <div class="result-person">
+          <img src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&amp;height=800" alt="Frank Siringo">
+          <div>
+            <div class="result-person-name">Frank Siringo</div>
+            <div class="result-person-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
+          </div>
+        </div>
         <div class="result-cards">
           <div class="result-card">
             <div class="result-card-label">Speed <span class="rtip" tabindex="0">i<span class="rtip-pop">How long it takes the client to send an outreach after opening the digest.</span></span></div>
@@ -1740,8 +1743,14 @@ html, body { overflow-x: hidden; max-width: 100%; }
         </div>
       </div>
       <div class="result-panel">
-        <div class="result-panel-name">Client M</div>
-        <div class="result-panel-desc">Creative studio &middot; 20 years in business</div>
+        <blockquote class="result-quote">&ldquo;VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
+        <div class="result-person">
+          <img src="/mark-depace.png" alt="Mark DePace">
+          <div>
+            <div class="result-person-name">Mark DePace</div>
+            <div class="result-person-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div>
+          </div>
+        </div>
         <div class="result-cards">
           <div class="result-card">
             <div class="result-card-label">Speed <span class="rtip" tabindex="0">i<span class="rtip-pop">How long it takes the client to send an outreach after opening the digest.</span></span></div>
@@ -2070,45 +2079,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
           <tr><th scope="row">What it asks of you</th><td class="cmp-us">15 minutes a day in Gmail</td><td>Fixing bugs, tuning prompts, handling security and privacy yourself</td><td>Managing them. Your pipeline leaves when they do</td></tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 11. TESTIMONIALS ===== -->
-<section class="section-sage" id="testimonials">
-  <div class="container">
-    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
-      <h2 class="section-headline">From the agencies using it.</h2>
-    </div>
-    <div class="tgrid fade-in">
-      <div class="tcard">
-        <blockquote>&ldquo;VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
-        <div class="tcard-person">
-          <img src="/mark-depace.png" alt="Mark DePace">
-          <div><div class="tcard-name">Mark DePace</div><div class="tcard-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div></div>
-        </div>
-      </div>
-      <div class="tcard">
-        <blockquote>&ldquo;VeraOps gave me an easy way to get back in touch with people I&rsquo;d worked with and respected but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.&rdquo;</blockquote>
-        <div class="tcard-person">
-          <img src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&amp;height=800" alt="Frank Siringo">
-          <div><div class="tcard-name">Frank Siringo</div><div class="tcard-role">Director / Producer / Partner &middot; Team Bubbly, NY</div></div>
-        </div>
-      </div>
-      <div class="tcard">
-        <blockquote>&ldquo;I used Relationship Digest too! Beyond surfacing lapsed contacts it smartly focuses on a small number of them, so you keep the follow-up motion manageable.&rdquo;</blockquote>
-        <div class="tcard-person">
-          <img src="/todd-griffin.png" alt="Todd Griffin">
-          <div><div class="tcard-name">Todd Griffin</div><div class="tcard-role">Director of Engagement &middot; BX Studio, NY</div></div>
-        </div>
-      </div>
-      <div class="tcard">
-        <blockquote>&ldquo;It&rsquo;s so easy to create and maintain this habit. Instead of scratching my head and trying to remember my highest-impact network, it&rsquo;s surfaced to me daily in a super easy and digestible way. That&rsquo;s more than half the battle right there.&rdquo;</blockquote>
-        <div class="tcard-person">
-          <img src="/david-yassky.png" alt="David Yassky">
-          <div><div class="tcard-name">David Yassky</div><div class="tcard-role">Principal and Co-Founder &middot; Driver Digital, NY</div></div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
