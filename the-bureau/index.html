@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VeraOps &middot; The Bureau</title>
-<meta name="description" content="VeraOps for The Bureau. Every weekday we send three past clients and collaborators worth reconnecting with, ready to email.">
+<meta name="description" content="VeraOps for The Bureau. Every weekday we send three past relationships worth reconnecting with, plus the context and an email ready to send.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -927,38 +927,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 /* Breadcrumb chevron inside a bold run — tighter than a word space. */
 /* 05 — certification badge */
 /* Gmail scope table — the one we hold is called out, the rest are context. */
-.privacy-scopes {
-  list-style: none; margin: 22px 0 0; padding: 0;
-  border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden;
-}
-.privacy-scopes li {
-  display: grid;
-  grid-template-columns: minmax(96px, auto) minmax(0, 1fr);
-  column-gap: 12px; align-items: baseline;
-  padding: 12px 14px; background: var(--white);
-}
-.privacy-scopes li + li { border-top: 1px solid var(--card-border); }
-.privacy-scopes .scope-name {
-  font-size: 13.5px; font-weight: 700; color: var(--muted);
-}
-.privacy-scopes .scope-code {
-  grid-column: 2; font-family: var(--font-mono, monospace); font-size: 11.5px;
-  color: var(--muted); opacity: 0.85;
-}
-.privacy-scopes .scope-desc {
-  grid-column: 2; font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-top: 3px;
-}
-.privacy-scopes .scope-flag {
-  grid-column: 1; grid-row: 2;
-  font-family: var(--font-mono, monospace); font-size: 9.5px; font-weight: 700;
-  letter-spacing: 0.07em; text-transform: uppercase;
-  color: #fff; background: var(--olive-deep);
-  border-radius: 5px; padding: 3px 7px; justify-self: start; margin-top: 5px;
-}
 /* The scope we actually hold reads at full strength; the others sit back. */
-.privacy-scopes .scope-used { background: var(--sage, rgba(0,0,0,0.02)); }
-.privacy-scopes .scope-used .scope-name { color: var(--olive-deep); }
-.privacy-scopes .scope-used .scope-desc { color: var(--text-dark); }
 /* Signal Carousel */
 /* Scan Carousel */
 /* Responsive for new sections */
@@ -978,14 +947,8 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 .faq-item.open .faq-answer-inner { padding-bottom: 22px; }
 .faq-answer-inner p { font-size: 13.5px; }
 /* Privacy rail */
-.privacy-scopes li { grid-template-columns: 1fr; }
-.privacy-scopes .scope-code, .privacy-scopes .scope-desc { grid-column: 1; }
 /* Badge is last in the DOM; pin it to row 1 so it labels the row instead of
      trailing under the description once the columns collapse. */
-.privacy-scopes .scope-flag { grid-column: 1; grid-row: 1; justify-self: end; margin: 0; }
-.privacy-scopes .scope-name { grid-row: 1; }
-.privacy-scopes .scope-code { grid-row: 2; }
-.privacy-scopes .scope-desc { grid-row: 3; }
 /* Step graphics stack once the card is narrow. */
 /* Digest spotlight annotations */
 .digest-full-mockup { padding: 24px 18px; }
@@ -1282,13 +1245,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .priv-block h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
 .priv-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
 .priv-block code { font-family: var(--font-mono); font-size: 13px; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
-.priv-expander { margin-top: 26px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--surface); }
-.priv-expander summary { padding: 15px 20px; cursor: pointer; font-size: 14.5px; color: var(--spark); list-style: none; }
-.priv-expander summary::-webkit-details-marker { display: none; }
-.priv-expander summary::after { content: " \203A"; }
-.priv-expander[open] summary { border-bottom: 1px solid var(--hairline); }
-.priv-expander .privacy-scopes { padding: 18px 20px; }
-.priv-intro { padding: 0 20px 4px; font-size: 14px; color: var(--ink-3); }
 /* --- How it works: 3 steps --- */
 .hiw-grid { display: grid; grid-template-columns: 1fr; gap: 26px; margin-top: 44px; }
 @media (min-width: 900px) {
@@ -1340,25 +1296,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .digest-momentum-foot { font-size: 12px; color: var(--ink-3); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--hairline); }
 .digest-momentum-foot strong { color: var(--black); }
 
-/* Network landing page */
-/* This page's headline is longer than the main site's, so the copy column
-   gets more room and the measure is widened to keep it to three lines. */
-.hero-redesign .hero-headline { max-width: 22ch; font-size: clamp(32px, 3.1vw, 42px); }
-@media (min-width: 1000px) {
-.hero-grid { grid-template-columns: 1.3fr 1fr; }
-}
-.net-greeting { font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
-.note-wrap { max-width: 640px; margin: 0 auto; }
-.note-card { border: 1px solid var(--hairline); border-radius: 8px; padding: 30px 32px; background: var(--surface); }
-.note-card p { font-size: 16.5px; line-height: 1.7; color: var(--ink-2); margin-bottom: 15px; }
-.note-card p:last-of-type { margin-bottom: 0; }
-.note-sign { display: flex; align-items: center; gap: 13px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--hairline); }
-.note-sign img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
-.note-sign-name { font-size: 15px; font-weight: 600; color: var(--ink); }
-.note-sign-role { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
-@media (max-width: 600px) {
-.note-card { padding: 24px 20px; }
-}
 /* "Before we dive in" — the one-tap opt-in that opens the real digest. */
 .digest-prompt {
   background: #F6F8FC; border: 1px solid var(--hairline); border-radius: 8px;
@@ -1394,33 +1331,41 @@ html, body { overflow-x: hidden; max-width: 100%; }
 </style>
 </head>
 <body>
+
+<!-- Paper grain texture (decorative, non-interactive) -->
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Section Nav Dots -->
+
+<!-- Navigation -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
     <div class="nav-links" id="navLinks">
       <a href="#digest">Digest</a>
       <a href="#results">Results</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#privacy">Privacy</a>
       <a href="#pricing">Pricing</a>
-      <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&utm_medium=landing&utm_campaign=the-bureau" class="btn btn-sage nav-menu-cta">Book a call <span class="arrow">&rarr;</span></a>
+      <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" class="btn btn-sage nav-menu-cta">Book a call <span class="arrow">&rarr;</span></a>
     </div>
-    <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&utm_medium=landing&utm_campaign=the-bureau" data-cursor="Book" class="btn btn-sage nav-cta">Book a call <span class="arrow">&rarr;</span></a>
+    <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" data-cursor="Book" class="btn btn-sage nav-cta">Book a call <span class="arrow">&rarr;</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
+<!-- ===== HERO ===== -->
 <section class="hero hero-redesign" id="hero">
   <div class="hero-inner">
-    <div class="hero-grid">
-      <div>
-        <div class="net-greeting">For members of The Bureau</div>
-        <h1 class="hero-headline hero-anim">You probably know us already. Here&rsquo;s what we&rsquo;ve been building.</h1>
-        <p class="hero-sub hero-anim">VeraOps finds the past clients and collaborators sitting quiet in your inbox, and sends you three of them every weekday... ready to email.</p>
-        <div class="hero-ctas hero-anim" style="justify-content:flex-start;">
-          <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&utm_medium=landing&utm_campaign=the-bureau" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
-        </div>
-        <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together. Free.</p>
-      </div>
-      <div class="hero-anim">
+    <div class="hero-stack">
+      <p class="hero-eyebrow hero-anim">For members of The Bureau</p>
+      <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
+      <p class="hero-sub hero-anim">Every weekday, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice that&rsquo;s ready to send.</p>
+
+      <div class="hero-anim hero-shot">
         <div class="inbox-preview" aria-label="Inbox preview">
           <div class="inbox-row unread">
             <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1434,31 +1379,73 @@ html, body { overflow-x: hidden; max-width: 100%; }
             <span class="inbox-subj">Re: Q4 scope <span class="inbox-snip">&ndash; Sounds good, let&rsquo;s lock it in</span></span>
             <span class="inbox-time">6:41 AM</span>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Note from Leonard -->
-<section class="section-sage" id="note">
-  <div class="container">
-    <div class="note-wrap fade-in">
-      <div class="note-card">
-        <p>Hey, I&rsquo;m Leonard.</p>
-        <p>Most of our clients didn&rsquo;t find us through ads. They came through communities they already trust... The Bureau, Agency Habits, Agency Outsight.</p>
-        <p>So this page is for you.</p>
-        <p>Here&rsquo;s the idea. You&rsquo;ve done great work with a lot of people. Most of them haven&rsquo;t heard from you in years. Not because the relationship went bad... you just got busy.</p>
-        <p>We find those people. We check who&rsquo;s worth reaching out to right now. And we send you three a day, with an email that sounds like you.</p>
-        <p>No pitch deck. Book a call, connect your Gmail, and we&rsquo;ll build your first digest together. Three real people from your own inbox. If they&rsquo;re not worth an email, no hard feelings.</p>
-        <div class="note-sign">
-          <img src="/assets/leonard-chin.jpeg" alt="Leonard Chin">
-          <div>
-            <div class="note-sign-name">Leonard Chin</div>
-            <div class="note-sign-role">Founder, VeraOps</div>
+          <div class="inbox-row read">
+            <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="inbox-sender">Accounts</span>
+            <span class="inbox-subj">Invoice 2291 paid <span class="inbox-snip">&ndash; Payment received, thank you</span></span>
+            <span class="inbox-time">Yesterday</span>
           </div>
         </div>
       </div>
+
+
+      <div class="hero-ctas hero-anim">
+        <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" data-cursor="Let&rsquo;s talk" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
+      </div>
+      <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together, free.</p>
+    <div class="agency-marquee hero-marquee hero-anim">
+    <div class="agency-track">
+      <figure class="agency-logo">
+        <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="" loading="lazy">
+      </figure>
+    </div>
+  </div>
+
     </div>
   </div>
 </section>
@@ -1709,30 +1696,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 </section>
 
-<!-- People you might know who use it -->
-<section class="section-sage" id="proof">
-  <div class="container">
-    <div class="hero-eyebrow" style="text-align:center; margin-bottom:6px;">People you might know who use it</div>
-    <div class="proof-logos fade-in">
-      <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
-      <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
-      <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
-      <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
-      <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
-      <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
-      <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
-      <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
-    </div>
-    <div class="proof-quote fade-in">
-      <img src="/mark-depace.png" alt="Mark DePace">
-      <div>
-        <blockquote>&ldquo;It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
-        <cite>Mark DePace, Co-founder &amp; CCO, Ghost Robot</cite>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 4. CLIENT RESULTS ===== -->
 <section class="section-sage" id="results">
   <div class="container">
@@ -1787,6 +1750,251 @@ html, body { overflow-x: hidden; max-width: 100%; }
   </div>
 </section>
 
+<!-- ===== 5. HOW IT WORKS ===== -->
+<section class="section-white" id="how-it-works">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">A real team behind every name you get.</h2>
+      <p class="subtitle" style="margin-top:12px;">Our tool finds the relationships, but we handpick those who are worth your time.</p>
+    </div>
+    <div class="hiw-grid fade-in">
+      <div class="hiw-step">
+        <div class="hiw-visual">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+            <rect x="18" y="18" width="88" height="34" rx="5" fill="#fff" stroke="#D2D5D9"/>
+            <path d="M26 28l18 12 18-12" fill="none" stroke="#9AA0A6" stroke-width="2"/>
+            <rect x="26" y="28" width="36" height="14" rx="1.5" fill="none" stroke="#9AA0A6" stroke-width="2"/>
+            <text x="70" y="40" font-family="Inter,sans-serif" font-size="9" fill="#5F6368">Mail</text>
+            <rect x="18" y="66" width="88" height="34" rx="5" fill="#fff" stroke="#D2D5D9"/>
+            <rect x="26" y="74" width="30" height="18" rx="2" fill="none" stroke="#9AA0A6" stroke-width="2"/>
+            <line x1="26" y1="80" x2="56" y2="80" stroke="#9AA0A6" stroke-width="2"/>
+            <text x="64" y="87" font-family="Inter,sans-serif" font-size="9" fill="#5F6368">Cal</text>
+            <path d="M106 35 C132 35 132 59 150 59" fill="none" stroke="#A8C7FA" stroke-width="2"/>
+            <path d="M106 83 C132 83 132 59 150 59" fill="none" stroke="#A8C7FA" stroke-width="2"/>
+            <rect x="152" y="24" width="150" height="70" rx="5" fill="#fff" stroke="#E4E6E9"/>
+            <g fill="#E4E6E9">
+              <circle cx="166" cy="40" r="6"/><rect x="178" y="37" width="52" height="6" rx="3"/>
+              <circle cx="166" cy="59" r="6"/><rect x="178" y="56" width="70" height="6" rx="3"/>
+              <circle cx="166" cy="78" r="6"/><rect x="178" y="75" width="44" height="6" rx="3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hiw-step-n">1</div>
+        <h3>Connect Gmail and Calendar.</h3>
+        <p>It takes a few minutes on our call, with read-only access. We go through all the relationships you have built since the beginning.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-visual">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+            <text x="20" y="26" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#9AA0A6" letter-spacing="0.8">DEALS WON</text>
+            <g>
+              <rect x="20" y="34" width="104" height="18" rx="3" fill="#fff" stroke="#D2D5D9"/>
+              <path d="M28 43l4 4 7-8" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+              <rect x="46" y="40" width="64" height="5" rx="2.5" fill="#D2D5D9"/>
+              <rect x="20" y="58" width="104" height="18" rx="3" fill="#fff" stroke="#D2D5D9"/>
+              <path d="M28 67l4 4 7-8" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+              <rect x="46" y="64" width="52" height="5" rx="2.5" fill="#D2D5D9"/>
+              <rect x="20" y="82" width="104" height="18" rx="3" fill="#fff" stroke="#D2D5D9"/>
+              <path d="M28 91l4 4 7-8" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+              <rect x="46" y="88" width="70" height="5" rx="2.5" fill="#D2D5D9"/>
+            </g>
+            <path d="M128 67 L160 67" fill="none" stroke="#A8C7FA" stroke-width="2"/>
+            <path d="M154 62l7 5-7 5" fill="none" stroke="#A8C7FA" stroke-width="2" stroke-linecap="round"/>
+            <text x="168" y="26" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#9AA0A6" letter-spacing="0.8">SIGNALS TRACKED</text>
+            <g>
+              <rect x="168" y="34" width="132" height="18" rx="9" fill="#E8F0FE" stroke="#A8C7FA"/>
+              <circle cx="180" cy="43" r="3.5" fill="#1A73E8"/>
+              <rect x="190" y="40" width="58" height="5" rx="2.5" fill="#A8C7FA"/>
+              <rect x="168" y="58" width="132" height="18" rx="9" fill="#E8F0FE" stroke="#A8C7FA"/>
+              <circle cx="180" cy="67" r="3.5" fill="#1A73E8"/>
+              <rect x="190" y="64" width="76" height="5" rx="2.5" fill="#A8C7FA"/>
+              <rect x="168" y="82" width="132" height="18" rx="9" fill="#F1F3F4" stroke="#E4E6E9"/>
+              <circle cx="180" cy="91" r="3.5" fill="#D2D5D9"/>
+              <rect x="190" y="88" width="48" height="5" rx="2.5" fill="#E4E6E9"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hiw-step-n">2</div>
+        <h3>We learn what wins you work.</h3>
+        <p>We study the deals that already landed for you. Then we track the same signals across your contacts: job changes, new ventures, company news, hiring, etc.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-visual">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+            <g fill="#fff" stroke="#E4E6E9">
+              <rect x="18" y="14" width="126" height="16" rx="3"/>
+              <rect x="18" y="34" width="126" height="16" rx="3"/>
+              <rect x="18" y="54" width="126" height="16" rx="3"/>
+              <rect x="18" y="74" width="126" height="16" rx="3"/>
+              <rect x="18" y="94" width="126" height="16" rx="3"/>
+            </g>
+            <g fill="#E4E6E9">
+              <circle cx="30" cy="22" r="4"/><rect x="40" y="19" width="56" height="5" rx="2.5"/>
+              <circle cx="30" cy="42" r="4"/><rect x="40" y="39" width="72" height="5" rx="2.5"/>
+              <circle cx="30" cy="62" r="4"/><rect x="40" y="59" width="48" height="5" rx="2.5"/>
+              <circle cx="30" cy="82" r="4"/><rect x="40" y="79" width="66" height="5" rx="2.5"/>
+              <circle cx="30" cy="102" r="4"/><rect x="40" y="99" width="54" height="5" rx="2.5"/>
+            </g>
+            <circle cx="166" cy="42" r="7" fill="none" stroke="#1E8E3E" stroke-width="2"/>
+            <path d="M162.5 42l2.5 2.5 4.5-5" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="166" cy="74" r="7" fill="none" stroke="#1E8E3E" stroke-width="2"/>
+            <path d="M162.5 74l2.5 2.5 4.5-5" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="166" cy="22" r="7" fill="none" stroke="#1E8E3E" stroke-width="2"/>
+            <path d="M162.5 22l2.5 2.5 4.5-5" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M182 56 L206 56" fill="none" stroke="#D2D5D9" stroke-width="2"/>
+            <path d="M200 51l7 5-7 5" fill="none" stroke="#D2D5D9" stroke-width="2" stroke-linecap="round"/>
+            <rect x="214" y="26" width="88" height="62" rx="5" fill="#fff" stroke="#D2D5D9"/>
+            <rect x="224" y="36" width="42" height="6" rx="3" fill="#9AA0A6"/>
+            <g fill="#E8F0FE" stroke="#A8C7FA">
+              <rect x="224" y="48" width="68" height="10" rx="2"/>
+              <rect x="224" y="62" width="68" height="10" rx="2"/>
+              <rect x="224" y="76" width="68" height="10" rx="2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hiw-step-n">3</div>
+        <h3>A person picks your three.</h3>
+        <p>We check the contact profile, timing, and history before they reach you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. WHY RELATIONSHIPS GO COLD ===== -->
+<section class="section-white" id="why-cold">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:900px; margin:0 auto;">
+      <h2 class="section-headline" style="white-space:nowrap;">Reconnection keeps giving way to delivery.</h2>
+    </div>
+    <div class="cold-grid fade-in">
+      <div class="cold-card">
+        <div class="cold-ill">
+          <svg viewBox="0 0 260 74" aria-hidden="true">
+            <rect x="0" y="4" width="260" height="66" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="0" y="4" width="260" height="15" rx="4" fill="#F6F6F4"/>
+            <line x1="0" y1="19" x2="260" y2="19" stroke="#E4E6E9"/>
+            <rect x="12" y="9" width="34" height="5" rx="2.5" fill="#D2D5D9"/>
+            <g fill="#EDEEF0">
+              <rect x="12" y="27" width="26" height="14" rx="2"/><rect x="46" y="27" width="26" height="14" rx="2"/>
+              <rect x="80" y="27" width="26" height="14" rx="2"/><rect x="114" y="27" width="26" height="14" rx="2"/>
+              <rect x="148" y="27" width="26" height="14" rx="2"/><rect x="182" y="27" width="26" height="14" rx="2"/>
+              <rect x="216" y="27" width="26" height="14" rx="2"/>
+              <rect x="12" y="47" width="26" height="14" rx="2"/><rect x="46" y="47" width="26" height="14" rx="2"/>
+              <rect x="80" y="47" width="26" height="14" rx="2"/><rect x="114" y="47" width="26" height="14" rx="2"/>
+              <rect x="148" y="47" width="26" height="14" rx="2"/>
+            </g>
+            <rect x="182" y="47" width="60" height="14" rx="2" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+        <h3>The work comes first.</h3>
+        <p>Delivery fills the day, every day. Reaching out is always the thing you get to once delivery is done... and opportunities just slip by in the meantime.</p>
+      </div>
+      <div class="cold-card">
+        <div class="cold-ill">
+          <svg viewBox="0 0 260 74" aria-hidden="true">
+            <g>
+              <rect x="4" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="30" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="56" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="82" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="108" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="134" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="160" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="186" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="212" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="238" y="30" width="18" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+            </g>
+            <rect x="4" y="60" width="62" height="5" rx="2.5" fill="#D2D5D9"/>
+            <rect x="108" y="60" width="46" height="5" rx="2.5" fill="#EDEEF0"/>
+            <rect x="4" y="14" width="74" height="5" rx="2.5" fill="#E4E6E9"/>
+          </svg>
+        </div>
+        <h3>The habit never sticks.</h3>
+        <p>You start strong for a week, then work starts to pile up and the streak breaks.</p>
+      </div>
+      <div class="cold-card">
+        <div class="cold-ill">
+          <svg viewBox="0 0 260 74" aria-hidden="true">
+            <circle cx="36" cy="37" r="24" fill="#fff" stroke="#D2D5D9"/>
+            <path d="M36 21v16l11 7" fill="none" stroke="#9AA0A6" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="76" y="8" width="184" height="58" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="86" y="17" width="72" height="5" rx="2.5" fill="#D2D5D9"/>
+            <line x1="76" y1="29" x2="260" y2="29" stroke="#E4E6E9"/>
+            <rect x="86" y="37" width="150" height="4.5" rx="2.25" fill="#E4E6E9"/>
+            <rect x="86" y="47" width="120" height="4.5" rx="2.25" fill="#E4E6E9"/>
+            <rect x="86" y="57" width="52" height="4.5" rx="2.25" fill="#EDEEF0"/>
+            <rect x="142" y="56" width="1.5" height="7" fill="#9AA0A6"/>
+          </svg>
+        </div>
+        <h3>Every reach-out takes too long.</h3>
+        <p>Find the person, dig up your history, work out what to say, write it well &mdash; all these could take you 45 minutes or so.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. WHO THIS IS FOR ===== -->
+<section class="section-sage" id="who-this-is-for">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">Built for agencies that run on relationships.</h2>
+    </div>
+    <div class="fit-grid fade-in">
+      <div class="fit-col yes">
+        <div class="fit-col-head">A good fit if&hellip;</div>
+        <div class="fit-row">Your projects run $50K+, or your best clients keep coming back.</div>
+        <div class="fit-row">Most new business comes from relationships and referrals.</div>
+        <div class="fit-row">You want a team working it with you, not another tool to run.</div>
+        <div class="fit-row">Your email runs on Gmail or Google Workspace.</div>
+      </div>
+      <div class="fit-col no">
+        <div class="fit-col-head">Not a fit if&hellip;</div>
+        <div class="fit-row">Your work is small, one-off and high-volume.</div>
+        <div class="fit-row">New business comes mainly from ads or inbound.</div>
+        <div class="fit-row">You want software you set up and run yourself.</div>
+        <div class="fit-row">Your email does not run on Gmail.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. YOUR INBOX, HANDLED WITH CARE ===== -->
+<section class="section-white" id="privacy">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">Your inbox, handled with care.</h2>
+      <p class="subtitle" style="margin-top:12px;">Connecting your email is a big ask. Here&rsquo;s exactly what we do with it.</p>
+    </div>
+    <div class="priv-grid fade-in">
+      <div class="priv-block">
+        <h3>We only get read-only access.</h3>
+        <p>We request only <code>gmail.readonly</code>, so we can&rsquo;t send, delete or change anything in your inbox.</p>
+      </div>
+      <div class="priv-block">
+        <h3>We do not save any emails.</h3>
+        <p>Email bodies and attachments are deleted after processing. We keep only names, companies, roles, last contact dates and short thread summaries. When our team reviews your picks, we pull what we need live, then discard it.</p>
+      </div>
+      <div class="priv-block">
+        <h3>Independently tested every year.</h3>
+        <p>Our application passes ESOF AppSec, an annual security assessment by TAC Security, a Google-approved assessor.</p>
+      </div>
+      <div class="priv-block">
+        <h3>Switch it off anytime.</h3>
+        <p>Remove our access from your Google Account permissions page in one click. Workspace admins can also do it in the Admin console. It takes effect immediately.</p>
+      </div>
+    </div>
+
+
+    <div class="fade-in" style="text-align:center; margin-top:34px;">
+      <p class="subtitle" style="margin-bottom:16px;">Want to hear it from a client? We&rsquo;ll connect you with one of them.</p>
+      <a href="mailto:relationships@veraops.com?subject=Re%3A%20Inbox%20connection&body=Hi%20The%20VeraOps%20Team%2C%0A%0AI%27m%20considering%20Relationship%20Digest%20and%20would%20like%20to%20speak%20with%20an%20active%20user%20regarding%20the%20connection%20of%20my%20inbox.%0A%0ACould%20you%20arrange%20a%20quick%20conversation%3F%0A%0AThanks" class="btn btn-sage-lg" style="width:auto;">Ask for an intro &rarr;</a>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 9. PRICING ===== -->
 <section class="section-sage" id="pricing">
   <div class="container">
@@ -1816,22 +2024,180 @@ html, body { overflow-x: hidden; max-width: 100%; }
           <li><span class="pricing-check">&#10003;</span> Reconnection strategy and ongoing advice</li>
         </ul>
 
-        <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-light" style="width:100%; margin-top:8px;">Book a call &rarr;</a>
+        <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" class="btn btn-light" style="width:100%; margin-top:8px;">Book a call &rarr;</a>
         <p class="pricing-note">We&rsquo;ll build your first digest together on the call, with three real people from your inbox. Free, no obligation.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
-  <div class="container">
-    <h2 class="cta-headline" style="text-align:center;">Book a call. Bring your inbox.</h2>
-    <p class="subtitle" style="text-align:center;">We&rsquo;ll find three people worth a hello.</p>
-    <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
-      <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&utm_medium=landing&utm_campaign=the-bureau" class="btn btn-sage-xl">Book a call &rarr;</a>
+<!-- ===== 10. COMPARE YOUR OPTIONS ===== -->
+<section class="section-white" id="compare">
+  <div class="container compare-container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">What else you could do.</h2>
+      <p class="subtitle" style="margin-top:12px;">Three ways to work your past relationships. Here&rsquo;s what each one really costs.</p>
+    </div>
+    <div class="cmp-wrap fade-in">
+      <table class="cmp">
+        <thead>
+          <tr><th scope="col"></th><th scope="col" class="cmp-us">VeraOps</th><th scope="col">Build it yourself with AI</th><th scope="col">Fractional BD lead</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Cost</th><td class="cmp-us">$500/month</td><td>AI and data subscriptions, plus your team&rsquo;s time</td><td>$4,000&ndash;$15,000/month</td></tr>
+          <tr><th scope="row">Setup</th><td class="cmp-us">One call</td><td>Weeks of building: Gmail access, data cleanup, prompts, enrichment</td><td>Hiring and ramp-up</td></tr>
+          <tr><th scope="row">First result</th><td class="cmp-us">On the first call itself</td><td>Once it&rsquo;s built and tuned</td><td>Months</td></tr>
+          <tr><th scope="row">What you get</th><td class="cmp-us">3 handpicked contacts and drafts, every weekday</td><td>Contacts labeled hot, warm or cold, without industry judgment</td><td>A person, 10&ndash;15 hours a week</td></tr>
+          <tr><th scope="row">What it asks of you</th><td class="cmp-us">15 minutes a day in Gmail</td><td>Fixing bugs, tuning prompts, handling security and privacy yourself</td><td>Managing them. Your pipeline leaves when they do</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
+
+<!-- ===== 11. TESTIMONIALS ===== -->
+<section class="section-sage" id="testimonials">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">From the agencies using it.</h2>
+    </div>
+    <div class="tgrid fade-in">
+      <div class="tcard">
+        <blockquote>&ldquo;VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
+        <div class="tcard-person">
+          <img src="/mark-depace.png" alt="Mark DePace">
+          <div><div class="tcard-name">Mark DePace</div><div class="tcard-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <blockquote>&ldquo;VeraOps gave me an easy way to get back in touch with people I&rsquo;d worked with and respected but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.&rdquo;</blockquote>
+        <div class="tcard-person">
+          <img src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&amp;height=800" alt="Frank Siringo">
+          <div><div class="tcard-name">Frank Siringo</div><div class="tcard-role">Director / Producer / Partner &middot; Team Bubbly, NY</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <blockquote>&ldquo;I used Relationship Digest too! Beyond surfacing lapsed contacts it smartly focuses on a small number of them, so you keep the follow-up motion manageable.&rdquo;</blockquote>
+        <div class="tcard-person">
+          <img src="/todd-griffin.png" alt="Todd Griffin">
+          <div><div class="tcard-name">Todd Griffin</div><div class="tcard-role">Director of Engagement &middot; BX Studio, NY</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <blockquote>&ldquo;It&rsquo;s so easy to create and maintain this habit. Instead of scratching my head and trying to remember my highest-impact network, it&rsquo;s surfaced to me daily in a super easy and digestible way. That&rsquo;s more than half the battle right there.&rdquo;</blockquote>
+        <div class="tcard-person">
+          <img src="/david-yassky.png" alt="David Yassky">
+          <div><div class="tcard-name">David Yassky</div><div class="tcard-role">Principal and Co-Founder &middot; Driver Digital, NY</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12. FAQ ===== -->
+<section class="section-white" id="faq">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;">
+      <h2 class="section-headline">Questions we get asked.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-question" aria-expanded="true">
+          <span class="faq-num">01</span>
+          <span class="faq-q-text">What happens on the call?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>We learn how your agency wins work, connect your Gmail and Calendar with read-only access, and build your first digest together with three real contacts. It&rsquo;s free, and you can decide afterwards.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">02</span>
+          <span class="faq-q-text">How is billing set up?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>$500 monthly, $1,350 quarterly, or $5,000 yearly. Same service on every term. No setup fee.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">03</span>
+          <span class="faq-q-text">Do you work with Outlook or other email?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Not yet. We only connect to Gmail and Google Workspace.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">04</span>
+          <span class="faq-q-text">How often do digests arrive, and how many contacts are in each?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Every weekday, with three contacts. You also get weekly, monthly and quarterly snapshots.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">05</span>
+          <span class="faq-q-text">Why only three a day?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Three is enough to build a habit without turning it into noise. Good outreach compounds: one email becomes a reply, a follow-up, then a meeting.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">06</span>
+          <span class="faq-q-text">How far back do you look?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>As far as you first started using the inbox &mdash; at least eight years.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">07</span>
+          <span class="faq-q-text">How is my data protected?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Read-only access, summaries instead of stored emails, and an annual independent security assessment of our application. See the privacy section above for details.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">08</span>
+          <span class="faq-q-text">Can I keep the contact data if I leave?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Yes. We&rsquo;ll send you the contacts we extracted.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13. FINAL CTA ===== -->
+<section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
+  <div class="container">
+    <h2 class="cta-headline" style="text-align:center;">Your next client might be someone you already know.</h2>
+    <p class="subtitle" style="text-align:center;">Book a call. We&rsquo;ll build your first digest with you, free.</p>
+    <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" data-cursor="Let&rsquo;s talk" class="btn btn-sage-xl">Book a call &rarr;</a>
+      <a href="#hero" data-cursor="Top" class="btn btn-ghost" id="backToTop">&uarr; Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky Bottom CTA -->
 
 <script>
 // Scroll Progress
@@ -2091,11 +2457,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     </div>
     <div class="footer-col-resources">
       <h5>Resources</h5>
-      <a href="/#digest">Digest</a>
-      <a href="/#results">Results</a>
-      <a href="/#how-it-works">How it works</a>
-      <a href="/#privacy">Privacy</a>
-      <a href="/#pricing">Pricing</a>
+      <a href="#digest">Digest</a>
+      <a href="#results">Results</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
     </div>
     <div class="footer-col-legal">
       <h5>Legal</h5>
