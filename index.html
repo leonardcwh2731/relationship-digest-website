@@ -927,38 +927,7 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 /* Breadcrumb chevron inside a bold run — tighter than a word space. */
 /* 05 — certification badge */
 /* Gmail scope table — the one we hold is called out, the rest are context. */
-.privacy-scopes {
-  list-style: none; margin: 22px 0 0; padding: 0;
-  border: 1px solid var(--card-border); border-radius: 10px; overflow: hidden;
-}
-.privacy-scopes li {
-  display: grid;
-  grid-template-columns: minmax(96px, auto) minmax(0, 1fr);
-  column-gap: 12px; align-items: baseline;
-  padding: 12px 14px; background: var(--white);
-}
-.privacy-scopes li + li { border-top: 1px solid var(--card-border); }
-.privacy-scopes .scope-name {
-  font-size: 13.5px; font-weight: 700; color: var(--muted);
-}
-.privacy-scopes .scope-code {
-  grid-column: 2; font-family: var(--font-mono, monospace); font-size: 11.5px;
-  color: var(--muted); opacity: 0.85;
-}
-.privacy-scopes .scope-desc {
-  grid-column: 2; font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-top: 3px;
-}
-.privacy-scopes .scope-flag {
-  grid-column: 1; grid-row: 2;
-  font-family: var(--font-mono, monospace); font-size: 9.5px; font-weight: 700;
-  letter-spacing: 0.07em; text-transform: uppercase;
-  color: #fff; background: var(--olive-deep);
-  border-radius: 5px; padding: 3px 7px; justify-self: start; margin-top: 5px;
-}
 /* The scope we actually hold reads at full strength; the others sit back. */
-.privacy-scopes .scope-used { background: var(--sage, rgba(0,0,0,0.02)); }
-.privacy-scopes .scope-used .scope-name { color: var(--olive-deep); }
-.privacy-scopes .scope-used .scope-desc { color: var(--text-dark); }
 /* Signal Carousel */
 /* Scan Carousel */
 /* Responsive for new sections */
@@ -978,14 +947,8 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 .faq-item.open .faq-answer-inner { padding-bottom: 22px; }
 .faq-answer-inner p { font-size: 13.5px; }
 /* Privacy rail */
-.privacy-scopes li { grid-template-columns: 1fr; }
-.privacy-scopes .scope-code, .privacy-scopes .scope-desc { grid-column: 1; }
 /* Badge is last in the DOM; pin it to row 1 so it labels the row instead of
      trailing under the description once the columns collapse. */
-.privacy-scopes .scope-flag { grid-column: 1; grid-row: 1; justify-self: end; margin: 0; }
-.privacy-scopes .scope-name { grid-row: 1; }
-.privacy-scopes .scope-code { grid-row: 2; }
-.privacy-scopes .scope-desc { grid-row: 3; }
 /* Step graphics stack once the card is narrow. */
 /* Digest spotlight annotations */
 .digest-full-mockup { padding: 24px 18px; }
@@ -1244,13 +1207,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .priv-block h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
 .priv-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
 .priv-block code { font-family: var(--font-mono); font-size: 13px; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
-.priv-expander { margin-top: 26px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--surface); }
-.priv-expander summary { padding: 15px 20px; cursor: pointer; font-size: 14.5px; color: var(--spark); list-style: none; }
-.priv-expander summary::-webkit-details-marker { display: none; }
-.priv-expander summary::after { content: " \203A"; }
-.priv-expander[open] summary { border-bottom: 1px solid var(--hairline); }
-.priv-expander .privacy-scopes { padding: 18px 20px; }
-.priv-intro { padding: 0 20px 4px; font-size: 14px; color: var(--ink-3); }
 /* --- How it works: 3 steps --- */
 .hiw-grid { display: grid; grid-template-columns: 1fr; gap: 26px; margin-top: 44px; }
 @media (min-width: 900px) {
@@ -1778,7 +1734,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <section class="section-white" id="why-cold">
   <div class="container">
     <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
-      <h2 class="section-headline">You didn&rsquo;t lose these relationships. You got busy.</h2>
+      <h2 class="section-headline">Reconnecting keeps losing to the work.</h2>
     </div>
     <div class="cold-grid fade-in">
       <div class="cold-card">
@@ -1791,66 +1747,57 @@ html, body { overflow-x: hidden; max-width: 100%; }
             <g fill="#EDEEF0">
               <rect x="12" y="27" width="26" height="14" rx="2"/><rect x="46" y="27" width="26" height="14" rx="2"/>
               <rect x="80" y="27" width="26" height="14" rx="2"/><rect x="114" y="27" width="26" height="14" rx="2"/>
-              <rect x="148" y="27" width="26" height="14" rx="2"/>
+              <rect x="148" y="27" width="26" height="14" rx="2"/><rect x="182" y="27" width="26" height="14" rx="2"/>
+              <rect x="216" y="27" width="26" height="14" rx="2"/>
               <rect x="12" y="47" width="26" height="14" rx="2"/><rect x="46" y="47" width="26" height="14" rx="2"/>
-              <rect x="80" y="47" width="26" height="14" rx="2"/>
+              <rect x="80" y="47" width="26" height="14" rx="2"/><rect x="114" y="47" width="26" height="14" rx="2"/>
+              <rect x="148" y="47" width="26" height="14" rx="2"/>
             </g>
-            <rect x="182" y="27" width="26" height="14" rx="2" fill="#1A73E8" opacity=".5"/>
-            <rect x="216" y="27" width="26" height="14" rx="2" fill="#1A73E8" opacity=".5"/>
-            <rect x="114" y="47" width="26" height="14" rx="2" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
-            <rect x="148" y="47" width="94" height="14" rx="2" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="182" y="47" width="60" height="14" rx="2" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
           </svg>
         </div>
-        <h3>Delivery came first.</h3>
-        <p>You were heads-down shipping the work. Nobody followed up after the wrap... and good people went quiet.</p>
+        <h3>The work comes first.</h3>
+        <p>Delivery fills the day, every day. Reaching out is always the thing you&rsquo;ll get to once this project ships... and good people go quiet in the meantime.</p>
       </div>
       <div class="cold-card">
         <div class="cold-ill">
           <svg viewBox="0 0 260 74" aria-hidden="true">
-            <g fill="#fff" stroke="#E4E6E9">
-              <rect x="0" y="2" width="260" height="13" rx="3"/>
-              <rect x="0" y="18" width="260" height="13" rx="3"/>
-              <rect x="0" y="34" width="260" height="13" rx="3"/>
-              <rect x="0" y="50" width="260" height="13" rx="3"/>
+            <g>
+              <rect x="4" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="30" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="56" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="82" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="108" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="134" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="160" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="186" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="212" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="238" y="30" width="18" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
             </g>
-            <g fill="#E4E6E9">
-              <rect x="10" y="6.5" width="62" height="4" rx="2"/><rect x="82" y="6.5" width="104" height="4" rx="2"/>
-              <rect x="10" y="22.5" width="54" height="4" rx="2"/><rect x="74" y="22.5" width="120" height="4" rx="2"/>
-              <rect x="10" y="38.5" width="70" height="4" rx="2"/><rect x="90" y="38.5" width="88" height="4" rx="2"/>
-              <rect x="10" y="54.5" width="58" height="4" rx="2"/><rect x="78" y="54.5" width="96" height="4" rx="2"/>
-            </g>
-            <rect x="0" y="64" width="260" height="10" rx="3" fill="#F1F3F4" stroke="#D2D5D9"/>
-            <rect x="10" y="67" width="76" height="4" rx="2" fill="#9AA0A6"/>
-            <rect x="96" y="67" width="52" height="4" rx="2" fill="#C4C7CA"/>
+            <rect x="4" y="60" width="62" height="5" rx="2.5" fill="#D2D5D9"/>
+            <rect x="108" y="60" width="46" height="5" rx="2.5" fill="#EDEEF0"/>
+            <rect x="4" y="14" width="74" height="5" rx="2.5" fill="#E4E6E9"/>
           </svg>
         </div>
-        <h3>Now they&rsquo;re buried.</h3>
-        <p>Years of threads, invites and invoices sit on top of them. Finding them again means going contact by contact.</p>
+        <h3>The habit never sticks.</h3>
+        <p>You start strong for a week, then a deadline hits and the streak breaks. Starting over is harder than starting was.</p>
       </div>
       <div class="cold-card">
         <div class="cold-ill">
           <svg viewBox="0 0 260 74" aria-hidden="true">
-            <rect x="0" y="4" width="260" height="66" rx="4" fill="#fff" stroke="#E4E6E9"/>
-            <rect x="0" y="4" width="260" height="14" rx="4" fill="#F6F6F4"/>
-            <line x1="0" y1="18" x2="260" y2="18" stroke="#E4E6E9"/>
-            <line x1="86" y1="4" x2="86" y2="70" stroke="#E4E6E9"/>
-            <line x1="172" y1="4" x2="172" y2="70" stroke="#E4E6E9"/>
-            <line x1="0" y1="35" x2="260" y2="35" stroke="#E4E6E9"/>
-            <line x1="0" y1="52" x2="260" y2="52" stroke="#E4E6E9"/>
-            <g fill="#D2D5D9">
-              <rect x="9" y="9" width="46" height="4.5" rx="2.25"/><rect x="95" y="9" width="46" height="4.5" rx="2.25"/>
-              <rect x="181" y="9" width="40" height="4.5" rx="2.25"/>
-            </g>
-            <g fill="#E4E6E9">
-              <rect x="9" y="24" width="52" height="4.5" rx="2.25"/><rect x="95" y="24" width="38" height="4.5" rx="2.25"/>
-              <rect x="181" y="24" width="30" height="4.5" rx="2.25"/>
-              <rect x="9" y="41" width="44" height="4.5" rx="2.25"/><rect x="95" y="41" width="30" height="4.5" rx="2.25"/>
-            </g>
-            <rect x="9" y="58" width="36" height="4.5" rx="2.25" fill="#EDEEF0"/>
+            <circle cx="36" cy="37" r="24" fill="#fff" stroke="#D2D5D9"/>
+            <path d="M36 21v16l11 7" fill="none" stroke="#9AA0A6" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="76" y="8" width="184" height="58" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="86" y="17" width="72" height="5" rx="2.5" fill="#D2D5D9"/>
+            <line x1="76" y1="29" x2="260" y2="29" stroke="#E4E6E9"/>
+            <rect x="86" y="37" width="150" height="4.5" rx="2.25" fill="#E4E6E9"/>
+            <rect x="86" y="47" width="120" height="4.5" rx="2.25" fill="#E4E6E9"/>
+            <rect x="86" y="57" width="52" height="4.5" rx="2.25" fill="#EDEEF0"/>
+            <rect x="142" y="56" width="1.5" height="7" fill="#9AA0A6"/>
           </svg>
         </div>
-        <h3>Spreadsheets don&rsquo;t stick.</h3>
-        <p>You start a tracker. A few weeks in, nobody knows who&rsquo;s been contacted, who replied, or who&rsquo;s due a follow-up.</p>
+        <h3>Every reach-out takes too long.</h3>
+        <p>Find the person, dig up your history, work out what to say, write it well. Twenty minutes for one email you may never send.</p>
       </div>
     </div>
   </div>
@@ -1907,38 +1854,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
       </div>
     </div>
 
-    <details class="priv-expander fade-in">
-      <summary>See all Gmail permission levels</summary>
-      <p class="priv-intro">Gmail&rsquo;s API is divided into five core scopes. Each one grants a different level of reach into your mailbox.</p>
-        <ul class="privacy-scopes">
-        <li class="scope-used">
-        <span class="scope-name">Read-only</span>
-        <span class="scope-code">gmail.readonly</span>
-        <span class="scope-desc">View messages, attachments, and metadata. Nothing can be changed.</span>
-        <span class="scope-flag">What we request</span>
-        </li>
-        <li>
-        <span class="scope-name">Modify</span>
-        <span class="scope-code">gmail.modify</span>
-        <span class="scope-desc">Read, create, and modify threads, messages, and labels.</span>
-        </li>
-        <li>
-        <span class="scope-name">Compose</span>
-        <span class="scope-code">gmail.compose</span>
-        <span class="scope-desc">Create, update, and delete drafts, and send them.</span>
-        </li>
-        <li>
-        <span class="scope-name">Send</span>
-        <span class="scope-code">gmail.send</span>
-        <span class="scope-desc">Send email on your behalf.</span>
-        </li>
-        <li>
-        <span class="scope-name">Full access</span>
-        <span class="scope-code">mail.google.com</span>
-        <span class="scope-desc">Complete control, including permanent deletion.</span>
-        </li>
-        </ul>
-    </details>
 
     <div class="fade-in" style="text-align:center; margin-top:34px;">
       <p class="subtitle" style="margin-bottom:16px;">Want to hear it from a client? We&rsquo;ll connect you with one of them.</p>
