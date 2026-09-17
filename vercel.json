@@ -24,11 +24,6 @@
       "permanent": true
     },
     {
-      "source": "/Frank-Siringo",
-      "destination": "/frank-siringo",
-      "permanent": true
-    },
-    {
       "source": "/markdepace",
       "destination": "/mark-depace",
       "permanent": true
@@ -42,11 +37,36 @@
       "source": "/MarkDePace",
       "destination": "/mark-depace",
       "permanent": true
+    },
+    {
+      "source": "/frank-siringo",
+      "destination": "/team-bubbly",
+      "permanent": true
+    },
+    {
+      "source": "/Frank-Siringo",
+      "destination": "/team-bubbly",
+      "permanent": true
+    },
+    {
+      "source": "/TeamBubbly",
+      "destination": "/team-bubbly",
+      "permanent": true
+    },
+    {
+      "source": "/Team-Bubbly",
+      "destination": "/team-bubbly",
+      "permanent": true
+    },
+    {
+      "source": "/teambubbly",
+      "destination": "/team-bubbly",
+      "permanent": true
     }
   ],
   "headers": [
     {
-      "source": "/(the-bureau|agencyhabits|agency-outsight|surge|frank-siringo|mark-depace)",
+      "source": "/(the-bureau|agencyhabits|agency-outsight|surge|team-bubbly|mark-depace)",
       "headers": [
         {
           "key": "X-Robots-Tag",
