@@ -17,12 +17,12 @@ const CAL = 'https://cal.com/leonard-veraops/veraops-discovery';
 
 // Everything that differs between the pages lives here.
 const PAGES = [
-  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: null,                               utm: 'the-bureau', badge: 'bureau' },
-  { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits' },
-  { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight' },
-  { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge' },
-  { dir: 'team-bubbly',     name: 'Team Bubbly',     eyebrow: 'For friends of Team Bubbly',       utm: 'team-bubbly' },
-  { dir: 'mark-depace',     name: 'Mark DePace',     eyebrow: 'For friends of Mark DePace',       utm: 'mark-depace' },
+  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: null,                               utm: 'the-bureau', badge: 'bureau', rate: 'Bureau members' },
+  { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits', rate: 'Agency Habits readers' },
+  { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight', rate: 'Agency Outsight readers' },
+  { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge', rate: 'Surge clients' },
+  { dir: 'team-bubbly',     name: 'Team Bubbly',     eyebrow: 'For friends of Team Bubbly',       utm: 'team-bubbly', rate: 'Team Bubbly\u2019s network' },
+  { dir: 'mark-depace',     name: 'Mark DePace',     eyebrow: 'For friends of Mark DePace',       utm: 'mark-depace', rate: 'Mark DePace\u2019s network' },
 ];
 
 const MAIN_EYEBROW = 'For digital, creative, design and marketing agencies';
@@ -110,6 +110,18 @@ function generate(src, page) {
 .band-marquee { margin-top: 0; }
 @media (max-width: 600px) { .hero-badge img { height: 72px; } }
 </style>`);
+  }
+
+  // Network rate: these pages keep the $5,000 annual price the main site no
+  // longer offers, and the badge names who it is for so the discount reads as
+  // deliberate rather than an inconsistency.
+  if (page.rate) {
+    const mainAnnual = "annual:    { price: '$6,000', unit: '/ year',    line: 'Billed yearly',                                badge: '' },";
+    if (!s.includes(mainAnnual)) throw new Error('build-pages: annual plan line not found');
+    s = s.replace(mainAnnual,
+      "annual:    { price: '$5,000', unit: '/ year',    line: '~$417/month \\u00b7 billed yearly',              badge: 'Save $1,000 \\u00b7 " + page.rate + " only' },");
+    s = s.replace('<p>$500 monthly or $6,000 yearly. Same service on either term. No setup fee.</p>',
+      '<p>$500 monthly or $5,000 yearly &mdash; the annual rate is held for ' + page.rate + '. Same service on either term. No setup fee.</p>');
   }
 
   // These pages live one level down, so same-origin paths must be absolute.
