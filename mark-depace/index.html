@@ -231,7 +231,7 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 /* ===== HERO ===== */
 .hero {
   position: relative;
-  min-height: auto; padding-top: 132px; padding-bottom: 72px;
+  min-height: auto; padding-top: 152px; padding-bottom: 72px;
   display: flex; align-items: center; justify-content: center; text-align: center;
   background: var(--paper);
 }
@@ -242,6 +242,7 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 .hero .hero-headline { max-width: 100%; margin: 0 auto; }
 .hero-ctas { display: inline-flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 26px; }
 .hero-ctas .btn { padding-top: 10px; padding-bottom: 10px; }
+.btn-learn { font-size: 15px; padding-left: 22px; padding-right: 22px; }
 /* Scroll cue — below the buttons */
 /* Hero entrance animation */
 .hero-anim { opacity: 0; transform: translateY(20px); animation: hero-rise 0.9s cubic-bezier(0.2,0.8,0.2,1) forwards; }
@@ -994,8 +995,10 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
   background: var(--surface);
 }
 .gwin-toolbar svg {
-  width: 20px; height: 20px; flex-shrink: 0;
-  fill: #5F6368; stroke: none;
+  width: 19px; height: 19px; flex-shrink: 0;
+  fill: none; stroke: #444746; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  color: #444746;
 }
 /* Gmail groups its actions; these are the thin rules between the groups. */
 .gwin-tb-sep { width: 1px; height: 18px; background: var(--hairline); flex-shrink: 0; }
@@ -1267,6 +1270,26 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .dm-stat { border-top: 1px solid var(--hairline); }
   .dm-stat:nth-child(1), .dm-stat:nth-child(2) { border-top: none; }
 }
+
+/* Rotating word in the hero headline. The sizer reserves the widest word's
+   width so the rest of the line never shifts; the track slides one word
+   height at a time. Falls back to the first word with no JS or reduced
+   motion, and is announced once rather than on every tick. */
+.rotator {
+  position: relative; display: inline-block; vertical-align: top;
+  overflow: hidden; height: 1.18em;
+}
+/* Reserves the widest word's width so the line never reflows. */
+.rotator-sizer { visibility: hidden; display: block; height: 1.18em; line-height: 1.18em; white-space: nowrap; }
+.rotator-track {
+  position: absolute; top: 0; left: 0; right: 0; text-align: left;
+  transition: transform 520ms cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+.rotator-word { display: block; height: 1.18em; line-height: 1.18em; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .rotator-track { transition: none; transform: none !important; }
+  .rotator-word:not(:first-child) { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1301,7 +1324,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="hero-inner">
     <div class="hero-stack">
       <p class="hero-eyebrow hero-anim">For friends of Mark DePace</p>
-      <h1 class="hero-headline hero-anim">Your next project is already in your inbox.</h1>
+      <h1 class="hero-headline hero-anim">Your next <span class="rotator"><span class="rotator-sizer" aria-hidden="true">introduction</span><span class="rotator-track" id="heroRotator"><span class="rotator-word">project</span><span class="rotator-word">production</span><span class="rotator-word">partnership</span><span class="rotator-word">introduction</span></span></span> is already in your inbox.</h1>
       <p class="hero-sub hero-anim">Every day, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice, ready to send.</p>
 
       <div class="hero-anim hero-shot">
@@ -1349,6 +1372,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 
       <div class="hero-ctas hero-anim">
+        <a href="#digest" class="btn btn-ghost btn-learn">Learn more</a>
         <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=mark-depace&amp;utm_medium=landing&amp;utm_campaign=mark-depace" data-cursor="Let&rsquo;s talk" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
       </div>
       <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together, free.</p>
@@ -1445,21 +1469,20 @@ html, body { overflow-x: hidden; max-width: 100%; }
           </div>
         </div>
         <div class="gwin-toolbar">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></svg>
           <span class="gwin-tb-sep"></span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 5.2 19.2 3.6A1.4 1.4 0 0 0 18 3H6a1.4 1.4 0 0 0-1.1.6L3.5 5.2A2 2 0 0 0 3 6.5V19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.5a2 2 0 0 0-.5-1.3M6.2 5h11.6l.8 1H5.4zM5 19V8h14v11zm8-8h-2v3H8.5l3.5 3.5 3.5-3.5H13z"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22zm0 4 7.5 13h-15zm-1 5v4h2v-4zm0 5v2h2v-2z"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zm2-12h8v12H8zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/><path d="M12 12v4m0 0-2-2m2 2 2-2"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5"/><circle cx="12" cy="16" r="0.6" fill="currentColor" stroke="none"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14"/><path d="M17.5 7v11a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 18V7"/><path d="M10 7V5.5A1 1 0 0 1 11 4.5h2a1 1 0 0 1 1 1V7"/><path d="M10.5 11v5M13.5 11v5"/></svg>
           <span class="gwin-tb-sep"></span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 4-8 5-8-5V6l8 5 8-5z"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 0-9-9m0 16a7 7 0 1 1 7-7 7 7 0 0 1-7 7m.5-11H11v5l4.2 2.6.8-1.3-3.5-2.1z"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-4.2a3 3 0 0 0-5.6 0H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-7 0a1 1 0 1 1-1 1 1 1 0 0 1 1-1M5 19V5h14v14zm5.6-3.4L7.4 12.4l1.4-1.4 1.8 1.8 4.6-4.6 1.4 1.4z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6" width="14" height="11" rx="1.5"/><path d="M3.5 8l7 4.5L17.5 8"/><circle cx="19" cy="6" r="2.6" fill="currentColor" stroke="none"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8.2V12l2.6 1.8"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="12" r="7.5"/><path d="M7.8 12l2.3 2.3 4.4-4.6"/><path d="M18.5 15.5v5M16 18h5"/></svg>
           <span class="gwin-tb-sep"></span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m0 12H4V8h16zm-9-2 4-3-4-3z"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 11.6 12.4 2.6A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .6 1.4l9 9a2 2 0 0 0 2.8 0l7-7a2 2 0 0 0 0-2.8M13 20.5 4 11.5V4h7.5l9 9zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8"/></svg>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v2H3zm3 6h12v2H6zm4 6h4v2h-4z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A1.5 1.5 0 0 1 5.5 6h3.2l1.6 2h8.2A1.5 1.5 0 0 1 20 9.5v7A1.5 1.5 0 0 1 18.5 18h-13A1.5 1.5 0 0 1 4 16.5z"/><path d="M11 11l2.5 2L11 15"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5H5.5A1.5 1.5 0 0 0 4 6.5v11A1.5 1.5 0 0 0 5.5 19H13l6-7z"/><circle cx="8" cy="9" r="0.9" fill="currentColor" stroke="none"/></svg>
           <span class="gwin-tb-spacer"></span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a2 2 0 1 0-2-2 2 2 0 0 0 2 2m0 2a2 2 0 1 0 2 2 2 2 0 0 0-2-2m0 6a2 2 0 1 0 2 2 2 2 0 0 0-2-2"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="18" r="1.1" fill="currentColor" stroke="none"/></svg>
         </div>
         <div class="gwin-head">
           <div class="gwin-subject">Relationship Digest | Monday, September 21, 2026</div>
@@ -2301,6 +2324,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   }));
 })();
 
+
+// Hero headline word rotator. Cloning the first word lets the track slide
+// past the end and reset without the reader seeing a jump backwards.
+(function () {
+  const track = document.getElementById('heroRotator');
+  if (!track) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const words = Array.from(track.children);
+  if (words.length < 2) return;
+  track.appendChild(words[0].cloneNode(true));
+
+  let i = 0;
+  const HOLD = 2200;
+  const step = () => {
+    i++;
+    track.style.transform = `translateY(-${i * words[0].offsetHeight}px)`;
+    if (i === words.length) {
+      // Landed on the clone: snap back to the real first word unseen.
+      setTimeout(() => {
+        track.style.transition = 'none';
+        track.style.transform = 'translateY(0)';
+        void track.offsetHeight;
+        track.style.transition = '';
+        i = 0;
+      }, 560);
+    }
+  };
+  setInterval(step, HOLD);
+})();
 </script>
 
 <!-- ===== FOOTER ===== -->
