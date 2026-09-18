@@ -830,12 +830,9 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
    box, so a dense square and an airy wordmark read at the same visual weight. */
 .agency-logo img.lg-ghost { height: 41px; }
 .agency-logo img.lg-bubbly { height: 88px; }
-.agency-logo img.lg-bx { height: 38px; }
 .agency-logo img.lg-barrel { height: 19px; }
 .agency-logo img.lg-outsight { height: 38px; }
 .agency-logo img.lg-driver { height: 27px; }
-.agency-logo img.lg-rafferty { height: 41px; }
-.agency-logo img.lg-paper { height: 27px; }
 @media (prefers-reduced-motion: reduce) {
 .agency-track { animation: none; }
 }
@@ -844,12 +841,9 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 .agency-logo { padding: 0 20px; height: 88px; }
 .agency-logo img.lg-ghost { height: 32px; }
 .agency-logo img.lg-bubbly { height: 68px; }
-.agency-logo img.lg-bx { height: 30px; }
 .agency-logo img.lg-barrel { height: 15px; }
 .agency-logo img.lg-outsight { height: 30px; }
 .agency-logo img.lg-driver { height: 21px; }
-.agency-logo img.lg-rafferty { height: 32px; }
-.agency-logo img.lg-paper { height: 21px; }
 }
 /* ---- Privacy step graphics ---------------------------------------------
    One small diagram per step, sharing a common frame so the six steps read
@@ -1275,9 +1269,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
    swapped, so the line sets and re-flows exactly as if the word were typed
    there: no clipping box to cut a glyph, and no reserved gap after the
    shorter words. Stays on the first word without JS or with reduced motion. */
-/* Set to #F3F8EA as specified. Note this is the pale paper tone: against the
-   white hero it measures 1.08:1, so the word is effectively invisible. */
-.rotator { color: #F3F8EA; transition: opacity 180ms ease; }
+/* The brand gold from the original VeraOps palette (--spark). Soft on white
+   at 2.1:1, which is acceptable at headline size. */
+.rotator { color: #E5A83D; transition: opacity 180ms ease; }
 .rotator.is-swapping { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .rotator { transition: none; } }
 
@@ -1402,9 +1396,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
         <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
       </figure>
       <figure class="agency-logo">
-        <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
         <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
       </figure>
       <figure class="agency-logo">
@@ -1413,20 +1404,11 @@ html, body { overflow-x: hidden; max-width: 100%; }
       <figure class="agency-logo">
         <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
       </figure>
-      <figure class="agency-logo">
-        <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="Rafferty Weiss" loading="lazy">
-      </figure>
-      <figure class="agency-logo">
-        <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy">
-      </figure>
       <figure class="agency-logo" aria-hidden="true">
         <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="" loading="lazy">
       </figure>
       <figure class="agency-logo" aria-hidden="true">
         <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="" loading="lazy">
       </figure>
       <figure class="agency-logo" aria-hidden="true">
         <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="" loading="lazy">
@@ -1436,12 +1418,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
       </figure>
       <figure class="agency-logo" aria-hidden="true">
         <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="" loading="lazy">
-      </figure>
-      <figure class="agency-logo" aria-hidden="true">
-        <img class="lg-paper" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="" loading="lazy">
       </figure>
     </div>
   </div>
