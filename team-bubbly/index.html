@@ -1271,25 +1271,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .dm-stat:nth-child(1), .dm-stat:nth-child(2) { border-top: none; }
 }
 
-/* Rotating word in the hero headline. The sizer reserves the widest word's
-   width so the rest of the line never shifts; the track slides one word
-   height at a time. Falls back to the first word with no JS or reduced
-   motion, and is announced once rather than on every tick. */
-.rotator {
-  position: relative; display: inline-block; vertical-align: top;
-  overflow: hidden; height: 1.18em;
-}
-/* Reserves the widest word's width so the line never reflows. */
-.rotator-sizer { visibility: hidden; display: block; height: 1.18em; line-height: 1.18em; white-space: nowrap; }
-.rotator-track {
-  position: absolute; top: 0; left: 0; right: 0; text-align: left;
-  transition: transform 520ms cubic-bezier(0.16, 0.84, 0.44, 1);
-}
-.rotator-word { display: block; height: 1.18em; line-height: 1.18em; white-space: nowrap; }
-@media (prefers-reduced-motion: reduce) {
-  .rotator-track { transition: none; transform: none !important; }
-  .rotator-word:not(:first-child) { display: none; }
-}
+/* Rotating word in the hero headline. A plain inline span whose text is
+   swapped, so the line sets and re-flows exactly as if the word were typed
+   there: no clipping box to cut a glyph, and no reserved gap after the
+   shorter words. Stays on the first word without JS or with reduced motion. */
+.rotator { color: var(--spark); transition: opacity 180ms ease; }
+.rotator.is-swapping { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .rotator { transition: none; } }
 </style>
 </head>
 <body>
@@ -1324,7 +1312,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="hero-inner">
     <div class="hero-stack">
       <p class="hero-eyebrow hero-anim">For friends of Team Bubbly</p>
-      <h1 class="hero-headline hero-anim">Your next <span class="rotator"><span class="rotator-sizer" aria-hidden="true">introduction</span><span class="rotator-track" id="heroRotator"><span class="rotator-word">project</span><span class="rotator-word">production</span><span class="rotator-word">partnership</span><span class="rotator-word">introduction</span></span></span> is already in your inbox.</h1>
+      <h1 class="hero-headline hero-anim">Your next <span class="rotator" id="heroRotator">project</span></span> is already in your inbox.</h1>
       <p class="hero-sub hero-anim">Every day, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice, ready to send.</p>
 
       <div class="hero-anim hero-shot">
@@ -2325,34 +2313,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 })();
 
 
-// Hero headline word rotator. Cloning the first word lets the track slide
-// past the end and reset without the reader seeing a jump backwards.
+// Hero headline word rotator. Cross-fades the text of a single inline span so
+// the headline re-flows around each word naturally, rather than holding a
+// fixed slot sized to the longest one.
 (function () {
-  const track = document.getElementById('heroRotator');
-  if (!track) return;
+  const el = document.getElementById('heroRotator');
+  if (!el) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const words = Array.from(track.children);
-  if (words.length < 2) return;
-  track.appendChild(words[0].cloneNode(true));
-
+  const WORDS = ['project', 'production', 'partnership', 'introduction'];
   let i = 0;
-  const HOLD = 2200;
-  const step = () => {
-    i++;
-    track.style.transform = `translateY(-${i * words[0].offsetHeight}px)`;
-    if (i === words.length) {
-      // Landed on the clone: snap back to the real first word unseen.
-      setTimeout(() => {
-        track.style.transition = 'none';
-        track.style.transform = 'translateY(0)';
-        void track.offsetHeight;
-        track.style.transition = '';
-        i = 0;
-      }, 560);
-    }
-  };
-  setInterval(step, HOLD);
+  setInterval(() => {
+    el.classList.add('is-swapping');
+    setTimeout(() => {
+      i = (i + 1) % WORDS.length;
+      el.textContent = WORDS[i];
+      el.classList.remove('is-swapping');
+    }, 180);
+  }, 2600);
 })();
 </script>
 
