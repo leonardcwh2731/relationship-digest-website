@@ -13,7 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const CAL = 'https://cal.com/leonard-veraops/veraops-discovery';
+const CAL = 'https://cal.com/leonard-veraops/veraops-discovery-sixty';
 
 // Everything that differs between the pages lives here.
 const PAGES = [
