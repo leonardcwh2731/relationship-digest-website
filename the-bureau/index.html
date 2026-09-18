@@ -1275,7 +1275,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
    swapped, so the line sets and re-flows exactly as if the word were typed
    there: no clipping box to cut a glyph, and no reserved gap after the
    shorter words. Stays on the first word without JS or with reduced motion. */
-.rotator { color: var(--spark); transition: opacity 180ms ease; }
+/* Deep sage rather than the pale --paper green, which at 1.08:1 on white
+   would have been invisible. This holds 4.78:1 and passes AA. */
+.rotator { color: #5B7C3A; transition: opacity 180ms ease; }
 .rotator.is-swapping { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .rotator { transition: none; } }
 
