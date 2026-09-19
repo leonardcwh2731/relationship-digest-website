@@ -41,8 +41,18 @@ html, body { overflow-x: hidden; max-width: 100%; }
    bottom then reveals the footer's own colour, with nothing extra to paint. */
 /* No rubber-band at either end, so the canvas is never revealed as a band
    above the header or below the footer. */
-html { background: var(--paper); overscroll-behavior-y: none; }
-body { overscroll-behavior-y: none; }
+/* Canvas is the footer's colour, so anything exposed past the last section
+   reads as more footer rather than a white band. The fixed backstop covers
+   the bottom of the viewport for Safari on macOS, which ignores
+   overscroll-behavior on the document; it sits behind the content and adds
+   no height. */
+html { background: var(--ink); overscroll-behavior-y: none; }
+body { overscroll-behavior-y: none; background: transparent; }
+.legal-page, .legal-body { background-color: var(--paper); }
+body::after {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 55vh;
+  background: var(--ink); z-index: -1; pointer-events: none;
+}
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
 /* Keeps an overscroll at the TOP light rather than showing the dark canvas. */
 body::before {
