@@ -99,11 +99,12 @@ html, body { overflow-x: hidden; overflow-y: visible; max-width: 100%; }
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
 .nav { background-color: rgba(255,255,255,0.82); }
 .footer { position: relative; z-index: 2; }
-/* Overscroll past the bottom shows the canvas, so the canvas is dark and the
-   content above it carries the light colour. No extension element, no extra
-   height, nothing painted below the copyright line at rest. */
-html { background: var(--ink); }
-body { background: transparent; }
+/* overscroll-behavior-y: none stops the rubber-band bounce at both ends, so
+   the canvas is never revealed past the hero or the footer. The canvas stays
+   light so that a browser ignoring the property degrades toward the page
+   colour rather than a black band. */
+html { background: var(--paper); overscroll-behavior-y: none; }
+body { background: transparent; overscroll-behavior-y: none; }
 body {
   font-family: var(--font-sans);
   font-size: 16px;
