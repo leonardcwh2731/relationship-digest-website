@@ -80,7 +80,8 @@
 html { scroll-behavior: smooth; }
 /* Nothing may scroll the page sideways at any width. The marquee and the
    comparison table scroll inside their own wrappers, not the document. */
-html, body { overflow-x: hidden; overflow-y: visible; max-width: 100%; }
+html { overflow-x: hidden; }
+body { max-width: 100%; }
 /* The footer is the last thing on the page, so the page itself is dark
    underneath. Without this, the white body shows below it when the
    viewport is taller than the content or the browser overscrolls. */
@@ -699,7 +700,6 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 768px) {
 :root { --pad-v: 60px; --pad-h: 24px; }
-body { overflow-x: hidden; }
 /* Floating wide pill (~headline width): brand + hamburger */
 .nav { min-width: 0; width: calc(100vw - 24px); max-width: calc(100vw - 24px); top: 12px; }
 .nav-inner { justify-content: space-between; gap: 16px; padding: 8px 12px 8px 22px; }
@@ -1065,7 +1065,8 @@ section { padding-bottom: calc(var(--pad-v) + 40px); }
 :root { --pad-h: 16px; }
 .cmp { min-width: 560px; font-size: 13.5px; }
 .cmp th, .cmp td { padding: 12px 12px; }
-html, body { overflow-x: hidden; overflow-y: visible; max-width: 100%; }
+html { overflow-x: hidden; }
+body { max-width: 100%; }
 .container, .hero-inner { min-width: 0; }
 .hero-redesign .hero-headline { font-size: 30px; }
 .hero-redesign .hero-sub { font-size: 16.5px; }
@@ -1286,6 +1287,11 @@ html, body { overflow-x: hidden; overflow-y: visible; max-width: 100%; }
 .rotator { color: #3B5C86; transition: opacity 180ms ease; }
 .rotator.is-swapping { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .rotator { transition: none; } }
+
+/* The closing CTA sets on two fixed lines: "Your next <word>" above, and
+   "is one relationship away." below. Only the word changes as it rotates,
+   so the second line never reflows or shifts. */
+.cta-line { display: block; }
 </style>
 </head>
 <body>
@@ -2057,7 +2063,7 @@ html, body { overflow-x: hidden; overflow-y: visible; max-width: 100%; }
 <!-- ===== 13. FINAL CTA ===== -->
 <section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
   <div class="container">
-    <h2 class="cta-headline" style="text-align:center;">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span> is one relationship away.</h2>
+    <h2 class="cta-headline" style="text-align:center;"><span class="cta-line">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span></span><span class="cta-line">is one relationship away.</span></h2>
     <p class="subtitle" style="text-align:center;">Book a call. We&rsquo;ll build your first digest with you, free.</p>
     <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
       <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=mark-depace&amp;utm_medium=landing&amp;utm_campaign=mark-depace" data-cursor="Let&rsquo;s talk" class="btn btn-sage-xl">Book a call &rarr;</a>
