@@ -91,14 +91,17 @@ html, body { overflow-x: hidden; max-width: 100%; }
 /* The footer is the last thing on the page, so the canvas behind everything
    is dark and the content carries the light colour. Overscrolling past the
    bottom then reveals the footer's own colour, with nothing extra to paint. */
-html { background: var(--ink); }
+/* The page is light and ends on the dark footer. Painting the canvas light
+   and letting the footer extend its own colour downward means an overscroll
+   at either end shows that end's colour, with no fixed layer that could
+   surface as dead space when the window is taller than the content. */
+html { background: var(--paper); }
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
-/* Keeps an overscroll at the TOP light rather than showing the dark canvas. */
-body::before {
-  content: ""; position: fixed; left: 0; right: 0; top: 0; height: 50vh;
-  background: var(--paper); z-index: -1; pointer-events: none;
-}
 .footer { position: relative; z-index: 2; }
+.footer::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 60vh;
+  background: var(--ink); pointer-events: none;
+}
 body {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -1314,7 +1317,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   <div class="hero-inner">
     <div class="hero-stack">
       <p class="hero-eyebrow hero-anim">For digital, creative, design and marketing agencies</p>
-      <h1 class="hero-headline hero-anim">Your next <span class="rotator" id="heroRotator">project</span> is already in your inbox.</h1>
+      <h1 class="hero-headline hero-anim">Your next <span class="rotator" data-rotate="project,production,partnership,introduction">project</span> is already in your inbox.</h1>
       <p class="hero-sub hero-anim">Every day, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice, ready to send.</p>
 
       <div class="hero-anim hero-shot">
@@ -2051,7 +2054,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <!-- ===== 13. FINAL CTA ===== -->
 <section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
   <div class="container">
-    <h2 class="cta-headline" style="text-align:center;">Your next client might be someone you already know.</h2>
+    <h2 class="cta-headline" style="text-align:center;">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span> might be someone you already know.</h2>
     <p class="subtitle" style="text-align:center;">Book a call. We&rsquo;ll build your first digest with you, free.</p>
     <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
       <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty" data-cursor="Let&rsquo;s talk" class="btn btn-sage-xl">Book a call &rarr;</a>
@@ -2301,24 +2304,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 })();
 
 
-// Hero headline word rotator. Cross-fades the text of a single inline span so
-// the headline re-flows around each word naturally, rather than holding a
-// fixed slot sized to the longest one.
+// Word rotator. Any .rotator[data-rotate] cross-fades through its comma-
+// separated words, so the line re-flows around each one naturally rather
+// than holding a slot sized to the longest. Each instance keeps its own
+// timer and starts on the word already in the markup, which is what shows
+// without JS or with reduced motion.
 (function () {
-  const el = document.getElementById('heroRotator');
-  if (!el) return;
+  const nodes = document.querySelectorAll('.rotator[data-rotate]');
+  if (!nodes.length) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const WORDS = ['project', 'production', 'partnership', 'introduction'];
-  let i = 0;
-  setInterval(() => {
-    el.classList.add('is-swapping');
-    setTimeout(() => {
-      i = (i + 1) % WORDS.length;
-      el.textContent = WORDS[i];
-      el.classList.remove('is-swapping');
-    }, 180);
-  }, 2600);
+  nodes.forEach(el => {
+    const words = el.dataset.rotate.split(',').map(w => w.trim()).filter(Boolean);
+    if (words.length < 2) return;
+    let i = Math.max(0, words.indexOf(el.textContent.trim()));
+    setInterval(() => {
+      el.classList.add('is-swapping');
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.classList.remove('is-swapping');
+      }, 180);
+    }, 2600);
+  });
 })();
 </script>
 
