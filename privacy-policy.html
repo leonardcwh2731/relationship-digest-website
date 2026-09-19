@@ -39,7 +39,10 @@ html, body { overflow-x: hidden; max-width: 100%; }
 /* The footer is the last thing on the page, so the canvas behind everything
    is dark and the content carries the light colour. Overscrolling past the
    bottom then reveals the footer's own colour, with nothing extra to paint. */
-html { background: var(--ink); }
+/* No rubber-band at either end, so the canvas is never revealed as a band
+   above the header or below the footer. */
+html { background: var(--paper); overscroll-behavior-y: none; }
+body { overscroll-behavior-y: none; }
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
 /* Keeps an overscroll at the TOP light rather than showing the dark canvas. */
 body::before {
