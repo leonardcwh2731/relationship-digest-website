@@ -78,34 +78,38 @@
   --radius: 8px;
 }
 html { scroll-behavior: smooth; }
-/* Nothing may scroll the page sideways at any width. The marquee and the
-   comparison table scroll inside their own wrappers, not the document. */
-html { overflow-x: hidden; }
-body { max-width: 100%; }
-/* The footer is the last thing on the page, so the page itself is dark
-   underneath. Without this, the white body shows below it when the
-   viewport is taller than the content or the browser overscrolls. */
-/* Overscroll should show the colour of whichever end you pull past: white
-   above the hero, dark below the footer. A body background would propagate
-   to the whole canvas and repaint below the footer, so the light colour
-   sits on the content, html paints the top, and the footer extends itself
-   downward with a box-shadow that only ever shows on overscroll. */
-/* The footer is the last thing on the page, so the canvas behind everything
-   is dark and the content carries the light colour. Overscrolling past the
-   bottom then reveals the footer's own colour, with nothing extra to paint. */
-/* The page is light and ends on the dark footer. Painting the canvas light
-   and letting the footer extend its own colour downward means an overscroll
-   at either end shows that end's colour, with no fixed layer that could
-   surface as dead space when the window is taller than the content. */
+
+/* Page scrolling and canvas colour, in one place.
+   - The document is the only scroller: overflow-x sits on html alone, since
+     the same declaration on body makes body a scroll container too and the
+     page ends up with two scrollbars.
+   - overscroll-behavior-y: none removes the rubber-band at both ends.
+   - The canvas is the footer's colour, so if any gap is ever exposed below
+     the last section it reads as more footer, never a white band. The light
+     page colour is carried by the content itself. */
+html {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  background: var(--ink);
+}
+body {
+  max-width: 100%;
+  overscroll-behavior-y: none;
+  background: transparent;
+}
 .hero, section, .legal-page, .legal-body { background-color: var(--paper); }
 .nav { background-color: rgba(255,255,255,0.82); }
 .footer { position: relative; z-index: 2; }
-/* overscroll-behavior-y: none stops the rubber-band bounce at both ends, so
-   the canvas is never revealed past the hero or the footer. The canvas stays
-   light so that a browser ignoring the property degrades toward the page
-   colour rather than a black band. */
-html { background: var(--paper); overscroll-behavior-y: none; }
-body { background: transparent; overscroll-behavior-y: none; }
+/* Safari on macOS ignores overscroll-behavior on the document, so a hard
+   flick still rubber-bands. This fixed layer sits behind everything in the
+   footer's colour, below the fold, so whatever a bounce exposes at the
+   bottom is dark. It is behind the content (z-index -1) and adds no height,
+   so it never affects layout or scrolling. */
+body::after {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 55vh;
+  background: var(--ink); z-index: -1; pointer-events: none;
+}
+
 body {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -2063,7 +2067,7 @@ body { max-width: 100%; }
 <!-- ===== 13. FINAL CTA ===== -->
 <section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
   <div class="container">
-    <h2 class="cta-headline" style="text-align:center;"><span class="cta-line">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span></span><span class="cta-line">is one relationship away.</span></h2>
+    <h2 class="cta-headline" style="text-align:center;"><span class="cta-line">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span> is</span><span class="cta-line">one relationship away.</span></h2>
     <p class="subtitle" style="text-align:center;">Book a call. We&rsquo;ll build your first digest with you, free.</p>
     <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
       <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=team-bubbly&amp;utm_medium=landing&amp;utm_campaign=team-bubbly" data-cursor="Let&rsquo;s talk" class="btn btn-sage-xl">Book a call &rarr;</a>
