@@ -62,11 +62,56 @@
       "source": "/teambubbly",
       "destination": "/team-bubbly",
       "permanent": true
+    },
+    {
+      "source": "/Sharon-Toerek",
+      "destination": "/sharon-toerek",
+      "permanent": true
+    },
+    {
+      "source": "/sharontoerek",
+      "destination": "/sharon-toerek",
+      "permanent": true
+    },
+    {
+      "source": "/toerek-law",
+      "destination": "/sharon-toerek",
+      "permanent": true
+    },
+    {
+      "source": "/toereklaw",
+      "destination": "/sharon-toerek",
+      "permanent": true
+    },
+    {
+      "source": "/Drew-McLellan",
+      "destination": "/drew-mclellan",
+      "permanent": true
+    },
+    {
+      "source": "/drewmclellan",
+      "destination": "/drew-mclellan",
+      "permanent": true
+    },
+    {
+      "source": "/ami",
+      "destination": "/drew-mclellan",
+      "permanent": true
+    },
+    {
+      "source": "/AMI",
+      "destination": "/drew-mclellan",
+      "permanent": true
+    },
+    {
+      "source": "/agency-management-institute",
+      "destination": "/drew-mclellan",
+      "permanent": true
     }
   ],
   "headers": [
     {
-      "source": "/(the-bureau|agencyhabits|agency-outsight|surge|team-bubbly|mark-depace)",
+      "source": "/(the-bureau|agencyhabits|agency-outsight|surge|team-bubbly|mark-depace|sharon-toerek|drew-mclellan)",
       "headers": [
         {
           "key": "X-Robots-Tag",

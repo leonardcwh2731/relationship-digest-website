@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeraOps &middot; Sharon Toerek</title>
+<meta name="description" content="VeraOps for Sharon Toerek. Every day we send three past relationships worth reconnecting with, plus the context and an email ready to send.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  // Reveal animations are opt-in: without JS (or with reduced motion) the page
+  // renders fully visible rather than blank.
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.className += ' js-on';
+  }
+</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  /* === Design System tokens (paper-and-ink) === */
+  --paper:        #FFFFFF;
+  --paper-2:      #F6F6F4;
+  --surface:      #FFFFFF;
+  --surface-ink:  #FAFAF8;
+  --ink:          #202124;
+  --ink-2:        #3C4043;
+  --ink-3:        #5F6368;
+  --ink-4:        #9AA0A6;
+  --hairline:     #E4E6E9;
+  --hairline-2:   #D2D5D9;
+  --spark:        #1A73E8;
+  --spark-deep:   #1557B0;
+  --spark-soft:   #A8C7FA;
+  --spark-paper:  #E8F0FE;
+
+  /* === Legacy variable names remapped to design system === */
+  --black: var(--ink);
+  --white: var(--surface);
+  --sage: var(--paper-2);              /* pills, badges, sunken stripes */
+  --muted: var(--ink-3);
+  --olive-deep: var(--ink);            /* primary CTAs become ink, not olive */
+  --digest-bg: #1A1A1A;                /* dark section now true ink */
+  --hover-dark: var(--ink-2);
+  --sage-mid: var(--hairline-2);
+  --sage-gradient: var(--surface-ink);
+  --sage-gradient-light: var(--surface-ink);
+  --scan-line: var(--hairline-2);
+  --card-border: var(--hairline);
+  --card-border-green: var(--hairline);
+  --text-dark: var(--ink);
+  --text-mid: var(--ink-2);
+  --text-soft: var(--ink-3);
+
+  /* Type families */
+  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans:    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Type scale — mirrors the product email: one sans, few sizes, clear
+     label/value hierarchy. Steps are ~1.25x apart. */
+  --fs-hero:    clamp(34px, 3.4vw, 46px);
+  --fs-h2:      clamp(27px, 2.8vw, 34px);
+  --fs-h3:      17px;
+  --fs-lead:    17.5px;   /* section subtitles */
+  --fs-body:    15.5px;   /* PRD asks 17-18px for body; cards sit a step down */
+  --fs-small:   13.5px;
+  --fs-label:   11.5px;   /* uppercase eyebrows, as in the digest */
+  --lh-tight:   1.18;
+  --lh-body:    1.62;
+  --track-label: 0.08em;
+
+  --max-w: 1200px;
+  --pad-v: 92px;
+  --pad-h: 32px;
+  --radius: 8px;
+}
+html { scroll-behavior: smooth; }
+
+/* Page scrolling and canvas colour, in one place.
+   - The document is the only scroller: overflow-x sits on html alone, since
+     the same declaration on body makes body a scroll container too and the
+     page ends up with two scrollbars.
+   - overscroll-behavior-y: none removes the rubber-band at both ends.
+   - The canvas is the footer's colour, so if any gap is ever exposed below
+     the last section it reads as more footer, never a white band. The light
+     page colour is carried by the content itself. */
+html {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  background: var(--ink);
+}
+body {
+  max-width: 100%;
+  overscroll-behavior-y: none;
+  background: transparent;
+}
+.hero, section, .legal-page, .legal-body { background-color: var(--paper); }
+.nav { background-color: rgba(255,255,255,0.82); }
+.footer { position: relative; z-index: 2; }
+/* Safari on macOS ignores overscroll-behavior on the document, so a hard
+   flick still rubber-bands. This fixed layer sits behind everything in the
+   footer's colour, below the fold, so whatever a bounce exposes at the
+   bottom is dark. It is behind the content (z-index -1) and adds no height,
+   so it never affects layout or scrolling. */
+body::after {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 55vh;
+  background: var(--ink); z-index: -1; pointer-events: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+/* Scroll Progress */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--olive-deep); z-index: 200; width: 0%;
+  transition: width 50ms linear;
+}
+/* Editorial pull-quote — oversized serif statement between sections */
+.pullquote .container { max-width: 980px; }
+/* Paper grain overlay — fixed, never intercepts clicks, sits above paper but below content */
+.grain-overlay {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.85; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+@media (prefers-reduced-motion: reduce) {
+.grain-overlay { opacity: 0.7; }
+}
+/* Container */
+.container {
+  width: 100%; max-width: var(--max-w);
+  margin: 0 auto; padding: 0 var(--pad-h);
+}
+/* Navigation */
+.nav {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100;
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border: 1px solid rgba(228, 230, 233, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 6px 22px -10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 200ms ease, background 200ms ease;
+}
+.nav.scrolled { box-shadow: 0 10px 32px -8px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.05); }
+.nav-inner {
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 8px 8px 8px 24px;
+}
+.nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em;
+}
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-2); transition: color 150ms ease; white-space: nowrap; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { padding: 10px 18px; font-size: 13px; gap: 6px; }
+.nav-cta .arrow { transition: transform 150ms ease; }
+.nav-cta:hover .arrow { transform: translateX(2px); }
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; cursor: pointer; font-family: var(--font-sans);
+  font-weight: 500; border-radius: 999px;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease;
+  position: relative; overflow: hidden;
+  letter-spacing: 0.01em;
+}
+.btn:active { transform: scale(0.985); }
+.btn-sage { background: var(--ink); color: var(--paper); padding: 10px 22px; font-size: 14px; }
+.btn-sage:hover { background: var(--ink-2); color: var(--paper); }
+.btn-sage-lg { background: var(--ink); color: var(--paper); padding: 10px 24px; font-size: 15px; }
+.btn-sage-lg:hover { background: var(--ink-2); }
+.btn-sage-xl { background: var(--ink); color: var(--paper); padding: 10px 24px; font-size: 15px; }
+.btn-sage-xl:hover { background: var(--ink-2); }
+.btn-ghost { background: transparent; border: 1px solid var(--ink); color: var(--ink); padding: 10px 24px; font-size: 15px; }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn-light { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); padding: 10px 24px; font-size: 15px; }
+.btn-light:hover { background: var(--ink); color: var(--paper); }
+.btn .ripple {
+  position: absolute; border-radius: 50%; background: rgba(255,255,255,0.3);
+  transform: scale(0); animation: ripple-anim 600ms ease forwards; pointer-events: none;
+}
+@keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+/* Section Label / Eyebrow */
+/* Typography */
+.hero-headline {
+  font-family: var(--font-display);
+  /* Sized to hold "Your next project is already in your inbox." on one line
+     from ~1120px up; below that the phone rule lets it wrap. */
+  font-size: clamp(28px, 3.9vw, 52px); font-weight: 600;
+  line-height: 1.1; letter-spacing: -0.024em; color: var(--ink);
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+.hero-headline em { color: inherit; font-style: normal; font-weight: 600; }
+.section-headline {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2); font-weight: 600;
+  line-height: var(--lh-tight); letter-spacing: -0.021em; color: var(--ink);
+  text-wrap: balance;
+}
+.section-headline em { color: var(--spark-deep); font-style: italic; }
+.cta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.2vw, 48px); font-weight: 500;
+  line-height: 1.1; letter-spacing: -0.025em; color: var(--ink);
+  text-wrap: balance;
+}
+.cta-headline em { color: var(--spark-deep); font-style: italic; }
+.subtitle { font-size: var(--fs-lead); line-height: 1.58; color: var(--ink-3); text-wrap: pretty; }
+/* Sections — paper-and-ink. Sections are separated by hairlines, not blocks. */
+.section-white { background: var(--paper); padding: var(--pad-v) 0; position: relative; }
+.section-sage { background: var(--paper); padding: var(--pad-v) 0; position: relative; border-top: 1px solid var(--hairline); }
+section + section { border-top: 1px solid var(--hairline); }
+section.hero + section { border-top: 0; }
+/* Section blend transitions — disabled in design system; sections separated by hairlines */
+/* Cards */
+/* Utility */
+/* Animations */
+.fade-in { opacity: 1; transform: none; }
+html.js-on .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 300ms ease, transform 300ms ease; }
+html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: auto; padding-top: 152px; padding-bottom: 72px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: var(--paper);
+}
+.hero-inner { max-width: 1400px; margin: 0 auto; padding: 0 var(--pad-h); width: 100%; position: relative; z-index: 1; }
+/* Subtle networking background — two clusters branching into each other.
+   Kept very faint and faded toward the center so it never competes with the copy. */
+/* Eyebrow pill (design-system) */
+.hero .hero-headline { max-width: 100%; margin: 0 auto; }
+.hero-ctas { display: inline-flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; margin-top: 26px; }
+.hero-ctas .btn { padding-top: 10px; padding-bottom: 10px; }
+.btn-learn { font-size: 15px; padding-left: 22px; padding-right: 22px; }
+/* Scroll cue — below the buttons */
+/* Hero entrance animation */
+.hero-anim { opacity: 0; transform: translateY(20px); animation: hero-rise 0.9s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+.hero-anim:nth-child(1) { animation-delay: 0.05s; }
+.hero-anim:nth-child(2) { animation-delay: 0.15s; }
+.hero-anim:nth-child(3) { animation-delay: 0.25s; }
+.hero-anim:nth-child(4) { animation-delay: 0.35s; }
+.hero-anim:nth-child(5) { animation-delay: 0.45s; }
+@keyframes hero-rise { to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+.hero-anim { animation: none; opacity: 1; transform: none; }
+}
+/* Hero sub */
+.hero-sub {
+  margin: 0 auto 32px;
+  font-size: 18px; color: var(--ink-2); line-height: 1.55;
+  /* Wide enough to hold the sub on ONE line at desktop widths — the 60ch
+     cap broke it across two. Narrow viewports still wrap (see the media
+     query), since a 106-character line cannot fit a phone. */
+  max-width: 115ch;
+}
+/* Custom cursor (hover-capable pointers only) */
+@media (hover: none) {
+/* Auto-scrolling strips pause on :hover, which touch can never trigger —
+     content would scroll away unstoppably. Swap the animation for native swipe. */
+/* The fade masks imply more content off-screen; with real scrolling they mislead. */
+}
+.highlight-mark.active {
+  background-size: 100% 100%;
+}
+/* Hero Visual */
+/* Problem */
+/* Symptom sections — a numbered diagnosis of the core problem */
+/* DOM order is always copy then visual. Non-reverse: copy in the narrow
+   first track, visual in the wide second track. Reverse: flip the track
+   widths AND use order so the visual lands on the left in the wide track.
+   Every visual renders at the same (wider) width. */
+/* Step bullet list (Strategy / Service) */
+/* Symptom visual — a small paper card illustrating the failure */
+/* Buried inbox — stacked pile illustration */
+/* Ad-hoc — sawtooth effort line */
+/* No proper process — a messy manual tracker nobody can read */
+.tk-cell.yes { color: #6E9E5A; }
+.tk-cell.no { color: var(--ink-4); }
+/* The Alternative — Claude vs. VeraOps, three amplified problems */
+/* === Compare / Anchoring === */
+/* Ours is the only card with a surface and a frame; the alternatives sit
+   plain on the section ground so the eye lands on the first column. */
+/* ⚠️ ALL THREE CARDS CARRY THE SAME PADDING so their CONTENT boxes match.
+   Only the first had an inset before, which left its text column 297px wide
+   against 347px for the other two — the copy wrapped earlier and the card
+   read visibly narrower even though the grid columns were identical.
+   The surface (background + border) is what distinguishes ours, not its
+   width. The left edge still lines up with the section heading because the
+   grid column starts there and the padding is inside it. */
+/* Fixed height so the four label rows below start on ONE baseline across all
+   three columns — the term lines differ in length and would otherwise push
+   each column's rows to a different height. */
+/* Label/value pairs. The labels align across all three columns because every
+   card carries the same four rows in the same order. */
+@media (max-width: 1050px) {
+/* Stacked, the negative margin that lets our card bleed past the grid
+     gutter would drag it off the left edge, so it is cancelled here. */
+}
+/* Bridge into the solution */
+@media (max-width: 860px) {
+/* Stacked on mobile — let the Service bullets sit naturally, not stretched. */
+/* ID selector to beat the two-column rule on #step-service .symptom-layout. */
+/* Card no longer stretches to match the copy column once stacked. */
+/* On mobile the visuals stack below the copy — drop the fixed equal-height
+     so wrapped content is never clipped. */
+}
+/* ===== HOW IT WORKS — three-pillar (Strategy / Service / Technology) ===== */
+/* Strategy dashboard visual */
+/* Service visual v4 — one connected pipeline card, three stages */
+/* Stretch the copy column to the graphic's height and distribute the three
+   bullets so each lines up with its matching stage in the card. */
+@media (max-width: 720px) {
+#step-service .section-headline { white-space: normal !important; }
+}
+/* Card stretches to the bullet column's height (see align-items: stretch above) */
+/* Stages share the card height evenly so content breathes instead of stacking at the top */
+/* Vertical thread connecting the three stages */
+/* Stage 1 — pool of dots → tier bars */
+/* Stage 2 — a custom signal is a group of conditions that must all tick */
+/* Technology — Digest | Snapshot toggle (scoped, separate from global .track-tab) */
+.tech-toggle-btn.active { background: var(--ink); color: var(--paper); }
+.tech-view.active { display: block; }
+/* Solution */
+/* Clickable solution cards → jump to their step section */
+/* Steps */
+/* Signals */
+/* Digest Spotlight Layout — wider center mockup, narrower equal side annotations */
+/* Connector lines from annotations to digest */
+/* Annotations are absolutely positioned so each connector lands on the MIDDLE
+   of its target section's vertical line without cascading into its siblings.
+   ⚠️ These offsets are MEASURED against the rendered page, never guessed — any
+   structural change to a card drags them off and they must be recomputed. */
+/* #2 → Connection Details */
+/* #4 → Last Email Thread */
+/* #8 → Why Reach Out Today */
+/* #10 → Send Email buttons */
+/* #1 → Outreach Momentum */
+/* #3 → Quick Refresher */
+/* #5 → Shared History */
+/* #9 → Suggested Email */
+/* #6 and #7 carry no overrides: like #9 and every other connector they use the
+   base 28px rule, which runs from the number badge to the white mockup's edge
+   and stops there. Earlier attempts to lengthen them (to reach the rules inside
+   the signals box) or to drop #7 lower both broke that shared alignment. */
+/* ===== Snapshot Spotlight — same annotated layout as the Digest ===== */
+/* Snapshot mockup sections — one contact each */
+.digest-full-mockup .recap-sec-head {
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--card-border);
+}
+.digest-full-mockup .recap-good { color: var(--olive-deep); }
+/* Vertical borders on snapshot sections — lines connect here */
+@media (max-width: 900px) {
+#digest-sec-contact, #digest-sec-refresher, #digest-sec-thread, #digest-sec-angle, #digest-sec-draft, #digest-sec-actions { border: none; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
+}
+/* Digest Deep-Dive (legacy) */
+.digest-full-mockup {
+  background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 36px 32px;
+  font-size: 14px; line-height: 1.6; box-shadow: 0 12px 36px -16px rgba(0,0,0,0.18); color: var(--ink);
+}
+.digest-full-mockup h2 { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 6px; color: var(--black); }
+/* === Your Momentum panel === */
+/* Green delta under each figure. Stats with no change keep an empty row so
+   every caption still sits on the same baseline. */
+.digest-full-section { margin-bottom: 16px; }
+.digest-full-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 9px; }
+.digest-full-contact { font-weight: 700; font-size: 16px; margin-bottom: 5px; color: var(--ink); letter-spacing: -0.01em; }
+.digest-full-tier { display: flex; gap: 8px; font-size: 11px; color: var(--muted); margin-bottom: 16px; }
+.digest-full-refresher { font-size: 14px; color: var(--ink-2); line-height: 1.7; margin-bottom: 16px; }
+.digest-full-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.digest-full-pill { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; background: var(--sage); color: var(--olive-deep); }
+.digest-full-post { font-size: 13px; margin-bottom: 8px; color: var(--text-mid); }
+.digest-full-post .post-date { font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 600; margin-right: 8px; }
+.digest-full-post a { color: var(--olive-deep); text-decoration: underline; }
+.digest-full-why { font-size: 13px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; }
+.digest-full-email-box { background: #FAFAFA; border: 1px solid var(--card-border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.digest-full-email-subject { font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark); }
+.digest-full-email-body { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+.digest-full-email-body p { margin-bottom: 10px; }
+.digest-thread-meta { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+.digest-thread-link {
+  display: inline-flex; align-items: center; font-size: 12px; font-weight: 600;
+  color: var(--olive-deep); text-decoration: none;
+  border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 14px;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.digest-thread-link:hover { background: var(--sage); border-color: var(--olive-deep); }
+/* Digest keeps its actions centred; the snapshot contact list reads as a column
+   of records, so those align left. */
+.digest-full-actions { display: flex; gap: 10px; justify-content: center; }
+[data-techview="recap"] .digest-full-actions { justify-content: flex-start; }
+.digest-full-btn { flex: 0 0 auto; padding: 9px 20px; border-radius: var(--radius); font-size: 12.5px; font-weight: 700; text-align: center; border: none; cursor: pointer; white-space: nowrap; }
+.digest-full-btn-dark { background: var(--black); color: var(--white); }
+.digest-full-btn-outline { background: var(--white); color: var(--black); border: 1.5px solid var(--black); }
+/* --- Signals box (digest v1.7 / v1.8) ---
+   The live activity feed and the company news tracker sit inside ONE
+   container. The box is what visually separates the signals from the
+   narrative above them, which is why v1.7 cut the "Signals analysis"
+   read-out that used to head it but deliberately KEPT the box.
+   Email renders it as #f7f9fc on #e7ebf0; on the site the sage tokens are
+   the equivalent step off the card ground. */
+/* The box insets its children by 16px padding + 1px border, which pushed these
+   two sections' connector rules 17px further in than every other section's —
+   so #6 and #7 pointed at a rule sitting inside the green panel while #5 and
+   #2 met theirs out in the gutter. Pull the rules back out by that 17px so all
+   of them share one vertical line. */
+/* The two feeds are separated by spacing alone. There WAS a border-top here,
+   but now that the news rule is pulled out to the shared vertical line, that
+   divider met the top of it and read as a stray horizontal tick beside the
+   rule. The 16px margin + padding still keeps the feeds apart. */
+/* Blinking cursor in the mailto preview: the body is deliberately left
+   mid-sentence ("… is a bad contact because ") so the client's cursor lands
+   exactly where they type their reason. */
+@keyframes digestCaret { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+/* --- After-action hover previews: the confirmation page each button leads to --- */
+/* Lift the hovered item above sibling sections/annotations so its popup is never covered */
+/* ===== Snapshot v2 — annotated report with stats, flow, banners ===== */
+/* Snapshot annotations: each connector lands on the MIDDLE of its coloured
+   band header. The tops are NOT hardcoded here — the mockup changes height as
+   the header cycles week → month → quarter, so fixed pixels drifted off their
+   bands. They are measured and set from JS (see "Snapshot annotations" near the
+   cycler); these are only first-paint estimates, overwritten on the first frame. */
+/* 1 → Meetings */
+/* 3 → Followed Up Twice */
+/* 2 → Replied */
+/* 4 → Followed Up Once */
+/* Snapshot header cycler — week → month → quarter, rolling upward */
+/* Snapshot bands carry a vertical accent line where the annotation connector lands,
+   mirroring the digest's per-section border lines. */
+/* Snapshot is a static mockup — nothing inside it should be clickable. */
+/* Stats + Sankey swap in sync with the header cycler.
+   Slides are stacked; the active one is in flow, others are hidden. */
+/* Statistics summary card + flow */
+/* ===== SNAPSHOT: analysis, statistics summary, funnel =====
+   Three blocks in the order the real email sends them:
+   1. the verdict the period earned, 2. the numbers behind it, 3. the funnel. */
+/* --- 1. Snapshot analysis --- */
+/* Segmented bar: met / replied / still open, summing to the period's cohort. */
+/* --- 2. Statistics summary: two columns, three rows --- */
+/* One white card divided by its own gaps — the 1px background showing through
+   is what draws the grid lines, so the cells cannot drift apart. */
+/* The rates sit side by side when a tile carries two, which is what makes the
+   bottom row read as a pair of measures rather than one wrapped sentence. */
+/* A tile is ~150px wide inside the two-column grid, which will not hold two
+   percentage columns side by side — they wrapped into a ragged block. So each
+   rate is ONE line, "33.3% of reached out", and a tile with two measures shows
+   them as two tidy rows. */
+/* --- 3. Reconnection funnel ---
+   The Sankey was RETIRED 2026-07-24. This SVG is the REAL chart, generated by
+   utils.recap_funnel_chart.funnel_svg() in the backend repo — the funnel, the
+   reply-attribution strip and the fan-out, exactly what the email sends. It is
+   pasted in rather than redrawn, so it cannot drift from the product. */
+/* The SVG keeps its own viewBox aspect; width:100% scales it to the column. */
+@media (max-width: 620px) {
+/* No bleed on a phone — the mockup's padding is already tight, and pulling
+     out here pushed the page 4px past the viewport. */
+}
+/* Jump to a section */
+/* Section banners */
+/* Entry blocks */
+.recap-entry .digest-full-contact { font-size: 15px; margin-bottom: 0; }
+/* After-actions sub-groups */
+.recap-status-line.danger { color: #C0392B; }
+@media (max-width: 560px) {
+/* box-sizing so the horizontal padding is drawn INSIDE the card's width —
+     without it the mockup rendered 398px wide in a 390px viewport. */
+}
+/* Sticky callouts */
+/* Snapshot */
+/* Snapshot mockup (Weekly + Monthly) — modeled after the real snapshot email */
+/* Sticky snapshot details */
+/* Voice Matching */
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+/* Draft Builder — pill cloud layout */
+/* Pulse glow on center */
+/* Traveling particles canvas */
+/* Outcome Tracking */
+/* Audit & Referral Bonus Boxes */
+/* Audit Preview Overlay */
+.audit-overlay.active { display: flex; }
+/* Referral deliverables */
+/* Pricing */
+/* Segmented pill toggle: Quarter | Annual */
+.pricing-toggle {
+  display: inline-flex; gap: 4px; margin: 40px auto 0;
+  background: var(--surface-ink, #EFEFEF); border: 1px solid var(--hairline);
+  border-radius: 999px; padding: 5px;
+}
+.pricing-toggle-btn {
+  border: 0; cursor: pointer; background: transparent;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+  color: var(--ink-3); padding: 10px 22px; border-radius: 999px;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
+}
+.pricing-toggle-btn:hover { color: var(--ink); }
+.pricing-toggle-btn.active {
+  background: var(--white); color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.pricing-card {
+  border: 1.5px solid var(--card-border); border-radius: var(--radius); padding: 40px 32px;
+  background: var(--white); text-align: center; transition: box-shadow 200ms ease, transform 200ms ease;
+  position: relative; display: flex; flex-direction: column;
+}
+.pricing-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.pricing-card.featured { border-color: var(--olive-deep); background: var(--digest-bg); color: var(--white); }
+.pricing-card.featured::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--sage-mid), var(--olive-deep), var(--sage-mid));
+  background-size: 200% 100%; animation: shimmer 3s linear infinite;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.pricing-amount { font-family: var(--font-display); font-size: clamp(34px, 4vw, 46px); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.pricing-card.featured .pricing-original { color: rgba(255,255,255,0.5); }
+.pricing-card.featured .pricing-trial-sub { color: rgba(255,255,255,0.7); }
+.pricing-card.featured .pricing-period { color: rgba(255,255,255,0.6); }
+.pricing-features { text-align: left; list-style: none; margin-bottom: 28px; flex: 1; }
+.pricing-features li { font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; align-items: flex-start; gap: 10px; }
+.pricing-card.featured .pricing-features li { border-bottom-color: rgba(255,255,255,0.08); }
+.pricing-check { color: var(--olive-deep); font-weight: 700; min-width: 18px; }
+.pricing-card.featured .pricing-check { color: var(--sage-mid); }
+.pricing-features li.bonus { font-weight: 600; }
+.pricing-features li.excluded { opacity: 0.5; }
+.pricing-card:not(.featured) .pricing-guarantee { color: var(--ink-3); }
+/* Guarantee Section */
+.guarantee-section .section-headline { margin-bottom: 24px; }
+/* FAQ */
+.faq-list {
+  max-width: 780px; margin: 40px auto 0;
+  background: var(--white); border: 1.5px solid var(--card-border); border-radius: 12px;
+  box-shadow: 4px 4px 20px rgba(0,0,0,0.06); overflow: hidden;
+}
+.faq-item + .faq-item { border-top: 1px solid var(--card-border); }
+.faq-question {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 16px;
+  padding: 22px 28px; text-align: left; font-family: inherit;
+  user-select: none; transition: background 200ms ease;
+}
+.faq-question:hover { background: rgba(0,0,0,0.02); }
+.faq-num {
+  font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--muted); min-width: 22px;
+  transition: color 200ms ease;
+}
+.faq-q-text {
+  flex: 1; font-size: 16px; font-weight: 600; color: var(--text-dark);
+  letter-spacing: -0.01em; line-height: 1.45; transition: color 200ms ease;
+}
+.faq-item.open .faq-num, .faq-item.open .faq-q-text { color: var(--olive-deep); }
+/* Plus / minus drawn in CSS so it animates with the row. */
+.faq-toggle { position: relative; width: 14px; height: 14px; min-width: 14px; flex-shrink: 0; }
+.faq-toggle::before, .faq-toggle::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  background: var(--olive-deep); border-radius: 1px;
+  transform: translate(-50%, -50%);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.faq-toggle::before { width: 14px; height: 2px; }
+.faq-toggle::after { width: 2px; height: 14px; }
+.faq-item.open .faq-toggle::after { opacity: 0; transform: translate(-50%, -50%) rotate(90deg); }
+/* Grid-rows animates to auto height — no max-height guess to outgrow. */
+.faq-answer {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-item.open .faq-answer { grid-template-rows: 1fr; }
+.faq-answer > .faq-answer-inner { overflow: hidden; min-height: 0; }
+.faq-answer-inner {
+  padding: 0 28px 0 66px;
+  opacity: 0; transition: opacity 200ms ease;
+}
+.faq-item.open .faq-answer-inner { opacity: 1; padding-bottom: 26px; }
+.faq-answer-inner p {
+  font-size: 14px; color: var(--text-mid); line-height: 1.75; margin: 0;
+  max-width: 64ch;
+}
+/* Testimonials */
+/* Headshot + quote two-column layout */
+/* Final CTA */
+.final-cta {
+  text-align: center; padding: var(--pad-v) 0;
+  background: var(--paper);
+}
+.final-cta .cta-headline { margin-bottom: 20px; max-width: 680px; margin-left: auto; margin-right: auto; }
+.final-cta .subtitle { margin-bottom: 32px; }
+/* ===== FOOTER (from VeraOps Design System) ===== */
+.footer { background: var(--ink); color: var(--paper); padding: 44px 0 18px; margin-top: 0; position: relative; z-index: 2; }
+.footer-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+}
+.footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
+.footer-bureau {
+  /* Sits in the Legal column, pulled up so the badge bottom lines up with
+     the address block rather than opening a band beneath it. */
+  grid-column: 3; grid-row: 2;
+  justify-self: start; align-self: start; display: block;
+  margin-top: -24px; text-decoration: none;
+}
+.footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
+.footer h5 {
+  font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: rgba(243, 248, 234, 0.5);
+  margin: 0 0 16px;
+}
+.footer a {
+  display: block;
+  font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2;
+  color: var(--paper); text-decoration: none; opacity: 0.85;
+  transition: color 150ms ease, opacity 150ms ease;
+}
+.footer a:hover { opacity: 1; color: var(--spark); }
+.footer .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer .brand img.footer-mark {
+  width: 36px; height: 36px; border-radius: 7px;
+  background: var(--paper); object-fit: cover;
+}
+.footer .brand span {
+  font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1;
+  letter-spacing: -0.015em; color: var(--paper);
+}
+.footer .copy {
+  font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.6;
+  color: rgba(243, 248, 234, 0.6);
+  max-width: 36ch;
+  margin: 0;
+}
+.footer .copy a { display: inline; opacity: 0.85; text-decoration: underline; }
+.footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.footer-contact p {
+  font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5;
+  color: rgba(243, 248, 234, 0.6); margin: 0; max-width: 36ch;
+}
+.footer-contact p a { display: inline; opacity: 0.85; }
+.footer-bottom {
+  max-width: 1200px; margin: 16px auto 0; padding: 16px 32px 0;
+  border-top: 1px solid rgba(243, 248, 234, 0.1);
+  font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1;
+  color: rgba(243, 248, 234, 0.4);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+@media (max-width: 768px) {
+.footer { padding: 48px 0 20px; }
+.footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
+.footer a { line-height: 1.85; font-size: 13.5px; }
+.footer-contact { margin-top: 18px; gap: 10px; }
+.footer h5 { margin-bottom: 12px; }
+.footer-bureau img { height: 52px; }
+.footer-inner .footer-brand-col, .footer-inner .footer-col-resources, .footer-inner .footer-col-compare, .footer-inner .footer-col-legal { grid-column: 1; grid-row: auto; }
+/* Stacked footer: cancel the desktop pull-up used to align the badge
+     with the address block, which no longer applies in one column. */
+.footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px !important; }
+/* Two columns on one row: stacked, these two long lines wrapped into a
+     four-line block that read as one run-on sentence. */
+.footer-bottom {
+    display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+    gap: 0 20px; padding: 18px 24px 0; margin-top: 28px;
+    font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
+  }
+.footer-bottom span:last-child { text-align: right; }
+}
+/* Sticky Bottom CTA — hidden on mobile */
+.sticky-bottom-cta .container {
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+}
+/* Hero See Sample (no box, text link like audit site) */
+/* Section Nav Dots */
+/* Mobile Nav Toggle (hamburger) */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-menu-cta { display: none; }
+/* Responsive */
+@media (max-width: 900px) {
+}
+@media (max-width: 768px) {
+:root { --pad-v: 60px; --pad-h: 24px; }
+/* Floating wide pill (~headline width): brand + hamburger */
+.nav { min-width: 0; width: calc(100vw - 24px); max-width: calc(100vw - 24px); top: 12px; }
+.nav-inner { justify-content: space-between; gap: 16px; padding: 8px 12px 8px 22px; }
+.nav-wordmark { font-size: 18px; }
+.nav-cta { display: none; }
+.nav-toggle { display: flex; }
+/* Dropdown menu panel — anchored under the hamburger, narrow, animated */
+.nav-links {
+    display: flex;
+    position: absolute; top: calc(100% + 10px); right: 6px; left: auto;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 10px; width: min(200px, calc(100vw - 48px));
+    box-shadow: 0 16px 40px -10px rgba(0,0,0,0.22);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px) scale(0.96); transform-origin: top right;
+    transition: opacity 200ms var(--ease-out, ease), transform 260ms var(--ease-out, ease), visibility 0s linear 260ms;
+  }
+.nav.menu-open .nav-links {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity 200ms var(--ease-out, ease), transform 260ms cubic-bezier(0.2,0.9,0.3,1.2), visibility 0s;
+  }
+/* gentle per-item rise */
+.nav-links > * { opacity: 0; transform: translateY(-4px); transition: opacity 200ms ease, transform 200ms ease; }
+.nav.menu-open .nav-links > * { opacity: 1; transform: translateY(0); }
+.nav.menu-open .nav-links > *:nth-child(1) { transition-delay: 60ms; }
+.nav.menu-open .nav-links > *:nth-child(2) { transition-delay: 90ms; }
+.nav.menu-open .nav-links > *:nth-child(3) { transition-delay: 120ms; }
+.nav.menu-open .nav-links > *:nth-child(4) { transition-delay: 150ms; }
+.nav.menu-open .nav-links > *:nth-child(5) { transition-delay: 180ms; }
+.nav.menu-open .nav-links > *:nth-child(6) { transition-delay: 210ms; }
+.nav-links a { padding: 10px 14px; border-radius: 10px; font-size: 15px; color: var(--ink); }
+.nav-links a:hover { background: var(--paper-2); }
+.nav-links a.nav-menu-cta {
+    display: inline-flex; justify-content: center; gap: 6px; margin-top: 8px;
+    color: var(--paper); background: var(--ink); border-radius: 999px;
+  }
+.nav-links a.nav-menu-cta:hover { background: var(--ink-2); color: var(--paper); }
+.hero { padding-top: 132px; }
+.hero-ctas { flex-direction: row; flex-wrap: nowrap; }
+.hero-sub { font-size: 14px; }
+#how-it-works .section-headline, #why-cold .section-headline { white-space: normal !important; }
+.hero { min-height: 100vh; padding-bottom: 60px; }
+/* Let the pricing subtitle wrap within the container border on mobile */
+section { padding-bottom: calc(var(--pad-v) + 40px); }
+}
+@media (max-width: 480px) {
+:root { --pad-v: 40px; --pad-h: 18px; }
+.hero-ctas { flex-direction: row; flex-wrap: nowrap; gap: 10px; }
+.hero-ctas .btn { width: auto; }
+.pricing-card { padding: 28px 20px; }
+/* 340px is non-shrinking and overflows once the gutter is subtracted. */
+}
+@media (prefers-reduced-motion: reduce) {
+*, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+.fade-in { opacity: 1; transform: none; }
+}
+/* ===== HOW IT WORKS TABS ===== */
+.hiw-tab.active { border-bottom-color: var(--olive-deep); background: var(--sage); }
+.hiw-tab.active .hiw-tab-num { color: var(--olive-deep); }
+/* Step 0 Onboard */
+/* Tier badge colors */
+/* All panels share one grid cell so the section reserves the tallest
+   panel's height (Step 5 — Track); each step's header top-aligns. */
+.hiw-panel.active { visibility: visible; opacity: 1; pointer-events: auto; }
+/* Scan panel: 2x2 substeps on the copy column */
+/* Mock UI panels */
+.hiw-timeline-dot.active { border-color: var(--olive-deep); background: var(--white); animation: pulse-dot 2s ease infinite; }
+@keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 0 rgba(61,79,30,0.3); } 50% { box-shadow: 0 0 0 6px rgba(61,79,30,0); } }
+/* Contact cards in mock */
+/* Digest mock in Surface tab */
+/* Digest preview in Surface tab */
+/* Measure tab metrics */
+/* Switcher tabs */
+.track-tab.active { color: var(--ink); }
+.track-tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 14px; right: 14px;
+  height: 2px; background: var(--ink); border-radius: 2px;
+}
+.track-view.active { display: block; }
+/* ===== RECONNECTION STORIES ===== */
+/* Three equal-width columns; each column is a flex-column and the last card
+   in it stretches so all three columns end flush at the same bottom line. */
+/* ===== WHO THIS IS FOR ===== */
+/* The two columns are subgrids of one shared row track, so "for you" item N and
+   "not for you" item N start on the SAME baseline even when one of them wraps
+   to more lines than the other. Without this each <ul> flows independently and
+   the ticks and crosses drift apart down the page. */
+/* One gap value drives the spacing for BOTH columns, since they share the row
+   track — so the ticks and crosses stay level while the list closes up. */
+/* Subgrid rows are as tall as the taller of the two columns' items, so a short
+   item was followed by a large hole. Pin each item to the TOP of its row so the
+   row keeps only the height it needs, and let the row-gap do the spacing —
+   the old 8px block padding compounded it on every row. */
+/* ===== TRUST & SECURITY ===== */
+/* Pricing group labels */
+/* ===== PRIVACY TABS ===== */
+/* Stepped rail — everything visible at once, connected by a vertical line.
+   Deliberately not collapsible, so it reads differently from the FAQ. */
+/* Marker-and-copy rail, centred on the page as a block. The rail itself keeps
+   its original shape: number on the left, copy left-aligned beside it. */
+/* The connecting line runs through the marker column. */
+/* ---- Agency logo marquee ------------------------------------------------
+   One row scrolling left, forever. The track holds the eight logos twice; the
+   animation travels exactly -50%, so the second copy lands where the first
+   began and the loop is seamless. */
+.agency-marquee {
+  position: relative; overflow: hidden;
+  margin: 26px auto 0;
+  /* Same width as the fixed nav pill so the two align down the page. */
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  /* Fade the marks in and out at the edges rather than cutting them dead. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+}
+.agency-track {
+  display: flex; align-items: center; width: max-content;
+  animation: agency-scroll 46s linear infinite;
+}
+.agency-marquee:hover .agency-track { animation-play-state: paused; }
+@keyframes agency-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.agency-logo {
+  margin: 0; padding: 0 34px;
+  display: flex; align-items: center; justify-content: center;
+  height: 112px; flex-shrink: 0;
+}
+.agency-logo img { width: auto; height: auto; object-fit: contain; display: block; filter: none; opacity: 1; }
+/* Sizes are per-logo, derived from measured ink coverage rather than bounding
+   box, so a dense square and an airy wordmark read at the same visual weight. */
+.agency-logo img.lg-ghost { height: 41px; }
+.agency-logo img.lg-bubbly { height: 88px; }
+.agency-logo img.lg-barrel { height: 19px; }
+.agency-logo img.lg-outsight { height: 38px; }
+.agency-logo img.lg-driver { height: 27px; }
+@media (prefers-reduced-motion: reduce) {
+.agency-track { animation: none; }
+}
+@media (max-width: 640px) {
+.agency-marquee { width: calc(100vw - 36px); margin-top: 34px; }
+.agency-logo { padding: 0 20px; height: 88px; }
+.agency-logo img.lg-ghost { height: 32px; }
+.agency-logo img.lg-bubbly { height: 68px; }
+.agency-logo img.lg-barrel { height: 15px; }
+.agency-logo img.lg-outsight { height: 30px; }
+.agency-logo img.lg-driver { height: 21px; }
+}
+/* ---- Privacy step graphics ---------------------------------------------
+   One small diagram per step, sharing a common frame so the six steps read
+   as a set. Built from existing tokens — no new colours. */
+/* 02 — kept vs destroyed */
+/* 03 / 04 — node flows */
+/* 04 — numbered revoke path */
+/* The number is floated out of the text flow so the sentence stays a single
+   inline run — flex would space-separate every <strong> as its own item. */
+/* Breadcrumb chevron inside a bold run — tighter than a word space. */
+/* 05 — certification badge */
+/* Gmail scope table — the one we hold is called out, the rest are context. */
+/* The scope we actually hold reads at full strength; the others sit back. */
+/* Signal Carousel */
+/* Scan Carousel */
+/* Responsive for new sections */
+@media (max-width: 768px) {
+/* How It Works tabs */
+.hiw-panel.active { display: flex; }
+/* Signal & Scan carousels */
+/* Digest preview in Surface tab */
+/* Track tab snapshot */
+/* Who This Is For — stacked, so the shared subgrid row track is dropped and
+     each column flows on its own again. */
+/* Trust & Security grid */
+/* FAQ accordion */
+.faq-question { padding: 18px 18px; gap: 12px; }
+.faq-q-text { font-size: 15px; }
+.faq-answer-inner { padding: 0 18px; }
+.faq-item.open .faq-answer-inner { padding-bottom: 22px; }
+.faq-answer-inner p { font-size: 13.5px; }
+/* Privacy rail */
+/* Badge is last in the DOM; pin it to row 1 so it labels the row instead of
+     trailing under the description once the columns collapse. */
+/* Step graphics stack once the card is narrow. */
+/* Digest spotlight annotations */
+.digest-full-mockup { padding: 24px 18px; }
+.digest-full-contact { font-size: 14px; }
+.digest-full-mockup h2 { font-size: 18px; }
+/* Pricing */
+.pricing-card { padding: 32px 24px; }
+.pricing-amount { font-size: 34px; }
+/* Testimonials slideshow */
+}
+@media (max-width: 480px) {
+/* How It Works tabs - hide, replaced by dropdown on mobile */
+/* Revoke steps: tighter gutter, and let the breadcrumb break rather than
+     push past the card edge at 320px. */
+/* Certification badge */
+/* FAQ accordion */
+.faq-question { padding: 16px 14px; gap: 10px; }
+.faq-q-text { font-size: 14px; }
+.faq-num { min-width: 18px; font-size: 10px; }
+.faq-answer-inner { padding: 0 14px; }
+.faq-item.open .faq-answer-inner { padding-bottom: 20px; }
+/* Privacy rail */
+/* Digest spotlight */
+.digest-full-mockup { padding: 20px 14px; }
+/* New step visuals — comfortable padding on phones */
+/* Solution pillar cards a touch tighter */
+.digest-full-pills { gap: 4px; }
+.digest-full-pill { font-size: 10px; padding: 3px 8px; }
+.digest-full-email-box { padding: 14px; }
+.digest-full-actions { flex-direction: column; align-items: stretch; }
+/* Qualification */
+/* Pricing */
+.pricing-card { padding: 24px 18px; }
+/* Signal & scan slides smaller */
+}
+/* ===== MOBILE-ONLY: Digest info tooltips ===== */
+/* Keep the 18px dot but expand the tap area to the 44px minimum. */
+/* Mobile: How It Works dropdown (hidden, replaced by next-step) */
+/* Mobile: How It Works step nav */
+/* Testimonial slideshow (desktop + mobile) */
+.testimonial-dot.active { background: var(--olive-deep); transform: scale(1.3); }
+/* Manual navigation arrows */
+@media (max-width: 768px) {
+/* Digest info buttons visible, hide side annotations */
+/* ⚠️ `1fr` alone still inherits the desktop track's 420px MIN — a grid item's
+     automatic minimum is its content, so the column refused to go below 420px
+     and pushed a 390px viewport 8px wide. `minmax(0, 1fr)` lets it shrink. */
+/* HIW step nav replaces tabs */
+/* Privacy accordion works identically at every width — no mobile swap needed. */
+/* Testimonials: stack headshot over quote */
+}
+/* ==========================================================================
+   REDESIGN 2026-09-17 — Gmail window chrome + new section styles
+   The product lives in Gmail, so the Gmail frame carries the whole site.
+   ========================================================================== */
+/* --- Gmail window frame (reused wherever the product appears) --- */
+.gwin {
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px); margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(60,64,67,0.08);
+}
+.gwin-bar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 14px;
+  background: #F6F8FC;
+  border-bottom: 1px solid var(--hairline);
+}
+/* Gmail's hamburger, in place of the window dots. */
+.gwin-brand { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.gwin-gmail { width: 24px; height: 18px; display: block; }
+.gwin-wordmark { font-size: 17px; color: #5F6368; letter-spacing: -0.01em; }
+@media (max-width: 1100px) { .gwin-wordmark { display: none; } }
+.gwin-menu {
+  width: 19px; height: 19px; flex-shrink: 0;
+  stroke: var(--ink-2); fill: none; stroke-width: 1.8; stroke-linecap: round;
+}
+.gwin-search {
+  flex: 1; display: flex; align-items: center; gap: 9px;
+  background: #EAF1FB; border-radius: 8px;
+  padding: 7px 13px; font-size: 13px; color: var(--ink-3);
+}
+.gwin-search svg { width: 15px; height: 15px; stroke: var(--ink-3); fill: none; stroke-width: 2; flex-shrink: 0; }
+.gwin-search span { flex: 1; text-align: left; }
+.gwin-search-opts { stroke-width: 1.7; }
+/* Right-hand controls of Gmail's header strip. No wordmark, by design. */
+.gwin-tools { display: flex; align-items: center; gap: 13px; flex-shrink: 0; }
+.gwin-tools svg { width: 17px; height: 17px; stroke: var(--ink-3); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; color: var(--ink-3); flex-shrink: 0; }
+.gwin-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; color: var(--ink-2); white-space: nowrap;
+  padding: 4px 10px; border-radius: 999px; background: #fff; border: 1px solid var(--hairline);
+}
+.gwin-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #1E8E3E; }
+.gwin-spark { color: var(--spark); }
+.gwin-account-avatar {
+  width: 24px; height: 24px; border-radius: 50%; background: #7B3FA0; color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11.5px; font-weight: 600;
+}
+@media (max-width: 1100px) {
+  .gwin-status, .gwin-tools svg:nth-of-type(-n+3) { display: none; }
+}
+.gwin-toolbar {
+  display: flex; align-items: center; gap: 15px;
+  padding: 9px 18px; border-bottom: 1px solid var(--hairline);
+  background: var(--surface);
+}
+.gwin-toolbar svg {
+  width: 19px; height: 19px; flex-shrink: 0;
+  fill: none; stroke: #444746; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  color: #444746;
+}
+/* Gmail groups its actions; these are the thin rules between the groups. */
+.gwin-tb-sep { width: 1px; height: 18px; background: var(--hairline); flex-shrink: 0; }
+.gwin-tb-spacer { flex: 1; }
+@media (max-width: 1000px) {
+  .gwin-toolbar { gap: 12px; }
+  .gwin-toolbar svg:nth-of-type(n+8) { display: none; }
+  .gwin-tb-sep:nth-of-type(n+3) { display: none; }
+}
+.gwin-head { padding: 20px 22px 22px; }
+.gwin-subject {
+  font-family: var(--font-display); font-size: 20px; font-weight: 500;
+  color: var(--ink); line-height: 1.35; margin-bottom: 14px;
+}
+.gwin-from { display: flex; align-items: flex-start; gap: 12px; }
+.gwin-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: #7B2FA0; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 600; letter-spacing: .3px;
+}
+.gwin-from-text { flex: 1; min-width: 0; font-size: 13px; line-height: 1.5; }
+.gwin-sender { color: var(--ink); font-weight: 600; }
+.gwin-addr, .gwin-to { color: var(--ink-3); }
+.gwin-date { font-size: 12px; color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
+/* Body renders the digest at real email width (~640px) */
+.gwin-body { padding: 34px 32px 40px; background: #F1F3F4; }
+@media (max-width: 768px) { .gwin-body { padding: 16px 12px 20px; } }
+/* The real email is a white card centred on Gmail's grey canvas at ~640px. */
+.gwin-body .digest-full-mockup {
+  max-width: 580px; margin: 0 auto;
+  background: #fff; border: 1px solid var(--hairline); border-radius: 8px;
+  box-shadow: none; padding: 30px 28px; text-align: left;
+}
+@media (max-width: 768px) { .gwin-body .digest-full-mockup { padding: 22px 18px; } }
+/* Subject headline inside the email, as the client receives it. */
+.digest-email-title {
+  font-size: 20px; font-weight: 700; line-height: 1.3; color: var(--ink);
+  letter-spacing: -0.015em; margin-bottom: 6px;
+}
+.digest-email-meta {
+  font-size: 13px; color: var(--ink-3); padding-bottom: 18px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+/* Inside the email the section rails add a left inset; drop it so the
+   digest sits flush in the 640px column the way the real email does. */
+.gwin-body .digest-full-section { padding-left: 0; border-left: none; }
+/* Connector rails belonged to the numbered callouts, which are gone. */
+.gwin-body .digest-full-section::before, .gwin-body .digest-full-section::after, .gwin-body #digest-sec-momentum::before, .gwin-body .gwin-body .gwin-body /* The per-section rails anchored the numbered callouts. Inside the email the
+   digest reads as plain sections, so every rail and its inset is cleared. */
+.gwin-body #digest-sec-contact, .gwin-body #digest-sec-refresher, .gwin-body #digest-sec-thread, .gwin-body #digest-sec-history, .gwin-body .gwin-body .gwin-body #digest-sec-angle, .gwin-body #digest-sec-draft, .gwin-body #digest-sec-actions, .gwin-body /* On mobile, drop the frame and show the email the way the Gmail app does */
+@media (max-width: 768px) {
+.gwin { border: none; border-radius: 0; box-shadow: none; max-width: 100%; }
+.gwin-bar, .gwin-toolbar { display: none; }
+.gwin-head { padding: 0 0 16px; }
+.gwin-body { padding: 14px 0 0; }
+.gwin-subject { font-size: 18px; }
+}
+/* --- Margin notes beside the digest (max 3, plain text + thin connector) --- */
+.digest-stage { position: relative; width: 100%; margin: 0 auto; }
+/* Separates the section heading from the framed digest below it. */
+#digest .container + .digest-stage { margin-top: 40px; }
+/* --- Hero inbox preview --- */
+@media (max-width: 600px) {
+:root { --pad-h: 16px; }
+.cmp { min-width: 560px; font-size: 13.5px; }
+.cmp th, .cmp td { padding: 12px 12px; }
+html { overflow-x: hidden; }
+body { max-width: 100%; }
+.container, .hero-inner { min-width: 0; }
+.hero-redesign .hero-headline { font-size: 30px; }
+.hero-redesign .hero-sub { font-size: 16.5px; }
+}
+.hero-redesign .hero-inner { max-width: var(--max-w); text-align: center; padding: 0 var(--pad-h); }
+.hero-stack { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+.hero-eyebrow {
+  font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px;
+}
+.hero-shot { width: 100%; max-width: 860px; margin: 38px 0 0; }
+@media (min-width: 1000px) {
+.hero-grid { grid-template-columns: 1.15fr 1fr; gap: 52px; align-items: center; }
+}
+.hero-redesign .hero-sub { font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--ink-3); max-width: 720px; margin: 18px auto 0; text-wrap: pretty; }
+.hero-micro { font-size: var(--fs-small); color: var(--ink-3); margin-top: 26px; max-width: none; line-height: var(--lh-body); white-space: nowrap; }
+/* Inbox list: digest sits as the newest unread mail */
+.inbox-preview { background: var(--surface); overflow: hidden; text-align: left; }
+/* The hero preview borrows the digest's window chrome, without the
+   per-message toolbar an inbox list has no use for. */
+.gwin-inbox { width: 100%; max-width: 100%; }
+.gwin-inbox .inbox-row:last-child { border-bottom: none; }
+.inbox-row { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--hairline); font-size: 13.5px; }
+.inbox-row:last-child { border-bottom: none; }
+.inbox-row.unread { background: #fff; }
+.inbox-row.unread .inbox-sender, .inbox-row.unread .inbox-subj { font-weight: 600; color: var(--ink); }
+.inbox-row.read { background: #FAFAFA; color: var(--ink-3); }
+.inbox-star { width: 15px; height: 15px; flex-shrink: 0; stroke: var(--ink-4); fill: none; stroke-width: 1.6; }
+.inbox-row.unread .inbox-star { stroke: #E8B923; fill: #E8B923; }
+.inbox-sender { width: 128px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.inbox-subj { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.inbox-snip { color: var(--ink-3); font-weight: 400; }
+.inbox-time { flex-shrink: 0; font-size: 12px; color: var(--ink-3); }
+@media (max-width: 600px) {
+.inbox-sender { width: 92px; }
+.inbox-snip { display: none; }
+}
+/* --- Proof strip --- */
+.hero-marquee { margin-top: 52px; }
+/* --- Client results panels --- */
+.results-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; }
+@media (min-width: 900px) {
+.results-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+.result-panel { border: 1px solid var(--hairline); border-radius: 8px; padding: 26px; background: var(--surface); }
+.result-quote {
+  font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.result-person { display: flex; align-items: center; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--hairline); }
+.result-person img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.result-person-name { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.result-person-role { font-size: 12.5px; color: var(--ink-3); margin-top: 3px; line-height: 1.45; }
+.result-panel-name { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+.result-panel-desc { font-size: var(--fs-small); color: var(--ink-3); margin-top: 6px; line-height: 1.5; }
+.result-cards { margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+.result-card { border-top: 1px solid var(--hairline); padding-top: 16px; }
+.result-card:first-child { border-top: none; padding-top: 0; }
+.result-card-label { display: flex; align-items: center; gap: 6px; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+.result-card-num { font-size: 21px; font-weight: 600; color: var(--ink); line-height: 1.3; letter-spacing: -0.015em; }
+.result-card-sub { font-size: var(--fs-small); color: var(--ink-3); line-height: var(--lh-body); margin-top: 7px; }
+/* "what this means" tooltip */
+.rtip { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ink-4); color: var(--ink-3); font-size: 9px; font-weight: 700; cursor: help; text-transform: none; letter-spacing: 0; }
+.rtip-pop { position: absolute; bottom: calc(100% + 8px); left: 0; width: max-content; max-width: min(216px, 68vw); background: var(--ink); color: #fff; font-size: 12px; font-weight: 400; line-height: 1.5; letter-spacing: 0; text-transform: none; padding: 9px 11px; border-radius: 6px; opacity: 0; visibility: hidden; transition: opacity .16s ease; z-index: 30; text-align: left; }
+.rtip:hover .rtip-pop, .rtip:focus .rtip-pop { opacity: 1; visibility: visible; }
+/* --- Three plain cards (why relationships go cold) --- */
+.cold-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+@media (min-width: 820px) {
+.cold-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.cold-card { border: 1px solid var(--hairline); border-radius: 8px; padding: 24px; background: var(--surface); }
+.cold-card h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
+.cold-card p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
+.cold-ill { margin-bottom: 18px; padding: 14px; background: var(--surface-ink); border: 1px solid var(--hairline); border-radius: 6px; }
+.cold-ill svg { display: block; width: 100%; height: 74px; }
+/* --- Pricing (3-term toggle) --- */
+.pricing-note {
+  font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,0.62);
+  margin-top: 14px; text-align: center;
+}
+.price-line { font-size: var(--fs-small); color: var(--ink-3); margin-top: 9px; }
+.price-badge { display: inline-block; margin-top: 12px; background: var(--spark-paper); color: var(--spark-deep); font-size: 12.5px; font-weight: 600; padding: 5px 11px; border-radius: 999px; }
+.price-badge:empty { display: none; }
+/* --- Comparison table (adds Build-it-yourself-with-AI column) --- */
+.cmp-wrap { overflow-x: auto; overflow-y: hidden; margin: 40px auto 0; width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px); min-width: 0; -webkit-overflow-scrolling: touch; }
+.compare-container { max-width: none; padding: 0; }
+/* table-layout: fixed makes the browser honour these widths instead of
+   sizing each column to its content, so the three options stay equal and
+   the longer cells wrap rather than stretching. */
+.cmp { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 14.5px; table-layout: fixed; }
+.cmp col.cmp-label { width: 124px; }
+.cmp col.cmp-opt { width: calc((100% - 124px) / 3); }
+.cmp th, .cmp td { border: 1px solid var(--hairline); padding: 14px 16px; text-align: left; vertical-align: top; line-height: var(--lh-body); color: var(--ink-3); }
+.cmp thead th { background: var(--paper-2); font-weight: 600; color: var(--ink); font-size: var(--fs-small); letter-spacing: -0.005em; }
+.cmp tbody th { background: var(--surface-ink); font-weight: 600; color: var(--ink-3); font-size: var(--fs-label); letter-spacing: var(--track-label); text-transform: uppercase; }
+.cmp .cmp-us { background: #fff; color: var(--ink); font-weight: 500; }
+.cmp thead .cmp-us { background: var(--spark-paper); color: var(--spark-deep); }
+/* --- Testimonials: static 4-card grid (no carousel, no duplicate) --- */
+@media (min-width: 760px) {
+}
+/* --- Who this is for: fit / not a fit --- */
+.fit-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 40px; border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
+@media (min-width: 820px) {
+.fit-grid { grid-template-columns: 1fr 1fr; }
+}
+.fit-col-head { padding: 13px 20px; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; background: var(--paper-2); color: var(--ink-3); }
+.fit-col.no .fit-col-head { color: var(--ink-4); }
+.fit-row { padding: 15px 20px; border-top: 1px solid var(--hairline); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-2); }
+@media (min-width: 820px) {
+.fit-col.no { border-left: 1px solid var(--hairline); }
+}
+/* --- Privacy: 2x2 grid --- */
+.priv-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+@media (min-width: 820px) {
+.priv-grid { grid-template-columns: 1fr 1fr; }
+}
+.priv-block { border: 1px solid var(--hairline); border-radius: 8px; padding: 24px; background: var(--surface); }
+.priv-block h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
+.priv-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
+.priv-block code { font-family: var(--font-mono); font-size: 13px; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+/* --- How it works: 3 steps --- */
+.hiw-grid { display: grid; grid-template-columns: 1fr; gap: 26px; margin-top: 44px; }
+@media (min-width: 900px) {
+.hiw-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+}
+.hiw-step-n { width: 27px; height: 27px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+.hiw-step h3 { font-size: var(--fs-h3); font-weight: 600; color: var(--ink); margin-bottom: 9px; letter-spacing: -0.01em; }
+.hiw-step p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink-3); }
+.hiw-visual { border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; margin-bottom: 16px; background: var(--surface-ink); }
+.hiw-visual svg { display: block; width: 100%; height: 118px; }
+.hiw-visual img { display: block; width: 100%; height: 118px; object-fit: cover; object-position: center 28%; }
+/* --- Snapshots (secondary block under the digest) --- */
+/* --- Pull quote --- */
+/* Momentum panel */
+
+/* Momentum panel — mirrors the real digest email */
+.digest-momentum {
+  background: #F8F9FA; border: 1px solid var(--hairline); border-radius: 8px;
+  padding: 20px 20px 18px; margin-bottom: 28px;
+}
+.digest-momentum-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
+.digest-momentum-headline { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 5px; letter-spacing: -0.01em; }
+.digest-momentum-sub { font-size: 12px; color: var(--text-mid); line-height: 1.55; margin-bottom: 16px; }
+.digest-momentum-top { display: flex; align-items: flex-start; gap: 26px; margin-bottom: 16px; }
+.digest-momentum-streak { flex: 0 0 auto; }
+.digest-momentum-streak-num { font-size: 40px; font-weight: 700; line-height: 1; color: var(--ink); letter-spacing: -0.03em; }
+.digest-momentum-streak-cap { font-size: 9px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; }
+.digest-momentum-week { flex: 1; border-left: 1px solid var(--hairline); padding-left: 22px; }
+.digest-momentum-week-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+.digest-momentum-week-meta { font-size: 12px; color: var(--text-mid); }
+.digest-momentum-week-meta strong { color: var(--black); }
+.digest-momentum-dots { display: flex; gap: 6px; margin-bottom: 10px; }
+.dm-dot { width: 26px; height: 26px; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--ink-4); background: var(--paper-2); border: 1px solid var(--card-border); }
+.dm-dot-empty { background: transparent; border-style: dashed; }
+.dm-dot-on { background: #1E8E3E; border-color: #1E8E3E; color: #fff; }
+.digest-momentum-stats { display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
+.dm-stat { text-align: center; padding: 11px 6px; border-left: 1px solid var(--hairline); }
+.dm-stat:first-child { border-left: none; }
+.dm-stat:last-child { border-right: none; }
+.dm-stat-num { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.15; }
+.dm-stat-delta { font-size: 9.5px; font-weight: 700; color: #1E8E3E; line-height: 1; margin-top: 4px; }
+.dm-stat-delta-none { visibility: hidden; }
+.dm-stat-cap { font-size: 8.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); margin-top: 5px; line-height: 1.3; }
+
+@media (max-width: 600px) {
+      }
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  /* nowrap was forcing these past the viewport on every phone */
+  .hero-micro { white-space: normal; max-width: 100%; }
+  .hero-redesign .hero-headline { white-space: normal; }
+
+  /* Tooltips: anchor to the card, never the viewport edge */
+  .rtip-pop { left: auto; right: 0; transform: none; max-width: min(240px, calc(100vw - 48px)); }
+
+  /* Readability: nothing below 13px on a phone */
+  .result-card-sub, .cmp td, .cmp th,   .dm-stat-cap, .digest-full-section-title, .result-card-label { font-size: 10.5px; }
+
+  /* Tap targets: 44px minimum */
+  .digest-full-btn,   .nav-links a { min-height: 44px; display: flex; align-items: center; }
+
+  /* The email reads full-bleed once the window chrome is gone */
+  .gwin-body .digest-full-mockup { max-width: 100%; padding: 18px 16px; }
+  .digest-momentum { padding: 16px 14px; }
+  .digest-momentum-stats { grid-template-columns: repeat(3, 1fr); }
+  .dm-stat:nth-child(4), .dm-stat:nth-child(5) { border-top: 1px solid var(--hairline); }
+  .digest-momentum-top { flex-wrap: wrap; gap: 16px; }
+  .digest-momentum-week { border-left: none; padding-left: 0; }
+
+  /* Anchored headings must clear the fixed nav when jumped to */
+  section[id] { scroll-margin-top: 88px; }
+  /* Keep the email boxed on phones: canvas, card and border all stay, so the
+     digest reads as one packaged object rather than loose text. */
+  .gwin { border: 1px solid var(--hairline); border-radius: 10px; overflow: hidden; }
+  .gwin-body { padding: 12px 10px 14px; background: #F1F3F4; }
+  .gwin-body .digest-full-mockup {
+    max-width: 100%; padding: 18px 16px;
+    background: #fff; border: 1px solid var(--hairline); border-radius: 8px;
+  }
+      }
+@media (max-width: 420px) {
+  .hero-redesign .hero-headline { font-size: 27px; }
+  .section-headline { font-size: 24px; }
+  .digest-momentum-stats { grid-template-columns: repeat(2, 1fr); }
+  .dm-stat { border-top: 1px solid var(--hairline); }
+  .dm-stat:nth-child(1), .dm-stat:nth-child(2) { border-top: none; }
+}
+
+/* Rotating word in the hero headline. A plain inline span whose text is
+   swapped, so the line sets and re-flows exactly as if the word were typed
+   there: no clipping box to cut a glyph, and no reserved gap after the
+   shorter words. Stays on the first word without JS or with reduced motion. */
+/* A muted slate blue rather than the site's #1A73E8: that accent is 82%
+   saturated and reads as a link in a headline. At 39% it sits at the same
+   visual weight as the surrounding ink, so the word is distinct without
+   jumping forward. 6.86:1 on white. */
+.rotator { color: #3B5C86; transition: opacity 180ms ease; }
+.rotator.is-swapping { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .rotator { transition: none; } }
+
+/* The closing CTA sets on two fixed lines: "Your next <word>" above, and
+   "is one relationship away." below. Only the word changes as it rotates,
+   so the second line never reflows or shifts. */
+.cta-line { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Paper grain texture (decorative, non-interactive) -->
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Section Nav Dots -->
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#digest">Digest</a>
+      <a href="#results">Results</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=sharon-toerek&amp;utm_medium=landing&amp;utm_campaign=sharon-toerek" class="btn btn-sage nav-menu-cta">Book a call <span class="arrow">&rarr;</span></a>
+    </div>
+    <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=sharon-toerek&amp;utm_medium=landing&amp;utm_campaign=sharon-toerek" data-cursor="Book" class="btn btn-sage nav-cta">Book a call <span class="arrow">&rarr;</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero hero-redesign" id="hero">
+  <div class="hero-inner">
+    <div class="hero-stack">
+      <p class="hero-eyebrow hero-anim">For network of Sharon Toerek and Toerek Law only</p>
+      <h1 class="hero-headline hero-anim">Your next <span class="rotator" data-rotate="project,production,partnership,introduction">project</span> is already in your inbox.</h1>
+      <p class="hero-sub hero-anim">Every day, we send you three past relationships worth reconnecting with... plus the context, and an email written in your voice, ready to send.</p>
+
+      <div class="hero-anim hero-shot">
+        <div class="gwin gwin-inbox">
+          <div class="gwin-bar">
+            <svg class="gwin-menu" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+            <span class="gwin-brand" aria-hidden="true">
+              <img class="gwin-gmail" src="/assets/brand/gmail.svg" alt="">
+              <span class="gwin-wordmark">Gmail</span>
+            </span>
+            <div class="gwin-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>Search mail</span>
+              <svg class="gwin-search-opts" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="15" cy="7" r="2" fill="#fff"/><circle cx="9" cy="12" r="2" fill="#fff"/><circle cx="16" cy="17" r="2" fill="#fff"/></svg>
+            </div>
+            <div class="gwin-tools">
+              <span class="gwin-status"><span class="gwin-status-dot"></span>Active</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg class="gwin-apps" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor" stroke="none"><circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></g></svg>
+              <span class="gwin-account"><span class="gwin-account-avatar">R</span></span>
+            </div>
+          </div>
+        <div class="inbox-preview" aria-label="Inbox preview">
+          <div class="inbox-row unread">
+            <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="inbox-sender">Relationships</span>
+            <span class="inbox-subj">Relationship Digest | Monday, September 21, 2026 <span class="inbox-snip">&ndash; Your warm connections to spark today.</span></span>
+            <span class="inbox-time">7:02 AM</span>
+          </div>
+          <div class="inbox-row read">
+            <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="inbox-sender">Priya Menon</span>
+            <span class="inbox-subj">Re: Q4 scope <span class="inbox-snip">&ndash; Sounds good, let&rsquo;s lock it in</span></span>
+            <span class="inbox-time">6:41 AM</span>
+          </div>
+          <div class="inbox-row read">
+            <svg class="inbox-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="inbox-sender">Accounts</span>
+            <span class="inbox-subj">Invoice 2291 paid <span class="inbox-snip">&ndash; Payment received, thank you</span></span>
+            <span class="inbox-time">Yesterday</span>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+      <div class="hero-ctas hero-anim">
+        <a href="#digest" class="btn btn-ghost btn-learn">Learn more</a>
+        <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=sharon-toerek&amp;utm_medium=landing&amp;utm_campaign=sharon-toerek" data-cursor="Let&rsquo;s talk" class="btn btn-sage-lg">Book a call <span class="arrow">&rarr;</span></a>
+      </div>
+      <p class="hero-micro hero-anim">We&rsquo;ll connect your Gmail on the call and build your first digest together, free.</p>
+    <div class="agency-marquee hero-marquee hero-anim">
+    <div class="agency-track">
+      <figure class="agency-logo">
+        <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel Holdings" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="Agency Outsight" loading="lazy">
+      </figure>
+      <figure class="agency-logo">
+        <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-outsight" src="/assets/agency-logos/agency-outsight-v2.png" alt="" loading="lazy">
+      </figure>
+      <figure class="agency-logo" aria-hidden="true">
+        <img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="" loading="lazy">
+      </figure>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section-white" id="digest">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto 44px;">
+      <h2 class="section-headline">Imagine waking up to this.</h2>
+      <p class="subtitle" style="margin-top:12px;">Three relationships, every morning. Who they are, what you did together, why now, and an email you can send in five minutes.</p>
+    </div>
+  </div>
+
+  <div class="digest-stage fade-in">
+    <!-- Margin notes: plain text, thin connector lines, three max -->
+
+    <div>
+      <!-- Gmail window: no logo, no left rail -->
+      <div class="gwin">
+        <div class="gwin-bar">
+          <svg class="gwin-menu" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          <span class="gwin-brand" aria-hidden="true">
+            <img class="gwin-gmail" src="/assets/brand/gmail.svg" alt="">
+            <span class="gwin-wordmark">Gmail</span>
+          </span>
+          <div class="gwin-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>Search mail</span>
+            <svg class="gwin-search-opts" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="15" cy="7" r="2" fill="#fff"/><circle cx="9" cy="12" r="2" fill="#fff"/><circle cx="16" cy="17" r="2" fill="#fff"/></svg>
+          </div>
+          <div class="gwin-tools">
+            <span class="gwin-status"><span class="gwin-status-dot"></span>Active</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 14.5a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5v.2a2 2 0 0 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H2a2 2 0 0 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H8a1.6 1.6 0 0 0 1-1.5V2a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V8a1.6 1.6 0 0 0 1.5 1h.2a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="5 7 10 12 5 17"/><polyline points="12 7 17 12 12 17"/></svg>
+            <svg class="gwin-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.1 5.4L19.5 10l-5.4 2.1L12 17.5l-2.1-5.4L4.5 10l5.4-1.6z" fill="currentColor" stroke="none"/></svg>
+            <svg class="gwin-apps" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor" stroke="none"><circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></g></svg>
+            <span class="gwin-account"><span class="gwin-account-avatar">R</span></span>
+          </div>
+        </div>
+        <div class="gwin-toolbar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></svg>
+          <span class="gwin-tb-sep"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16"/><path d="M12 12v4m0 0-2-2m2 2 2-2"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4.5"/><circle cx="12" cy="16" r="0.6" fill="currentColor" stroke="none"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14"/><path d="M17.5 7v11a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 18V7"/><path d="M10 7V5.5A1 1 0 0 1 11 4.5h2a1 1 0 0 1 1 1V7"/><path d="M10.5 11v5M13.5 11v5"/></svg>
+          <span class="gwin-tb-sep"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6" width="14" height="11" rx="1.5"/><path d="M3.5 8l7 4.5L17.5 8"/><circle cx="19" cy="6" r="2.6" fill="currentColor" stroke="none"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8.2V12l2.6 1.8"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="12" r="7.5"/><path d="M7.8 12l2.3 2.3 4.4-4.6"/><path d="M18.5 15.5v5M16 18h5"/></svg>
+          <span class="gwin-tb-sep"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A1.5 1.5 0 0 1 5.5 6h3.2l1.6 2h8.2A1.5 1.5 0 0 1 20 9.5v7A1.5 1.5 0 0 1 18.5 18h-13A1.5 1.5 0 0 1 4 16.5z"/><path d="M11 11l2.5 2L11 15"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5H5.5A1.5 1.5 0 0 0 4 6.5v11A1.5 1.5 0 0 0 5.5 19H13l6-7z"/><circle cx="8" cy="9" r="0.9" fill="currentColor" stroke="none"/></svg>
+          <span class="gwin-tb-spacer"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="18" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="gwin-head">
+          <div class="gwin-subject">Relationship Digest | Monday, September 21, 2026</div>
+          <div class="gwin-from">
+            <div class="gwin-avatar" aria-hidden="true">R</div>
+            <div class="gwin-from-text">
+              <div><span class="gwin-sender">Relationships</span> <span class="gwin-addr">&lt;relationships@veraops.com&gt;</span></div>
+              <div class="gwin-to">to James</div>
+            </div>
+            <div class="gwin-date">Mon, Sep 21, 7:02&nbsp;AM</div>
+          </div>
+        </div>
+        <div class="gwin-body">
+        <div class="digest-full-mockup">
+
+          <div class="digest-email-title">Your warm connections to spark today</div>
+          <div class="digest-email-meta">Monday, September 21, 2026 &nbsp;|&nbsp; 3 connections</div>
+
+          <div class="digest-momentum" id="digest-sec-momentum">
+            <div>
+              <div class="digest-momentum-label">Your Momentum</div>
+              <div class="digest-momentum-headline">James, you&rsquo;re on a 12-day roll.</div>
+              <div class="digest-momentum-sub">Momentum like this is exactly how quiet relationships turn into live ones. Reach out today to keep it going &mdash; miss two days running and the streak resets.</div>
+            </div>
+
+            <div class="digest-momentum-top">
+              <div class="digest-momentum-streak">
+                <div class="digest-momentum-streak-num">12</div>
+                <div class="digest-momentum-streak-cap">Day Streak</div>
+              </div>
+              <div class="digest-momentum-week">
+                <div class="digest-momentum-week-label">Last 7 Days</div>
+                <div class="digest-momentum-dots">
+                  <span class="dm-dot dm-dot-on">W</span>
+                  <span class="dm-dot dm-dot-on">T</span>
+                  <span class="dm-dot dm-dot-on">F</span>
+                  <span class="dm-dot dm-dot-empty">S</span>
+                  <span class="dm-dot dm-dot-empty">S</span>
+                  <span class="dm-dot dm-dot-on">M</span>
+                  <span class="dm-dot dm-dot-on">T</span>
+                </div>
+                <div class="digest-momentum-week-meta">Best streak: <strong>12 days</strong> &middot; <strong>57</strong> total outreach days</div>
+              </div>
+            </div>
+
+            <div class="digest-momentum-stats">
+              <div class="dm-stat"><div class="dm-stat-num">248</div><div class="dm-stat-delta">&#9650;+3</div><div class="dm-stat-cap">Reached Out</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">41</div><div class="dm-stat-delta">&#9650;+1</div><div class="dm-stat-cap">Replied</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">17%</div><div class="dm-stat-delta">&#9650;+0.2 pts</div><div class="dm-stat-cap">Response Rate</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">11</div><div class="dm-stat-delta">&#9650;+1</div><div class="dm-stat-cap">Meetings</div></div>
+              <div class="dm-stat"><div class="dm-stat-num">4%</div><div class="dm-stat-delta">&#9650;+0.4 pts</div><div class="dm-stat-cap">Meeting Rate</div></div>
+            </div>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-contact">
+            <div class="digest-full-section-title">Connection Details</div>
+            <div class="digest-full-contact">1. Rachel Moreno, Account Manager, Bolt Communications</div>
+            <div class="digest-full-tier">
+              <span>Last contacted: About 14 months ago</span>
+            </div>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-refresher">
+            <div class="digest-full-section-title">Quick Refresher</div>
+            <div class="digest-full-refresher">Rachel managed the Bolt Communications account when you delivered their 2024 product launch campaign. She loved the final result and mentioned future projects for Q1. You never followed up after wrapping the work. She&rsquo;s since been promoted and now oversees a larger creative budget across multiple clients.</div>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-thread">
+            <div class="digest-full-section-title">Last Email Thread</div>
+            <div class="digest-full-email-box">
+              <div class="digest-full-email-subject"><strong>Subject:</strong> Re: Bolt launch, final deliverables + thank you</div>
+              <div class="digest-thread-meta">Rachel Moreno &rarr; you &middot; January 18, 2025</div>
+              <a href="https://mail.google.com/" target="_blank" class="digest-thread-link">Open full thread in Gmail &rarr;</a>
+            </div>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-history">
+            <div class="digest-full-section-title">Shared History</div>
+            <div class="digest-full-pills">
+              <span class="digest-full-pill">Product launch campaign</span>
+              <span class="digest-full-pill">Brand campaign</span>
+              <span class="digest-full-pill">PR &amp; communications</span>
+              <span class="digest-full-pill">Event coverage</span>
+              <span class="digest-full-pill">Client testimonials</span>
+            </div>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-angle">
+            <div class="digest-full-section-title">Why Reach Out Today</div>
+            <div class="digest-full-why">Bolt just signed two new consumer brands for Q2. Rachel loved the launch campaign you did together... good time to be back on her radar.</div>
+          </div>
+
+          <div class="digest-full-section" id="digest-sec-draft">
+            <div class="digest-full-section-title">Suggested Email</div>
+            <div class="digest-full-email-box">
+              <div class="digest-full-email-subject"><strong>Subject:</strong> Congrats on the new clients</div>
+              <div class="digest-full-email-body">
+                <p>Hey Rachel,</p>
+                <p>Saw Bolt just picked up two new consumer brands for Q2... congrats, that&rsquo;s huge. The fintech rebrand looked great too.</p>
+                <p>Made me think about the launch campaign we did together. If any of the new accounts need creative support, I&rsquo;d love to help again.</p>
+                <p>Either way, would be good to catch up. Coffee or a quick call this month?</p>
+                <p>James</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="digest-full-actions" id="digest-sec-actions">
+            <button class="digest-full-btn digest-full-btn-dark">Send Email</button>
+            <button class="digest-full-btn digest-full-btn-outline">Open LinkedIn</button>
+          </div>
+
+
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ===== 4. CLIENT RESULTS ===== -->
+<section class="section-sage" id="results">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">They didn&rsquo;t just read the digest. They actually took action.</h2>
+      <p class="subtitle" style="margin-top:12px;">What two long-time clients say, and what they actually do with their digest.</p>
+    </div>
+    <div class="results-grid fade-in">
+      <div class="result-panel">
+        <blockquote class="result-quote">&ldquo;VeraOps gave me an easy way to get back in touch with people I&rsquo;d worked with and respected but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.&rdquo;</blockquote>
+        <div class="result-person">
+          <img src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=800&amp;height=800" alt="Frank Siringo">
+          <div>
+            <div class="result-person-name">Frank Siringo</div>
+            <div class="result-person-role">Director / Producer / Partner &middot; Team Bubbly, NY</div>
+          </div>
+        </div>
+        <div class="result-cards">
+          <div class="result-card">
+            <div class="result-card-label">Speed <span class="rtip" tabindex="0">i<span class="rtip-pop">How long it takes the client to send an outreach after opening the digest.</span></span></div>
+            <div class="result-card-num">79.4% sent in under 5 minutes.</div>
+            <div class="result-card-sub">1/3 go out in about 33 seconds.</div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-label">Draft adoption <span class="rtip" tabindex="0">i<span class="rtip-pop">The share of our drafts that go out as the client&rsquo;s final email.</span></span></div>
+            <div class="result-card-num">88.3% of drafts used.</div>
+            <div class="result-card-sub">Across 211 drafts.</div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-label">Outreach rate <span class="rtip" tabindex="0">i<span class="rtip-pop">The share of suggested contacts the client actually emails, and the results those emails led to.</span></span></div>
+            <div class="result-card-num">40.2% outreach rate.</div>
+            <div class="result-card-sub">Over 10 months: 222 of 552 contacts emailed, 32 replies, 13 meetings, $41.4K in proposals.</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-panel">
+        <blockquote class="result-quote">&ldquo;VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
+        <div class="result-person">
+          <img src="/mark-depace.png" alt="Mark DePace">
+          <div>
+            <div class="result-person-name">Mark DePace</div>
+            <div class="result-person-role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div>
+          </div>
+        </div>
+        <div class="result-cards">
+          <div class="result-card">
+            <div class="result-card-label">Speed <span class="rtip" tabindex="0">i<span class="rtip-pop">How long it takes the client to send an outreach after opening the digest.</span></span></div>
+            <div class="result-card-num">85.2% sent in under 5 minutes.</div>
+            <div class="result-card-sub">Over 40% go out in about 31 seconds.</div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-label">Draft adoption <span class="rtip" tabindex="0">i<span class="rtip-pop">The share of our drafts that go out as the client&rsquo;s final email.</span></span></div>
+            <div class="result-card-num">60% of drafts used.</div>
+            <div class="result-card-sub">Across 254 drafts.</div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-label">Outreach rate <span class="rtip" tabindex="0">i<span class="rtip-pop">The share of suggested contacts the client actually emails, and the results those emails led to.</span></span></div>
+            <div class="result-card-num">79.7% outreach rate.</div>
+            <div class="result-card-sub">Over 5 months: 250 of 306 contacts emailed, 25 replies, 11 meetings, $100K+ in proposals.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. HOW IT WORKS ===== -->
+<section class="section-white" id="how-it-works">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">A real team behind every reconnection.</h2>
+      <p class="subtitle" style="margin-top:12px;">Our tool finds the relationships, but we handpick those who are worth your time.</p>
+    </div>
+    <div class="hiw-grid fade-in">
+      <div class="hiw-step">
+        <div class="hiw-visual">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+
+            <!-- Gmail -->
+            <rect x="18" y="18" width="92" height="34" rx="6" fill="#fff" stroke="#E4E6E9"/>
+            <image href="/assets/brand/gmail.svg" x="28" y="26" width="24" height="18"/>
+            <text x="58" y="40" font-family="Inter,sans-serif" font-size="10" fill="#5F6368">Gmail</text>
+
+            <!-- Google Calendar -->
+            <rect x="18" y="66" width="92" height="34" rx="6" fill="#fff" stroke="#E4E6E9"/>
+            <image href="/assets/brand/gcal.svg" x="28" y="74" width="18" height="18"/>
+            <text x="58" y="88" font-family="Inter,sans-serif" font-size="10" fill="#5F6368">Calendar</text>
+
+            <path d="M110 35 C136 35 136 59 152 59" fill="none" stroke="#A8C7FA" stroke-width="2"/>
+            <path d="M110 83 C136 83 136 59 152 59" fill="none" stroke="#A8C7FA" stroke-width="2"/>
+
+            <rect x="154" y="24" width="148" height="70" rx="5" fill="#fff" stroke="#E4E6E9"/>
+            <g fill="#E4E6E9">
+              <circle cx="168" cy="40" r="6"/><rect x="180" y="37" width="52" height="6" rx="3"/>
+              <circle cx="168" cy="59" r="6"/><rect x="180" y="56" width="70" height="6" rx="3"/>
+              <circle cx="168" cy="78" r="6"/><rect x="180" y="75" width="44" height="6" rx="3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hiw-step-n">1</div>
+        <h3>Connect Gmail and Calendar.</h3>
+        <p>It takes a few minutes on our call, with read-only access. We go through all the relationships you have built since the beginning.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-visual">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+            <text x="20" y="26" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#9AA0A6" letter-spacing="0.8">DEALS WON</text>
+            <g>
+              <rect x="20" y="34" width="104" height="18" rx="3" fill="#fff" stroke="#D2D5D9"/>
+              <path d="M28 43l4 4 7-8" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+              <rect x="46" y="40" width="64" height="5" rx="2.5" fill="#D2D5D9"/>
+              <rect x="20" y="58" width="104" height="18" rx="3" fill="#fff" stroke="#D2D5D9"/>
+              <path d="M28 67l4 4 7-8" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+              <rect x="46" y="64" width="52" height="5" rx="2.5" fill="#D2D5D9"/>
+              <rect x="20" y="82" width="104" height="18" rx="3" fill="#fff" stroke="#D2D5D9"/>
+              <path d="M28 91l4 4 7-8" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+              <rect x="46" y="88" width="70" height="5" rx="2.5" fill="#D2D5D9"/>
+            </g>
+            <path d="M128 67 L160 67" fill="none" stroke="#A8C7FA" stroke-width="2"/>
+            <path d="M154 62l7 5-7 5" fill="none" stroke="#A8C7FA" stroke-width="2" stroke-linecap="round"/>
+            <text x="168" y="26" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="#9AA0A6" letter-spacing="0.8">SIGNALS TRACKED</text>
+            <g>
+              <rect x="168" y="34" width="132" height="18" rx="9" fill="#E8F0FE" stroke="#A8C7FA"/>
+              <circle cx="180" cy="43" r="3.5" fill="#1A73E8"/>
+              <rect x="190" y="40" width="58" height="5" rx="2.5" fill="#A8C7FA"/>
+              <rect x="168" y="58" width="132" height="18" rx="9" fill="#E8F0FE" stroke="#A8C7FA"/>
+              <circle cx="180" cy="67" r="3.5" fill="#1A73E8"/>
+              <rect x="190" y="64" width="76" height="5" rx="2.5" fill="#A8C7FA"/>
+              <rect x="168" y="82" width="132" height="18" rx="9" fill="#F1F3F4" stroke="#E4E6E9"/>
+              <circle cx="180" cy="91" r="3.5" fill="#D2D5D9"/>
+              <rect x="190" y="88" width="48" height="5" rx="2.5" fill="#E4E6E9"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hiw-step-n">2</div>
+        <h3>We learn what wins you work.</h3>
+        <p>We study the deals that already landed for you. Then we track the same signals across your contacts: job changes, new ventures, company news, hiring, etc.</p>
+      </div>
+      <div class="hiw-step">
+        <div class="hiw-visual">
+          <svg viewBox="0 0 320 118" aria-hidden="true">
+            <rect width="320" height="118" fill="#FAFAF8"/>
+            <g fill="#fff" stroke="#E4E6E9">
+              <rect x="18" y="14" width="126" height="16" rx="3"/>
+              <rect x="18" y="34" width="126" height="16" rx="3"/>
+              <rect x="18" y="54" width="126" height="16" rx="3"/>
+              <rect x="18" y="74" width="126" height="16" rx="3"/>
+              <rect x="18" y="94" width="126" height="16" rx="3"/>
+            </g>
+            <g fill="#E4E6E9">
+              <circle cx="30" cy="22" r="4"/><rect x="40" y="19" width="56" height="5" rx="2.5"/>
+              <circle cx="30" cy="42" r="4"/><rect x="40" y="39" width="72" height="5" rx="2.5"/>
+              <circle cx="30" cy="62" r="4"/><rect x="40" y="59" width="48" height="5" rx="2.5"/>
+              <circle cx="30" cy="82" r="4"/><rect x="40" y="79" width="66" height="5" rx="2.5"/>
+              <circle cx="30" cy="102" r="4"/><rect x="40" y="99" width="54" height="5" rx="2.5"/>
+            </g>
+            <circle cx="166" cy="42" r="7" fill="none" stroke="#1E8E3E" stroke-width="2"/>
+            <path d="M162.5 42l2.5 2.5 4.5-5" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="166" cy="74" r="7" fill="none" stroke="#1E8E3E" stroke-width="2"/>
+            <path d="M162.5 74l2.5 2.5 4.5-5" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="166" cy="22" r="7" fill="none" stroke="#1E8E3E" stroke-width="2"/>
+            <path d="M162.5 22l2.5 2.5 4.5-5" fill="none" stroke="#1E8E3E" stroke-width="2" stroke-linecap="round"/>
+            <path d="M182 56 L206 56" fill="none" stroke="#D2D5D9" stroke-width="2"/>
+            <path d="M200 51l7 5-7 5" fill="none" stroke="#D2D5D9" stroke-width="2" stroke-linecap="round"/>
+            <rect x="214" y="26" width="88" height="62" rx="5" fill="#fff" stroke="#D2D5D9"/>
+            <rect x="224" y="36" width="42" height="6" rx="3" fill="#9AA0A6"/>
+            <g fill="#E8F0FE" stroke="#A8C7FA">
+              <rect x="224" y="48" width="68" height="10" rx="2"/>
+              <rect x="224" y="62" width="68" height="10" rx="2"/>
+              <rect x="224" y="76" width="68" height="10" rx="2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hiw-step-n">3</div>
+        <h3>We pick the best three.</h3>
+        <p>We check the contact profile, timing, and history before they reach you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. WHY RELATIONSHIPS GO COLD ===== -->
+<section class="section-white" id="why-cold">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:900px; margin:0 auto;">
+      <h2 class="section-headline" style="white-space:nowrap;">Reconnection often gets put aside.</h2>
+      <p class="subtitle" style="margin-top:12px;">The three reasons good relationships go quiet.</p>
+    </div>
+    <div class="cold-grid fade-in">
+      <div class="cold-card">
+        <div class="cold-ill">
+          <svg viewBox="0 0 260 74" aria-hidden="true">
+            <rect x="0" y="4" width="260" height="66" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="0" y="4" width="260" height="15" rx="4" fill="#F6F6F4"/>
+            <line x1="0" y1="19" x2="260" y2="19" stroke="#E4E6E9"/>
+            <rect x="12" y="9" width="34" height="5" rx="2.5" fill="#D2D5D9"/>
+            <g fill="#EDEEF0">
+              <rect x="12" y="27" width="26" height="14" rx="2"/><rect x="46" y="27" width="26" height="14" rx="2"/>
+              <rect x="80" y="27" width="26" height="14" rx="2"/><rect x="114" y="27" width="26" height="14" rx="2"/>
+              <rect x="148" y="27" width="26" height="14" rx="2"/><rect x="182" y="27" width="26" height="14" rx="2"/>
+              <rect x="216" y="27" width="26" height="14" rx="2"/>
+              <rect x="12" y="47" width="26" height="14" rx="2"/><rect x="46" y="47" width="26" height="14" rx="2"/>
+              <rect x="80" y="47" width="26" height="14" rx="2"/><rect x="114" y="47" width="26" height="14" rx="2"/>
+              <rect x="148" y="47" width="26" height="14" rx="2"/>
+            </g>
+            <rect x="182" y="47" width="60" height="14" rx="2" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+        <h3>The work comes first.</h3>
+        <p>Delivery fills the day, every day. Reaching out is always the thing you get to once delivery is done... and opportunities just slip by in the meantime.</p>
+      </div>
+      <div class="cold-card">
+        <div class="cold-ill">
+          <svg viewBox="0 0 260 74" aria-hidden="true">
+            <g>
+              <rect x="4" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="30" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="56" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="82" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="108" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="134" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="160" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="186" y="30" width="20" height="20" rx="4" fill="#E6F4EA" stroke="#A8D5B5"/>
+              <rect x="212" y="30" width="20" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+              <rect x="238" y="30" width="18" height="20" rx="4" fill="#fff" stroke="#D2D5D9" stroke-dasharray="3 3"/>
+            </g>
+            <rect x="4" y="60" width="62" height="5" rx="2.5" fill="#D2D5D9"/>
+            <rect x="108" y="60" width="46" height="5" rx="2.5" fill="#EDEEF0"/>
+            <rect x="4" y="14" width="74" height="5" rx="2.5" fill="#E4E6E9"/>
+          </svg>
+        </div>
+        <h3>The habit never sticks.</h3>
+        <p>You start strong for a week, then work starts to pile up and the streak breaks.</p>
+      </div>
+      <div class="cold-card">
+        <div class="cold-ill">
+          <svg viewBox="0 0 260 74" aria-hidden="true">
+            <circle cx="36" cy="37" r="24" fill="#fff" stroke="#D2D5D9"/>
+            <path d="M36 21v16l11 7" fill="none" stroke="#9AA0A6" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="76" y="8" width="184" height="58" rx="4" fill="#fff" stroke="#E4E6E9"/>
+            <rect x="86" y="17" width="72" height="5" rx="2.5" fill="#D2D5D9"/>
+            <line x1="76" y1="29" x2="260" y2="29" stroke="#E4E6E9"/>
+            <rect x="86" y="37" width="150" height="4.5" rx="2.25" fill="#E4E6E9"/>
+            <rect x="86" y="47" width="120" height="4.5" rx="2.25" fill="#E4E6E9"/>
+            <rect x="86" y="57" width="52" height="4.5" rx="2.25" fill="#EDEEF0"/>
+            <rect x="142" y="56" width="1.5" height="7" fill="#9AA0A6"/>
+          </svg>
+        </div>
+        <h3>Every reach-out takes too long.</h3>
+        <p>Find the person, dig up your history, work out what to say, write it well &mdash; all these could take you 45 minutes or so.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. WHO THIS IS FOR ===== -->
+<section class="section-sage" id="who-this-is-for">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">Built for agencies that run on relationships.</h2>
+      <p class="subtitle" style="margin-top:12px;">A quick read on whether we&rsquo;re a match.</p>
+    </div>
+    <div class="fit-grid fade-in">
+      <div class="fit-col yes">
+        <div class="fit-col-head">A good fit if&hellip;</div>
+        <div class="fit-row">Your projects run $50K+, or your best clients keep coming back.</div>
+        <div class="fit-row">Most new business comes from relationships and referrals.</div>
+        <div class="fit-row">You want a team working it with you, not another tool to run.</div>
+        <div class="fit-row">Your email runs on Gmail or Google Workspace.</div>
+      </div>
+      <div class="fit-col no">
+        <div class="fit-col-head">Not a fit if&hellip;</div>
+        <div class="fit-row">Your work is small, one-off and high-volume.</div>
+        <div class="fit-row">New business comes mainly from ads or inbound.</div>
+        <div class="fit-row">You want software you set up and run yourself.</div>
+        <div class="fit-row">Your email does not run on Gmail.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. YOUR INBOX, HANDLED WITH CARE ===== -->
+<section class="section-white" id="privacy">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">Your inbox, handled with care.</h2>
+      <p class="subtitle" style="margin-top:12px;">Connecting your email is a big ask. Here&rsquo;s exactly what we do with it.</p>
+    </div>
+    <div class="priv-grid fade-in">
+      <div class="priv-block">
+        <h3>We only get read-only access.</h3>
+        <p>We request only <code>gmail.readonly</code>, so we can&rsquo;t send, delete or change anything in your inbox.</p>
+      </div>
+      <div class="priv-block">
+        <h3>We do not save any emails.</h3>
+        <p>Email bodies and attachments are deleted after processing. We keep only names, companies, roles, last contact dates and short thread summaries. When our team reviews your picks, we pull what we need live, then discard it.</p>
+      </div>
+      <div class="priv-block">
+        <h3>Independently tested every year.</h3>
+        <p>Our application passes ESOF AppSec, an annual security assessment by TAC Security, a Google-approved assessor.</p>
+      </div>
+      <div class="priv-block">
+        <h3>Switch it off anytime.</h3>
+        <p>Remove our access from your Google Account permissions page in one click. Workspace admins can also do it in the Admin console. It takes effect immediately.</p>
+      </div>
+    </div>
+
+
+    <div class="fade-in" style="text-align:center; margin-top:34px;">
+      <p class="subtitle" style="margin-bottom:16px;">Want to hear it from a client? We&rsquo;ll connect you with one of them.</p>
+      <a href="mailto:relationships@veraops.com?subject=Re%3A%20Inbox%20connection&body=Hi%20The%20VeraOps%20Team%2C%0A%0AI%27m%20considering%20Relationship%20Digest%20and%20would%20like%20to%20speak%20with%20an%20active%20user%20regarding%20the%20connection%20of%20my%20inbox.%0A%0ACould%20you%20arrange%20a%20quick%20conversation%3F%0A%0AThanks" class="btn btn-sage-lg" style="width:auto;">Ask for an intro &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. PRICING ===== -->
+<section class="section-sage" id="pricing">
+  <div class="container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">One plan. Pick your term.</h2>
+      <p class="subtitle" style="margin-top:12px;">Everything below, run by our team alongside you. No setup fee.</p>
+    </div>
+    <div class="fade-in" style="text-align:center;">
+      <div class="pricing-toggle" role="tablist" aria-label="Billing term">
+        <button class="pricing-toggle-btn active" data-plan="monthly" role="tab" aria-selected="true">Monthly</button>
+        <button class="pricing-toggle-btn" data-plan="annual" role="tab" aria-selected="false">Annual</button>
+      </div>
+    </div>
+    <div class="pricing-single fade-in">
+      <div class="pricing-card featured" style="max-width:440px; margin:32px auto 0;">
+        <div class="pricing-amount" id="priceAmount">$500 <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;">/ month</span></div>
+        <div class="price-line" id="priceLine">Billed monthly</div>
+        <div class="price-badge" id="priceBadge"></div>
+
+        <ul class="pricing-features" style="margin-top:22px;">
+          <li><span class="pricing-check">&#10003;</span> Three handpicked contacts every day</li>
+          <li><span class="pricing-check">&#10003;</span> Email drafts written in your voice</li>
+          <li><span class="pricing-check">&#10003;</span> Signals built from your own past wins</li>
+          <li><span class="pricing-check">&#10003;</span> Weekly, monthly and quarterly snapshots</li>
+          <li><span class="pricing-check">&#10003;</span> Direct Slack access to our team</li>
+          <li><span class="pricing-check">&#10003;</span> Reconnection strategy and ongoing advice</li>
+        </ul>
+
+        <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=sharon-toerek&amp;utm_medium=landing&amp;utm_campaign=sharon-toerek" class="btn btn-light" style="width:100%; margin-top:8px;">Book a call &rarr;</a>
+        <p class="pricing-note">We&rsquo;ll build your first digest together on the call, with three real people from your inbox. Free, no obligation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10. COMPARE YOUR OPTIONS ===== -->
+<section class="section-white" id="compare">
+  <div class="container compare-container">
+    <div class="fade-in" style="text-align:center; max-width:680px; margin:0 auto;">
+      <h2 class="section-headline">What else you could do.</h2>
+      <p class="subtitle" style="margin-top:12px;">Three ways to work your past relationships. Here&rsquo;s what each one really costs.</p>
+    </div>
+    <div class="cmp-wrap fade-in">
+      <table class="cmp">
+        <colgroup>
+          <col class="cmp-label">
+          <col class="cmp-opt"><col class="cmp-opt"><col class="cmp-opt">
+        </colgroup>
+        <thead>
+          <tr><th scope="col"></th><th scope="col" class="cmp-us">VeraOps</th><th scope="col">Build it yourself with AI</th><th scope="col">Fractional BD lead</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Cost</th><td class="cmp-us">$500/month</td><td>~$800&ndash;$1,000/month in tokens, data sources, infrastructure, plus your team&rsquo;s time.</td><td>$4,000&ndash;$15,000/month</td></tr>
+          <tr><th scope="row">Setup</th><td class="cmp-us">One call</td><td>Weeks of building: Gmail access, data cleanup, prompts, enrichment</td><td>Hiring and ramp-up</td></tr>
+          <tr><th scope="row">First result</th><td class="cmp-us">60-min discovery call</td><td>Once it&rsquo;s built and tuned, which often takes 2&ndash;4 weeks.</td><td>3&ndash;6 months</td></tr>
+          <tr><th scope="row">What you get</th><td class="cmp-us">3 handpicked contacts and drafts, every day</td><td>Contacts labeled hot, warm or cold, without industry judgment</td><td>A person, 10&ndash;15 hours a week</td></tr>
+          <tr><th scope="row">What it asks of you</th><td class="cmp-us">15 minutes a day in Gmail</td><td>30&ndash;45 mins per contact researching and writing outreach emails, plus 1&ndash;2 hours a week fixing bugs, tuning prompts, and handling security and privacy yourself.</td><td>You got to manage them and bear the risk of your pipeline leaving you when they leave.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12. FAQ ===== -->
+<section class="section-white" id="faq">
+  <div class="container">
+    <div class="fade-in" style="text-align:center;">
+      <h2 class="section-headline">Questions we get asked.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-question" aria-expanded="true">
+          <span class="faq-num">01</span>
+          <span class="faq-q-text">What happens on the call?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>We learn how your agency wins work, connect your Gmail and Calendar with read-only access, and build your first digest together with three real contacts. It&rsquo;s free, and you can decide afterwards.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">02</span>
+          <span class="faq-q-text">How is billing set up?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>$500 monthly or $5,000 yearly &mdash; the annual rate is held for Toerek Law’s network. Same service on either term. No setup fee.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">03</span>
+          <span class="faq-q-text">Do you work with Outlook or other email?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Not yet. We only connect to Gmail and Google Workspace.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">04</span>
+          <span class="faq-q-text">How often do digests arrive, and how many contacts are in each?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Every day, with three contacts. You also get weekly, monthly and quarterly snapshots.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">05</span>
+          <span class="faq-q-text">Why only three a day?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Three is enough to build a habit without turning it into noise. Good outreach compounds: one email becomes a reply, a follow-up, then a meeting.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">06</span>
+          <span class="faq-q-text">How far back do you look?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>As far as you first started using the inbox &mdash; at least eight years.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">07</span>
+          <span class="faq-q-text">How is my data protected?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Read-only access, summaries instead of stored emails, and an annual independent security assessment of our application. See the privacy section above for details.</p></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-num">08</span>
+          <span class="faq-q-text">Can I keep the contact data if I leave?</span>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner"><p>Yes. We&rsquo;ll send you the contacts we extracted.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13. FINAL CTA ===== -->
+<section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
+  <div class="container">
+    <h2 class="cta-headline" style="text-align:center;"><span class="cta-line">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span> is</span><span class="cta-line">one relationship away.</span></h2>
+    <p class="subtitle" style="text-align:center;">Book a call. We&rsquo;ll build your first digest with you, free.</p>
+    <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="https://cal.com/leonard-veraops/veraops-discovery-sixty?utm_source=sharon-toerek&amp;utm_medium=landing&amp;utm_campaign=sharon-toerek" data-cursor="Let&rsquo;s talk" class="btn btn-sage-xl">Book a call &rarr;</a>
+      <a href="#hero" data-cursor="Top" class="btn btn-ghost" id="backToTop">&uarr; Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky Bottom CTA -->
+
+<script>
+// Scroll Progress
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+
+// Nav shadow
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const navEl = document.getElementById('nav');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navEl) {
+  navToggle.addEventListener('click', () => {
+    const open = navEl.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  if (navLinks) navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (navEl.classList.contains('menu-open') && !navEl.contains(e.target)) {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+// Custom cursor (dot + label) — hover-capable pointers only
+(function() {
+  if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const dot = document.createElement('div'); dot.className = 'cursor-dot'; dot.setAttribute('aria-hidden', 'true');
+  const label = document.createElement('div'); label.className = 'cursor-label'; label.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(dot); document.body.appendChild(label);
+  document.documentElement.classList.add('cursor-on');
+  let x = window.innerWidth / 2, y = window.innerHeight / 2, dx = x, dy = y;
+  window.addEventListener('mousemove', (e) => { x = e.clientX; y = e.clientY; });
+  function raf() {
+    dx += (x - dx) * 0.2; dy += (y - dy) * 0.2;
+    dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+    label.style.transform = `translate3d(${dx}px, ${dy}px, 0) translate(-50%, calc(-50% + 22px))`;
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  const hoverSel = 'a, button, .btn, [data-cursor], .hiw-tab, input, textarea, summary, .faq-question';
+  document.querySelectorAll(hoverSel).forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('is-hover');
+      const text = el.getAttribute('data-cursor');
+      if (text) { label.textContent = text; label.classList.add('is-show'); }
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('is-hover');
+      label.classList.remove('is-show');
+    });
+  });
+  window.addEventListener('mousedown', () => dot.classList.add('is-press'));
+  window.addEventListener('mouseup', () => dot.classList.remove('is-press'));
+})();
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      if (entry.target.classList.contains('stagger-in')) {
+        const parent = entry.target.parentElement;
+        const siblings = Array.from(parent.querySelectorAll('.stagger-in'));
+        const index = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = (index * 80) + 'ms';
+      }
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in, .stagger-in').forEach(el => observer.observe(el));
+
+// Reveal-stagger: children of [data-reveal-stagger] cascade in on reveal (editorial build).
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!prefersReducedMotion) {
+  document.querySelectorAll('[data-reveal-stagger]').forEach(group => {
+    const kids = Array.from(group.children);
+    kids.forEach(k => { k.style.opacity = '0'; k.style.transform = 'translateY(34px)'; k.style.filter = 'blur(6px)'; k.style.transition = 'opacity 800ms cubic-bezier(0.2,0.8,0.2,1), transform 800ms cubic-bezier(0.2,0.8,0.2,1), filter 800ms ease'; });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        kids.forEach((k, i) => { k.style.transitionDelay = (i * 150) + 'ms'; k.style.opacity = '1'; k.style.transform = 'none'; k.style.filter = 'none'; });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -12% 0px' });
+    io.observe(group);
+  });
+}
+
+// Magnetic pull on primary CTAs — subtle, resets on leave (skipped when reduced motion).
+if (!prefersReducedMotion && !(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) {
+  document.querySelectorAll('[data-magnetic]').forEach(el => {
+    const strength = parseFloat(el.getAttribute('data-magnetic')) || 0.2;
+    el.style.transition = 'transform 200ms cubic-bezier(0.2,0.8,0.2,1)';
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width / 2);
+      const my = e.clientY - (r.top + r.height / 2);
+      el.style.transform = 'translate(' + (mx * strength) + 'px,' + (my * strength) + 'px)';
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+}
+
+// Highlight marks animation
+const heroSub = document.querySelector('.hero-sub');
+if (heroSub) {
+  const marks = heroSub.querySelectorAll('.highlight-mark');
+  const markObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        marks.forEach((mark, i) => {
+          setTimeout(() => mark.classList.add('active'), 400 + i * 600);
+        });
+        markObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  markObserver.observe(heroSub);
+}
+
+// Highlight marks in the tiering-strategy list (same sweep as the hero)
+const tieringList = document.querySelector('.step-bullets');
+if (tieringList) {
+  const marks = tieringList.querySelectorAll('.highlight-mark');
+  const tieringObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        marks.forEach((mark, i) => {
+          setTimeout(() => mark.classList.add('active'), 300 + i * 500);
+        });
+        tieringObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  tieringObserver.observe(tieringList);
+}
+
+// FAQ
+// FAQ accordion — one open at a time; clicking the open row closes it.
+document.querySelectorAll('.faq-item .faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      const q = i.querySelector('.faq-question');
+      if (q) q.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+// Ripple
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    this.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
+  });
+});
+
+// 3D tilt on cards
+document.querySelectorAll('.signal-card, .audit-card, .tracking-compare-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) translateY(-2px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const navHeight = nav.offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+  });
+});
+
+// Pricing billing-term toggle (Monthly | Annual)
+(function () {
+  const btns   = document.querySelectorAll('.pricing-toggle-btn');
+  const amount = document.getElementById('priceAmount');
+  const line   = document.getElementById('priceLine');
+  const badge  = document.getElementById('priceBadge');
+  if (!btns.length || !amount || !line || !badge) return;
+
+  const PLANS = {
+    monthly:   { price: '$500',   unit: '/ month',   line: 'Billed monthly',                              badge: '' },
+    annual:    { price: '$5,000', unit: '/ year',    line: '~$417/month \u00b7 billed yearly',              badge: 'Save $1,000 \u00b7 Toerek Law’s network only' },
+  };
+
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    const plan = PLANS[btn.dataset.plan];
+    if (!plan) return;
+    btns.forEach(b => {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    amount.innerHTML = plan.price + ' <span class="pricing-amount-unit" style="font-size:18px; font-weight:500; opacity:0.6;">' + plan.unit + '</span>';
+    line.textContent = plan.line;
+    badge.textContent = plan.badge;
+  }));
+})();
+
+
+// Word rotator. Any .rotator[data-rotate] cross-fades through its comma-
+// separated words, so the line re-flows around each one naturally rather
+// than holding a slot sized to the longest. Each instance keeps its own
+// timer and starts on the word already in the markup, which is what shows
+// without JS or with reduced motion.
+(function () {
+  const nodes = document.querySelectorAll('.rotator[data-rotate]');
+  if (!nodes.length) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  nodes.forEach(el => {
+    const words = el.dataset.rotate.split(',').map(w => w.trim()).filter(Boolean);
+    if (words.length < 2) return;
+    let i = Math.max(0, words.indexOf(el.textContent.trim()));
+    setInterval(() => {
+      el.classList.add('is-swapping');
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.classList.remove('is-swapping');
+      }, 180);
+    }, 2600);
+  });
+})();
+</script>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="brand">
+        <img src="/assets/logo-mark.png" alt="" class="footer-mark">
+        <span>VeraOps</span>
+      </div>
+      <p class="copy">We turn existing relationships into the most reliable pipeline for digital, marketing, design, and creative agencies.</p>
+      <div class="footer-contact">
+        <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
+        <p>+1 (302) 223 4061</p>
+        <p>838 Walker Road, Suite 21-2<br>Dover, DE 19904, US</p>
+      </div>
+    </div>
+    <div class="footer-col-resources">
+      <h5>Resources</h5>
+      <a href="#digest">Digest</a>
+      <a href="#results">Results</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="footer-col-legal">
+      <h5>Legal</h5>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+    </div>
+    <a href="https://thebureau.community" target="_blank" rel="noopener" class="footer-bureau">
+      <img src="/assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
+  </div>
+</footer>
+
+</body>
+</html>

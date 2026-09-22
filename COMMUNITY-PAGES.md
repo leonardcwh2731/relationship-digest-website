@@ -1,7 +1,7 @@
 # Community landing pages
 
-`/the-bureau`, `/agencyhabits`, `/agency-outsight`, `/surge`, `/team-bubbly`
-and `/mark-depace` are generated
+`/the-bureau`, `/agencyhabits`, `/agency-outsight`, `/surge`, `/team-bubbly`,
+`/mark-depace`, `/sharon-toerek` and `/drew-mclellan` are generated
 from `index.html`. They are the main site with one line changed — the eyebrow
 above the headline — so any edit to the main page reaches all of them.
 

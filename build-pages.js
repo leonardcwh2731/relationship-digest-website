@@ -23,6 +23,8 @@ const PAGES = [
   { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge', rate: 'Surge clients' },
   { dir: 'team-bubbly',     name: 'Team Bubbly',     eyebrow: 'For friends of Team Bubbly',       utm: 'team-bubbly', rate: 'Team Bubbly\u2019s network' },
   { dir: 'mark-depace',     name: 'Mark DePace',     eyebrow: 'For friends of Mark DePace',       utm: 'mark-depace', rate: 'Mark DePace\u2019s network' },
+  { dir: 'sharon-toerek',   name: 'Sharon Toerek',   eyebrow: 'For network of Sharon Toerek and Toerek Law only', utm: 'sharon-toerek', rate: 'Toerek Law\u2019s network' },
+  { dir: 'drew-mclellan',   name: 'Drew McLellan',   eyebrow: 'For network of Drew McLellan and Agency Management Institute only', utm: 'drew-mclellan', rate: 'AMI members' },
 ];
 
 const MAIN_EYEBROW = 'For digital, creative, design and marketing agencies';
