@@ -107,6 +107,16 @@
       "source": "/agency-management-institute",
       "destination": "/drew-mclellan",
       "permanent": true
+    },
+    {
+      "source": "/peter-kang",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/steve-guberman",
+      "destination": "/",
+      "permanent": false
     }
   ],
   "headers": [
