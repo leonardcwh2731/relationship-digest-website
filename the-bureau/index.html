@@ -709,6 +709,8 @@ html.js-on .fade-in.visible { opacity: 1; transform: translateY(0); }
   }
 .footer-bottom span:last-child { text-align: right; }
 }
+/* Inline link inside the copyright line: undo the block-level footer link styles. */
+.footer-bottom a { display: inline; font: inherit; line-height: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 /* Sticky Bottom CTA — hidden on mobile */
 .sticky-bottom-cta .container {
   display: flex; align-items: center; justify-content: center; gap: 24px;
@@ -1316,7 +1318,7 @@ body { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) { .rotator { transition: none; } }
 
 /* The closing CTA sets on two fixed lines: "Your next <word>" above, and
-   "is one relationship away." below. Only the word changes as it rotates,
+   "is one reconnection email away." below. Only the word changes as it rotates,
    so the second line never reflows or shifts. */
 .cta-line { display: block; }
 
@@ -2115,7 +2117,7 @@ body { max-width: 100%; }
 <!-- ===== 13. FINAL CTA ===== -->
 <section class="final-cta" id="book" style="padding-bottom:calc(var(--pad-v) + 30px);">
   <div class="container">
-    <h2 class="cta-headline" style="text-align:center;"><span class="cta-line">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span> is</span><span class="cta-line">one relationship away.</span></h2>
+    <h2 class="cta-headline" style="text-align:center;"><span class="cta-line">Your next <span class="rotator" data-rotate="client,referral,partner,connector,prospect">client</span> is</span><span class="cta-line">one reconnection email away.</span></h2>
     <p class="subtitle" style="text-align:center;">Book a call. We&rsquo;ll learn about your agency and see how we can help.</p>
     <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap;">
       <a href="https://cal.com/leonard-veraops/veraops-discovery?utm_source=the-bureau&amp;utm_medium=landing&amp;utm_campaign=the-bureau" data-cursor="Let&rsquo;s talk" class="btn btn-sage-xl">Book a call &rarr;</a>
@@ -2424,7 +2426,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     </a>
   </div>
   <div class="footer-bottom">
-    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
+    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by <a href="https://barrel-holdings.com/" target="_blank" rel="noopener">Barrel Holdings</a></span>
   </div>
 </footer>
 
