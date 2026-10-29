@@ -25,9 +25,11 @@
   --track-label: 0.08em;
 }
 html { scroll-behavior: smooth; }
-/* Nothing may scroll the page sideways at any width. The marquee and the
-   comparison table scroll inside their own wrappers, not the document. */
-html, body { overflow-x: hidden; max-width: 100%; }
+/* Nothing may scroll the page sideways. overflow-x sits on html alone: the
+   same declaration on body makes body a second scroll container, which with
+   overscroll-behavior: none freezes the page. */
+html { overflow-x: hidden; }
+body { max-width: 100%; }
 /* The footer is the last thing on the page, so the page itself is dark
    underneath. Without this, the white body shows below it when the
    viewport is taller than the content or the browser overscrolls. */
