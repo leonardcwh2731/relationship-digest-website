@@ -130,7 +130,7 @@ function generate(src, page) {
   s = s.replace(/src="assets\//g, 'src="/assets/');
   s = s.replace(/href="assets\//g, 'href="/assets/');   // <image href> inside inline SVG
   s = s.replace(/src="([a-z0-9-]+\.(?:png|jpe?g))"/g, 'src="/$1"');
-  s = s.replace(/href="(privacy-policy|terms-of-service)\.html"/g, 'href="/$1.html"');
+  s = s.replace(/href="(privacy-policy|terms-of-service|data-handling-policy)\.html"/g, 'href="/$1.html"');
 
   return s;
 }

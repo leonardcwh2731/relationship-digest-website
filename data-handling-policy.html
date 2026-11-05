@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Handling Policy — VeraOps · Relationship Digest</title>
+<meta name="description" content="VeraOps Relationship Digest — Data Handling Policy: how we access, protect, retain and delete the data you connect, including Google user data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --paper: #FFFFFF; --paper-2: #F6F6F4;
+  --surface: #FFFFFF; --surface-ink: #FAFAF8;
+  --ink: #202124; --ink-2: #3C4043; --ink-3: #5F6368; --ink-4: #9AA0A6;
+  --hairline: #E4E6E9; --hairline-2: #D2D5D9;
+  --spark: #1A73E8; --spark-deep: #1557B0;
+  --font-display: 'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-sans: 'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono: 'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --fs-h2: clamp(23px, 2.2vw, 27px);
+  --lh-body: 1.7;
+  --track-label: 0.08em;
+}
+html { scroll-behavior: smooth; }
+/* Nothing may scroll the page sideways. overflow-x sits on html alone: the
+   same declaration on body makes body a second scroll container, which with
+   overscroll-behavior: none freezes the page. */
+html { overflow-x: hidden; }
+body { max-width: 100%; }
+/* The footer is the last thing on the page, so the page itself is dark
+   underneath. Without this, the white body shows below it when the
+   viewport is taller than the content or the browser overscrolls. */
+/* Overscroll should show the colour of whichever end you pull past: white
+   above the hero, dark below the footer. A body background would propagate
+   to the whole canvas and repaint below the footer, so the light colour
+   sits on the content, html paints the top, and the footer extends itself
+   downward with a box-shadow that only ever shows on overscroll. */
+/* The footer is the last thing on the page, so the canvas behind everything
+   is dark and the content carries the light colour. Overscrolling past the
+   bottom then reveals the footer's own colour, with nothing extra to paint. */
+/* No rubber-band at either end, so the canvas is never revealed as a band
+   above the header or below the footer. */
+/* Canvas is the footer's colour, so anything exposed past the last section
+   reads as more footer rather than a white band. The fixed backstop covers
+   the bottom of the viewport for Safari on macOS, which ignores
+   overscroll-behavior on the document; it sits behind the content and adds
+   no height. */
+html { background: var(--ink); overscroll-behavior-y: none; }
+body { overscroll-behavior-y: none; background: transparent; }
+.legal-page, .legal-body { background-color: var(--paper); }
+body::after {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 55vh;
+  background: var(--ink); z-index: -1; pointer-events: none;
+}
+.hero, section, .legal-page, .legal-body { background-color: var(--paper); }
+/* Keeps an overscroll at the TOP light rather than showing the dark canvas. */
+body::before {
+  content: ""; position: fixed; left: 0; right: 0; top: 0; height: 50vh;
+  background: var(--paper); z-index: -1; pointer-events: none;
+}
+.footer { position: relative; z-index: 2; }
+body {
+  font-family: var(--font-sans); font-size: 16px; font-weight: 400; line-height: 1.6;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ===== NAV (mirrors main relationship digest site) ===== */
+.nav {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 100;
+  width: min(1136px, calc(100vw - 64px)); max-width: calc(100vw - 32px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  border: 1px solid rgba(228, 230, 233, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 6px 22px -10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 200ms ease, background 200ms ease;
+}
+.nav.scrolled { box-shadow: 0 10px 32px -8px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.05); }
+.nav-inner { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 8px 8px 8px 24px; }
+.nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+.nav-wordmark, .nav-brand-text { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--ink); letter-spacing: -0.015em; }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-2); transition: color 150ms ease; white-space: nowrap; text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { padding: 10px 18px; font-size: 13px; gap: 6px; }
+.nav-cta .arrow { transition: transform 150ms ease; }
+.nav-cta:hover .arrow { transform: translateX(2px); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; cursor: pointer; font-family: var(--font-sans);
+  font-weight: 500; border-radius: 999px;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 100ms ease;
+  position: relative; overflow: hidden;
+  letter-spacing: 0.01em; text-decoration: none;
+}
+.btn:active { transform: scale(0.985); }
+.btn-sage { background: var(--ink); color: var(--paper); padding: 10px 22px; font-size: 14px; }
+.btn-sage:hover { background: var(--ink-2); color: var(--paper); }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 4px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 220ms ease, opacity 180ms ease; }
+.nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.nav-menu-cta { display: none; }
+
+/* ===== LEGAL PAGE ===== */
+.legal-page { padding: 132px 0 80px; }
+.container-narrow { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 32px; }
+.legal-back { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-size: 13.5px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--spark); text-decoration: none; margin-bottom: 30px; }
+.legal-back:hover { color: var(--ink); }
+.legal-eyebrow { font-family: var(--font-sans); font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: var(--track-label); color: var(--ink-3); margin-bottom: 14px; }
+.legal-page h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 3.4vw, 44px); line-height: 1.16; letter-spacing: -0.023em; color: var(--ink); margin-bottom: 14px; text-wrap: balance; }
+.legal-meta { font-family: var(--font-sans); font-size: 13.5px; color: var(--ink-4); margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--hairline); }
+.legal-body { background: var(--paper); }
+.legal-body h2:first-of-type { border-top: none; padding-top: 0; margin-top: 8px; }
+.legal-body h2 { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.25; letter-spacing: -0.021em; color: var(--ink); margin: 46px 0 14px; padding-top: 22px; border-top: 1px solid var(--hairline); }
+.legal-body h3 { font-family: var(--font-sans); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; color: var(--ink); margin: 26px 0 9px; }
+.legal-body p { font-family: var(--font-sans); font-size: 16px; line-height: var(--lh-body); color: var(--ink-3); margin-bottom: 15px; max-width: 68ch; }
+.legal-body ul, .legal-body ol { margin: 0 0 16px 24px; }
+.legal-body li { font-family: var(--font-sans); font-size: 16px; line-height: var(--lh-body); color: var(--ink-3); margin-bottom: 7px; max-width: 66ch; }
+.legal-body a { color: var(--spark); text-decoration: none; }
+.legal-body a:hover { text-decoration: underline; }
+.legal-body ol li { padding-left: 4px; }
+.legal-table-wrap { overflow-x: auto; margin: 6px 0 22px; border: 1px solid var(--hairline); border-radius: 12px; }
+.legal-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 14.5px; line-height: 1.55; }
+.legal-table th { text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: var(--track-label); color: var(--ink-3); background: var(--surface-ink); padding: 12px 16px; border-bottom: 1px solid var(--hairline); }
+.legal-table td { vertical-align: top; color: var(--ink-3); padding: 12px 16px; border-bottom: 1px solid var(--hairline); }
+.legal-table tr:last-child td { border-bottom: none; }
+.legal-table td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+.legal-table code { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); background: var(--paper-2); padding: 1px 6px; border-radius: 5px; }
+.token-flow { margin: 10px 0 26px; padding: 24px 20px 20px; border: 1px solid var(--hairline); border-radius: 14px; background: var(--surface-ink); }
+.token-flow-title { font-family: var(--font-sans); font-weight: 600; font-size: 15px; color: var(--ink); margin-bottom: 20px; }
+.tf-top { display: flex; flex-direction: column; align-items: center; margin-left: calc((100% - 3 * 22px) / 4 + 22px); width: calc((100% - 3 * 22px) / 4); }
+.tf-down { display: flex; flex-direction: column; align-items: center; color: var(--ink-4); font-size: 12.5px; padding: 4px 0; }
+.tf-down::before { content: ""; width: 1px; height: 14px; background: var(--hairline-2); }
+.tf-down::after { content: "\25BE"; line-height: 0.8; color: var(--hairline-2); }
+.tf-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.tf-box { position: relative; background: var(--paper); border: 1px solid var(--hairline-2); border-radius: 10px; padding: 12px 10px; text-align: center; }
+.tf-box strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.tf-box span { display: block; font-size: 12.5px; color: var(--ink-3); line-height: 1.4; margin-top: 3px; }
+.tf-box.is-app { background: #E8F0FE; border: 1.5px solid var(--spark); }
+.tf-row .tf-box:not(:last-child)::after { content: "\2192"; position: absolute; right: -18px; top: 50%; transform: translateY(-50%); color: var(--ink-4); font-size: 14px; }
+.tf-caption { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-4); margin-top: 16px; }
+@media (max-width: 640px) {
+  .tf-top { margin-left: 0; width: 100%; }
+  .tf-row { grid-template-columns: 1fr; gap: 22px; }
+  .tf-row .tf-box:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -20px; transform: translateX(-50%); }
+}
+hr { border: 0; border-top: 1px solid var(--hairline); margin: 56px 0; }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--ink); color: var(--paper); padding: 80px 0 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; gap: 32px; }
+.footer-inner .footer-brand-col { grid-column: 1; grid-row: 1 / 3; }
+/* Sits in the Legal column so its left edge lines up with those links, and
+   pulled up so the badge bottom sits level with the address block. */
+.footer-bureau { grid-column: 3; grid-row: 2; justify-self: start; align-self: start; display: block; margin-top: -32px; text-decoration: none; }
+.footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
+.footer h5 { font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(243,248,234,0.5); margin: 0 0 16px; }
+.footer a { display: block; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2; color: var(--paper); text-decoration: none; opacity: 0.85; transition: color 150ms ease, opacity 150ms ease; }
+.footer a:hover { opacity: 1; color: var(--spark); }
+.footer .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.footer .brand img.footer-mark { width: 36px; height: 36px; border-radius: 7px; background: var(--paper); object-fit: cover; }
+.footer .brand span { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: -0.015em; color: var(--paper); }
+.footer .copy { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.6; color: rgba(243,248,234,0.6); max-width: 36ch; margin: 0; }
+.footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.footer-contact p { font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5; color: rgba(243,248,234,0.6); margin: 0; max-width: 36ch; }
+.footer-contact p a { display: inline; opacity: 0.85; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(243,248,234,0.3); }
+.footer-bottom { max-width: 1200px; margin: 20px auto 0; padding: 20px 32px 0; border-top: 1px solid rgba(243,248,234,0.1); font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1; color: rgba(243,248,234,0.4); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  /* Floating wide pill (~headline width): brand + hamburger */
+  .nav { min-width: 0; width: calc(100vw - 24px); max-width: calc(100vw - 24px); top: 12px; }
+  .nav-inner { justify-content: space-between; gap: 16px; padding: 8px 12px 8px 22px; }
+  .nav-wordmark, .nav-brand-text { font-size: 18px; }
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: flex;
+    position: absolute; top: calc(100% + 10px); right: 6px; left: auto;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 10px; width: min(200px, calc(100vw - 48px));
+    box-shadow: 0 16px 40px -10px rgba(0,0,0,0.22);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-8px) scale(0.96); transform-origin: top right;
+    transition: opacity 200ms ease, transform 260ms ease, visibility 0s linear 260ms;
+  }
+  .nav.menu-open .nav-links {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition: opacity 200ms ease, transform 260ms cubic-bezier(0.2,0.9,0.3,1.2), visibility 0s;
+  }
+  .nav-links > * { opacity: 0; transform: translateY(-4px); transition: opacity 200ms ease, transform 200ms ease; }
+  .nav.menu-open .nav-links > * { opacity: 1; transform: translateY(0); }
+  .nav.menu-open .nav-links > *:nth-child(1) { transition-delay: 60ms; }
+  .nav.menu-open .nav-links > *:nth-child(2) { transition-delay: 90ms; }
+  .nav.menu-open .nav-links > *:nth-child(3) { transition-delay: 120ms; }
+  .nav.menu-open .nav-links > *:nth-child(4) { transition-delay: 150ms; }
+  .nav.menu-open .nav-links > *:nth-child(5) { transition-delay: 180ms; }
+  .nav.menu-open .nav-links > *:nth-child(6) { transition-delay: 210ms; }
+  .nav-links a { padding: 10px 14px; border-radius: 10px; font-size: 15px; color: var(--ink); }
+  .nav-links a:hover { background: var(--paper-2); }
+  .nav-links a.nav-menu-cta { display: inline-flex; justify-content: center; gap: 6px; margin-top: 8px; color: var(--paper); background: var(--ink); border-radius: 999px; }
+  .nav-links a.nav-menu-cta:hover { background: var(--ink-2); color: var(--paper); }
+  .legal-page { padding: 100px 0 56px; }
+  .container-narrow { padding: 0 24px; }
+  .legal-body h2 { font-size: 24px; }
+  .footer { padding: 48px 0 20px; }
+  .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
+  .footer a { line-height: 1.85; font-size: 13.5px; }
+  .footer-contact { margin-top: 18px; gap: 10px; }
+  .footer h5 { margin-bottom: 12px; }
+  .footer-bureau img { height: 52px; }
+  .footer-inner .footer-brand-col,
+  .footer-inner .footer-col-resources,
+  .footer-inner .footer-col-legal { grid-column: 1; grid-row: auto; }
+  /* Stacked footer: cancel the desktop pull-up used to align the badge with
+     the address block, which no longer applies in one column. */
+  .footer-bureau { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 16px !important; }
+  /* Two columns on one row: stacked, these two long lines wrapped into a
+     four-line block that read as one run-on sentence. */
+  .footer-bottom {
+    display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+    gap: 0 20px; padding: 18px 24px 0; margin-top: 28px;
+    font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
+  }
+  .footer-bottom span:last-child { text-align: right; }
+}
+</style>
+<script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://b2bjsstore.s3.us-west-2.amazonaws.com/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("5NRP9H7XXWO1");</script>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html#hero" class="nav-brand"><span class="nav-wordmark">VeraOps</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#digest">Digest</a>
+      <a href="index.html#results">Results</a>
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-sage nav-menu-cta">Book a call <span class="arrow">&rarr;</span></a>
+    </div>
+    <a href="https://cal.com/leonard-veraops/veraops-discovery" data-cursor="Book" class="btn btn-sage nav-cta">Book a call <span class="arrow">&rarr;</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<main class="legal-page">
+  <div class="container-narrow">
+    <a href="index.html" class="legal-back">&larr; Back to home</a>
+    <div class="legal-eyebrow">Legal</div>
+    <h1>Data Handling Policy</h1>
+    <p class="legal-meta">Last modified: November 5, 2026</p>
+  </div>
+
+  <div class="legal-body">
+    <div class="container-narrow">
+      <h2>Introduction</h2>
+      <h3>Welcome to BVS I LLC d/b/a VeraOps (&ldquo;VeraOps&rdquo;).</h3>
+      <p>VeraOps (&ldquo;us&rdquo;, &ldquo;we&rdquo;, or &ldquo;our&rdquo;) operates the VeraOps Relationship Digest service (hereinafter referred to as &ldquo;Relationship Digest&rdquo; or the &ldquo;Service&rdquo;).</p>
+      <p>This Data Handling Policy (the &ldquo;Policy&rdquo;) describes how we access, use, protect, retain and delete the data you connect to Relationship Digest, including data obtained from your Google account. It applies solely to Relationship Digest and to no other VeraOps product or service.</p>
+      <p>By connecting your Google account to Relationship Digest, you acknowledge that you have read and understood this Policy.</p>
+
+      <h2>Relationship to Our Privacy Policy and Terms of Service</h2>
+      <p>This Policy supplements, and forms part of, our <a href="privacy-policy.html">Privacy Policy</a> and our <a href="terms-of-service.html">Terms of Service</a> (the &ldquo;Terms&rdquo;). Terms used but not defined in this Policy have the meanings given to them in the Privacy Policy or the Terms.</p>
+      <p>In the event of any conflict between this Policy and the Privacy Policy or the Terms concerning data processed through Relationship Digest, this Policy shall prevail.</p>
+
+      <h2>Definitions</h2>
+      <p><strong>Client</strong> means the individual or organization that has subscribed to Relationship Digest and connected a Google account to the Service.</p>
+      <p><strong>Google User Data</strong> means any data obtained from a Client&rsquo;s Google account through Google APIs, including Gmail and Google Calendar data.</p>
+      <p><strong>Refresh Token</strong> means the long-lived credential issued by Google when a Client authorizes Relationship Digest, which permits the Service to request Access Tokens on the Client&rsquo;s behalf.</p>
+      <p><strong>Access Token</strong> means the short-lived credential issued by Google in exchange for a Refresh Token, which permits a single period of read-only access to a Client&rsquo;s Google account.</p>
+      <p><strong>Decryption Key</strong> means the secret used to decrypt a Client&rsquo;s stored Refresh Token.</p>
+      <p><strong>Service Providers</strong> means the third parties that process data on our behalf to operate Relationship Digest, as listed in the Service Providers section below.</p>
+
+      <h2>Information We Access</h2>
+      <p>Relationship Digest accesses a Client&rsquo;s Google account on a strictly read-only basis. The Service cannot send, delete, modify, label or move any email or calendar event.</p>
+      <p>Access is granted by the Client through Google&rsquo;s own authorization screen. We do not receive, request or store the Client&rsquo;s Google password.</p>
+      <p>The Service requests the following permissions:</p>
+      <div class="legal-table-wrap">
+        <table class="legal-table">
+          <thead><tr><th>Data source</th><th>Google permission</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Gmail</td><td><code>gmail.readonly</code></td><td>To identify the Client&rsquo;s correspondents, the recency, frequency and reciprocity of correspondence, and whether a contact has replied following a suggestion</td></tr>
+            <tr><td>Google Calendar</td><td><code>calendar.readonly</code></td><td>To identify meetings with correspondents, and whether a suggested contact has scheduled a meeting with the Client</td></tr>
+            <tr><td>Google profile</td><td>Basic profile (name and email address)</td><td>To identify the connected account</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>We may also obtain publicly available professional information about a Client&rsquo;s contacts, such as current role and employer, to determine which relationships to surface.</p>
+      <p>Relationship Digest does not access Google Drive, Google Contacts, Google Docs or any other Google service.</p>
+
+      <h2>Information We Retain</h2>
+      <p>We retain only the information necessary to prepare and deliver the Service and to measure its results. This includes:</p>
+      <ul>
+        <li>The Client&rsquo;s Refresh Token, in encrypted form only, as described under Security of Google Account Credentials</li>
+        <li>Contact records derived from the Client&rsquo;s correspondence, including name, email address, employer, role, and relationship signals such as the date of last contact and message counts</li>
+        <li>Suggestions and draft messages contained in each digest, and any edits the Client makes to them</li>
+        <li>Outcome records, including whether a suggested contact replied or scheduled a meeting</li>
+        <li>Account and onboarding information</li>
+        <li>A log of each occasion on which the Client&rsquo;s mailbox was accessed</li>
+      </ul>
+      <p>We do not retain:</p>
+      <ul>
+        <li>The Client&rsquo;s Google password</li>
+        <li>Access Tokens, which are generated when required, used, and discarded</li>
+        <li>Payment card details, which are processed by our payment processor in accordance with the Privacy Policy</li>
+        <li>Email threads or any other sensitive information within the Client&rsquo;s mailbox</li>
+      </ul>
+
+      <h2>Security of Google Account Credentials</h2>
+      <p>The Refresh Token is the credential that permits Relationship Digest to access a Client&rsquo;s Google account. We encrypt each Refresh Token before it is stored, and we hold the Decryption Key in a separate, restricted environment that is independent of our database.</p>
+      <p>Accordingly, a copy of our database alone would contain only encrypted Refresh Tokens, without the means to decrypt them.</p>
+      <h3>Authorization</h3>
+      <p>When a Client connects a Google account:</p>
+      <ol>
+        <li>The Client signs in through Google and approves read-only access to Gmail and Google Calendar.</li>
+        <li>Google issues a Refresh Token to Relationship Digest.</li>
+        <li>The Refresh Token is encrypted immediately and stored in our database in encrypted form only.</li>
+        <li>The Decryption Key is not stored in our database, our source code or our code repository. It is held as an encrypted secret within our cloud hosting environment.</li>
+      </ol>
+      <h3>Each Access</h3>
+      <p>Each time Relationship Digest accesses a Client&rsquo;s mailbox or calendar:</p>
+      <ol>
+        <li>Our cloud hosting environment releases the Decryption Key to our application server at runtime. Only our production application, and authenticated VeraOps administrators, can access the Decryption Key.</li>
+        <li>The application server decrypts the Client&rsquo;s Refresh Token for that request only.</li>
+        <li>The application server presents the Refresh Token to Google over an encrypted connection and obtains a new Access Token. Access Tokens issued by Google expire after approximately one hour.</li>
+        <li>The Access Token is used for that operation only. It is held in memory and is never written to disk or to our database.</li>
+        <li>On completion of the operation, the decrypted Refresh Token and the Access Token are discarded.</li>
+      </ol>
+      <figure class="token-flow" aria-label="Token flow for every mailbox access">
+        <div class="token-flow-title">The key and the token meet only inside the app, for one request</div>
+        <div class="tf-top">
+          <div class="tf-box"><strong>Secured environment</strong><span>Holds decryption key</span></div>
+          <div class="tf-down">loads key</div>
+        </div>
+        <div class="tf-row">
+          <div class="tf-box"><strong>Encrypted token</strong><span>Stored in database</span></div>
+          <div class="tf-box is-app"><strong>Application server</strong><span>Decrypts per request</span></div>
+          <div class="tf-box"><strong>Google</strong><span>Issues 1-hour token</span></div>
+          <div class="tf-box"><strong>Gmail and Calendar</strong><span>Read-only access</span></div>
+        </div>
+        <figcaption class="tf-caption">Token flow &middot; every mailbox access</figcaption>
+      </figure>
+      <p>Because a new Access Token is obtained for every access, no standing credential exists that could be used against a Client&rsquo;s account independently of these controls.</p>
+
+      <h2>Encryption and Security Safeguards</h2>
+      <p>All data transmitted between the Client, Relationship Digest, Google and our Service Providers is transmitted over encrypted HTTPS (TLS) connections.</p>
+      <p>All data held in our database is encrypted at rest by our database provider. Refresh Tokens are subject to an additional, independent layer of encryption, as described under Security of Google Account Credentials.</p>
+      <p>Application secrets, including API keys and the Decryption Key, are never committed to source code. They are held only as encrypted secrets within our cloud hosting environment.</p>
+      <p>We maintain commercially reasonable administrative, physical and technical safeguards designed to protect the data we process. However, no method of transmission over the Internet or method of electronic storage is completely secure.</p>
+
+      <h2>Google API Services User Data Policy and Limited Use</h2>
+      <p>Relationship Digest&rsquo;s use and transfer of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+      <p>In particular:</p>
+      <ul>
+        <li>We use Google User Data solely to provide and improve the user-facing features of Relationship Digest.</li>
+        <li>We do not use Google User Data for advertising, including retargeting, personalized or interest-based advertising.</li>
+        <li>We do not sell Google User Data.</li>
+        <li>We do not transfer Google User Data to third parties except as necessary to provide the Service through the Service Providers listed below, to comply with applicable law, or as part of a merger, acquisition or sale of assets.</li>
+        <li>We do not use Google User Data to develop, improve or train generalized artificial intelligence or machine-learning models.</li>
+        <li>Our personnel access Google User Data only as described under Personnel Access.</li>
+      </ul>
+
+      <h2>Use of Artificial Intelligence</h2>
+      <p>Relationship Digest uses an artificial intelligence model to analyze relevant correspondence and to prepare the suggestions and draft messages contained in each digest. We provide the model only with the content necessary for the specific task, such as recent correspondence with a particular contact.</p>
+      <p>We access the model through our AI provider&rsquo;s commercial API. Under the applicable commercial terms, the provider does not use data submitted through the API to train its models.</p>
+      <p>We do not use Client data to train any artificial intelligence model, whether our own or a third party&rsquo;s. Where a Client edits a draft message, we may use those edits to reflect the Client&rsquo;s writing style in that Client&rsquo;s future digests. Such edits are not used for, or shared with, any other Client.</p>
+
+      <h2>Personnel Access</h2>
+      <p>Relationship Digest is a managed service. A limited number of authorized VeraOps personnel access Client data in order to deliver it, and only to the extent necessary for the following purposes:</p>
+      <ul>
+        <li>To review and quality-check digest suggestions before delivery to the Client</li>
+        <li>To respond to a support request made by the Client</li>
+        <li>To investigate security incidents or abuse</li>
+        <li>To comply with applicable law</li>
+      </ul>
+      <p>Personnel access a Client&rsquo;s mailbox only through read-only tools. Each such access is recorded in the Client&rsquo;s activity log.</p>
+      <p>We do not permit any person outside VeraOps and our Service Providers to access Client data.</p>
+
+      <h2>Service Providers</h2>
+      <p>We engage the following Service Providers to operate Relationship Digest. Each Service Provider receives only the data necessary to perform its function on our behalf.</p>
+      <div class="legal-table-wrap">
+        <table class="legal-table">
+          <thead><tr><th>Service Provider</th><th>Function</th><th>Data processed</th></tr></thead>
+          <tbody>
+            <tr><td>Google</td><td>Gmail and Google Calendar access; account authorization</td><td>Mailbox and calendar data (read-only)</td></tr>
+            <tr><td>Supabase</td><td>Database</td><td>Encrypted Refresh Tokens, contact records, digests, outcome records</td></tr>
+            <tr><td>DigitalOcean</td><td>Cloud hosting: application servers and encrypted secret storage</td><td>Data in processing; the Decryption Key</td></tr>
+            <tr><td>Anthropic</td><td>Artificial intelligence model</td><td>Correspondence relevant to each suggestion</td></tr>
+            <tr><td>Postmark</td><td>Delivery of digests and account emails</td><td>Client email address; digest content</td></tr>
+            <tr><td>Vercel</td><td>Hosting of onboarding pages</td><td>Client name, email address and company</td></tr>
+            <tr><td>RapidAPI, Apify</td><td>Publicly available professional information</td><td>Contact names, employers and email addresses</td></tr>
+            <tr><td>FindyMail, Kitt AI</td><td>Email address discovery and verification</td><td>Contact names, employers and email addresses</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Revocation of Access, Retention and Deletion</h2>
+      <h3>Revocation by the Client</h3>
+      <p>A Client may revoke Relationship Digest&rsquo;s access to its Google account at any time, without notice to us, through the third-party connections settings of its Google account. On revocation, the stored Refresh Token ceases to function and the Service can no longer access the Client&rsquo;s mailbox or calendar.</p>
+      <h3>Retention</h3>
+      <p>We retain Client data for as long as the Client&rsquo;s subscription remains active and as necessary to provide the Service.</p>
+      <h3>Deletion on Termination</h3>
+      <p>On termination or non-renewal of a Client&rsquo;s subscription, we will:</p>
+      <ol>
+        <li>Remove the connection to the Client&rsquo;s Google account, and delete and revoke the Client&rsquo;s Refresh Token</li>
+        <li>Delete the Client&rsquo;s data from our active systems, including contact records, digests, draft messages and outcome records</li>
+      </ol>
+      <p>Data held in backups is deleted in the ordinary course as those backups expire, which may take up to one month.</p>
+      <p>Contact lists and other data compiled by the Service are not provided to the Client on termination. A former Client who later resumes the Service will be onboarded as a new Client.</p>
+      <h3>Legal Retention</h3>
+      <p>We may retain limited records, such as invoices, where required to comply with applicable law.</p>
+
+      <h2>Security Incidents</h2>
+      <p>If we become aware of unauthorized access to Client data, we will notify the affected Client without undue delay. Our notice will describe the nature of the incident, the data affected, and the measures we are taking in response.</p>
+      <p>Where a Refresh Token may have been compromised, we will revoke it and request that the Client reconnect its Google account.</p>
+
+      <h2>Your Choices</h2>
+      <p>A Client may request at any time that we correct or delete specific data we hold about it. Requests should identify the data to be changed or removed and may be sent to <a href="mailto:relationships@veraops.com">relationships@veraops.com</a>. We will act on such requests within thirty (30) days.</p>
+
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Policy from time to time. We will notify Clients of any material change by email or by a prominent notice on our website prior to the change becoming effective, and we will update the date at the top of this Policy.</p>
+
+      <h2>Contact Us</h2>
+      <p>If you have any questions about this Policy, please contact us:</p>
+      <ul>
+        <li>By email: <a href="mailto:relationships@veraops.com">relationships@veraops.com</a></li>
+        <li>By phone: +1 (302) 223 4061</li>
+        <li>By mail: 838 Walker Road, Suite 21-2, Dover, DE 19904, United States</li>
+      </ul>
+
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <div class="brand">
+        <img src="assets/logo-mark.png" alt="" class="footer-mark">
+        <span>VeraOps</span>
+      </div>
+      <p class="copy">We turn existing relationships into the most reliable pipeline for digital, marketing, design, and creative agencies.</p>
+      <div class="footer-contact">
+        <p><a href="mailto:relationships@veraops.com">relationships@veraops.com</a></p>
+        <p>+1 (302) 223 4061</p>
+        <p>838 Walker Road, Suite 21-2<br>Dover, DE 19904, US</p>
+      </div>
+    </div>
+    <div class="footer-col-resources">
+      <h5>Resources</h5>
+      <a href="index.html#digest">Digest</a>
+      <a href="index.html#results">Results</a>
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#pricing">Pricing</a>
+    </div>
+    <div class="footer-col-legal">
+      <h5>Legal</h5>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="data-handling-policy.html">Data Handling Policy</a>
+    </div>
+    <a href="https://thebureau.community" target="_blank" rel="noopener" class="footer-bureau">
+      <img src="assets/bureau-badge.png" alt="Proud Member of the Flock &middot; The Bureau">
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 BVS I LLC d/b/a VeraOps &middot; Backed by Barrel Holdings</span>
+  </div>
+</footer>
+
+<script>
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const navEl = document.getElementById('nav');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navEl) {
+  navToggle.addEventListener('click', () => {
+    const open = navEl.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  if (navLinks) navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (navEl.classList.contains('menu-open') && !navEl.contains(e.target)) {
+      navEl.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+</script>
+
+</body>
+</html>
