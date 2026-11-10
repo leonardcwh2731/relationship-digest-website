@@ -2,7 +2,7 @@
 /**
  * Generates the community landing pages from index.html.
  *
- * The three pages are the main site with one line changed: the eyebrow above
+ * The pages are the main site with one line changed: the eyebrow above
  * the headline. Everything else — sections, copy, styles, scripts — comes
  * from index.html, so editing the main page is the only thing needed to keep
  * them current. A pre-commit hook runs this, so they cannot drift.
@@ -17,27 +17,29 @@ const CAL = 'https://cal.com/leonard-veraops/veraops-discovery';
 
 // Everything that differs between the pages lives here.
 const PAGES = [
-  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: null,                               utm: 'the-bureau', badge: 'bureau', rate: 'Bureau members' },
-  { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits', rate: 'Agency Habits readers' },
-  { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight', rate: 'Agency Outsight readers' },
-  { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge', rate: 'Surge clients' },
-  { dir: 'team-bubbly',     name: 'Team Bubbly',     eyebrow: 'For friends of Team Bubbly',       utm: 'team-bubbly', rate: 'Team Bubbly\u2019s network' },
-  { dir: 'mark-depace',     name: 'Mark DePace',     eyebrow: 'For friends of Mark DePace',       utm: 'mark-depace', rate: 'Mark DePace\u2019s network' },
-  { dir: 'sharon-toerek',   name: 'Sharon Toerek',   eyebrow: 'For network of Sharon Toerek and Toerek Law only', utm: 'sharon-toerek', rate: 'Toerek Law\u2019s network' },
-  { dir: 'drew-mclellan',   name: 'Drew McLellan',   eyebrow: 'For network of Drew McLellan and Agency Management Institute only', utm: 'drew-mclellan', rate: 'AMI members' },
+  { dir: 'the-bureau',      name: 'The Bureau',      eyebrow: null,                               utm: 'the-bureau', badge: 'bureau' },
+  { dir: 'agencyhabits',    name: 'Agency Habits',   eyebrow: 'For Agency Habits readers only',   utm: 'agency-habits' },
+  { dir: 'agency-outsight', name: 'Agency Outsight', eyebrow: 'For Agency Outsight readers only', utm: 'agency-outsight' },
+  { dir: 'surge',           name: 'Surge',           eyebrow: 'For clients of Surge only',        utm: 'surge' },
+  { dir: 'team-bubbly',     name: 'Team Bubbly',     eyebrow: 'For friends of Team Bubbly',       utm: 'team-bubbly' },
+  { dir: 'mark-depace',     name: 'Mark DePace',     eyebrow: 'For friends of Mark DePace',       utm: 'mark-depace' },
+  { dir: 'sharon-toerek',   name: 'Sharon Toerek',   eyebrow: 'For network of Sharon Toerek and Toerek Law only', utm: 'sharon-toerek' },
+  { dir: 'drew-mclellan',   name: 'Drew McLellan',   eyebrow: 'For network of Drew McLellan and Agency Management Institute only', utm: 'drew-mclellan' },
 ];
 
-const MAIN_EYEBROW = 'For digital, creative, design and marketing agencies';
+const MAIN_EYEBROW = 'For founders of creative studios';
+const MAIN_TITLE = '<title>VeraOps &middot; Conversations months before the brief</title>';
 
 function generate(src, page) {
   let s = src;
 
-  s = s.replace(
-    '<title>VeraOps &middot; Win new work from relationships already in your inbox</title>',
-    `<title>VeraOps &middot; ${page.name}</title>`);
+  if (!s.includes(MAIN_TITLE)) {
+    throw new Error('index.html: <title> not found — update MAIN_TITLE in build-pages.js');
+  }
+  s = s.replace(MAIN_TITLE, `<title>VeraOps &middot; ${page.name}</title>`);
 
   s = s.replace(/<meta name="description" content="[^"]*">/,
-    `<meta name="description" content="VeraOps for ${page.name}. Every day we send three past relationships worth reconnecting with, plus the context and an email ready to send.">`);
+    `<meta name="description" content="VeraOps for ${page.name}. We help studio founders turn 10+ years of relationships into conversations that start months before the brief.">`);
 
   // Shared by link, so keep these out of search results.
   if (!s.includes('name="robots"')) {
@@ -47,88 +49,42 @@ function generate(src, page) {
 
   // The one line of copy that differs. A null eyebrow drops the line entirely,
   // for pages whose badge already names the audience.
-  const eyebrow = `<p class="hero-eyebrow hero-anim">${MAIN_EYEBROW}</p>`;
+  const eyebrow = `<p class="eyebrow">${MAIN_EYEBROW}</p>`;
   if (!s.includes(eyebrow)) {
     throw new Error(`index.html: hero eyebrow not found — update MAIN_EYEBROW in build-pages.js`);
   }
   s = page.eyebrow
-    ? s.replace(eyebrow, `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`)
+    ? s.replace(eyebrow, `<p class="eyebrow">${page.eyebrow}</p>`)
     : s.replace(new RegExp('[ \\t]*' + eyebrow.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\n'), '');
 
   // Tag bookings so the calendar shows which community they came from.
   const booking = `${CAL}?utm_source=${page.utm}&amp;utm_medium=landing&amp;utm_campaign=${page.utm}`;
   s = s.split(`href="${CAL}"`).join(`href="${booking}"`);
 
-  // The Bureau page carries their badge above the eyebrow, and moves the logo
-  // strip out of the hero so the hero ends on the CTA's subtext.
+  // The Bureau page carries their badge above the headline.
   if (page.badge === 'bureau') {
     const anchorTag = page.eyebrow
-      ? `<p class="hero-eyebrow hero-anim">${page.eyebrow}</p>`
-      : '<h1 class="hero-headline hero-anim">';
+      ? `<p class="eyebrow">${page.eyebrow}</p>`
+      : '<h1 class="display">';
     s = s.replace(anchorTag,
-      `<div class="hero-badge hero-anim">
-        <img src="/assets/BureauBadges_Horiz-01.webp" alt="Proud Member of the Flock &middot; The Bureau">
-      </div>\n      ` + anchorTag);
-
-    // Lift the marquee out of .hero-stack into its own band under the hero.
-    // Matched by brace-counting, not a lazy regex: the marquee nests a track
-    // and its figures, so a non-greedy match closes on the wrong </div>.
-    const open = s.indexOf('<div class="agency-marquee hero-marquee hero-anim">');
-    if (open !== -1) {
-      let i = open, depth = 0, end = -1;
-      while (i < s.length) {
-        if (s.startsWith('<div', i)) depth++;
-        else if (s.startsWith('</div>', i)) { depth--; if (depth === 0) { end = i + 6; break; } }
-        i++;
-      }
-      if (end !== -1) {
-        let lineStart = s.lastIndexOf('\n', open) + 1;
-        const block = s.slice(lineStart, end) + '\n';
-        s = s.slice(0, lineStart) + s.slice(end + 1);
-        const digestTag = '<section class="section-white" id="digest">';
-        if (!s.includes(digestTag)) throw new Error('build-pages: digest section anchor not found');
-        s = s.replace(digestTag,
-          `<section class="section-white logo-band">\n${block.replace('hero-marquee', 'band-marquee')}</section>\n\n${digestTag}`);
-      }
-    }
-
-    s = s.replace('</style>', `
-/* The Bureau page only: their badge above the eyebrow, and the logo strip
-   as its own band so the hero ends on the CTA subtext. */
-.hero-badge { display: inline-block; margin-bottom: 26px; }
-.hero-badge img { height: 104px; width: auto; display: block;
-  /* The badge ships on cream; multiply drops that tile so only the mark
-     and type sit on the white hero. */
-  mix-blend-mode: multiply; }
-.logo-band { padding: 52px 0 72px; }
-/* section + section draws a rule between consecutive sections. The band is
-   part of the hero visually, so neither it nor the section after it should
-   pick one up — that keeps this page identical to the main one. */
-.logo-band, .logo-band + section { border-top: none; }
-/* The strip sits in its own section here, so the hero's bottom padding would
-   stack on top of it. Zeroing it keeps the gap identical to the other pages,
-   where the marquee sits inside the hero with a 52px margin. */
-.hero-redesign { padding-bottom: 0; }
-.band-marquee { margin-top: 0; }
-@media (max-width: 600px) { .hero-badge img { height: 72px; } }
-</style>`);
+      `<div class="hero-badge">
+      <img src="/assets/BureauBadges_Horiz-01.webp" alt="Proud Member of the Flock &middot; The Bureau">
+    </div>\n    ` + anchorTag);
+    s = s.replace('</head>', `<style>
+/* The Bureau page only: their badge above the headline. The badge ships on
+   cream, so it sits on its own rounded tile against the dark hero. */
+.hero-badge { display: inline-block; margin-bottom: 32px; }
+.hero-badge img { height: 96px; width: auto; display: block; border-radius: 8px; }
+@media (max-width: 600px) { .hero-badge img { height: 68px; } }
+</style>
+</head>`);
   }
 
-  // Network rate: these pages keep the $5,000 annual price the main site no
-  // longer offers, and the badge names who it is for so the discount reads as
-  // deliberate rather than an inconsistency.
-  if (page.rate) {
-    const mainAnnual = "annual:    { price: '$6,000', unit: '/ year',    line: 'Billed yearly',                                badge: '' },";
-    if (!s.includes(mainAnnual)) throw new Error('build-pages: annual plan line not found');
-    s = s.replace(mainAnnual,
-      "annual:    { price: '$5,000', unit: '/ year',    line: '~$417/month \\u00b7 billed yearly',              badge: 'Save $1,000 \\u00b7 " + page.rate + " only' },");
-    s = s.replace('<p>$500 monthly or $6,000 yearly. Same service on either term. No setup fee.</p>',
-      '<p>$500 monthly or $5,000 yearly &mdash; the annual rate is held for ' + page.rate + '. Same service on either term. No setup fee.</p>');
-  }
-
-  // These pages live one level down, so same-origin paths must be absolute.
+  // These pages live one level down, so same-origin relative paths must be
+  // absolute. (The rebuilt pages already use absolute paths; the footer,
+  // kept unchanged from the previous site, still uses relative ones.)
   s = s.replace(/src="assets\//g, 'src="/assets/');
-  s = s.replace(/href="assets\//g, 'href="/assets/');   // <image href> inside inline SVG
+  s = s.replace(/href="assets\//g, 'href="/assets/');
   s = s.replace(/src="([a-z0-9-]+\.(?:png|jpe?g))"/g, 'src="/$1"');
   s = s.replace(/href="(privacy-policy|terms-of-service|data-handling-policy)\.html"/g, 'href="/$1.html"');
 

@@ -121,6 +121,21 @@
   ],
   "headers": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging.veraops.com"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/(the-bureau|agencyhabits|agency-outsight|surge|team-bubbly|mark-depace|sharon-toerek|drew-mclellan)",
       "headers": [
         {
