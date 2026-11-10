@@ -121,6 +121,15 @@
   ],
   "headers": [
     {
+      "source": "/staging/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/(the-bureau|agencyhabits|agency-outsight|surge|team-bubbly|mark-depace|sharon-toerek|drew-mclellan)",
       "headers": [
         {
