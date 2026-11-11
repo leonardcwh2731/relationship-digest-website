@@ -321,7 +321,8 @@ section[id] { scroll-margin-top: 0; }
 .case-tab:hover { transform: translateY(-3px); }
 .case-tab:focus-visible { outline: 2px solid var(--bone); outline-offset: 3px; }
 .case-tab .cue { margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--bone); }
-.case-tab[aria-selected="true"] .cue { display: none; }
+/* The open box keeps the cue's space (just hidden), so all three boxes share one layout. */
+.case-tab[aria-selected="true"] .cue { visibility: hidden; }
 .case-tab:hover .cue { text-decoration: underline; text-underline-offset: 4px; }
 .case-tab[aria-selected="true"]::after {
   content: ""; position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
