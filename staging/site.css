@@ -278,7 +278,11 @@ section[id] { scroll-margin-top: 0; }
 .case-tab .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-2); line-height: 1.5; }
 .case-tab[aria-selected="true"] .label { color: var(--ink-l3); }
 .case-tab h3 { font-family: var(--serif); font-weight: 400; font-size: 23px; line-height: 1.2; margin: 14px 0 18px; }
-.case-tab .stats { display: flex; gap: 18px; flex-wrap: wrap; margin-top: auto; font-size: 13.5px; color: var(--mute); }
+/* Three stats in fixed columns: value on top, label underneath. "Suggestion
+   to brief" runs from VeraOps' first suggestion of the contact to the brief. */
+.case-tab .stats { display: grid; grid-template-columns: 1fr 1.25fr 0.8fr; gap: 12px; margin-top: auto; padding-top: 16px; border-top: 1px dotted var(--line-d); font-size: 12.5px; line-height: 1.35; color: var(--mute); }
+.case-tab[aria-selected="true"] .stats { border-top-color: var(--dot-l); }
+.case-tab .stats b { display: block; font-size: 16px; margin-bottom: 3px; }
 .case-tab[aria-selected="true"] .stats { color: var(--ink-l2); }
 .case-tab .stats b { font-weight: 600; color: var(--bone); }
 .case-tab[aria-selected="true"] .stats b { color: var(--ink-l); }
