@@ -1,11 +1,9 @@
 /* VeraOps — single-page site (veraops.com/staging)
-   Background flow: the dark hero; one light run (clients, why it works,
-   how it works, what you'll hear) alternating cream and white; a dark run
-   alternating two charcoals (case studies, is this for you, pricing); a
-   cream closing band; then the footer in a deeper charcoal with a clean
-   edge so it reads as the end. Colour changes inside the page open with a
-   short fade (see .fade-in). The footer block at the end keeps the live
-   site's markup and layout. */
+   Background: the page is charcoal. Light sections sit in rounded cream
+   panels inset from the page edge: one panel for clients, why it works,
+   how it works and what you'll hear (cream and white inside it, joined by
+   short fades); one for is this for you; one for the closing call to
+   action. Case studies and pricing sit on the charcoal between them. */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,8 +11,6 @@
   --char:   #292826;   /* every dark band and the footer share the hero's charcoal */
   --char-2: #34322F;   /* raised boxes on dark, a step lighter than the band */
   --hero:   #292826;   /* the fold: a lighter charcoal, one flat colour */
-  --char-alt: #36332F;  /* a warmer, lighter charcoal for alternate dark bands */
-  --foot:   #1B1A18;   /* the footer: deeper than any band, so it reads as the end */
   --bone:   #F2EEE7;
   --mute:   #A39E96;
   --mute-2: #7A766F;
@@ -46,7 +42,7 @@
   --nav-h: 72px;
 }
 
-html { scroll-behavior: smooth; background: var(--foot); overscroll-behavior-y: none; overflow-x: hidden; }
+html { scroll-behavior: smooth; background: var(--char); overscroll-behavior-y: none; overflow-x: hidden; }
 body {
   background: var(--char); color: var(--bone);
   font-family: var(--font-body); font-size: 16px; line-height: 1.6;
@@ -63,7 +59,10 @@ section[id] { scroll-margin-top: 0; }
 .dark { background: var(--char); color: var(--bone); }
 .light { background: var(--cream); color: var(--ink-l); }
 .light.on-white { background: var(--white); }
-.dark.alt { background: var(--char-alt); }
+/* Light sections sit in rounded panels inset on the charcoal, so a change
+   of colour reads as a deliberate card rather than a hard cut or a fade. */
+.panel { margin: 0 16px; border-radius: 28px; overflow: hidden; background: var(--cream); }
+.panel + .band, .band + .panel { margin-top: 0; }
 
 /* Background flow. The page runs dark (hero), then one light run
    (clients, why, how it works, what you'll hear), then one dark run to the
@@ -71,11 +70,8 @@ section[id] { scroll-margin-top: 0; }
    from the colour above instead of a hard edge: --from names that colour.
    "big" is for dark <-> light changes: a longer fade, with the section's
    top padding grown so content always starts below it. */
-.from-dark  { --from: var(--char); }
 .from-cream { --from: var(--cream); }
 .from-white { --from: var(--white); }
-.from-char  { --from: var(--char); }
-.from-alt   { --from: var(--char-alt); }
 .fade-in { position: relative; }
 .fade-in > .wrap { position: relative; z-index: 1; }
 .fade-in::before {
@@ -87,7 +83,6 @@ section[id] { scroll-margin-top: 0; }
     color-mix(in srgb, var(--from) 9%, transparent) 82%,
     transparent 100%);
 }
-.fade-in.big::before { height: 56px; }
 .glow {
   background:
     radial-gradient(ellipse 70% 60% at 80% 0%, rgba(214, 200, 182, 0.17), transparent 62%),
@@ -462,7 +457,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 
 @media (max-width: 720px) {
   :root { --gutter: 20px; --pad-v: 76px; }
-  .fade-in.big::before { height: 44px; }
+  .panel { margin: 0 8px; border-radius: 20px; }
   body { font-size: 16px; }
   .hero-band .hero { padding: 24px 0 56px; }
   .logos { padding: 64px 0 var(--pad-v); }
@@ -475,7 +470,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 }
 
 /* ===== FOOTER (live site layout; type set in the page's body font) ===== */
-.footer { background: var(--foot); color: var(--paper); padding: 44px 0 18px; margin-top: 0; position: relative; z-index: 2; }
+.footer { background: var(--char); color: var(--paper); padding: 44px 0 18px; margin-top: 0; position: relative; z-index: 2; }
 .footer-inner {
   max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter);
   display: grid;
