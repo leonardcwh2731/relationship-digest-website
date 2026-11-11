@@ -57,6 +57,30 @@ section[id] { scroll-margin-top: 0; }
 .band { padding: var(--pad-v) 0; }
 .dark { background: var(--char); color: var(--bone); }
 .light { background: var(--cream); color: var(--ink-l); }
+.light.on-white { background: var(--white); }
+
+/* Background flow. The page runs dark (hero), then one light run
+   (clients, why, how it works, what you'll hear), then one dark run to the
+   end. Where the colour changes, the next section opens with a soft fade
+   from the colour above instead of a hard edge: --from names that colour.
+   "big" is for dark <-> light changes: a longer fade, with the section's
+   top padding grown so content always starts below it. */
+.from-dark  { --from: var(--char); }
+.from-cream { --from: var(--cream); }
+.from-white { --from: var(--white); }
+.fade-in { position: relative; }
+.fade-in > .wrap { position: relative; z-index: 1; }
+.fade-in::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 140px; pointer-events: none;
+  background: linear-gradient(to bottom,
+    var(--from) 0%,
+    color-mix(in srgb, var(--from) 64%, transparent) 28%,
+    color-mix(in srgb, var(--from) 30%, transparent) 55%,
+    color-mix(in srgb, var(--from) 9%, transparent) 82%,
+    transparent 100%);
+}
+.fade-in.big::before { height: 260px; }
+.fade-in.big { padding-top: calc(var(--pad-v) + 156px); }
 .glow {
   background:
     radial-gradient(ellipse 70% 60% at 80% 0%, rgba(214, 200, 182, 0.17), transparent 62%),
@@ -267,8 +291,19 @@ section[id] { scroll-margin-top: 0; }
 @media (max-width: 1000px) {
   .team { grid-template-columns: 1fr 1fr; }
   .team .role, .team .role + .role { padding: 20px 18px 20px 0; border-left: 0; border-bottom: 1px solid var(--line-d); }
+  .how .team .role, .how .team .role + .role { border-bottom-color: var(--line-l); }
 }
 @media (max-width: 560px) { .team { grid-template-columns: 1fr; } }
+
+/* How it works sits in the light run. */
+.how .features { background: var(--line-l); border-color: var(--line-l); }
+.how .feature { background: var(--white); }
+.how .feature .n { color: var(--ink-l3); }
+.how .feature p { color: var(--ink-l2); }
+.how .feature .gets { color: var(--ink-l); border-top-color: var(--dot-l); }
+.how .team { border-top-color: var(--line-l); }
+.how .team .role + .role { border-left-color: var(--line-l); }
+.how .team p { color: var(--ink-l2); }
 
 /* Small lists inside feature cards (sources, signals, inbox checks). */
 .feature .mini { list-style: none; margin-top: 10px; font-size: 14.5px; color: var(--mute); }
@@ -279,6 +314,10 @@ section[id] { scroll-margin-top: 0; }
 .commit { border: 1px solid var(--line-d); border-radius: 14px; padding: 28px 30px; max-width: 760px; }
 .commit h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin-bottom: 8px; }
 .commit p { color: var(--mute); }
+.how .feature .mini { color: var(--ink-l2); }
+.how .feature .mini li::before { border-color: var(--ink-l3); }
+.how .commit { background: var(--white); border-color: var(--line-l); }
+.how .commit p { color: var(--ink-l2); }
 
 /* ---------- What you'll hear (light) ---------- */
 .badge-note { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; border: 1px dashed currentColor; border-radius: 6px; color: var(--ink-l3); margin-top: 22px; }
@@ -402,6 +441,8 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 
 @media (max-width: 720px) {
   :root { --gutter: 20px; --pad-v: 76px; }
+  .fade-in.big::before { height: 180px; }
+  .fade-in.big { padding-top: calc(var(--pad-v) + 110px); }
   body { font-size: 16px; }
   .hero-band .hero { padding: 24px 0 56px; }
   .logos { padding: 64px 0 var(--pad-v); }
