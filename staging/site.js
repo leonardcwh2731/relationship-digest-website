@@ -16,6 +16,23 @@
     });
   }
 
+  // Hero timeline: draw one continuous dotted line from the first dot to the last.
+  var tl = document.querySelector('#hero .timeline');
+  if (tl) {
+    var placeLine = function () {
+      var stops = tl.querySelectorAll('.stop');
+      if (stops.length < 2) return;
+      var box = tl.getBoundingClientRect();
+      var a = stops[0].getBoundingClientRect(), b = stops[stops.length - 1].getBoundingClientRect();
+      tl.style.setProperty('--tl-l', (a.left + a.width / 2 - box.left) + 'px');
+      tl.style.setProperty('--tl-r', (box.right - (b.left + b.width / 2)) + 'px');
+      tl.classList.add('tl-js');
+    };
+    placeLine();
+    window.addEventListener('resize', placeLine);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeLine);
+  }
+
   // Case studies: one story open at a time, chosen from the three boxes.
   var tabs = document.querySelectorAll('.case-tab');
   tabs.forEach(function (tab) {
