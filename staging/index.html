@@ -11,7 +11,9 @@
 <link rel="icon" type="image/svg+xml" href="https://framerusercontent.com/images/9tKqoOH4WUlOECSPfAi6JOr7r7Y.svg">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>
-  // Reveal animations are opt-in: without JS (or with reduced motion) the page renders fully visible.
+  // Reveal animations and the case-study switcher are opt-in: without JS
+  // (or with reduced motion) the page renders fully, every story visible.
+  document.documentElement.className += ' js';
   if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.className += ' js-on';
   }
@@ -23,12 +25,12 @@
 
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/staging" class="nav-brand">VeraOps</a>
+    <a href="#hero" class="nav-brand">VeraOps</a>
     <div class="nav-links" id="navLinks">
-      <a href="/staging/how-it-works">How it works</a>
-      <a href="/staging/insights">What you&rsquo;ll hear</a>
-      <a href="/staging/pricing">Pricing</a>
-      <a href="/staging/about">About</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#insights">What you&rsquo;ll hear</a>
+      <a href="#results">Case studies</a>
+      <a href="#pricing">Pricing</a>
       <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn nav-menu-cta">Book a call <span class="arrow">&rarr;</span></a>
     </div>
     <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn nav-cta">Book a call <span class="arrow">&rarr;</span></a>
@@ -38,191 +40,243 @@
 
 <main>
 
-<!-- 1. Hero -->
-<section class="hero glow" id="hero">
-  <div class="wrap">
-    <p class="eyebrow">For founders of creative studios</p>
-    <h1 class="display">When you hear about a project at the brief, <em>you&rsquo;re already one of five studios pitching.</em></h1>
-    <p class="lead">We help studio founders turn 10+ years of relationships into conversations that start months before the brief.</p>
-    <div class="hero-ctas">
-      <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn">Talk to Leonard <span class="arrow">&rarr;</span></a>
-      <a href="/staging/how-it-works" class="btn btn-ghost">How it works</a>
-    </div>
-
-    <div class="timeline reveal" style="--stops:4" aria-label="From the first reconnection to the brief">
-      <div class="stop"><div class="when">Month 0</div><div class="what">The first reconnection</div></div>
-      <div class="stop"><div class="when">Weeks later</div><div class="what">A catch-up. <em>You hear what&rsquo;s changing.</em></div></div>
-      <div class="stop"><div class="when">Months later</div><div class="what">An idea, <em>before anyone asks.</em></div></div>
-      <div class="stop is-end"><div class="when">Then</div><div class="what">The brief, <em>written around you.</em></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 2. Client logo wall -->
-<section class="logos" aria-labelledby="clients-h">
-  <div class="wrap">
-    <p class="eyebrow">Clients</p>
-    <h2 class="h3" id="clients-h" style="margin-bottom:40px;">Current + past partners</h2>
-    <div class="logo-grid">
-      <div class="logo-cell"><img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly" loading="lazy"></div>
-      <div class="logo-cell"><img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="Ghost Robot" loading="lazy"></div>
-      <div class="logo-cell"><img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="RaffertyWeiss Media" loading="lazy"></div>
-      <div class="logo-cell"><img class="lg-paperwhite" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio" loading="lazy"></div>
-      <div class="logo-cell"><img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="BX Studio" loading="lazy"></div>
-      <div class="logo-cell"><img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel" loading="lazy"></div>
-      <div class="logo-cell"><img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital" loading="lazy"></div>
+<!-- ===== 1. Hero + clients (dark) ===== -->
+<section class="dark glow" id="hero">
+  <div class="hero">
+    <div class="wrap">
+      <p class="hero-kicker">B2B Business Development Agency</p>
+      <h1 class="display hero-title"><span>When you hear about a project at the brief,</span> <em>you&rsquo;re already one of five studios pitching.</em></h1>
+      <p class="lead">We build relationship reconnection systems that put studio founders in conversations that start months before the brief, without cold outreach or hiring a business development lead.</p>
+      <div class="ctas">
+        <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn">Talk to Leonard <span class="arrow">&rarr;</span></a>
+        <a href="#how-it-works" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="timeline" aria-label="From the first reconnection to the brief">
+        <div class="stop"><div class="when">Month 0</div><div class="what">The first reconnection</div></div>
+        <div class="stop"><div class="when">Weeks later</div><div class="what">A catch-up. <em>You hear what&rsquo;s changing.</em></div></div>
+        <div class="stop"><div class="when">Months later</div><div class="what">An idea, <em>before anyone asks.</em></div></div>
+        <div class="stop is-end"><div class="when">Then</div><div class="what">The brief, <em>written around you.</em></div></div>
+      </div>
     </div>
   </div>
-</section>
-
-<!-- 3. The problem -->
-<section class="section">
-  <div class="wrap split">
-    <div class="label"><p class="eyebrow">The problem</p></div>
-    <p class="statement reveal">You built your studio on relationships. Then the work got busy, the conversations stopped, <em class="inline">and new projects started arriving as briefs and RFPs, where you compete on price.</em></p>
-  </div>
-</section>
-
-<!-- 4. The reframe -->
-<section class="section">
-  <div class="wrap split">
-    <div class="label"><p class="eyebrow">The reframe</p></div>
-    <div>
-      <h2 class="h2 reveal">It&rsquo;s a timing problem, <em>not a pipeline problem.</em></h2>
-      <div class="prose lead reveal" style="margin-top:28px;">
-        <p>The decision to hire a studio is made months before the brief is written. It&rsquo;s even made before the public signals: a new CMO, a reorg, a product launch. It starts in private conversations.</p>
-        <p>While everyone else pitches for a project, studios that are already in the conversation shape the project.</p>
+  <div class="logos">
+    <div class="wrap">
+      <p class="eyebrow">Clients</p>
+      <p class="label">Current + past partners</p>
+      <div class="logo-grid">
+        <div class="logo-cell"><img class="lg-bubbly" src="/assets/agency-logos/team-bubbly-v2.png" alt="Team Bubbly"></div>
+        <div class="logo-cell"><img class="lg-ghost" src="/assets/agency-logos/ghost-robot.png" alt="Ghost Robot"></div>
+        <div class="logo-cell"><img class="lg-rafferty" src="/assets/agency-logos/rafferty-weiss.png" alt="RaffertyWeiss Media"></div>
+        <div class="logo-cell"><img class="lg-paperwhite" src="/assets/agency-logos/paperwhite-studio-v2.png" alt="Paperwhite Studio"></div>
+        <div class="logo-cell"><img class="lg-bx" src="/assets/agency-logos/bx-studio-clean.png" alt="BX Studio"></div>
+        <div class="logo-cell"><img class="lg-barrel" src="/assets/agency-logos/barrel-holdings-v2.png" alt="Barrel"></div>
+        <div class="logo-cell"><img class="lg-driver" src="/assets/agency-logos/driver-digital-clean.png" alt="Driver Digital"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 5. Our point of view -->
-<section class="section light">
+<!-- ===== 2. Why: problem, reframe, principles (light) ===== -->
+<section class="band light" id="why">
   <div class="wrap">
-    <div class="section-head">
+    <div class="split sub reveal">
+      <p class="eyebrow">The problem</p>
+      <p class="statement">You built your studio on relationships. Then the work got busy, the conversations stopped, <em>and new projects started arriving as briefs and RFPs, where you compete on price.</em></p>
+    </div>
+    <div class="split sub reveal">
+      <p class="eyebrow">The reframe</p>
+      <div>
+        <h2 class="h2">It&rsquo;s a timing problem, <em>not a pipeline problem.</em></h2>
+        <div class="lead" style="margin-top:22px;">
+          <p>The decision to hire a studio is made months before the brief is written, even before the public signals: a new CMO, a reorg, a product launch. It starts in private conversations.</p>
+          <p>While everyone else pitches for a project, studios already in the conversation shape it. The work still comes, but because you were early, not lucky.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub reveal">
       <p class="eyebrow">Our point of view</p>
-      <h2 class="h2">Three principles.</h2>
-    </div>
-    <div class="principles reveal">
-      <div class="principle"><span class="n">01</span><h3>Stay close.</h3><p>Keep in regular, human contact with the people who already trust you.</p></div>
-      <div class="principle"><span class="n">02</span><h3>Hear early.</h3><p>Learn what is changing inside their companies before it shows up anywhere public.</p></div>
-      <div class="principle"><span class="n">03</span><h3>Move first.</h3><p>Bring an idea before the brief exists, so the brief is written around you.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 6. What changes for your studio -->
-<section class="section glow">
-  <div class="wrap split">
-    <div class="label"><p class="eyebrow">What changes for your studio</p></div>
-    <div>
-      <h2 class="h2 reveal">Stop chasing deals. <em>Start having better conversations.</em></h2>
-      <div class="prose lead reveal" style="margin-top:28px;">
-        <p>Most business development is built around pipeline: lists, sequences, deal counts. When a project lands, it often feels like luck. We change how you think about it.</p>
-        <p>The goal is deeper conversations with people who already know you, and what you learn in them: where their company is heading, what&rsquo;s about to change, what they&rsquo;ll need next.</p>
-        <p>Those conversations, and the market signals inside them, are worth more than any outbound campaign. The work still comes, but because you were early, not lucky.</p>
+      <h2 class="h2">Stop chasing deals. <em>Start having better conversations.</em></h2>
+      <div class="principles">
+        <div class="principle"><span class="n">01</span><h3>Stay close.</h3><p>Keep in regular, human contact with the people who already trust you.</p></div>
+        <div class="principle"><span class="n">02</span><h3>Hear early.</h3><p>Learn what is changing inside their companies before it shows up anywhere public.</p></div>
+        <div class="principle"><span class="n">03</span><h3>Move first.</h3><p>Bring an idea before the brief exists, so the brief is written around you.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 7. How we work with you -->
-<section class="section" id="how-it-works">
+<!-- ===== 3. How it works (dark) ===== -->
+<section class="band dark" id="how-it-works">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">How we work with you</p>
+    <div class="head">
+      <p class="eyebrow">How it works</p>
       <h2 class="h2">A managed service, <em>not software.</em></h2>
+      <p class="lead">Each week we tell you who to talk to and why now, keep track of what you hear, and review your key accounts with you each quarter. One framework, built for one kind of founder.</p>
     </div>
-    <div class="cols-2 reveal">
-      <div class="item">
-        <h3>Who to talk to, and why now.</h3>
-        <p>Each week we tell you who to talk to and why now, keep track of what you hear, and review your key accounts with you each quarter.</p>
-      </div>
-      <div class="item">
-        <h3>Simple, systematic, specialised.</h3>
-        <p>We&rsquo;re not a CRM or a reactivation campaign. It&rsquo;s one framework built for one kind of founder, and we&rsquo;re selective about who we take on, because it only works for that group.</p>
-      </div>
-      <div class="item">
-        <h3>A small team behind you.</h3>
-        <p>An account manager, a relationship strategist, a relationship engineer, a copywriter and an email specialist who looks after your inbox.</p>
-      </div>
-      <div class="item">
-        <h3>A report every week.</h3>
-        <p>What we did, what we learned, and why we chose the people we chose.</p>
+
+    <div class="features reveal" id="digest">
+      <div class="feature"><span class="n">01</span><h3>Relationship strategy</h3><p>We map your inbox and calendar history, find the real person behind every address (even after a job change), and rank each relationship by recent signals, history and fit.</p><p class="gets">Who matters most, and why, before anyone reaches out.</p></div>
+      <div class="feature"><span class="n">02</span><h3>Relationship context</h3><p>Connected to your meeting notetaker, so every thread carries what was said, who attended and who spoke.</p><p class="gets">Every reconnection starts from what was actually said.</p></div>
+      <div class="feature"><span class="n">03</span><h3>Relationship signals</h3><p>Who visits your website: people new to you, and people in your network, including those who read your note but didn&rsquo;t reply.</p><p class="gets">Follow-ups go to people already paying attention.</p></div>
+      <div class="feature"><span class="n">04</span><h3>Inbox health</h3><p>We monitor your sending reputation and inbox placement, especially when email goes out from your main address.</p><p class="gets">Your notes land in the inbox, and your name stays trusted.</p></div>
+      <div class="feature"><span class="n">05</span><h3>Weekly strategy report</h3><p>Who we picked, the context we used and how each note was written, plus why this person, why not others, why now.</p><p class="gets">A clear view of what we&rsquo;re doing and why.</p></div>
+      <div class="feature"><span class="n">06</span><h3>Client dashboard</h3><p>Everything in the report, live: who to contact and follow up, drafted follow-ups, conversations started, and your accounts.</p><p class="gets">Every relationship in motion, in one place.</p></div>
+    </div>
+
+    <div class="sub reveal" style="margin-top:72px;">
+      <p class="eyebrow">Who you work with</p>
+      <div class="team">
+        <div class="role"><h4>Account manager</h4><p>Your main contact. Runs the weekly report and quarterly account review.</p></div>
+        <div class="role"><h4>Relationship strategist</h4><p>Sets the strategy: why this person, why not others, why now.</p></div>
+        <div class="role"><h4>Relationship engineer</h4><p>Keeps your strategy, context and signals connected and accurate.</p></div>
+        <div class="role"><h4>Copywriter</h4><p>Writes each note in your voice, from the context we have.</p></div>
+        <div class="role"><h4>Email specialist</h4><p>Looks after your inbox health and sending reputation.</p></div>
       </div>
     </div>
-    <p style="margin-top:40px;"><a href="/staging/how-it-works" class="text-link">See how it works <span class="arrow">&rarr;</span></a></p>
+
+    <div class="yourpart reveal" style="margin-top:56px;">
+      <div><h4>What we do</h4><p>Choose who to talk to, gather the context, draft each note in your voice, watch who&rsquo;s paying attention and keep your inbox healthy.</p></div>
+      <div><h4>What you do, about 20 minutes a day</h4><p>Read the suggestions, edit anything that doesn&rsquo;t sound like you, send from your own inbox, and take the calls that come back.</p></div>
+    </div>
   </div>
 </section>
 
-<!-- 8. Case studies -->
-<section class="section" id="results">
+<!-- ===== 4. What you'll hear (light) ===== -->
+<section class="band light" id="insights">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Case studies</p>
-      <h2 class="h2">Three conversations that started before the brief</h2>
-      <p class="lead">Three studio founders, three relationships that had gone quiet for months or years, and what happened once the conversation started again.</p>
+    <div class="head">
+      <p class="eyebrow">What you&rsquo;ll hear</p>
+      <h2 class="h2">Everyone sees the headline. <em>You hear what&rsquo;s behind it.</em></h2>
+      <p class="lead">Signal feeds tell every studio the same thing at the same time. A conversation with someone who already trusts you tells you what it means for the next six to twelve months.</p>
+      <span class="badge-note">Illustrative examples, not client data</span>
     </div>
-    <div class="cases">
-      <a class="case reveal" href="/staging/case-study-one">
+    <div class="examples reveal">
+      <article class="example">
+        <div class="surface"><span class="k">The feed showed</span><h3>A 12% layoff at a consumer brand.</h3></div>
+        <div class="deeper"><span class="k">The conversation revealed</span><h3>A pivot, not a freeze.</h3><p>The cuts were in retail. Spend is moving to direct-to-consumer, and they need product films before spring.</p><p class="means"><b>For you:</b> a brief in about four months, and a chance to shape it now.</p></div>
+      </article>
+      <article class="example">
+        <div class="surface"><span class="k">The feed showed</span><h3>A new CMO at a mid-market software company.</h3></div>
+        <div class="deeper"><span class="k">The conversation revealed</span><h3>She&rsquo;s rebuilding the roster.</h3><p>Six agencies down to two in her first ninety days, favouring partners she has worked with before.</p><p class="means"><b>For you:</b> the roster is decided before any RFP is written.</p></div>
+      </article>
+      <article class="example">
+        <div class="surface"><span class="k">The feed showed</span><h3>A merger between two regional banks.</h3></div>
+        <div class="deeper"><span class="k">The conversation revealed</span><h3>Budgets frozen until close.</h3><p>Nothing moves for two quarters. The rebrand is real, and it will be scoped by whoever is still talking to the team when the freeze lifts.</p><p class="means"><b>For you:</b> stay close through the quiet months, and don&rsquo;t pitch into a freeze.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. Case studies (dark) ===== -->
+<section class="band dark" id="results">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Case studies</p>
+      <h2 class="h2">Three conversations <em>that started before the brief.</em></h2>
+      <p class="lead">Three studio founders, three relationships that had gone quiet for months or years, and what happened once the conversation started again. Each studio is named only as &ldquo;Client&rdquo;.</p>
+    </div>
+
+    <div class="case-tabs" role="tablist" aria-label="Case studies">
+      <button class="case-tab" role="tab" id="tab-1" aria-controls="case-1" aria-selected="true">
         <span class="label">A VP Marketing at a major science museum</span>
         <h3>Inside a private RFP three months before the project went public</h3>
-        <p>8.5 years of silence, one note, and an invitation that never appeared on any feed.</p>
-        <ul class="stats">
-          <li>8.5 years <span>quiet</span></li>
-          <li>15 days <span>from flag to brief</span></li>
-          <li>$67K <span>brief</span></li>
-        </ul>
-        <span class="more">Read the case study <span class="arrow">&rarr;</span></span>
-      </a>
-      <a class="case reveal" href="/staging/case-study-two">
+        <span class="stats"><span><b>8.5 years</b> quiet</span><span><b>15 days</b> flag to brief</span><span><b>$67K</b> brief</span></span>
+      </button>
+      <button class="case-tab" role="tab" id="tab-2" aria-controls="case-2" aria-selected="false">
         <span class="label">A Managing Partner at a PR agency</span>
         <h3>Lost the job in two days. Got it back in five weeks.</h3>
-        <p>An unanswered coffee invite became a brief three days after one personal note.</p>
-        <ul class="stats">
-          <li>7 months <span>quiet</span></li>
-          <li>3 days <span>from note to brief</span></li>
-          <li>$18K <span>brief</span></li>
-        </ul>
-        <span class="more">Read the case study <span class="arrow">&rarr;</span></span>
-      </a>
-      <a class="case reveal" href="/staging/case-study-three">
+        <span class="stats"><span><b>7 months</b> quiet</span><span><b>3 days</b> note to brief</span><span><b>$18K</b> brief</span></span>
+      </button>
+      <button class="case-tab" role="tab" id="tab-3" aria-controls="case-3" aria-selected="false">
         <span class="label">A Partner at a newly launched creative agency</span>
         <h3>First to reconnect. First production partner.</h3>
-        <p>A job change everyone could see became a brief no one else was in.</p>
-        <ul class="stats">
-          <li>21 months <span>quiet</span></li>
-          <li>2.5 months <span>from flag to brief</span></li>
-          <li>$50K <span>brief</span></li>
-        </ul>
-        <span class="more">Read the case study <span class="arrow">&rarr;</span></span>
-      </a>
+        <span class="stats"><span><b>21 months</b> quiet</span><span><b>2.5 months</b> flag to brief</span><span><b>$50K</b> brief</span></span>
+      </button>
     </div>
 
-    <div class="quotes">
-      <figure class="quote reveal">
+    <div class="case-panel" role="tabpanel" id="case-1" aria-labelledby="tab-1">
+      <div>
+        <p class="intro">The Client hadn&rsquo;t emailed this contact in 8.5 years. Eleven days after one note, they were invited into a private, NDA-only RFP. The project went public three months later. It is now a $67K campaign.</p>
+        <h4>The relationship</h4>
+        <p>In 2017 she hired the Client for a product video. Their last email was that October. In March 2026 she became VP Marketing and Communications at a major science museum.</p>
+        <h4>What VeraOps flagged &middot; March 30, 2026</h4>
+        <p class="why">&ldquo;Job change to a senior marketing role at a major cultural institution, prime moment to reconnect as she&rsquo;s establishing new production partnerships.&rdquo;</p>
+      </div>
+      <div>
+        <h4 style="margin-top:0;">How it unfolded &middot; 2026</h4>
+        <ol class="vtl">
+          <li><span class="d">Apr 3</span><span class="t">The Client sends the suggested note. She replies in 23 minutes.</span></li>
+          <li class="key"><span class="d">Apr 14</span><span class="t"><strong>The brief:</strong> a private RFP for &ldquo;an early-stage project&hellip; featuring a widely-known IP&rdquo;. NDA required. Budget up to $100K.</span></li>
+          <li><span class="d">May 29</span><span class="t">Pitch to the museum team.</span></li>
+          <li class="key"><span class="d">Jul 7</span><span class="t"><strong>First public signal:</strong> she announces she is leading the exhibition.</span></li>
+          <li><span class="d">Oct 23</span><span class="t">Photography and retouching added. <strong>Revised to $67K.</strong></span></li>
+          <li><span class="d">Nov 9</span><span class="t">Kick-off call.</span></li>
+        </ol>
+        <p class="shows">No feed would have surfaced this project in April. The Client was on the RFP list because they reconnected within days of her new job, not after the news broke.</p>
+      </div>
+    </div>
+
+    <div class="case-panel" role="tabpanel" id="case-2" aria-labelledby="tab-2" hidden>
+      <div>
+        <p class="intro">An old peer had ignored the Client&rsquo;s coffee invite for 7 months. Three days after one personal note, he sent an $18K brief. The job went elsewhere, then came back five weeks later.</p>
+        <h4>The relationship</h4>
+        <p>They worked on big events together years ago. He then became a partner at a new PR agency. The Client&rsquo;s notes in May, July and November 2025 went unanswered; the last was an invitation to coffee.</p>
+        <h4>What VeraOps flagged &middot; June 15, 2026</h4>
+        <p class="why">&ldquo;Reopening the unanswered pre-holiday meetup thread from last fall, a real specific dangling item, now that there&rsquo;s a solid stretch of new work to share.&rdquo;</p>
+      </div>
+      <div>
+        <h4 style="margin-top:0;">How it unfolded &middot; 2026</h4>
+        <ol class="vtl">
+          <li><span class="d">Jul&ndash;Aug</span><span class="t">A general news update and two follow-ups. No reply.</span></li>
+          <li><span class="d">Sep 8</span><span class="t">A personal note: &ldquo;I&rsquo;d love to reconnect&hellip; selfishly, I just miss working with ya.&rdquo;</span></li>
+          <li class="key"><span class="d">Sep 11</span><span class="t"><strong>The brief, 3 days later:</strong> a sizzle reel for one of his clients. $18K estimate sent on Sep 15.</span></li>
+          <li><span class="d">Sep 17</span><span class="t">His client already had a friend producing it. &ldquo;Let&rsquo;s stay in touch, we have TONS of upcoming projects.&rdquo;</span></li>
+          <li class="key"><span class="d">Oct 21</span><span class="t"><strong>The brief comes back:</strong> &ldquo;In an exciting plot twist, we would very much like to move forward with your proposal.&rdquo;</span></li>
+          <li><span class="d">Nov 4&ndash;6</span><span class="t">Statement of work with his client&rsquo;s legal team.</span></li>
+        </ol>
+        <p class="shows">A general update got no reply; a personal, specific note got a brief in three days. When the job briefly went elsewhere, the Client was still the studio he came back to.</p>
+      </div>
+    </div>
+
+    <div class="case-panel" role="tabpanel" id="case-3" aria-labelledby="tab-3" hidden>
+      <div>
+        <p class="intro">A contact quiet for 21 months moved to a new agency. The Client reached out six days after VeraOps flagged it. Eight weeks after a mentioned prospect, it became a $50K brief, and the Client the agency&rsquo;s first production partner.</p>
+        <h4>The relationship</h4>
+        <p>They met in June 2024, when he ran creative operations at a video production marketplace. Their last exchange, that October, was about a cancelled project. In May 2026 he became a Partner at a newly launched creative agency.</p>
+        <h4>What VeraOps flagged &middot; July 14, 2026</h4>
+        <p class="why">&ldquo;[Name], Partner, [agency]. Last contacted: about 21 months ago.&rdquo;</p>
+      </div>
+      <div>
+        <h4 style="margin-top:0;">How it unfolded &middot; 2026</h4>
+        <ol class="vtl">
+          <li><span class="d">Jul 20</span><span class="t">&ldquo;Saw you&rsquo;ve started a new studio&hellip; Congrats!&rdquo;</span></li>
+          <li><span class="d">Jul 31</span><span class="t">Catch-up call.</span></li>
+          <li class="key"><span class="d">Aug 6</span><span class="t">He introduces a prospect: a NYC fintech that had just raised. &ldquo;They&rsquo;ll be serious about production quality, so I therefore turn to you guys!&rdquo;</span></li>
+          <li class="key"><span class="d">Sep 30</span><span class="t"><strong>The brief:</strong> &ldquo;Upcoming Project in NYC&rdquo;, for that same fintech. Scope set at $50K on Oct 7.</span></li>
+          <li><span class="d">Oct 20</span><span class="t">&ldquo;Thanks for being our inaugural partner!&rdquo;</span></li>
+          <li><span class="d">Nov 4&ndash;5</span><span class="t">Pre-production, then the end client&rsquo;s team in person.</span></li>
+        </ol>
+        <p class="shows">His move was public; the brief was not. Reaching him first made the Client his new agency&rsquo;s &ldquo;inaugural partner&rdquo;.</p>
+      </div>
+    </div>
+
+    <div class="quotes reveal">
+      <figure class="quote">
         <blockquote>&ldquo;VeraOps gave me an easy way to get back in touch with people I&rsquo;d worked with and respected but had fallen out of touch with over time. It&rsquo;s become a meaningful way to stay intentional about relationships and keep strong connections active.&rdquo;</blockquote>
-        <figcaption class="who">
-          <img src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=200&amp;height=200" alt="Frank Siringo">
-          <div><div class="name">Frank Siringo</div><div class="role">Director / Producer / Partner &middot; Team Bubbly, NY</div></div>
-        </figcaption>
+        <figcaption class="who"><img src="https://framerusercontent.com/images/wwV88qCUoTsQJPcGNlM0Ed5op9I.jpeg?width=200&amp;height=200" alt="Frank Siringo"><div><div class="name">Frank Siringo</div><div class="role">Director / Producer / Partner &middot; Team Bubbly, NY</div></div></figcaption>
       </figure>
-      <figure class="quote reveal">
+      <figure class="quote">
         <blockquote>&ldquo;VeraOps helped me reconnect with people I genuinely wanted to talk to but had simply lost touch with over time. It&rsquo;s a simple idea, executed thoughtfully, and it&rsquo;s already changed how I approach business development.&rdquo;</blockquote>
-        <figcaption class="who">
-          <img src="/mark-depace.png" alt="Mark DePace">
-          <div><div class="name">Mark DePace</div><div class="role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div></div>
-        </figcaption>
+        <figcaption class="who"><img src="/mark-depace.png" alt="Mark DePace"><div><div class="name">Mark DePace</div><div class="role">Co-founder and Chief Creative Officer &middot; Ghost Robot, NY</div></div></figcaption>
       </figure>
     </div>
   </div>
 </section>
 
-<!-- 9. Is this for you? -->
-<section class="section light" id="who-this-is-for">
+<!-- ===== 6. Is this for you? (light) ===== -->
+<section class="band light" id="who-this-is-for">
   <div class="wrap">
-    <div class="section-head">
+    <div class="head">
       <p class="eyebrow">Is this for you?</p>
       <h2 class="h2">Built for one kind of founder. <em>We&rsquo;re selective on purpose.</em></h2>
     </div>
@@ -249,27 +303,50 @@
   </div>
 </section>
 
-<!-- 10. How to start -->
-<section class="section glow" id="pricing">
+<!-- ===== 7. Pricing (dark) ===== -->
+<section class="band dark" id="pricing">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">How to start</p>
-      <h2 class="h2">Start with a conversation. <em>Then an audit.</em></h2>
+    <div class="head">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="h2">Start with a call and an audit. <em>Then one plan.</em></h2>
+      <p class="lead">A discovery call first. Then a one-time relationship audit: we map who in your network is worth talking to and what you&rsquo;re likely to hear. After the audit, we recommend the plan timeframe.</p>
     </div>
-    <div class="steps reveal">
-      <div class="step"><span class="n">01</span><h3>A discovery call</h3><p>We learn about your studio, your clients and how work comes in today.</p></div>
-      <div class="step"><span class="n">02</span><h3>A relationship audit <span class="price">$1,500</span></h3><p>A one-time audit. We map who in your network is worth talking to and what you&rsquo;re likely to hear.</p></div>
-      <div class="step"><span class="n">03</span><h3>Your plan</h3><p>After the audit, we recommend the plan timeframe that fits your studio.</p></div>
+    <div class="plans reveal">
+      <div class="plan">
+        <span class="k">Step one &middot; one-time</span>
+        <div class="price">$1,500</div>
+        <p class="sub">The relationship audit.</p>
+        <ul>
+          <li>Who in your network is worth talking to, ranked, with the reason why</li>
+          <li>What you&rsquo;re likely to hear in the next 6&ndash;12 months</li>
+          <li>Old contacts matched to where they work now</li>
+          <li>A walkthrough with our team, and our recommended timeframe</li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn btn-ghost">Book a discovery call <span class="arrow">&rarr;</span></a>
+      </div>
+      <div class="plan main">
+        <span class="k">Step two &middot; the plan</span>
+        <div class="price">$4,500 <small>a quarter</small></div>
+        <p class="sub">Plus a $2,000 one-time onboarding fee.</p>
+        <ul>
+          <li>All six parts of the service, run for you every week</li>
+          <li>Notes drafted in your voice by our copywriter</li>
+          <li>A weekly strategy report and a live dashboard</li>
+          <li>A quarterly review of your key accounts</li>
+          <li>Your team of five, with one account manager as your main contact</li>
+        </ul>
+        <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn">Book a call <span class="arrow">&rarr;</span></a>
+      </div>
     </div>
-    <p style="margin-top:40px;"><a href="/staging/pricing" class="text-link">See pricing <span class="arrow">&rarr;</span></a></p>
+    <p class="small-print" id="privacy">You commit about 20 minutes a day and the conversations that follow. Read what we access, what we store and for how long in our <a href="/privacy-policy.html">Privacy Policy</a>, <a href="/data-handling-policy.html">Data Handling Policy</a> and <a href="/terms-of-service.html">Terms of Service</a>.</p>
   </div>
 </section>
 
-<!-- 11. Final call to action -->
-<section class="final glow" id="book">
+<!-- ===== 8. Final call to action (light) ===== -->
+<section class="light final" id="book">
   <div class="wrap">
     <h2 class="display">Be in the conversation <em>before the brief.</em></h2>
-    <div class="hero-ctas">
+    <div class="ctas">
       <a href="https://cal.com/leonard-veraops/veraops-discovery" class="btn">Talk to VeraOps <span class="arrow">&rarr;</span></a>
     </div>
   </div>
