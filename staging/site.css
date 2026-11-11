@@ -9,6 +9,7 @@
 :root {
   --char:   #131312;
   --char-2: #1D1C1A;
+  --hero:   #292826;   /* the fold: a lighter charcoal, one flat colour */
   --bone:   #F2EEE7;
   --mute:   #A39E96;
   --mute-2: #7A766F;
@@ -158,7 +159,18 @@ section[id] { scroll-margin-top: 0; }
 }
 
 /* ---------- Hero + logos ---------- */
-.hero { padding: 80px 0 var(--pad-v); }
+/* The fold fills the whole screen in one flat colour, so the next section
+   never peeks in. Content sits centred in the space under the nav. */
+.hero-band {
+  background: var(--hero);
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column;
+}
+.hero-band .hero { flex: 1; display: flex; align-items: center; padding: 32px 0 64px; }
+.hero-band .hero > .wrap { width: 100%; }
+.hero-band .timeline .stop::before { background: var(--hero); }
+.hero-band .timeline .stop.is-end::before { background: var(--bone); }
+.hero-band .nav-links { background: var(--hero); }
 .hero-kicker { font-size: 18px; color: var(--mute); margin-bottom: 14px; }
 /* Each half of the headline sits on one line: the plain clause, then the italic one. */
 .hero-title { font-size: clamp(34px, 4.1vw, 54px); line-height: 1.12; }
@@ -369,7 +381,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 @media (max-width: 720px) {
   :root { --gutter: 20px; --pad-v: 76px; }
   body { font-size: 16px; }
-  .hero { padding-top: 48px; }
+  .hero-band .hero { padding: 24px 0 56px; }
   .logos { padding: 64px 0 8px; }
   .head { margin-bottom: 36px; }
   .sub + .sub { margin-top: 64px; }
