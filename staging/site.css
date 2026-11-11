@@ -294,6 +294,14 @@ section[id] { scroll-margin-top: 0; }
   .beat::after { left: -28px; }
 }
 
+/* ---------- Benefits (light) ---------- */
+.bens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ben { background: var(--white); border: 1px solid var(--line-l); border-radius: 14px; padding: 30px 28px 32px; }
+.ben .n { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--ink-l3); }
+.ben h3 { font-family: var(--serif); font-weight: 400; font-size: 25px; line-height: 1.2; margin: 14px 0 10px; color: var(--ink-l); }
+.ben p { color: var(--ink-l2); font-size: 15.5px; line-height: 1.6; }
+@media (max-width: 900px) { .bens { grid-template-columns: 1fr; } }
+
 /* ---------- How it works (dark) ---------- */
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-d); border: 1px solid var(--line-d); border-radius: 14px; overflow: hidden; }
 .feature { background: var(--char); padding: 30px 28px 30px; }
