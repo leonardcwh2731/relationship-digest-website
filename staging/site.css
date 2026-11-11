@@ -359,6 +359,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 .final { text-align: center; padding: 128px 0 136px; }
 .final .display { margin: 0 auto; max-width: 13em; }
 .final .ctas { justify-content: center; }
+.final .final-sub { margin: 24px auto 0; text-align: center; }
 
 /* ---------- Reveal ---------- */
 .js-on .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1); }
