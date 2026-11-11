@@ -1,5 +1,4 @@
-// Single-page behaviour: mobile menu, nav state, current-section highlight,
-// case-study switcher and reveal-on-scroll. The page renders fully without it.
+// Single-page behaviour: mobile menu, case-study switcher and reveal-on-scroll. The page renders fully without it.
 (function () {
   var nav = document.getElementById('nav');
   var toggle = document.getElementById('navToggle');
@@ -15,12 +14,6 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
-  }
-
-  if (nav) {
-    var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 8); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
   }
 
   // Case studies: one story open at a time, chosen from the three boxes.
@@ -39,23 +32,6 @@
     document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
     return;
   }
-
-  // Highlight the nav link for the section in view.
-  var links = {};
-  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
-  var spy = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      var a = links[e.target.id];
-      if (!a) return;
-      if (e.isIntersecting) {
-        Object.keys(links).forEach(function (k) { links[k].classList.remove('is-active'); });
-        a.classList.add('is-active');
-      } else {
-        a.classList.remove('is-active');
-      }
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
 
   var els = document.querySelectorAll('.reveal');
   if (!document.documentElement.classList.contains('js-on')) {
