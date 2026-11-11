@@ -166,46 +166,6 @@ section[id] { scroll-margin-top: 0; }
   .nav-links .nav-menu-cta { display: inline-flex !important; margin-top: 20px; border-bottom: 1px solid var(--bone); color: var(--char); padding: 15px 22px; }
 }
 
-/* ---------- Dotted timeline (signature motif) ---------- */
-/* Hero timeline. It stays inside the page's content edges: the first stop's
-   text starts on the headline's left edge, the last stop's text ends on the
-   right edge (under the nav's Book a call). Stops are as wide as their text,
-   centred, with the dot over the middle; flexible gaps between them share
-   the remaining width. The dotted line runs dot to dot: each stop draws it
-   across its own width (from its dot, at the ends) and each gap fills the rest. */
-.timeline { position: relative; display: flex; align-items: flex-start; margin-top: 88px; padding-top: 34px; }
-.timeline .stop { position: relative; flex: 0 0 auto; text-align: center; white-space: nowrap; }
-.timeline .stop::before {
-  content: ""; position: absolute; top: -34px; left: 50%; transform: translateX(-50%); z-index: 1;
-  width: 13px; height: 13px; border-radius: 50%; background: var(--char); border: 1.5px solid var(--mute);
-}
-.timeline .stop.is-end::before { background: var(--bone); border-color: var(--bone); }
-.timeline .stop::after, .timeline .tl-gap::after {
-  content: ""; position: absolute; top: -28px; left: 0; right: 0; border-top: 2px dotted var(--dot-d);
-}
-.timeline .stop:first-child::after { left: 50%; }
-.timeline .stop:last-child::after { right: 50%; }
-.timeline .tl-gap { position: relative; flex: 1 1 0; min-width: 24px; }
-/* With JS, one continuous line from the first dot to the last replaces the
-   pieces (no seams); site.js sets --tl-l and --tl-r. */
-.timeline.tl-js::before { content: ""; position: absolute; top: 6px; left: var(--tl-l, 0); right: var(--tl-r, 0); border-top: 2px dotted var(--dot-d); }
-.timeline.tl-js .stop::after, .timeline.tl-js .tl-gap::after { display: none; }
-.timeline .when { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-2); }
-.timeline .what { font-family: var(--serif); font-size: 21px; line-height: 1.25; margin-top: 8px; }
-.timeline .sub { font-size: 14.5px; line-height: 1.5; color: var(--mute); margin-top: 6px; }
-@media (max-width: 900px) {
-  .timeline { display: grid; grid-template-columns: 1fr; margin-top: 64px; padding: 0 0 0 34px; gap: 24px; }
-  .timeline .tl-gap { display: none; }
-  .timeline .stop { text-align: left; white-space: normal; }
-  .timeline .stop::before { top: 4px; left: -34px; transform: none; }
-  .timeline .stop::after { left: -28px; right: auto; top: 19px; bottom: -22px; border-top: 0; border-left: 2px dotted var(--dot-d); }
-  .timeline .stop:first-child::after { left: -28px; }
-  .timeline .stop:last-child::after { display: none; }
-  .timeline .what { font-size: 19px; margin-top: 4px; }
-  .timeline.tl-js::before { display: none; }
-  .timeline.tl-js .stop:not(:last-child)::after { display: block; }
-}
-
 /* ---------- Hero + logos ---------- */
 /* The fold fills the whole screen in one flat colour, so the next section
    never peeks in. Content sits centred in the space under the nav. */
@@ -214,10 +174,12 @@ section[id] { scroll-margin-top: 0; }
   min-height: 100vh; min-height: 100svh;
   display: flex; flex-direction: column;
 }
-.hero-band .hero { flex: 1; display: flex; align-items: center; padding: 32px 0 64px; }
+.hero-band .hero { flex: 1; display: flex; align-items: center; padding: 40px 0 96px; }
+/* With the timeline gone, the hero's four items get more air between them. */
+.hero-band .hero-kicker { margin-bottom: 26px; }
+.hero-band .hero .lead { margin-top: 40px; }
+.hero-band .ctas { margin-top: 56px; }
 .hero-band .hero > .wrap { width: 100%; }
-.hero-band .timeline .stop::before { background: var(--hero); }
-.hero-band .timeline .stop.is-end::before { background: var(--bone); }
 .hero-band .nav-links { background: var(--hero); }
 .hero-kicker { font-size: 16px; color: var(--mute); margin-bottom: 14px; }
 /* Each half of the headline sits on one line: the plain clause, then the italic one. */
