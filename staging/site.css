@@ -7,8 +7,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --char:   #131312;
-  --char-2: #1D1C1A;
+  --char:   #292826;   /* every dark band and the footer share the hero's charcoal */
+  --char-2: #34322F;   /* raised boxes on dark, a step lighter than the band */
   --hero:   #292826;   /* the fold: a lighter charcoal, one flat colour */
   --bone:   #F2EEE7;
   --mute:   #A39E96;
@@ -25,6 +25,7 @@
   --dot-l:   rgba(26, 25, 23, 0.32);
 
   --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Kept at the live site's values: the footer uses these. */
   --ink:          #202124;
@@ -43,7 +44,7 @@
 html { scroll-behavior: smooth; background: var(--char); overscroll-behavior-y: none; overflow-x: hidden; }
 body {
   background: var(--char); color: var(--bone);
-  font-family: var(--font-sans); font-size: 16.5px; line-height: 1.65;
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
 img { max-width: 100%; display: block; }
@@ -73,16 +74,14 @@ section[id] { scroll-margin-top: 0; }
 
 .display, .h2, .h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.012em; }
 .display { font-size: clamp(40px, 5.2vw, 70px); line-height: 1.05; }
-.h2 { font-size: clamp(32px, 3.6vw, 48px); line-height: 1.1; }
+.h2 { font-size: clamp(28px, 2.9vw, 38px); line-height: 1.14; }
 .h3 { font-size: clamp(22px, 2vw, 27px); line-height: 1.22; }
 .display em, .h2 em { font-style: italic; color: var(--mute); display: block; }
 .light .display em, .light .h2 em { color: var(--ink-l3); }
-.lead { font-size: clamp(17.5px, 1.4vw, 19.5px); line-height: 1.6; color: var(--mute); max-width: 60ch; }
+.lead { font-size: clamp(16px, 1.15vw, 17.5px); line-height: 1.62; color: var(--mute); max-width: 62ch; }
 .light .lead { color: var(--ink-l2); }
 .head { margin-bottom: 52px; max-width: 800px; }
 .head .lead { margin-top: 20px; }
-.statement { font-family: var(--serif); font-size: clamp(26px, 2.7vw, 36px); line-height: 1.32; max-width: 30em; }
-.statement em { color: var(--ink-l3); }
 
 /* ---------- Buttons ---------- */
 /* One button, two fills. Every button shares the same shape and size:
@@ -90,7 +89,7 @@ section[id] { scroll-margin-top: 0; }
    one type size. Filled = main call to action; outlined = the nav's style. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  font-family: var(--font-sans); font-weight: 500; font-size: 15px; line-height: 1;
+  font-family: var(--font-body); font-weight: 500; font-size: 15px; line-height: 1;
   padding: 15px 22px; border-radius: 10px; white-space: nowrap;
   background: var(--bone); color: var(--char); border: 1px solid var(--bone);
   transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
@@ -174,17 +173,13 @@ section[id] { scroll-margin-top: 0; }
 .hero-band .timeline .stop::before { background: var(--hero); }
 .hero-band .timeline .stop.is-end::before { background: var(--bone); }
 .hero-band .nav-links { background: var(--hero); }
-.hero-kicker { font-size: 18px; color: var(--mute); margin-bottom: 14px; }
+.hero-kicker { font-size: 16px; color: var(--mute); margin-bottom: 14px; }
 /* Each half of the headline sits on one line: the plain clause, then the italic one. */
 .hero-title { font-size: clamp(34px, 4.1vw, 54px); line-height: 1.12; }
 .hero-title span, .hero-title em { display: block; }
 @media (min-width: 900px) { .hero-title span, .hero-title em { white-space: nowrap; } }
-/* Sub-line set in the headline's serif so the two read as one voice. */
-.hero .lead {
-  margin-top: 26px; max-width: 46ch;
-  font-family: var(--serif); font-size: clamp(19px, 1.65vw, 23px); line-height: 1.5;
-  color: #C9C4BB; letter-spacing: 0;
-}
+/* Sub-line in the body sans, well below the headline in size. */
+.hero .lead { margin-top: 24px; max-width: 50ch; font-family: var(--font-body); font-size: clamp(16.5px, 1.25vw, 18.5px); line-height: 1.6; color: var(--mute); }
 /* Partners: its own light band (white, so it reads apart from the cream
    section below), with every logo in its own colours. */
 .logos { background: var(--cream); color: var(--ink-l); padding: 80px 0 24px; }
@@ -207,7 +202,7 @@ section[id] { scroll-margin-top: 0; }
 .split { display: grid; grid-template-columns: 260px 1fr; gap: 56px; align-items: start; }
 @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 14px; } }
 .story { position: relative; padding-left: 72px; }
-.beat { position: relative; padding-bottom: 96px; }
+.beat { position: relative; padding-bottom: 80px; }
 .beat:last-child { padding-bottom: 0; }
 .beat::before {
   content: ""; position: absolute; left: -72px; top: 3px;
@@ -225,23 +220,20 @@ section[id] { scroll-margin-top: 0; }
   color: var(--ink-l3); margin-bottom: 20px; display: flex; gap: 14px;
 }
 .beat-label span { color: var(--ink-l); }
-.beat .statement { max-width: 25em; }
-.beat .h2 { max-width: 17em; }
-.beat .lead { margin-top: 22px; max-width: 58ch; }
-.beat .lead p + p { margin-top: 1em; }
-.principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
-.principle { background: var(--white); border: 1px solid var(--line-l); border-radius: 14px; padding: 28px 28px 30px; }
-.principle h3 { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 30px; line-height: 1.1; margin-bottom: 12px; }
-.principle p { color: var(--ink-l2); }
-@media (max-width: 860px) {
-  .principles { grid-template-columns: 1fr; gap: 12px; }
-}
+.beat-title { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.2vw, 30px); line-height: 1.2; letter-spacing: -0.01em; max-width: 22em; }
+.beat-title em { display: block; font-style: italic; color: var(--ink-l3); }
+.beat-body { margin-top: 16px; max-width: 62ch; color: var(--ink-l2); font-size: 16.5px; line-height: 1.65; }
+.beat-body p + p { margin-top: 0.9em; }
+.pv { list-style: none; margin-top: 12px; }
+.pv li { position: relative; padding: 8px 0 8px 22px; border-top: 1px solid var(--line-l); }
+.pv li:last-child { border-bottom: 1px solid var(--line-l); }
+.pv li::before { content: ""; position: absolute; left: 2px; top: 17px; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-l); }
+.pv b { font-weight: 600; color: var(--ink-l); }
 @media (max-width: 720px) {
   .story { padding-left: 34px; }
-  .beat { padding-bottom: 72px; }
+  .beat { padding-bottom: 64px; }
   .beat::before { left: -34px; width: 13px; height: 13px; }
   .beat::after { left: -28px; }
-  .principle { padding: 22px 22px 24px; }
 }
 
 /* ---------- How it works (dark) ---------- */
@@ -316,9 +308,8 @@ section[id] { scroll-margin-top: 0; }
 .case-tab:hover { transform: translateY(-3px); }
 .case-tab:focus-visible { outline: 2px solid var(--bone); outline-offset: 3px; }
 .case-tab .cue { margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--bone); }
-.case-tab[aria-selected="true"] .cue { color: var(--ink-l); }
-.case-tab[aria-selected="true"] .cue-off, .case-tab[aria-selected="false"] .cue-on { display: none; }
-.case-tab:hover .cue-off { text-decoration: underline; text-underline-offset: 4px; }
+.case-tab[aria-selected="true"] .cue { display: none; }
+.case-tab:hover .cue { text-decoration: underline; text-underline-offset: 4px; }
 .case-tab[aria-selected="true"]::after {
   content: ""; position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
   border: 10px solid transparent; border-bottom: 0; border-top-color: var(--bone);
@@ -360,12 +351,11 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 /* ---------- Fit (light) ---------- */
 .fit { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .fit-col { border-radius: 14px; padding: 32px 30px; }
-.fit-col.yes { background: var(--white); border: 1px solid var(--line-l); }
-.fit-col.no { border: 1px dashed var(--line-l); }
-.fit-col h3 { font-family: var(--serif); font-weight: 400; font-size: 25px; margin-bottom: 14px; }
-.fit-col.no h3 { color: var(--ink-l2); }
+.fit-col.yes, .fit-col.no { background: var(--white); border: 1px solid var(--line-l); }
+.fit-col h3 { font-family: var(--font-body); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-l); margin-bottom: 10px; }
+.fit-col.no h3 { color: var(--ink-l); }
 .fit-col ul { list-style: none; }
-.fit-col li { padding: 11px 0 11px 30px; position: relative; color: var(--ink-l2); border-top: 1px solid var(--cream); }
+.fit-col li { padding: 11px 0 11px 30px; position: relative; font-size: 15.5px; line-height: 1.55; color: var(--ink-l); border-top: 1px solid var(--line-l); }
 .fit-col li:first-child { border-top: 0; }
 .fit-col li::before { position: absolute; left: 0; top: 11px; font-weight: 600; }
 .fit-col.yes li::before { content: "\2713"; color: var(--ink-l); }
