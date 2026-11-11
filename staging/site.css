@@ -433,6 +433,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 .plan li { padding: 9px 0 9px 26px; position: relative; border-top: 1px dotted var(--line-d); font-size: 15px; color: var(--bone); }
 .plan.main li { border-top-color: var(--dot-l); color: var(--ink-l); }
 .plan li::before { content: "\2713"; position: absolute; left: 0; top: 9px; font-weight: 600; }
+.plan li b { font-weight: 600; }
 .plan .btn { margin-top: auto; align-self: flex-start; }
 .plan.main .btn { background: var(--ink-l); color: var(--bone); border-color: var(--ink-l); }
 .plan.main .btn:hover { background: #000; border-color: #000; }
