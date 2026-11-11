@@ -204,7 +204,6 @@ section[id] { scroll-margin-top: 0; }
   .timeline.tl-js::before { display: none; }
   .timeline.tl-js .stop:not(:last-child)::after { display: block; }
 }
-}
 
 /* ---------- Hero + logos ---------- */
 /* The fold fills the whole screen in one flat colour, so the next section
