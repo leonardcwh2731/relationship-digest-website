@@ -182,7 +182,7 @@ section[id] { scroll-margin-top: 0; }
 .hero .lead { margin-top: 24px; max-width: 50ch; font-family: var(--font-body); font-size: clamp(16.5px, 1.25vw, 18.5px); line-height: 1.6; color: var(--mute); }
 /* Partners: its own light band (white, so it reads apart from the cream
    section below), with every logo in its own colours. */
-.logos { background: var(--cream); color: var(--ink-l); padding: 80px 0 24px; }
+.logos { background: var(--cream); color: var(--ink-l); padding: 80px 0 var(--pad-v); }
 .logos .eyebrow { color: var(--ink-l3); }
 .logos .label { font-family: var(--serif); font-size: 26px; margin-bottom: 28px; }
 .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; }
@@ -196,18 +196,31 @@ section[id] { scroll-margin-top: 0; }
   .lg-bx { height: 20px; } .lg-barrel { height: 15px; } .lg-puddle { height: 50px; } .lg-driver { height: 16px; }
 }
 
+/* ---------- Testimonials (in the client section, light) ---------- */
+.testimonials { margin-top: 72px; }
+.tcards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tcard { background: var(--white); border: 1px solid var(--line-l); border-radius: 14px; padding: 28px 28px 24px; display: flex; flex-direction: column; }
+.tcard blockquote { font-family: var(--serif); font-size: 19px; line-height: 1.5; color: var(--ink-l); margin-bottom: 22px; }
+.tcard figcaption { margin-top: auto; display: flex; gap: 14px; align-items: center; }
+.tcard img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }  /* full colour */
+.tcard .name { font-weight: 600; font-size: 15px; color: var(--ink-l); }
+.tcard .role { font-size: 13.5px; color: var(--ink-l3); }
+@media (max-width: 860px) { .tcards { grid-template-columns: 1fr; } }
+
 /* ---------- Why (light) ----------
    Problem, reframe and point of view read as one story: three numbered
    steps on a dotted line down the left, each text block on the same edge. */
 .split { display: grid; grid-template-columns: 260px 1fr; gap: 56px; align-items: start; }
 @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 14px; } }
+.why { background: var(--white); }
+.why-label { margin-bottom: 48px; }
 .story { position: relative; padding-left: 72px; }
 .beat { position: relative; padding-bottom: 80px; }
 .beat:last-child { padding-bottom: 0; }
 .beat::before {
   content: ""; position: absolute; left: -72px; top: 3px;
   width: 14px; height: 14px; border-radius: 50%;
-  background: var(--cream); border: 1.5px solid var(--ink-l3);
+  background: var(--white); border: 1.5px solid var(--ink-l3);
 }
 .beat:last-child::before { background: var(--ink-l); border-color: var(--ink-l); }
 .beat::after {
@@ -339,15 +352,6 @@ html:not(.js) .case-tab .cue, html:not(.js) .case-hint, html:not(.js) .case-tab:
 /* Without JS every story shows, one after another. */
 html:not(.js) .case-panel[hidden] { display: grid; }
 
-.quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px; }
-.quote { border: 1px solid var(--line-d); border-radius: 14px; padding: 30px 30px 26px; display: flex; flex-direction: column; }
-.quote blockquote { font-family: var(--serif); font-size: 20px; line-height: 1.45; margin-bottom: 24px; }
-.quote .who { margin-top: auto; display: flex; gap: 14px; align-items: center; }
-.quote .who img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
-.quote .name { font-weight: 500; font-size: 15px; }
-.quote .role { font-size: 13.5px; color: var(--mute); }
-@media (max-width: 860px) { .quotes { grid-template-columns: 1fr; } }
-
 /* ---------- Fit (light) ---------- */
 .fit { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .fit-col { border-radius: 14px; padding: 32px 30px; }
@@ -399,11 +403,13 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   :root { --gutter: 20px; --pad-v: 76px; }
   body { font-size: 16px; }
   .hero-band .hero { padding: 24px 0 56px; }
-  .logos { padding: 64px 0 8px; }
+  .logos { padding: 64px 0 var(--pad-v); }
+  .testimonials { margin-top: 56px; }
+  .tcard { padding: 24px 22px; }
   .head { margin-bottom: 36px; }
   .sub + .sub { margin-top: 64px; }
   .final { padding: 92px 0 100px; }
-  .plan, .fit-col, .quote { padding: 26px 22px; }
+  .plan, .fit-col { padding: 26px 22px; }
 }
 
 /* ===== FOOTER (unchanged from the live site) ===== */
