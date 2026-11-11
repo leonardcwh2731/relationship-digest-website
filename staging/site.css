@@ -187,7 +187,7 @@ section[id] { scroll-margin-top: 0; }
 .hero-title span, .hero-title em { display: block; }
 @media (min-width: 900px) { .hero-title span, .hero-title em { white-space: nowrap; } }
 /* Sub-line in the body sans, well below the headline in size. */
-.hero .lead { margin-top: 24px; max-width: 50ch; font-family: var(--font-body); font-size: clamp(16.5px, 1.25vw, 18.5px); line-height: 1.6; color: var(--mute); }
+.hero .lead { margin-top: 24px; max-width: 880px; font-family: var(--font-body); font-size: clamp(16.5px, 1.25vw, 18.5px); line-height: 1.6; color: var(--mute); }
 /* Partners: its own light band (white, so it reads apart from the cream
    section below), with every logo in its own colours. */
 .logos { background: var(--cream); color: var(--ink-l); padding: 80px 0 var(--pad-v); }
