@@ -265,11 +265,15 @@ section[id] { scroll-margin-top: 0; }
 }
 @media (max-width: 560px) { .team { grid-template-columns: 1fr; } }
 
-.yourpart { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.yourpart div { border: 1px solid var(--line-d); border-radius: 14px; padding: 28px; }
-.yourpart h4 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin-bottom: 8px; }
-.yourpart p { color: var(--mute); font-size: 15.5px; }
-@media (max-width: 760px) { .yourpart { grid-template-columns: 1fr; } }
+/* Small lists inside feature cards (sources, signals, inbox checks). */
+.feature .mini { list-style: none; margin-top: 10px; font-size: 14.5px; color: var(--mute); }
+.feature .mini li { position: relative; padding: 3px 0 3px 16px; line-height: 1.45; }
+.feature .mini li::before { content: ""; position: absolute; left: 0; top: 11px; width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--mute); }
+
+/* Your commitment */
+.commit { border: 1px solid var(--line-d); border-radius: 14px; padding: 28px 30px; max-width: 760px; }
+.commit h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; margin-bottom: 8px; }
+.commit p { color: var(--mute); }
 
 /* ---------- What you'll hear (light) ---------- */
 .badge-note { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; border: 1px dashed currentColor; border-radius: 6px; color: var(--ink-l3); margin-top: 22px; }
@@ -305,6 +309,21 @@ section[id] { scroll-margin-top: 0; }
 .case-tab[aria-selected="true"] .stats { color: var(--ink-l2); }
 .case-tab .stats b { font-weight: 600; color: var(--bone); }
 .case-tab[aria-selected="true"] .stats b { color: var(--ink-l); }
+/* Make it obvious the boxes are clickable: a hint above, a cue on each
+   box, a lift on hover, and a notch pointing from the open box to its story. */
+.case-hint { margin-top: 22px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone); display: flex; gap: 10px; align-items: center; }
+.case-tab { position: relative; transition: border-color 180ms ease, background 180ms ease, transform 180ms ease; }
+.case-tab:hover { transform: translateY(-3px); }
+.case-tab:focus-visible { outline: 2px solid var(--bone); outline-offset: 3px; }
+.case-tab .cue { margin-top: 18px; font-size: 14px; font-weight: 500; color: var(--bone); }
+.case-tab[aria-selected="true"] .cue { color: var(--ink-l); }
+.case-tab[aria-selected="true"] .cue-off, .case-tab[aria-selected="false"] .cue-on { display: none; }
+.case-tab:hover .cue-off { text-decoration: underline; text-underline-offset: 4px; }
+.case-tab[aria-selected="true"]::after {
+  content: ""; position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
+  border: 10px solid transparent; border-bottom: 0; border-top-color: var(--bone);
+}
+html:not(.js) .case-tab .cue, html:not(.js) .case-hint, html:not(.js) .case-tab::after { display: none; }
 @media (max-width: 960px) { .case-tabs { grid-template-columns: 1fr; } }
 
 .case-panel { margin-top: 16px; background: var(--cream); color: var(--ink-l); border-radius: 14px; padding: 44px 48px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; }
