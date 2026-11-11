@@ -79,7 +79,7 @@ section[id] { scroll-margin-top: 0; }
 .fade-in { position: relative; }
 .fade-in > .wrap { position: relative; z-index: 1; }
 .fade-in::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 72px; pointer-events: none;
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 36px; pointer-events: none;
   background: linear-gradient(to bottom,
     var(--from) 0%,
     color-mix(in srgb, var(--from) 64%, transparent) 28%,
@@ -87,8 +87,7 @@ section[id] { scroll-margin-top: 0; }
     color-mix(in srgb, var(--from) 9%, transparent) 82%,
     transparent 100%);
 }
-.fade-in.big::before { height: 120px; }
-.fade-in.big { padding-top: calc(var(--pad-v) + 24px); }
+.fade-in.big::before { height: 56px; }
 .glow {
   background:
     radial-gradient(ellipse 70% 60% at 80% 0%, rgba(214, 200, 182, 0.17), transparent 62%),
@@ -463,8 +462,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 
 @media (max-width: 720px) {
   :root { --gutter: 20px; --pad-v: 76px; }
-  .fade-in.big::before { height: 96px; }
-  .fade-in.big { padding-top: calc(var(--pad-v) + 24px); }
+  .fade-in.big::before { height: 44px; }
   body { font-size: 16px; }
   .hero-band .hero { padding: 24px 0 56px; }
   .logos { padding: 64px 0 var(--pad-v); }
