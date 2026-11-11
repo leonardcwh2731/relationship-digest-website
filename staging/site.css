@@ -310,7 +310,8 @@ section[id] { scroll-margin-top: 0; }
 .feature h3 { font-family: var(--serif); font-weight: 400; font-size: 23px; line-height: 1.2; margin: 12px 0 10px; }
 .feature p { font-size: 15px; color: var(--mute); }
 .feature .gets { margin-top: 14px; padding-top: 12px; border-top: 1px dotted var(--line-d); color: var(--bone); font-size: 15px; }
-@media (max-width: 960px) { .features { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1101px) { .features { grid-template-columns: repeat(4, 1fr); } .feature { padding: 28px 24px; } }
+@media (max-width: 1100px) { .features { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 620px) { .features { grid-template-columns: 1fr; } }
 
 .team { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line-d); }
