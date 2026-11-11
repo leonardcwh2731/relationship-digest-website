@@ -103,6 +103,7 @@ section[id] { scroll-margin-top: 0; }
 .h2 { font-size: clamp(28px, 2.9vw, 38px); line-height: 1.14; }
 .h3 { font-size: clamp(22px, 2vw, 27px); line-height: 1.22; }
 .display em, .h2 em { font-style: italic; color: var(--mute); display: block; }
+.h2.one-line em { display: inline; }  /* headline and italic half on one line */
 .light .display em, .light .h2 em { color: var(--ink-l3); }
 .lead { font-size: clamp(16px, 1.15vw, 17.5px); line-height: 1.62; color: var(--mute); max-width: 62ch; }
 .light .lead { color: var(--ink-l2); }
