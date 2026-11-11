@@ -474,7 +474,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   .plan, .fit-col { padding: 26px 22px; }
 }
 
-/* ===== FOOTER (unchanged from the live site) ===== */
+/* ===== FOOTER (live site layout; type set in the page's body font) ===== */
 .footer { background: var(--foot); color: var(--paper); padding: 44px 0 18px; margin-top: 0; position: relative; z-index: 2; }
 .footer-inner {
   max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter);
@@ -493,29 +493,26 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 }
 .footer-bureau img { display: block; height: 64px; width: auto; border-radius: 6px; }
 .footer h5 {
-  font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1;
+  font-family: var(--font-body); font-weight: 500; font-size: 12px; line-height: 1;
   text-transform: uppercase; letter-spacing: 0.16em;
   color: rgba(243, 248, 234, 0.5);
   margin: 0 0 16px;
 }
 .footer a {
   display: block;
-  font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 2;
+  font-family: var(--font-body); font-weight: 400; font-size: 14px; line-height: 2;
   color: var(--paper); text-decoration: none; opacity: 0.85;
   transition: color 150ms ease, opacity 150ms ease;
 }
 .footer a:hover { opacity: 1; color: var(--spark); }
 .footer .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.footer .brand img.footer-mark {
-  width: 36px; height: 36px; border-radius: 7px;
-  background: var(--paper); object-fit: cover;
-}
+/* The footer wordmark matches the nav's: the serif, no image mark. */
 .footer .brand span {
-  font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1;
-  letter-spacing: -0.015em; color: var(--paper);
+  font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1;
+  letter-spacing: -0.01em; color: var(--bone);
 }
 .footer .copy {
-  font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.6;
+  font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 1.6;
   color: rgba(243, 248, 234, 0.6);
   max-width: 36ch;
   margin: 0;
@@ -523,14 +520,14 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 .footer .copy a { display: inline; opacity: 0.85; text-decoration: underline; }
 .footer-contact { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
 .footer-contact p {
-  font-family: var(--font-sans); font-weight: 400; font-size: 13px; line-height: 1.5;
+  font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 1.5;
   color: rgba(243, 248, 234, 0.6); margin: 0; max-width: 36ch;
 }
 .footer-contact p a { display: inline; opacity: 0.85; }
 .footer-bottom {
   max-width: calc(var(--max-w) - 2 * var(--gutter)); margin: 16px auto 0; padding: 16px 0 0;
   border-top: 1px solid rgba(243, 248, 234, 0.1);
-  font-family: var(--font-mono); font-weight: 400; font-size: 12px; line-height: 1;
+  font-family: var(--font-body); font-weight: 400; font-size: 12px; line-height: 1;
   color: rgba(243, 248, 234, 0.4);
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
 }
