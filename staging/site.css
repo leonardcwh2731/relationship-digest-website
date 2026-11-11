@@ -367,20 +367,6 @@ section[id] { scroll-margin-top: 0; }
 .how .commit { background: var(--white); border-color: var(--line-l); }
 .how .commit p { color: var(--ink-l2); }
 
-/* ---------- What you'll hear (light) ---------- */
-.badge-note { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; border: 1px dashed currentColor; border-radius: 6px; color: var(--ink-l3); margin-top: 22px; }
-.examples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.example { background: var(--white); border: 1px solid var(--line-l); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
-.example .surface { padding: 26px 26px 22px; border-bottom: 1px dotted var(--dot-l); }
-.example .deeper { padding: 22px 26px 26px; flex: 1; display: flex; flex-direction: column; }
-.example .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-l3); display: block; margin-bottom: 10px; }
-.example .surface h3 { font-family: var(--serif); font-weight: 400; font-size: 20px; line-height: 1.3; color: var(--ink-l2); }
-.example .deeper h3 { font-family: var(--serif); font-weight: 400; font-size: 23px; line-height: 1.25; margin-bottom: 8px; }
-.example p { color: var(--ink-l2); font-size: 15px; }
-.example .means { margin-top: auto; padding-top: 16px; font-size: 14.5px; color: var(--ink-l); }
-.example .means b { font-weight: 600; }
-@media (max-width: 960px) { .examples { grid-template-columns: 1fr; } }
-
 /* ---------- Case studies (dark) ---------- */
 .case-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .case-tab {
