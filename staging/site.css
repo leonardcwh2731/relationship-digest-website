@@ -231,14 +231,16 @@ section[id] { scroll-margin-top: 0; }
 .logos .eyebrow { color: var(--ink-l3); }
 .logos .label { font-family: var(--serif); font-size: 26px; margin-bottom: 28px; }
 .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; }
-.logo-cell { flex: 0 0 25%; height: 120px; display: flex; align-items: center; justify-content: center; padding: 0 28px; }
+.logo-cell { flex: 0 0 20%; height: 120px; display: flex; align-items: center; justify-content: center; padding: 0 16px; }
 .logo-cell img { width: auto; object-fit: contain; }
 .lg-bubbly { height: 70px; } .lg-ghost { height: 30px; } .lg-rafferty { height: 40px; } .lg-paperwhite { height: 21px; }
 .lg-bx { height: 26px; } .lg-barrel { height: 20px; } .lg-puddle { height: 66px; } .lg-driver { height: 21px; }
+.lg-elementiq { height: 34px; } .lg-coins { height: 70px; }
 @media (max-width: 720px) {
   .logo-cell { flex-basis: 50%; height: 96px; padding: 0 16px; }
   .lg-bubbly { height: 56px; } .lg-ghost { height: 23px; } .lg-rafferty { height: 32px; } .lg-paperwhite { height: 15px; }
   .lg-bx { height: 20px; } .lg-barrel { height: 15px; } .lg-puddle { height: 50px; } .lg-driver { height: 16px; }
+  .lg-elementiq { height: 23px; } .lg-coins { height: 54px; }
 }
 
 /* ---------- Testimonials (in the client section, light) ---------- */
