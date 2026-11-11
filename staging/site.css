@@ -295,6 +295,23 @@ section[id] { scroll-margin-top: 0; }
   .beat::after { left: -28px; }
 }
 
+/* ---------- Services list (modelled on Surge's) ----------
+   Four numbered categories; each lists its numbered sub-services with a
+   one-line description. Category on the left, sub-services on the right. */
+.svc { border-top: 1px solid var(--ink-l); }
+.svc-cat { display: grid; grid-template-columns: 340px 1fr; gap: 48px; padding: 40px 0; border-bottom: 1px solid var(--line-l); }
+.svc-cat h3 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.2; color: var(--ink-l); }
+.svc-cat h3 .n, .svc-list .n { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--ink-l3); }
+.svc-cat h3 .n { margin-bottom: 10px; }
+.svc-list { list-style: none; }
+.svc-list li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 16px 0; }
+.svc-list li + li { border-top: 1px dotted var(--dot-l); }
+.svc-list li:first-child { padding-top: 4px; }
+.svc-list .n { padding-top: 3px; }
+.svc-list h4 { font-weight: 600; font-size: 16.5px; line-height: 1.4; color: var(--ink-l); }
+.svc-list p { font-size: 15.5px; line-height: 1.55; color: var(--ink-l2); margin-top: 2px; }
+@media (max-width: 900px) { .svc-cat { grid-template-columns: 1fr; gap: 20px; padding: 32px 0; } }
+
 /* ---------- Benefits (light) ---------- */
 .bens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .ben { background: var(--white); border: 1px solid var(--line-l); border-radius: 14px; padding: 30px 28px 32px; }
