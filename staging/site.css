@@ -109,6 +109,9 @@ section[id] { scroll-margin-top: 0; }
 .light .lead { color: var(--ink-l2); }
 .head { margin-bottom: 52px; max-width: 800px; }
 .head .lead { margin-top: 20px; }
+/* compact head: same size as the clients label, no sub-headline */
+.head.compact { margin-bottom: 28px; }
+.head.compact .h2 { font-size: 26px; line-height: 1.25; }
 
 /* ---------- Buttons ---------- */
 /* One button, two fills. Every button shares the same shape and size:
