@@ -109,9 +109,6 @@ section[id] { scroll-margin-top: 0; }
 .light .lead { color: var(--ink-l2); }
 .head { margin-bottom: 52px; max-width: 800px; }
 .head .lead { margin-top: 20px; }
-/* compact head: same size as the clients label, no sub-headline */
-.head.compact { margin-bottom: 28px; }
-.head.compact .h2 { font-size: 26px; line-height: 1.25; }
 
 /* ---------- Buttons ---------- */
 /* One button, two fills. Every button shares the same shape and size:
@@ -195,7 +192,7 @@ section[id] { scroll-margin-top: 0; }
    section below), with every logo in its own colours. */
 .logos { background: var(--cream); color: var(--ink-l); padding: 80px 0 var(--pad-v); }
 .logos .eyebrow { color: var(--ink-l3); }
-.logos .label { font-family: var(--serif); font-size: 26px; margin-bottom: 28px; }
+.logos .label { font-family: var(--serif); font-weight: 400; letter-spacing: -0.012em; font-size: clamp(28px, 2.9vw, 38px); line-height: 1.14; margin-bottom: 36px; }  /* same size as the section headlines */
 .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; }
 .logo-cell { flex: 0 0 20%; height: 120px; display: flex; align-items: center; justify-content: center; padding: 0 16px; }
 .logo-cell img { width: auto; object-fit: contain; }
