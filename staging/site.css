@@ -192,7 +192,7 @@ section[id] { scroll-margin-top: 0; }
    section below), with every logo in its own colours. */
 .logos { background: var(--cream); color: var(--ink-l); padding: 80px 0 var(--pad-v); }
 .logos .eyebrow { color: var(--ink-l3); }
-.logos .label { font-family: var(--serif); font-weight: 400; letter-spacing: -0.012em; font-size: clamp(28px, 2.9vw, 38px); line-height: 1.14; margin-bottom: 36px; }  /* same size as the section headlines */
+.logos .label { font-family: var(--serif); font-size: 26px; margin-bottom: 28px; }
 .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; }
 .logo-cell { flex: 0 0 20%; height: 120px; display: flex; align-items: center; justify-content: center; padding: 0 16px; }
 .logo-cell img { width: auto; object-fit: contain; }
