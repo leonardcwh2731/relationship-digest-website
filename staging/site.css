@@ -266,7 +266,7 @@ section[id] { scroll-margin-top: 0; }
    one-line description. Category on the left, sub-services on the right. */
 .svc { border-top: 1px solid var(--ink-l); }
 .svc-cat { display: grid; grid-template-columns: 340px 1fr; gap: 48px; padding: 40px 0; border-bottom: 1px solid var(--line-l); }
-.svc-cat h3 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.2; color: var(--ink-l); }
+.svc-cat h3 { font-family: var(--serif); font-weight: 400; font-size: 21px; line-height: 1.25; color: var(--ink-l); }
 .svc-cat h3 .n, .svc-list .n { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--ink-l3); }
 .svc-cat h3 .n { margin-bottom: 10px; text-transform: uppercase; }  /* "SERVICE 03", distinct from the item numbers */
 .svc-list { list-style: none; }
