@@ -503,16 +503,16 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   letter-spacing: -0.01em; color: var(--bone);
 }
 .footer .copy {
-  font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 1.6;
+  font-family: var(--font-body); font-weight: 400; font-size: 15px; line-height: 1.65;
   color: rgba(243, 248, 234, 0.6);
-  max-width: 36ch;
+  max-width: 40ch;
   margin: 0;
 }
 .footer .copy a { display: inline; opacity: 0.85; text-decoration: underline; }
 .footer-contact { margin-top: 36px; display: flex; flex-direction: column; gap: 18px; }
 .footer-contact p {
-  font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 1.5;
-  color: rgba(243, 248, 234, 0.6); margin: 0; max-width: 36ch;
+  font-family: var(--font-body); font-weight: 400; font-size: 15px; line-height: 1.6;
+  color: rgba(243, 248, 234, 0.6); margin: 0; max-width: 40ch;
 }
 .footer-contact p a { display: inline; opacity: 0.85; }
 .footer-bottom {
@@ -525,7 +525,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 @media (max-width: 768px) {
 .footer { padding: 72px 0 28px; }
 .footer-inner { grid-template-columns: 1fr; grid-template-rows: auto; gap: 26px; padding: 0 24px; }
-.footer a { line-height: 1.85; font-size: 13.5px; }
+.footer a { line-height: 2.1; font-size: 15px; }
 .footer-contact { margin-top: 18px; gap: 10px; }
 .footer h5 { margin-bottom: 12px; }
 .footer-bureau img { height: 52px; }
