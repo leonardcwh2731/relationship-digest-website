@@ -284,6 +284,8 @@ section[id] { scroll-margin-top: 0; }
 .beat-label span { color: var(--ink-l); }
 .beat-title { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.2vw, 30px); line-height: 1.2; letter-spacing: -0.01em; max-width: 22em; }
 .beat-title em { display: block; font-style: italic; color: var(--ink-l3); }
+.beat-title.one-line { max-width: none; }
+.beat-title.one-line em { display: inline; }
 .beat-body { margin-top: 16px; max-width: 62ch; color: var(--ink-l2); font-size: 16.5px; line-height: 1.65; }
 .beat-body p + p { margin-top: 0.9em; }
 .pv { list-style: none; margin-top: 12px; }
@@ -292,6 +294,15 @@ section[id] { scroll-margin-top: 0; }
 .pv li::before { content: ""; position: absolute; left: 2px; top: 17px; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-l); }
 .pv b { font-weight: 600; color: var(--ink-l); }
 .beat-body .pv + p { margin-top: 18px; }  /* closing line after a list */
+/* Three boxes (the problem's causes, the point of view's principles): three in a row, wider than the text column. */
+.causes { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; width: min(920px, 100%); }
+.beat-body:has(.causes) { max-width: none; }
+.beat-body:has(.causes) > p { max-width: 62ch; }
+.causes li { background: var(--white); border: 1px solid var(--line-l); border-radius: 12px; padding: 22px 22px 24px; }
+.causes .n { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--ink-l3); margin-bottom: 18px; }
+.causes h3 { font-family: var(--serif); font-weight: 400; font-size: 21px; line-height: 1.2; color: var(--ink-l); margin-bottom: 8px; }
+.causes p { font-size: 15px; line-height: 1.55; color: var(--ink-l2); }
+@media (max-width: 900px) { .causes { grid-template-columns: 1fr; gap: 10px; } .causes .n { margin-bottom: 10px; } }
 @media (max-width: 720px) {
   .story { padding-left: 34px; }
   .beat { padding-bottom: 64px; }
