@@ -144,6 +144,8 @@ section[id] { scroll-margin-top: 0; }
 .nav-links a { font-size: 15px; color: var(--bone); opacity: 0.86; transition: opacity 150ms ease; }
 .nav-links a:hover { opacity: 1; }
 .nav-cta { justify-self: end; }
+/* Desktop: equal space between the wordmark and the links, and the links and the button. */
+@media (min-width: 921px) { .nav-inner { display: flex; justify-content: space-between; } }
 .nav-menu-cta { display: none !important; }
 .nav-toggle { display: none; width: 44px; height: 44px; margin-right: -10px; background: none; border: 0; cursor: pointer; position: relative; justify-self: end; }
 .nav-toggle span { position: absolute; left: 12px; right: 12px; height: 1.5px; background: var(--bone); transition: transform 200ms ease, opacity 200ms ease; }
