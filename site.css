@@ -135,7 +135,7 @@ section[id] { scroll-margin-top: 0; }
 /* ---------- Nav ----------
    Modelled on Surge's bar: wordmark left, section links centred, an outlined
    button right. Not sticky: it sits on the hero and scrolls away with it. */
-.nav { position: relative; z-index: 50; background: transparent; }
+.nav { position: relative; z-index: 50; background: transparent; padding-top: 14px; }
 .nav-inner {
   max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); height: 84px;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
@@ -153,11 +153,12 @@ section[id] { scroll-margin-top: 0; }
 .nav.is-open .nav-toggle span:nth-child(2) { opacity: 0; }
 .nav.is-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 @media (max-width: 920px) {
+  .nav { padding-top: 10px; }
   .nav-inner { grid-template-columns: 1fr auto; height: 72px; }
   .nav-toggle { display: block; }
   .nav-cta { display: none; }
   .nav-links {
-    position: absolute; top: 72px; left: 0; right: 0; display: none;
+    position: absolute; top: calc(72px + 10px); left: 0; right: 0; display: none;
     flex-direction: column; align-items: stretch; gap: 0;
     background: var(--char); border-bottom: 1px solid var(--line-d); padding: 8px var(--gutter) 24px;
   }
@@ -174,7 +175,7 @@ section[id] { scroll-margin-top: 0; }
   min-height: 100vh; min-height: 100svh;
   display: flex; flex-direction: column;
 }
-.hero-band .hero { flex: 1; display: flex; align-items: center; padding: 40px 0 96px; }
+.hero-band .hero { flex: 1; display: flex; align-items: center; padding: 64px 0; }
 /* With the timeline gone, the hero's four items get more air between them. */
 /* Hero sizes and spacing follow saysurge.com: kicker 24, headline 52, sub-line 24
    (20 / 40 / 20 on phones), then a rule and the "Let's talk" card. */
@@ -517,7 +518,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   :root { --gutter: 20px; --pad-v: 76px; }
   .panel { margin: 0 8px; border-radius: 20px; }
   body { font-size: 16px; }
-  .hero-band .hero { padding: 24px 0 56px; }
+  .hero-band .hero { padding: 40px 0; }
   .logos { padding: 64px 0 var(--pad-v); }
   .tcard { padding: 24px 22px; }
   .head { margin-bottom: 36px; }
