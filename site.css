@@ -519,6 +519,8 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   .panel { margin: 0 8px; border-radius: 20px; }
   body { font-size: 16px; }
   .hero-band .hero { padding: 40px 0; }
+  /* Fill the fold even after the browser's address bar collapses on scroll. */
+  .hero-band { min-height: 100vh; min-height: 100lvh; }
   .logos { padding: 64px 0 var(--pad-v); }
   .tcard { padding: 24px 22px; }
   .head { margin-bottom: 36px; }
@@ -617,7 +619,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   .case-panel .intro { font-size: 19px; line-height: 1.45; }
   .beat-title.one-line em { display: block; }
   .fitq-note { font-size: 16px; }
-  .logo-cell { height: 80px; }
+  .logo-cell { height: 104px; }
   /* Bigger tap area for the email link without moving it. */
   .hero-email { padding: 8px 0; margin: -8px 0; }
 }
