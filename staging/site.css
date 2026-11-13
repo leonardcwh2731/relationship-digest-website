@@ -215,12 +215,8 @@ section[id] { scroll-margin-top: 0; }
    takes a white or cream face with a hairline so it doesn't wash out. */
 .talk-block { margin-left: 0; margin-top: 56px; }
 .plan .talk-block { margin-top: auto; }
-/* In the step-two box: bottom right, on a white face with dark email text. */
-.plan.main .talk-block { margin-left: auto; align-items: flex-end; }
-.plan.main .talk-card { background: var(--white); border: 1px solid var(--line-l); }
-.plan.main .hero-email { color: var(--ink-l3); }
-.plan.main .hero-email strong { color: var(--ink-l); border-bottom-color: rgba(26, 25, 23, 0.35); }
-.plan.main .hero-email:hover strong { border-bottom-color: var(--ink-l); }
+/* Under the plans, lined up with the right edge of the step-two box. */
+.pricing-talk { margin: 24px 0 0 auto; }
 .final .talk-block { margin: 40px auto 0; align-items: center; text-align: center; }
 .light .talk-card { background: var(--cream); border: 1px solid var(--line-l); }
 .light .talk-card:hover { background: var(--white); }
