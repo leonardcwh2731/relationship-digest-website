@@ -1,4 +1,4 @@
-/* VeraOps — single-page site (veraops.com/staging)
+/* VeraOps — single-page site (veraops.com)
    Background: the page is charcoal. Light sections sit in rounded cream
    panels inset from the page edge: one panel for clients, why it works,
    how it works and what you'll hear (cream and white inside it, joined by
@@ -622,3 +622,56 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 }
 @media (max-width: 960px) { .case-tab[aria-selected="true"] .cue { display: none; } }
 @media (max-width: 720px) { .hero .lead { line-height: 1.3; } .hero-kicker { line-height: 1.25; } }
+
+/* ===== Legal pages (privacy, terms, data handling) =====
+   Same frame as the home page: charcoal top with the nav and title, the
+   text in a cream panel, then the shared footer. */
+.legal-hero { padding-bottom: 80px; }
+.legal-head { padding-top: 48px; }
+.legal-back { display: inline-block; font-size: 15px; color: var(--mute); margin-bottom: 40px; transition: color 150ms ease; }
+.legal-back:hover { color: var(--bone); }
+.legal-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 4.4vw, 60px); line-height: 1.05; letter-spacing: -0.012em; color: var(--bone); }
+.legal-meta { margin-top: 18px; font-size: 15px; color: var(--mute); }
+.legal-body { padding: 80px 0 104px; }
+.legal-col { max-width: 760px; }
+.legal-col h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.4vw, 32px); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink-l); margin: 56px 0 16px; padding-top: 32px; border-top: 1px dotted var(--dot-l); }
+.legal-col > h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.legal-col h3 { font-family: var(--font-body); font-weight: 600; font-size: 17px; line-height: 1.4; color: var(--ink-l); margin: 28px 0 10px; }
+.legal-col p, .legal-col li { font-size: 16px; line-height: 1.7; color: var(--ink-l2); }
+.legal-col p { margin-bottom: 15px; }
+.legal-col ul, .legal-col ol { margin: 0 0 18px 22px; }
+.legal-col li { margin-bottom: 7px; padding-left: 4px; }
+.legal-col strong { color: var(--ink-l); font-weight: 600; }
+.legal-col a { color: var(--ink-l); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--dot-l); }
+.legal-col a:hover { text-decoration-color: currentColor; }
+.legal-col code { font-family: var(--font-mono); font-size: 13px; color: var(--ink-l); background: var(--white); border: 1px solid var(--line-l); padding: 1px 6px; border-radius: 5px; }
+.legal-table-wrap { overflow-x: auto; margin: 8px 0 24px; border: 1px solid var(--line-l); border-radius: 12px; background: var(--white); }
+.legal-table { width: 100%; border-collapse: collapse; font-size: 14.5px; line-height: 1.55; }
+.legal-table th { text-align: left; font-family: var(--font-mono); font-weight: 400; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-l3); padding: 13px 16px; border-bottom: 1px solid var(--line-l); }
+.legal-table td { vertical-align: top; color: var(--ink-l2); padding: 13px 16px; border-bottom: 1px solid var(--line-l); }
+.legal-table tr:last-child td { border-bottom: none; }
+.legal-table td:first-child { color: var(--ink-l); font-weight: 500; white-space: nowrap; }
+.token-flow { margin: 12px 0 28px; padding: 26px 22px 22px; border: 1px solid var(--line-l); border-radius: 14px; background: var(--white); }
+.token-flow-title { font-weight: 600; font-size: 15px; color: var(--ink-l); margin-bottom: 20px; }
+.tf-top { display: flex; flex-direction: column; align-items: center; margin-left: calc((100% - 3 * 22px) / 4 + 22px); width: calc((100% - 3 * 22px) / 4); }
+.tf-down { display: flex; flex-direction: column; align-items: center; color: var(--ink-l3); font-size: 12.5px; padding: 4px 0; }
+.tf-down::before { content: ""; width: 1px; height: 14px; background: var(--line-l); }
+.tf-down::after { content: "\25BE"; line-height: 0.8; color: var(--ink-l3); }
+.tf-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.tf-box { position: relative; background: var(--cream); border: 1px solid var(--line-l); border-radius: 10px; padding: 12px 10px; text-align: center; }
+.tf-box strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink-l); line-height: 1.3; }
+.tf-box span { display: block; font-size: 12.5px; color: var(--ink-l2); line-height: 1.4; margin-top: 3px; }
+.tf-box.is-app { background: var(--char); border-color: var(--char); }
+.tf-box.is-app strong { color: var(--bone); } .tf-box.is-app span { color: var(--mute); }
+.tf-row .tf-box:not(:last-child)::after { content: "\2192"; position: absolute; right: -18px; top: 50%; transform: translateY(-50%); color: var(--ink-l3); font-size: 14px; }
+.tf-caption { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-l3); margin-top: 16px; }
+@media (max-width: 720px) {
+  .legal-hero { padding-bottom: 56px; }
+  .legal-head { padding-top: 32px; }
+  .legal-back { margin-bottom: 28px; }
+  .legal-body { padding: 56px 0 72px; }
+  .tf-top { margin-left: 0; width: 100%; }
+  .tf-row { grid-template-columns: 1fr; }
+  .tf-row .tf-box:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -20px; transform: translateX(-50%); }
+}
+.legal-col hr { border: 0; border-top: 1px dotted var(--dot-l); margin: 56px 0; }

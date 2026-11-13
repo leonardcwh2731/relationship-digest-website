@@ -135,7 +135,9 @@ function generate(src, page) {
   return s;
 }
 
-const src = fs.readFileSync('index.html', 'utf8');
+// The community pages keep the previous main page's design: they are built
+// from the archived copy at /v1, not from the current index.html.
+const src = fs.readFileSync('v1/index.html', 'utf8');
 const check = process.argv.includes('--check');
 let stale = [];
 

@@ -117,11 +117,30 @@
       "source": "/steve-guberman",
       "destination": "/",
       "permanent": false
+    },
+    {
+      "source": "/staging",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/staging/:path*",
+      "destination": "/",
+      "permanent": false
     }
   ],
   "headers": [
     {
-      "source": "/staging/:path*",
+      "source": "/v1/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/v1",
       "headers": [
         {
           "key": "X-Robots-Tag",
