@@ -484,7 +484,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 
 /* ---------- Final CTA (light) ---------- */
 .final { text-align: center; padding: 128px 0 136px; }
-.final .display { margin: 0 auto; max-width: 13em; }
+.final .display { margin: 0 auto; max-width: 13em; font-size: clamp(32px, 3.4vw, 46px); }
 .final .ctas { justify-content: center; }
 .final .final-sub { margin: 24px auto 0; text-align: center; }
 
