@@ -203,8 +203,10 @@ section[id] { scroll-margin-top: 0; }
 .tc-text { display: flex; flex-direction: column; gap: 3px; }
 .tc-l { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-l2); }
 .tc-n { font-family: var(--serif); font-size: 20px; line-height: 1.1; color: var(--ink-l); }
-.tc-go { width: 44px; height: 44px; border-radius: 7px; background: var(--char); color: var(--bone); display: grid; place-items: center; flex: none; transition: transform .25s ease; }
-.talk-card:hover .tc-go { transform: rotate(45deg); }
+.tc-go { width: 44px; height: 44px; border-radius: 7px; background: var(--char); color: var(--bone); display: grid; place-items: center; flex: none; }
+/* On hover the box stays put; only the arrow inside nudges up and to the right. */
+.tc-go svg { transition: transform .25s ease; }
+.talk-card:hover .tc-go svg { transform: translate(2px, -2px); }
 .hero-email { order: 3; padding-left: 2px; font-family: var(--font-body); font-size: 16px; color: var(--mute); }
 .hero-email strong { font-weight: 500; color: var(--bone); border-bottom: 1px solid rgba(242, 238, 231, 0.4); padding-bottom: 1px; }
 .hero-email:hover strong { border-bottom-color: var(--bone); }
