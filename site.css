@@ -252,6 +252,8 @@ section[id] { scroll-margin-top: 0; }
   .lg-bubbly { height: 56px; } .lg-ghost { height: 23px; } .lg-rafferty { height: 32px; } .lg-paperwhite { height: 15px; }
   .lg-bx { height: 20px; } .lg-barrel { height: 15px; } .lg-puddle { height: 50px; } .lg-driver { height: 16px; }
   .lg-elementiq { height: 23px; } .lg-coins { height: 54px; }
+  /* Phones: Ghost Robot + Team Bubbly lead, then Puddle + Spear Strategy. */
+  .logo-grid .logo-cell:nth-child(3), .logo-grid .logo-cell:nth-child(4) { order: -1; }
 }
 
 /* ---------- Testimonials (in the client section, light) ---------- */
