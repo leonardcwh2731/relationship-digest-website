@@ -189,27 +189,30 @@ section[id] { scroll-margin-top: 0; }
 @media (min-width: 900px) { .hero-title span, .hero-title em { white-space: nowrap; } }
 /* Sub-line in the body sans, well below the headline in size. */
 .hero .lead { margin-top: 24px; max-width: 980px; font-family: var(--font-body); font-size: 24px; line-height: 1.1; color: var(--mute); }
-.hero-rule { height: 1px; background: var(--bone); margin: 30px 0; }
-.hero-contact { display: flex; flex-direction: column; gap: 10px; width: max-content; margin-left: auto; }
+.hero-rule { height: 1px; background: rgba(242, 238, 231, 0.22); margin: 32px 0; }
+/* Contact row: email link, then the "Let's talk" card, right-aligned on one line. */
+.hero-contact { display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
 .talk-card {
-  display: flex; align-items: center; justify-content: space-between; gap: 40px;
-  min-width: 233px; padding: 10px; border-radius: 6px; background: #fff; color: var(--char);
-  transition: transform .25s ease;
+  order: 2; display: flex; align-items: center; justify-content: space-between; gap: 36px;
+  min-width: 250px; padding: 8px 8px 8px 8px; border-radius: 10px; background: var(--bone); color: var(--char);
+  transition: transform .25s ease, background .25s ease;
 }
-.talk-card:hover { transform: translateY(-2px); }
-.tc-who { display: flex; align-items: center; gap: 5px; }
-.tc-who img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 5px; }
-.tc-text { display: flex; flex-direction: column; font-family: var(--font-body); font-size: 16px; line-height: 1.2; }
-.tc-l { color: #000; }
-.tc-n { color: var(--ink-l2); }
-.tc-go { width: 40px; height: 40px; border-radius: 50%; background: var(--char); color: #fff; display: grid; place-items: center; flex: none; }
-.hero-email { font-family: var(--font-body); font-size: 16px; line-height: 1.65; color: var(--bone); }
-.hero-email strong { font-weight: 700; }
-.hero-email:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.talk-card:hover { transform: translateY(-2px); background: #fff; }
+.tc-who { display: flex; align-items: center; gap: 12px; }
+.tc-who img { width: 44px; height: 44px; border-radius: 7px; object-fit: cover; }
+.tc-text { display: flex; flex-direction: column; gap: 3px; }
+.tc-l { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-l2); }
+.tc-n { font-family: var(--serif); font-size: 20px; line-height: 1.1; color: var(--ink-l); }
+.tc-go { width: 44px; height: 44px; border-radius: 7px; background: var(--char); color: var(--bone); display: grid; place-items: center; flex: none; transition: transform .25s ease; }
+.talk-card:hover .tc-go { transform: rotate(45deg); }
+.hero-email { order: 1; font-family: var(--font-body); font-size: 16px; color: var(--mute); }
+.hero-email strong { font-weight: 500; color: var(--bone); border-bottom: 1px solid rgba(242, 238, 231, 0.4); padding-bottom: 1px; }
+.hero-email:hover strong { border-bottom-color: var(--bone); }
 @media (max-width: 720px) {
   .hero-kicker { font-size: 20px; }
   .hero .lead { font-size: 20px; line-height: 1.1; }
-  .hero-contact { width: 100%; margin-left: 0; }
+  .hero-contact { flex-direction: column; align-items: stretch; gap: 14px; }
+  .hero-email { order: 3; }
 }
 /* Partners: its own light band (white, so it reads apart from the cream
    section below), with every logo in its own colours. */
