@@ -18,6 +18,21 @@
 
   // Case studies: one story open at a time, chosen from the three boxes.
   var tabs = document.querySelectorAll('.case-tab');
+  // On phones the cards stack, so each story moves directly under its own card.
+  var tabsWrap = document.querySelector('.case-tabs');
+  var panels = Array.prototype.map.call(tabs, function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+  var narrow = window.matchMedia('(max-width: 960px)');
+  function placePanels() {
+    if (!tabsWrap) return;
+    if (narrow.matches) {
+      tabs.forEach(function (t, i) { if (panels[i]) t.after(panels[i]); });
+    } else {
+      var anchor = tabsWrap;
+      panels.forEach(function (p) { if (p) { anchor.after(p); anchor = p; } });
+    }
+  }
+  placePanels();
+  if (narrow.addEventListener) narrow.addEventListener('change', placePanels);
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
       tabs.forEach(function (t) {
