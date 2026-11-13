@@ -596,7 +596,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 /* Two columns on one row: stacked, these two long lines wrapped into a
      four-line block that read as one run-on sentence. */
 .footer-bottom {
-    display: grid; grid-template-columns: 1fr 1fr; align-items: start;
+    display: grid; grid-template-columns: 1fr; align-items: start;
     gap: 0 20px; padding: 18px 24px 0; margin-top: 28px;
     font-size: 15px; line-height: 1.6;
   }
