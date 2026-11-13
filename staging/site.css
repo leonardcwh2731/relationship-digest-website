@@ -391,7 +391,7 @@ section[id] { scroll-margin-top: 0; }
 .how .commit p { color: var(--ink-l2); }
 
 /* ---------- Case studies (dark) ---------- */
-.case-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.case-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .case-tab {
   text-align: left; font: inherit; color: inherit; cursor: pointer;
   background: var(--char-2); border: 1px solid var(--line-d); border-radius: 14px; padding: 26px 26px 22px;
