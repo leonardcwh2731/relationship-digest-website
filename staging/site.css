@@ -190,8 +190,8 @@ section[id] { scroll-margin-top: 0; }
 /* Sub-line in the body sans, well below the headline in size. */
 .hero .lead { margin-top: 24px; max-width: 980px; font-family: var(--font-body); font-size: 24px; line-height: 1.1; color: var(--mute); }
 .hero-rule { height: 1px; background: rgba(242, 238, 231, 0.22); margin: 32px 0; }
-/* Contact row: email link, then the "Let's talk" card, right-aligned on one line. */
-.hero-contact { display: flex; align-items: center; justify-content: flex-end; gap: 28px; }
+/* Contact block, right-aligned: the "Let's talk" card, with the email link below it. */
+.hero-contact { display: flex; flex-direction: column; gap: 14px; width: max-content; margin-left: auto; }
 .talk-card {
   order: 2; display: flex; align-items: center; justify-content: space-between; gap: 36px;
   min-width: 250px; padding: 8px 8px 8px 8px; border-radius: 10px; background: var(--bone); color: var(--char);
@@ -205,14 +205,13 @@ section[id] { scroll-margin-top: 0; }
 .tc-n { font-family: var(--serif); font-size: 20px; line-height: 1.1; color: var(--ink-l); }
 .tc-go { width: 44px; height: 44px; border-radius: 7px; background: var(--char); color: var(--bone); display: grid; place-items: center; flex: none; transition: transform .25s ease; }
 .talk-card:hover .tc-go { transform: rotate(45deg); }
-.hero-email { order: 1; font-family: var(--font-body); font-size: 16px; color: var(--mute); }
+.hero-email { order: 3; padding-left: 2px; font-family: var(--font-body); font-size: 16px; color: var(--mute); }
 .hero-email strong { font-weight: 500; color: var(--bone); border-bottom: 1px solid rgba(242, 238, 231, 0.4); padding-bottom: 1px; }
 .hero-email:hover strong { border-bottom-color: var(--bone); }
 @media (max-width: 720px) {
   .hero-kicker { font-size: 20px; }
   .hero .lead { font-size: 20px; line-height: 1.1; }
-  .hero-contact { flex-direction: column; align-items: stretch; gap: 14px; }
-  .hero-email { order: 3; }
+  .hero-contact { width: 100%; margin-left: 0; }
 }
 /* Partners: its own light band (white, so it reads apart from the cream
    section below), with every logo in its own colours. */
