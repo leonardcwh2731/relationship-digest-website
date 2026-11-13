@@ -69,3 +69,18 @@
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+/* Email links. Phones hand mailto: to the mail app, but most desktop browsers
+   have no mail app set up, so the click does nothing. On desktop (mouse or
+   trackpad) open a Gmail compose window in a new tab instead. */
+(function () {
+  var desktop = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)');
+  document.addEventListener('click', function (e) {
+    if (!desktop || !desktop.matches || e.defaultPrevented) return;
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+    if (!a) return;
+    var to = a.getAttribute('href').slice(7).split('?')[0];
+    e.preventDefault();
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(to), '_blank', 'noopener');
+  });
+})();
