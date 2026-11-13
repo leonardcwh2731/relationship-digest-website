@@ -95,7 +95,6 @@ section[id] { scroll-margin-top: 0; }
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--mute); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
 }
-.eyebrow::before { content: ""; width: 28px; border-top: 1.5px dotted currentColor; }
 .light .eyebrow { color: var(--ink-l3); }
 
 .display, .h2, .h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.012em; }
