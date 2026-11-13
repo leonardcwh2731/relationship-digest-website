@@ -210,6 +210,19 @@ section[id] { scroll-margin-top: 0; }
 .hero-email { order: 3; padding-left: 2px; font-family: var(--font-body); font-size: 16px; color: var(--mute); }
 .hero-email strong { font-weight: 500; color: var(--bone); border-bottom: 1px solid rgba(242, 238, 231, 0.4); padding-bottom: 1px; }
 .hero-email:hover strong { border-bottom-color: var(--bone); }
+/* The same card, reused lower on the page: left-aligned under a section, at the
+   foot of the audit plan, and centred in the closing band. On light bands it
+   takes a white or cream face with a hairline so it doesn't wash out. */
+.talk-block { margin-left: 0; margin-top: 56px; }
+.plan .talk-block { margin-top: auto; }
+.final .talk-block { margin: 40px auto 0; align-items: center; text-align: center; }
+.light .talk-card { background: var(--cream); border: 1px solid var(--line-l); }
+.light .talk-card:hover { background: var(--white); }
+.light:not(.on-white) .talk-card { background: var(--white); }
+.light:not(.on-white) .talk-card:hover { background: var(--white); border-color: var(--ink-l3); }
+.light .hero-email { color: var(--ink-l3); }
+.light .hero-email strong { color: var(--ink-l); border-bottom-color: rgba(26, 25, 23, 0.35); }
+.light .hero-email:hover strong { border-bottom-color: var(--ink-l); }
 @media (max-width: 720px) {
   .hero-kicker { font-size: 20px; }
   .hero .lead { font-size: 20px; line-height: 1.1; }
