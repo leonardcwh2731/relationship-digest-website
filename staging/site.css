@@ -578,8 +578,8 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 .footer-bottom {
   max-width: calc(var(--max-w) - 2 * var(--gutter)); margin: 72px auto 0; padding: 24px 0 0;
   border-top: 1px solid rgba(243, 248, 234, 0.1);
-  font-family: var(--font-body); font-weight: 400; font-size: 12px; line-height: 1;
-  color: rgba(243, 248, 234, 0.4);
+  font-family: var(--font-body); font-weight: 400; font-size: 15px; line-height: 1.6;
+  color: rgba(243, 248, 234, 0.6);
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
 }
 @media (max-width: 768px) {
@@ -598,7 +598,7 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 .footer-bottom {
     display: grid; grid-template-columns: 1fr 1fr; align-items: start;
     gap: 0 20px; padding: 18px 24px 0; margin-top: 28px;
-    font-size: 10.5px; line-height: 1.55; letter-spacing: 0.01em;
+    font-size: 15px; line-height: 1.6;
   }
 .footer-bottom span:last-child { text-align: right; }
 }
