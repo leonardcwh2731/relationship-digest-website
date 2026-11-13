@@ -179,7 +179,7 @@ section[id] { scroll-margin-top: 0; }
 /* Hero sizes and spacing follow saysurge.com: kicker 24, headline 52, sub-line 24
    (20 / 40 / 20 on phones), then a rule and the "Let's talk" card. */
 .hero-band .hero-kicker { margin-bottom: 24px; }
-.hero-band .hero .lead { margin-top: 36px; }
+.hero-band .hero .lead { margin-top: 24px; }
 .hero-band .hero > .wrap { width: 100%; }
 .hero-band .nav-links { background: var(--hero); }
 .hero-kicker { font-size: 24px; line-height: 1.1; color: var(--mute); margin-bottom: 14px; }
