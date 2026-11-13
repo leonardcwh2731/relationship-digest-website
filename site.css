@@ -485,8 +485,8 @@ html:not(.js) .case-panel[hidden] { display: grid; }
 .plan.main { background: var(--bone); color: var(--ink-l); border-color: var(--bone); }
 .plan .k { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
 .plan.main .k { color: var(--ink-l3); }
-.plan .price { font-family: var(--serif); font-size: 52px; line-height: 1; margin: 16px 0 6px; }
-.plan .price small { font-size: 19px; font-style: italic; color: var(--mute); }
+.plan .price { font-family: var(--serif); font-size: 40px; line-height: 1; margin: 16px 0 6px; }
+.plan .price small { font-size: 17px; font-style: italic; color: var(--mute); }
 .plan.main .price small { color: var(--ink-l3); }
 .plan .sub { color: var(--mute); }
 .plan.main .sub { color: var(--ink-l2); }
