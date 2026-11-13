@@ -291,6 +291,7 @@ section[id] { scroll-margin-top: 0; }
 .pv li:last-child { border-bottom: 1px solid var(--line-l); }
 .pv li::before { content: ""; position: absolute; left: 2px; top: 17px; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-l); }
 .pv b { font-weight: 600; color: var(--ink-l); }
+.beat-body .pv + p { margin-top: 18px; }  /* closing line after a list */
 @media (max-width: 720px) {
   .story { padding-left: 34px; }
   .beat { padding-bottom: 64px; }
