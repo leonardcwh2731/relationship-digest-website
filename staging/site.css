@@ -188,7 +188,7 @@ section[id] { scroll-margin-top: 0; }
 .hero-title span, .hero-title em { display: block; }
 @media (min-width: 900px) { .hero-title span, .hero-title em { white-space: nowrap; } }
 /* Sub-line in the body sans, well below the headline in size. */
-.hero .lead { margin-top: 24px; max-width: 980px; font-family: var(--font-body); font-size: 24px; line-height: 1.1; color: var(--mute); }
+.hero .lead { margin-top: 24px; max-width: 620px;  /* three lines on desktop */ font-family: var(--font-body); font-size: 24px; line-height: 1.1; color: var(--mute); }
 .hero-rule { height: 1px; background: rgba(242, 238, 231, 0.22); margin: 32px 0; }
 /* Contact block, right-aligned: the "Let's talk" card, with the email link below it. */
 .hero-contact { display: flex; flex-direction: column; gap: 14px; width: max-content; margin-left: auto; }
