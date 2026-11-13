@@ -675,3 +675,32 @@ html:not(.js) .case-panel[hidden] { display: grid; }
   .tf-row .tf-box:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -20px; transform: translateX(-50%); }
 }
 .legal-col hr { border: 0; border-top: 1px dotted var(--dot-l); margin: 56px 0; }
+
+/* ===== Phones: round two ===== */
+/* Case studies are static on phones: both stories show, each under its card,
+   so the cards drop their tab look (no selected state, cue or pointer). */
+.cases-static .case-tab, .cases-static .case-tab[aria-selected="true"] {
+  background: var(--char-2); color: var(--bone); border-color: var(--line-d); cursor: default; transform: none;
+}
+.cases-static .case-tab .label, .cases-static .case-tab[aria-selected="true"] .label { color: var(--mute-2); }
+.cases-static .case-tab .stats, .cases-static .case-tab[aria-selected="true"] .stats { border-top-color: var(--line-d); color: var(--mute); }
+.cases-static .case-tab .stats b, .cases-static .case-tab[aria-selected="true"] .stats b { color: var(--bone); }
+.cases-static .case-tab .cue, .cases-static .case-tab::after { display: none; }
+.cases-static .case-tab { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.cases-static .case-panel { margin-top: -16px; border-top-left-radius: 0; border-top-right-radius: 0; }
+.cases-static .case-panel + .case-tab { margin-top: 24px; }
+@media (max-width: 720px) {
+  /* Hero: a clear step down from headline to kicker and sub-line. */
+  .hero-kicker { font-size: 15px; line-height: 1.4; }
+  .hero-band .hero-kicker { margin-bottom: 18px; }
+  .hero-title { font-size: 42px; line-height: 1.08; }
+  .hero .lead { font-size: 17px; line-height: 1.5; }
+  /* The "Let's talk" card at about two-thirds of the width, not edge to edge. */
+  .talk-card { width: max(70%, 256px); min-width: 0; gap: 16px; }
+  /* Clients heading centred over the logo grid. */
+  .logos .eyebrow { justify-content: center; }
+  .logos .label { text-align: center; }
+  /* Small print under pricing wraps naturally instead of breaking after "our". */
+  .small-print br { display: none; }
+}
+@media (max-width: 720px) { .tc-n { white-space: nowrap; } .tc-who { min-width: 0; } }

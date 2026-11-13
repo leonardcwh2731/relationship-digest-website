@@ -25,16 +25,25 @@
   function placePanels() {
     if (!tabsWrap) return;
     if (narrow.matches) {
-      tabs.forEach(function (t, i) { if (panels[i]) t.after(panels[i]); });
+      // Phones: no switching. Every story shows, each under its own card.
+      tabsWrap.classList.add('cases-static');
+      tabs.forEach(function (t, i) { if (panels[i]) { t.after(panels[i]); panels[i].hidden = false; } t.tabIndex = -1; });
     } else {
+      tabsWrap.classList.remove('cases-static');
       var anchor = tabsWrap;
-      panels.forEach(function (p) { if (p) { anchor.after(p); anchor = p; } });
+      panels.forEach(function (p, i) {
+        if (!p) return;
+        anchor.after(p); anchor = p;
+        p.hidden = tabs[i].getAttribute('aria-selected') !== 'true';
+        tabs[i].removeAttribute('tabindex');
+      });
     }
   }
   placePanels();
   if (narrow.addEventListener) narrow.addEventListener('change', placePanels);
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
+      if (narrow.matches) return;
       tabs.forEach(function (t) {
         var on = t === tab;
         t.setAttribute('aria-selected', on ? 'true' : 'false');
