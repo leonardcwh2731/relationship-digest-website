@@ -330,14 +330,15 @@ section[id] { scroll-margin-top: 0; }
 .svc-cat h3 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.2; color: var(--ink-l); }
 .svc-cat h3 .n, .svc-list .n { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--ink-l3); }
 .svc-cat h3 .n { margin-bottom: 10px; text-transform: uppercase; }  /* "SERVICE 03", distinct from the item numbers */
-.svc-list { list-style: none; }
-.svc-list li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 16px 0; }
-.svc-list li + li { border-top: 1px dotted var(--dot-l); }
-.svc-list li:first-child { padding-top: 4px; }
-.svc-list .n { padding-top: 3px; }
-.svc-list h4 { font-weight: 600; font-size: 16.5px; line-height: 1.4; color: var(--ink-l); }
-.svc-list p { font-size: 15.5px; line-height: 1.55; color: var(--ink-l2); margin-top: 2px; max-width: 80%; }
-@media (max-width: 720px) { .svc-list p { max-width: none; } }
+/* Each service's points as boxes, styled like the "Your commitment" box, in a two-column grid. An odd count lets the
+   last box run the full width: 4 = 2x2, 5 = 2x2 + 1, 3 = 2 + 1. */
+.svc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.svc-list li { background: var(--white); border: 1px solid var(--line-l); border-radius: 14px; padding: 28px 30px; }
+.svc-list li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.svc-list .n { margin-bottom: 18px; }
+.svc-list h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1.2; color: var(--ink-l); margin-bottom: 8px; }
+.svc-list p { line-height: 1.6; color: var(--ink-l2); }
+@media (max-width: 720px) { .svc-list { grid-template-columns: 1fr; gap: 10px; } .svc-list li { padding: 22px 22px 24px; } .svc-list .n { margin-bottom: 10px; } }
 @media (max-width: 900px) { .svc-cat { grid-template-columns: 1fr; gap: 20px; padding: 32px 0; } }
 
 /* ---------- Benefits (light) ---------- */
